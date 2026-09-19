@@ -129,20 +129,20 @@ h3{
 }
 
 .qty button{
-  width:38px;
-  height:38px;
+  width:45px;
+  height:45px;
   border:0;
   border-radius:8px;
   background:#4d321e;
   color:#fff;
-  font-size:22px;
+  font-size:25px;
   font-weight:bold
 }
 
 .qty span{
-  min-width:35px;
+  min-width:45px;
   text-align:center;
-  font-size:18px;
+  font-size:20px;
   font-weight:bold
 }
 
@@ -256,251 +256,240 @@ th{
 <body>
 
 <header>
-<h1>🌾 Feito na Roça</h1>
-<p>Produtos da roça direto para sua mesa</p>
+  <h1>🌾 Feito na Roça</h1>
+  <p>Produtos da roça direto para sua mesa</p>
 </header>
 
 <nav id="nav">
-<button data-tab="pedidos" class="active">🛒 Pedidos</button>
-<button data-tab="clientes">👥 Clientes</button>
-<button data-tab="contas">💰 Contas</button>
-<button data-tab="estoque">📦 Estoque</button>
-<button data-tab="relatorios">📊 Relatórios</button>
+  <button data-tab="pedidos" class="active">🛒 Pedidos</button>
+  <button data-tab="clientes">👥 Clientes</button>
+  <button data-tab="contas">💰 Contas</button>
+  <button data-tab="estoque">📦 Estoque</button>
+  <button data-tab="relatorios">📊 Relatórios</button>
 </nav>
 
 <main>
 
 <section id="pedidos" class="active">
 
-<div class="card">
+  <div class="card">
 
-<h2>Novo pedido</h2>
+    <h2>Novo pedido</h2>
 
-<label>Cliente</label>
+    <label>Cliente</label>
+    <select id="pedidoCliente"></select>
 
-<select id="pedidoCliente"></select>
+    <div id="listaProdutos" class="grid"></div>
 
-<div id="listaProdutos" class="grid"></div>
+    <div class="card" style="margin-top:15px;background:#faf8f2">
 
-<div class="card" style="margin-top:15px;background:#faf8f2">
+      <h3>Resumo do pedido</h3>
 
-<h3>Resumo do pedido</h3>
+      <div id="resumoPedido">
+        Nenhum produto selecionado.
+      </div>
 
-<div id="resumoPedido">
-Nenhum produto selecionado.
-</div>
+      <p class="total">
+        Total:
+        <span id="totalPedido">R$ 0,00</span>
+      </p>
 
-<p class="total">
-Total:
-<span id="totalPedido">R$ 0,00</span>
-</p>
+      <button class="primary" onclick="finalizarPedido()">
+        Finalizar pedido
+      </button>
 
-<button class="primary" onclick="finalizarPedido()">
-Finalizar pedido
-</button>
+    </div>
 
-</div>
-
-</div>
+  </div>
 
 </section>
 
 
 <section id="clientes">
 
-<div class="card">
+  <div class="card">
 
-<h2>Clientes</h2>
+    <h2>Clientes</h2>
 
-<div class="grid">
+    <div class="grid">
 
-<div>
+      <div>
+        <label>Nome</label>
+        <input id="novoClienteNome" placeholder="Nome do cliente">
+      </div>
 
-<label>Nome</label>
+      <div>
+        <label>Telefone</label>
+        <input id="novoClienteTelefone" placeholder="Telefone">
+      </div>
 
-<input id="novoClienteNome" placeholder="Nome do cliente">
+    </div>
 
-</div>
+    <button class="primary" onclick="adicionarCliente()">
+      Adicionar cliente
+    </button>
 
-<div>
+  </div>
 
-<label>Telefone</label>
+  <div class="card">
 
-<input id="novoClienteTelefone" placeholder="Telefone">
+    <h3>Lista de clientes</h3>
 
-</div>
+    <div id="listaClientes"></div>
 
-</div>
-
-<button class="primary" onclick="adicionarCliente()">
-Adicionar cliente
-</button>
-
-</div>
-
-<div class="card">
-
-<h3>Lista de clientes</h3>
-
-<div id="listaClientes"></div>
-
-</div>
+  </div>
 
 </section>
 
 
 <section id="contas">
 
-<div class="card">
+  <div class="card">
 
-<h2>Contas dos clientes</h2>
+    <h2>Contas dos clientes</h2>
 
-<div id="relatorioContas"></div>
+    <div id="relatorioContas"></div>
 
-</div>
+  </div>
 
-<div class="card">
+  <div class="card">
 
-<h2>Registrar pagamento</h2>
+    <h2>Registrar pagamento</h2>
 
-<label>Cliente</label>
+    <label>Cliente</label>
+    <select id="pagamentoCliente"></select>
 
-<select id="pagamentoCliente"></select>
+    <label>Valor recebido</label>
 
-<label>Valor recebido</label>
+    <input
+      id="pagamentoValor"
+      type="number"
+      step="0.01"
+      min="0"
+      placeholder="0,00"
+    >
 
-<input
-id="pagamentoValor"
-type="number"
-step="0.01"
-min="0"
-placeholder="0,00"
->
+    <button class="primary" onclick="registrarPagamento()">
+      Registrar pagamento
+    </button>
 
-<button class="primary" onclick="registrarPagamento()">
-Registrar pagamento
-</button>
-
-</div>
+  </div>
 
 </section>
 
 
 <section id="estoque">
 
-<div class="card">
+  <div class="card">
 
-<h2>Estoque</h2>
+    <h2>Estoque</h2>
 
-<div id="alertasEstoque"></div>
+    <div id="alertasEstoque"></div>
 
-<div id="tabelaEstoque"></div>
+    <div id="tabelaEstoque"></div>
 
-</div>
+  </div>
 
 </section>
 
 
 <section id="relatorios">
 
-<div class="card">
+  <div class="card">
 
-<h2>Relatório geral</h2>
+    <h2>Relatório geral</h2>
 
-<div class="grid">
+    <div class="grid">
 
-<div class="card">
-<div class="small">Vendas</div>
-<div class="stat" id="statVendas">R$ 0,00</div>
-</div>
+      <div class="card">
+        <div class="small">Vendas</div>
+        <div class="stat" id="statVendas">R$ 0,00</div>
+      </div>
 
-<div class="card">
-<div class="small">Recebido</div>
-<div class="stat" id="statRecebido">R$ 0,00</div>
-</div>
+      <div class="card">
+        <div class="small">Recebido</div>
+        <div class="stat" id="statRecebido">R$ 0,00</div>
+      </div>
 
-<div class="card">
-<div class="small">A receber</div>
-<div class="stat" id="statReceber">R$ 0,00</div>
-</div>
+      <div class="card">
+        <div class="small">A receber</div>
+        <div class="stat" id="statReceber">R$ 0,00</div>
+      </div>
 
-<div class="card">
-<div class="small">Saldo de caixa</div>
-<div class="stat" id="statCaixa">R$ 0,00</div>
-</div>
+      <div class="card">
+        <div class="small">Saldo de caixa</div>
+        <div class="stat" id="statCaixa">R$ 0,00</div>
+      </div>
 
-</div>
+    </div>
 
-</div>
-
-
-<div class="card">
-
-<h2>Relatório por cliente</h2>
-
-<div id="relatorioClientes"></div>
-
-</div>
+  </div>
 
 
-<div class="card">
+  <div class="card">
 
-<h2>Entradas e saídas de caixa</h2>
+    <h2>Relatório por cliente</h2>
 
-<div class="grid">
+    <div id="relatorioClientes"></div>
 
-<div>
+  </div>
 
-<label>Tipo</label>
 
-<select id="caixaTipo">
+  <div class="card">
 
-<option value="entrada">
-Entrada
-</option>
+    <h2>Entradas e saídas de caixa</h2>
 
-<option value="saida">
-Saída
-</option>
+    <div class="grid">
 
-</select>
+      <div>
 
-</div>
+        <label>Tipo</label>
 
-<div>
+        <select id="caixaTipo">
 
-<label>Descrição</label>
+          <option value="entrada">Entrada</option>
+          <option value="saida">Saída</option>
 
-<input
-id="caixaDescricao"
-placeholder="Ex.: compra de mercadoria"
->
+        </select>
 
-</div>
+      </div>
 
-<div>
 
-<label>Valor</label>
+      <div>
 
-<input
-id="caixaValor"
-type="number"
-step="0.01"
-min="0"
-placeholder="0,00"
->
+        <label>Descrição</label>
 
-</div>
+        <input
+          id="caixaDescricao"
+          placeholder="Ex.: compra de mercadoria"
+        >
 
-</div>
+      </div>
 
-<button class="primary" onclick="lancarCaixa()">
-Lançar no caixa
-</button>
 
-<div id="tabelaCaixa" style="margin-top:15px"></div>
+      <div>
 
-</div>
+        <label>Valor</label>
+
+        <input
+          id="caixaValor"
+          type="number"
+          step="0.01"
+          min="0"
+          placeholder="0,00"
+        >
+
+      </div>
+
+    </div>
+
+    <button class="primary" onclick="lancarCaixa()">
+      Lançar no caixa
+    </button>
+
+    <div id="tabelaCaixa" style="margin-top:15px"></div>
+
+  </div>
 
 </section>
 
@@ -511,1356 +500,1638 @@ Lançar no caixa
 
 const PRODUTOS_INICIAIS = [
 
-{
-id:1,
-nome:"Queijo fresco",
-preco:40,
-estoque:10,
-estoqueMin:2
-},
+  {
+    id:1,
+    nome:"Queijo fresco",
+    preco:40,
+    estoque:10,
+    estoqueMin:2
+  },
 
-{
-id:2,
-nome:"Queijo curado",
-preco:45,
-estoque:10,
-estoqueMin:2
-},
+  {
+    id:2,
+    nome:"Queijo curado",
+    preco:45,
+    estoque:10,
+    estoqueMin:2
+  },
 
-{
-id:3,
-nome:"Requeijão duro",
-preco:55,
-estoque:10,
-estoqueMin:2
-},
+  {
+    id:3,
+    nome:"Requeijão duro",
+    preco:55,
+    estoque:10,
+    estoqueMin:2
+  },
 
-{
-id:4,
-nome:"Pão de queijo pequeno (1 kg)",
-preco:28,
-estoque:10,
-estoqueMin:2
-},
+  {
+    id:4,
+    nome:"Pão de queijo pequeno (1 kg)",
+    preco:28,
+    estoque:10,
+    estoqueMin:2
+  },
 
-{
-id:5,
-nome:"Pão de queijo grande (1 kg)",
-preco:27,
-estoque:10,
-estoqueMin:2
-},
+  {
+    id:5,
+    nome:"Pão de queijo grande (1 kg)",
+    preco:27,
+    estoque:10,
+    estoqueMin:2
+  },
 
-{
-id:6,
-nome:"Rosca caseira",
-preco:12,
-estoque:10,
-estoqueMin:2
-},
+  {
+    id:6,
+    nome:"Rosca caseira",
+    preco:12,
+    estoque:10,
+    estoqueMin:2
+  },
 
-{
-id:7,
-nome:"Doce de leite caseiro 200g",
-preco:12,
-estoque:10,
-estoqueMin:2
-},
+  {
+    id:7,
+    nome:"Doce de leite caseiro 200g",
+    preco:12,
+    estoque:10,
+    estoqueMin:2
+  },
 
-{
-id:8,
-nome:"Doce de leite 500g",
-preco:30,
-estoque:10,
-estoqueMin:2
-},
+  {
+    id:8,
+    nome:"Doce de leite 500g",
+    preco:30,
+    estoque:10,
+    estoqueMin:2
+  },
 
-{
-id:9,
-nome:"Mussarela",
-preco:50,
-estoque:10,
-estoqueMin:2
-},
+  {
+    id:9,
+    nome:"Mussarela",
+    preco:50,
+    estoque:10,
+    estoqueMin:2
+  },
 
-{
-id:10,
-nome:"Broinha 300g",
-preco:5.60,
-estoque:10,
-estoqueMin:2
-}
+  {
+    id:10,
+    nome:"Broinha 300g",
+    preco:5.60,
+    estoque:10,
+    estoqueMin:2
+  }
 
 ];
 
 
 let produtos =
-JSON.parse(localStorage.getItem("fr_produtos"))
-|| PRODUTOS_INICIAIS;
+  JSON.parse(localStorage.getItem("fr_produtos"))
+  || PRODUTOS_INICIAIS;
+
 
 let clientes =
-JSON.parse(localStorage.getItem("fr_clientes"))
-|| [];
+  JSON.parse(localStorage.getItem("fr_clientes"))
+  || [];
+
 
 let pedidos =
-JSON.parse(localStorage.getItem("fr_pedidos"))
-|| [];
+  JSON.parse(localStorage.getItem("fr_pedidos"))
+  || [];
+
 
 let pagamentos =
-JSON.parse(localStorage.getItem("fr_pagamentos"))
-|| [];
+  JSON.parse(localStorage.getItem("fr_pagamentos"))
+  || [];
+
 
 let caixa =
-JSON.parse(localStorage.getItem("fr_caixa"))
-|| [];
+  JSON.parse(localStorage.getItem("fr_caixa"))
+  || [];
+
+
+/*
+====================================================
+CARRINHO INDEPENDENTE
+CADA PRODUTO TEM SUA PRÓPRIA QUANTIDADE
+====================================================
+*/
 
 let carrinho = {};
 
 
-const moeda = v =>
-Number(v || 0).toLocaleString(
-"pt-BR",
-{
-style:"currency",
-currency:"BRL"
-}
-);
+/*
+====================================================
+FORMATAÇÃO DE DINHEIRO
+====================================================
+*/
 
+const moeda = v =>
+  Number(v || 0).toLocaleString(
+    "pt-BR",
+    {
+      style:"currency",
+      currency:"BRL"
+    }
+  );
+
+
+/*
+====================================================
+SALVAR DADOS
+====================================================
+*/
 
 const salvar = () => {
 
-localStorage.setItem(
-"fr_produtos",
-JSON.stringify(produtos)
-);
+  localStorage.setItem(
+    "fr_produtos",
+    JSON.stringify(produtos)
+  );
 
-localStorage.setItem(
-"fr_clientes",
-JSON.stringify(clientes)
-);
+  localStorage.setItem(
+    "fr_clientes",
+    JSON.stringify(clientes)
+  );
 
-localStorage.setItem(
-"fr_pedidos",
-JSON.stringify(pedidos)
-);
+  localStorage.setItem(
+    "fr_pedidos",
+    JSON.stringify(pedidos)
+  );
 
-localStorage.setItem(
-"fr_pagamentos",
-JSON.stringify(pagamentos)
-);
+  localStorage.setItem(
+    "fr_pagamentos",
+    JSON.stringify(pagamentos)
+  );
 
-localStorage.setItem(
-"fr_caixa",
-JSON.stringify(caixa)
-);
-
-};
-
-
-document.querySelectorAll("nav button")
-.forEach(btn=>{
-
-btn.onclick=()=>{
-
-document
-.querySelectorAll("nav button")
-.forEach(b=>b.classList.remove("active"));
-
-document
-.querySelectorAll("main section")
-.forEach(s=>s.classList.remove("active"));
-
-btn.classList.add("active");
-
-document
-.getElementById(btn.dataset.tab)
-.classList.add("active");
-
-atualizarTudo();
+  localStorage.setItem(
+    "fr_caixa",
+    JSON.stringify(caixa)
+  );
 
 };
+
+
+/*
+====================================================
+MENU
+====================================================
+*/
+
+document.querySelectorAll("nav button").forEach(btn => {
+
+  btn.onclick = () => {
+
+    document
+      .querySelectorAll("nav button")
+      .forEach(b => b.classList.remove("active"));
+
+    document
+      .querySelectorAll("main section")
+      .forEach(s => s.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    document
+      .getElementById(btn.dataset.tab)
+      .classList.add("active");
+
+    atualizarTudo();
+
+  };
 
 });
 
+
+/*
+====================================================
+ATUALIZAR TUDO
+====================================================
+*/
 
 function atualizarTudo(){
 
-renderProdutos();
+  renderProdutos();
 
-renderClientes();
+  renderClientes();
 
-renderContas();
+  renderContas();
 
-renderEstoque();
+  renderEstoque();
 
-renderRelatorios();
+  renderRelatorios();
 
 }
 
+
+/*
+====================================================
+PRODUTOS
+====================================================
+*/
 
 function renderProdutos(){
 
-const el =
-document.getElementById("listaProdutos");
+  const el =
+    document.getElementById("listaProdutos");
 
-el.innerHTML =
-produtos.map(p=>{
+  el.innerHTML = produtos.map(p => {
 
-const q =
-carrinho[p.id] || 0;
+    /*
+    IMPORTANTE:
+    A quantidade é buscada usando o ID
+    EXCLUSIVO daquele produto.
+    */
 
-return `
+    const quantidade =
+      Number(carrinho[p.id] || 0);
 
-<div class="product">
+    return `
 
-<h3>${esc(p.nome)}</h3>
+      <div class="product">
 
-<div class="price">
-${moeda(p.preco)}
-</div>
+        <h3>
+          ${esc(p.nome)}
+        </h3>
 
-<div class="stock">
-Estoque disponível: ${p.estoque}
-</div>
+        <div class="price">
+          ${moeda(p.preco)}
+        </div>
 
-<div class="qty">
+        <div class="stock">
+          Estoque disponível:
+          ${p.estoque}
+        </div>
 
-<button onclick="alterarQtd(${p.id},-1)">
-−
-</button>
+        <div class="qty">
 
-<span>
-${q}
-</span>
+          <button
+            onclick="alterarQtd(${p.id}, -1)"
+          >
+            −
+          </button>
 
-<button onclick="alterarQtd(${p.id},1)">
-+
-</button>
+          <span>
+            ${quantidade}
+          </span>
 
-</div>
+          <button
+            onclick="alterarQtd(${p.id}, 1)"
+          >
+            +
+          </button>
 
-</div>
+        </div>
 
-`;
+      </div>
 
-}).join("");
+    `;
 
-atualizarResumo();
+  }).join("");
+
+  atualizarResumo();
+
+}
+
+
+/*
+====================================================
+ALTERAR QUANTIDADE
+====================================================
+
+ESTA É A PARTE PRINCIPAL DA CORREÇÃO.
+
+Cada produto usa:
+
+carrinho[id]
+
+Assim:
+
+carrinho[1] = queijo fresco
+carrinho[2] = queijo curado
+carrinho[9] = mussarela
+
+Um nunca altera o outro.
+====================================================
+*/
+
+function alterarQtd(id, delta){
+
+  const produto =
+    produtos.find(p => Number(p.id) === Number(id));
+
+  if(!produto){
+    return;
+  }
+
+
+  /*
+  Pega SOMENTE a quantidade
+  desse produto.
+  */
+
+  const atual =
+    Number(carrinho[id] || 0);
+
+
+  let novaQuantidade =
+    atual + Number(delta);
+
+
+  /*
+  Nunca deixa ficar abaixo de zero.
+  */
+
+  if(novaQuantidade < 0){
+    novaQuantidade = 0;
+  }
+
+
+  /*
+  Nunca deixa passar do estoque
+  daquele produto.
+  */
+
+  if(novaQuantidade > Number(produto.estoque)){
+
+    alert(
+      "A quantidade de " +
+      produto.nome +
+      " não pode ser maior que o estoque disponível."
+    );
+
+    novaQuantidade =
+      Number(produto.estoque);
+
+  }
+
+
+  /*
+  Salva SOMENTE neste ID.
+  */
+
+  carrinho[id] = novaQuantidade;
+
+
+  /*
+  Redesenha os produtos.
+  */
+
+  renderProdutos();
 
 }
 
 
-function alterarQtd(id,delta){
-
-const p =
-produtos.find(x=>x.id===id);
-
-let q =
-(carrinho[id] || 0) + delta;
-
-if(q < 0)
-q = 0;
-
-if(q > p.estoque){
-
-alert(
-"A quantidade não pode ser maior que o estoque disponível."
-);
-
-q = p.estoque;
-
-}
-
-carrinho[id] = q;
-
-renderProdutos();
-
-}
-
+/*
+====================================================
+RESUMO DO PEDIDO
+====================================================
+*/
 
 function atualizarResumo(){
 
-let total = 0;
+  let total = 0;
 
-let itens = [];
+  let itens = [];
 
-produtos.forEach(p=>{
 
-const q =
-carrinho[p.id] || 0;
+  produtos.forEach(produto => {
 
-if(q > 0){
+    /*
+    Cada produto consulta seu próprio ID.
+    */
 
-const subtotal =
-q * p.preco;
+    const quantidade =
+      Number(carrinho[produto.id] || 0);
 
-total += subtotal;
 
-itens.push(`
+    if(quantidade > 0){
 
-<div>
-${q} × ${esc(p.nome)}
-=
-<b>${moeda(subtotal)}</b>
-</div>
+      const subtotal =
+        quantidade * Number(produto.preco);
 
-`);
+
+      total += subtotal;
+
+
+      itens.push(`
+
+        <div>
+          ${quantidade}
+          ×
+          ${esc(produto.nome)}
+          =
+          <b>${moeda(subtotal)}</b>
+        </div>
+
+      `);
+
+    }
+
+  });
+
+
+  document.getElementById(
+    "resumoPedido"
+  ).innerHTML =
+    itens.length
+      ? itens.join("")
+      : "Nenhum produto selecionado.";
+
+
+  document.getElementById(
+    "totalPedido"
+  ).textContent =
+    moeda(total);
 
 }
 
-});
 
-
-document.getElementById(
-"resumoPedido"
-).innerHTML =
-itens.length
-? itens.join("")
-: "Nenhum produto selecionado.";
-
-
-document.getElementById(
-"totalPedido"
-).textContent =
-moeda(total);
-
-}
-
+/*
+====================================================
+CLIENTES NOS SELECTS
+====================================================
+*/
 
 function atualizarSelects(){
 
-const opts =
-clientes.length
+  const opts = clientes.length
 
-? clientes.map(c=>`
+    ? clientes.map(c => `
 
-<option value="${c.id}">
-${esc(c.nome)}
-</option>
+        <option value="${c.id}">
+          ${esc(c.nome)}
+        </option>
 
-`).join("")
+      `).join("")
 
-: `
+    : `
 
-<option value="">
-Cadastre um cliente primeiro
-</option>
+        <option value="">
+          Cadastre um cliente primeiro
+        </option>
 
-`;
-
-
-document.getElementById(
-"pedidoCliente"
-).innerHTML = opts;
+      `;
 
 
-document.getElementById(
-"pagamentoCliente"
-).innerHTML = opts;
+  document.getElementById(
+    "pedidoCliente"
+  ).innerHTML = opts;
+
+
+  document.getElementById(
+    "pagamentoCliente"
+  ).innerHTML = opts;
 
 }
 
+
+/*
+====================================================
+ADICIONAR CLIENTE
+====================================================
+*/
 
 function adicionarCliente(){
 
-const nome =
-document
-.getElementById("novoClienteNome")
-.value.trim();
+  const nome =
+    document
+      .getElementById("novoClienteNome")
+      .value
+      .trim();
 
-const telefone =
-document
-.getElementById("novoClienteTelefone")
-.value.trim();
 
-if(!nome){
+  const telefone =
+    document
+      .getElementById("novoClienteTelefone")
+      .value
+      .trim();
 
-alert(
-"Informe o nome do cliente."
-);
 
-return;
+  if(!nome){
+
+    alert("Informe o nome do cliente.");
+
+    return;
+
+  }
+
+
+  clientes.push({
+
+    id:Date.now(),
+
+    nome:nome,
+
+    telefone:telefone
+
+  });
+
+
+  document.getElementById(
+    "novoClienteNome"
+  ).value = "";
+
+
+  document.getElementById(
+    "novoClienteTelefone"
+  ).value = "";
+
+
+  salvar();
+
+  atualizarTudo();
+
+
+  alert("Cliente cadastrado.");
 
 }
 
 
-clientes.push({
-
-id:Date.now(),
-
-nome,
-
-telefone
-
-});
-
-
-document.getElementById(
-"novoClienteNome"
-).value = "";
-
-document.getElementById(
-"novoClienteTelefone"
-).value = "";
-
-
-salvar();
-
-atualizarTudo();
-
-alert(
-"Cliente cadastrado."
-);
-
-}
-
+/*
+====================================================
+LISTA DE CLIENTES
+====================================================
+*/
 
 function renderClientes(){
 
-atualizarSelects();
-
-const el =
-document.getElementById("listaClientes");
+  atualizarSelects();
 
 
-if(!clientes.length){
+  const el =
+    document.getElementById("listaClientes");
 
-el.innerHTML =
-"<p class='muted'>Nenhum cliente cadastrado.</p>";
 
-return;
+  if(!clientes.length){
+
+    el.innerHTML =
+      "<p class='muted'>Nenhum cliente cadastrado.</p>";
+
+    return;
+
+  }
+
+
+  el.innerHTML = `
+
+    <table>
+
+      <tr>
+        <th>Cliente</th>
+        <th>Telefone</th>
+        <th>Conta</th>
+        <th>Ação</th>
+      </tr>
+
+      ${
+        clientes.map(c => `
+
+          <tr>
+
+            <td>
+              ${esc(c.nome)}
+            </td>
+
+            <td>
+              ${esc(c.telefone || "")}
+            </td>
+
+            <td>
+              ${moeda(saldoCliente(c.id))}
+            </td>
+
+            <td>
+
+              <button
+                class="danger"
+                onclick="excluirCliente(${c.id})"
+              >
+                Excluir
+              </button>
+
+            </td>
+
+          </tr>
+
+        `).join("")
+      }
+
+    </table>
+
+  `;
 
 }
 
 
-el.innerHTML = `
-
-<table>
-
-<tr>
-<th>Cliente</th>
-<th>Telefone</th>
-<th>Conta</th>
-<th>Ação</th>
-</tr>
-
-`
-
-+
-
-clientes.map(c=>`
-
-<tr>
-
-<td>
-${esc(c.nome)}
-</td>
-
-<td>
-${esc(c.telefone || "")}
-</td>
-
-<td>
-${moeda(saldoCliente(c.id))}
-</td>
-
-<td>
-
-<button
-class="danger"
-onclick="excluirCliente(${c.id})"
->
-Excluir
-</button>
-
-</td>
-
-</tr>
-
-`).join("")
-
-+
-
-"</table>";
-
-}
-
+/*
+====================================================
+EXCLUIR CLIENTE
+====================================================
+*/
 
 function excluirCliente(id){
 
-if(
-pedidos.some(p=>p.clienteId===id)
-){
+  if(
+    pedidos.some(
+      p => Number(p.clienteId) === Number(id)
+    )
+  ){
 
-alert(
-"Este cliente possui pedidos e não pode ser excluído."
-);
+    alert(
+      "Este cliente possui pedidos e não pode ser excluído."
+    );
 
-return;
+    return;
+
+  }
+
+
+  if(confirm("Excluir este cliente?")){
+
+    clientes =
+      clientes.filter(
+        c => Number(c.id) !== Number(id)
+      );
+
+    salvar();
+
+    atualizarTudo();
+
+  }
 
 }
 
 
-if(confirm("Excluir este cliente?")){
-
-clientes =
-clientes.filter(
-c=>c.id!==id
-);
-
-salvar();
-
-atualizarTudo();
-
-}
-
-}
-
+/*
+====================================================
+FINALIZAR PEDIDO
+====================================================
+*/
 
 function finalizarPedido(){
 
-const clienteId =
-Number(
-document.getElementById(
-"pedidoCliente"
-).value
-);
+  const clienteId =
+    Number(
+      document.getElementById(
+        "pedidoCliente"
+      ).value
+    );
 
 
-if(!clienteId){
+  if(!clienteId){
 
-alert(
-"Cadastre e selecione um cliente."
-);
+    alert(
+      "Cadastre e selecione um cliente."
+    );
 
-return;
+    return;
+
+  }
+
+
+  const itens = [];
+
+  let total = 0;
+
+
+  /*
+  Percorre cada produto
+  e pega SOMENTE sua quantidade.
+  */
+
+  for(const produto of produtos){
+
+    const quantidade =
+      Number(
+        carrinho[produto.id] || 0
+      );
+
+
+    if(quantidade > 0){
+
+      if(
+        quantidade >
+        Number(produto.estoque)
+      ){
+
+        alert(
+          "Estoque insuficiente para " +
+          produto.nome
+        );
+
+        return;
+
+      }
+
+
+      const subtotal =
+        quantidade *
+        Number(produto.preco);
+
+
+      itens.push({
+
+        produtoId:produto.id,
+
+        nome:produto.nome,
+
+        quantidade:quantidade,
+
+        preco:Number(produto.preco),
+
+        subtotal:subtotal
+
+      });
+
+
+      total += subtotal;
+
+    }
+
+  }
+
+
+  if(!itens.length){
+
+    alert(
+      "Adicione pelo menos um produto."
+    );
+
+    return;
+
+  }
+
+
+  /*
+  Baixa o estoque somente
+  dos produtos escolhidos.
+  */
+
+  itens.forEach(item => {
+
+    const produto =
+      produtos.find(
+        p =>
+          Number(p.id) ===
+          Number(item.produtoId)
+      );
+
+
+    if(produto){
+
+      produto.estoque -=
+        Number(item.quantidade);
+
+    }
+
+  });
+
+
+  const pedido = {
+
+    id:Date.now(),
+
+    clienteId:clienteId,
+
+    itens:itens,
+
+    total:total,
+
+    data:new Date().toISOString(),
+
+    status:"Pendente"
+
+  };
+
+
+  pedidos.push(pedido);
+
+
+  /*
+  Não lança dinheiro no caixa ainda,
+  porque está na conta do cliente.
+  */
+
+  salvar();
+
+
+  /*
+  LIMPA O CARRINHO.
+  */
+
+  carrinho = {};
+
+
+  atualizarTudo();
+
+
+  alert(
+    "Pedido registrado. O valor ficou na conta do cliente até o pagamento."
+  );
 
 }
 
 
-const itens = [];
-
-let total = 0;
-
-
-for(const p of produtos){
-
-const q =
-carrinho[p.id] || 0;
-
-
-if(q > 0){
-
-if(q > p.estoque){
-
-alert(
-"Estoque insuficiente para " +
-p.nome
-);
-
-return;
-
-}
-
-
-itens.push({
-
-produtoId:p.id,
-
-nome:p.nome,
-
-quantidade:q,
-
-preco:p.preco,
-
-subtotal:q*p.preco
-
-});
-
-
-total +=
-q*p.preco;
-
-}
-
-}
-
-
-if(!itens.length){
-
-alert(
-"Adicione pelo menos um produto."
-);
-
-return;
-
-}
-
-
-itens.forEach(i=>{
-
-const p =
-produtos.find(
-x=>x.id===i.produtoId
-);
-
-p.estoque -=
-i.quantidade;
-
-});
-
-
-const pedido = {
-
-id:Date.now(),
-
-clienteId,
-
-itens,
-
-total,
-
-data:new Date().toISOString(),
-
-status:"Pendente"
-
-};
-
-
-pedidos.push(pedido);
-
-
-salvar();
-
-
-carrinho = {};
-
-
-atualizarTudo();
-
-
-alert(
-"Pedido registrado. O valor ficou na conta do cliente até o pagamento."
-);
-
-}
-
-
-function saldoCliente(id){
-
-const vendas =
-pedidos
-
-.filter(
-p=>p.clienteId===id
-)
-
-.reduce(
-(s,p)=>s+Number(p.total || 0),
-0
-);
-
-
-const pagos =
-pagamentos
-
-.filter(
-p=>p.clienteId===id
-)
-
-.reduce(
-(s,p)=>s+Number(p.valor || 0),
-0
-);
-
-
-return Math.max(
-0,
-vendas-pagos
-);
-
-}
-
+/*
+====================================================
+TOTAL DE VENDAS DO CLIENTE
+====================================================
+*/
 
 function totalVendasCliente(id){
 
-return pedidos
+  return pedidos
 
-.filter(
-p=>p.clienteId===id
-)
+    .filter(
+      p =>
+        Number(p.clienteId) ===
+        Number(id)
+    )
 
-.reduce(
-(s,p)=>s+Number(p.total || 0),
-0
-);
+    .reduce(
+      (total,pedido) =>
+        total +
+        Number(pedido.total || 0),
+      0
+    );
 
 }
 
+
+/*
+====================================================
+TOTAL PAGO PELO CLIENTE
+====================================================
+*/
 
 function totalPagoCliente(id){
 
-return pagamentos
+  return pagamentos
 
-.filter(
-p=>p.clienteId===id
-)
+    .filter(
+      p =>
+        Number(p.clienteId) ===
+        Number(id)
+    )
 
-.reduce(
-(s,p)=>s+Number(p.valor || 0),
-0
-);
+    .reduce(
+      (total,pagamento) =>
+        total +
+        Number(pagamento.valor || 0),
+      0
+    );
 
 }
 
+
+/*
+====================================================
+SALDO DO CLIENTE
+====================================================
+*/
+
+function saldoCliente(id){
+
+  const vendas =
+    totalVendasCliente(id);
+
+
+  const pagos =
+    totalPagoCliente(id);
+
+
+  return Math.max(
+    0,
+    vendas - pagos
+  );
+
+}
+
+
+/*
+====================================================
+CONTAS
+====================================================
+*/
 
 function renderContas(){
 
-const el =
-document.getElementById(
-"relatorioContas"
-);
+  const el =
+    document.getElementById(
+      "relatorioContas"
+    );
 
 
-if(!clientes.length){
+  if(!clientes.length){
 
-el.innerHTML =
-"<p class='muted'>Nenhum cliente cadastrado.</p>";
+    el.innerHTML =
+      "<p class='muted'>Nenhum cliente cadastrado.</p>";
 
-return;
+    return;
+
+  }
+
+
+  el.innerHTML = `
+
+    <table>
+
+      <tr>
+
+        <th>Cliente</th>
+        <th>Total comprado</th>
+        <th>Pago</th>
+        <th>Saldo</th>
+
+      </tr>
+
+      ${
+        clientes.map(c => `
+
+          <tr>
+
+            <td>
+              ${esc(c.nome)}
+            </td>
+
+            <td>
+              ${moeda(
+                totalVendasCliente(c.id)
+              )}
+            </td>
+
+            <td>
+              ${moeda(
+                totalPagoCliente(c.id)
+              )}
+            </td>
+
+            <td>
+              <b>
+                ${moeda(
+                  saldoCliente(c.id)
+                )}
+              </b>
+            </td>
+
+          </tr>
+
+        `).join("")
+      }
+
+    </table>
+
+  `;
 
 }
 
 
-el.innerHTML = `
-
-<table>
-
-<tr>
-
-<th>Cliente</th>
-
-<th>Total comprado</th>
-
-<th>Pago</th>
-
-<th>Saldo</th>
-
-</tr>
-
-`
-
-+
-
-clientes.map(c=>`
-
-<tr>
-
-<td>
-${esc(c.nome)}
-</td>
-
-<td>
-${moeda(totalVendasCliente(c.id))}
-</td>
-
-<td>
-${moeda(totalPagoCliente(c.id))}
-</td>
-
-<td>
-<b>
-${moeda(saldoCliente(c.id))}
-</b>
-</td>
-
-</tr>
-
-`).join("")
-
-+
-
-"</table>";
-
-}
-
+/*
+====================================================
+REGISTRAR PAGAMENTO
+====================================================
+*/
 
 function registrarPagamento(){
 
-const clienteId =
-Number(
-document.getElementById(
-"pagamentoCliente"
-).value
-);
+  const clienteId =
+    Number(
+      document.getElementById(
+        "pagamentoCliente"
+      ).value
+    );
 
 
-const valor =
-Number(
-document.getElementById(
-"pagamentoValor"
-).value
-);
+  const valor =
+    Number(
+      document.getElementById(
+        "pagamentoValor"
+      ).value
+    );
 
 
-if(
-!clienteId ||
-!valor ||
-valor<=0
-){
+  if(
+    !clienteId ||
+    !valor ||
+    valor <= 0
+  ){
 
-alert(
-"Informe cliente e valor."
-);
+    alert(
+      "Informe cliente e valor."
+    );
 
-return;
+    return;
+
+  }
+
+
+  const saldo =
+    saldoCliente(clienteId);
+
+
+  if(valor > saldo){
+
+    if(
+      !confirm(
+        "O valor informado é maior que o saldo. Registrar mesmo assim?"
+      )
+    ){
+
+      return;
+
+    }
+
+  }
+
+
+  pagamentos.push({
+
+    id:Date.now(),
+
+    clienteId:clienteId,
+
+    valor:valor,
+
+    data:new Date().toISOString()
+
+  });
+
+
+  caixa.push({
+
+    id:Date.now()+1,
+
+    tipo:"entrada",
+
+    descricao:
+      "Pagamento de " +
+      nomeCliente(clienteId),
+
+    valor:valor,
+
+    data:new Date().toISOString()
+
+  });
+
+
+  document.getElementById(
+    "pagamentoValor"
+  ).value = "";
+
+
+  salvar();
+
+  atualizarTudo();
+
+
+  alert(
+    "Pagamento registrado."
+  );
 
 }
 
 
-const saldo =
-saldoCliente(clienteId);
-
-
-if(valor > saldo){
-
-if(
-!confirm(
-"O valor informado é maior que o saldo. Registrar mesmo assim?"
-)
-)
-return;
-
-}
-
-
-pagamentos.push({
-
-id:Date.now(),
-
-clienteId,
-
-valor,
-
-data:new Date().toISOString()
-
-});
-
-
-caixa.push({
-
-id:Date.now()+1,
-
-tipo:"entrada",
-
-descricao:
-"Pagamento de " +
-nomeCliente(clienteId),
-
-valor,
-
-data:new Date().toISOString()
-
-});
-
-
-document.getElementById(
-"pagamentoValor"
-).value = "";
-
-
-salvar();
-
-atualizarTudo();
-
-
-alert(
-"Pagamento registrado."
-);
-
-}
-
+/*
+====================================================
+NOME DO CLIENTE
+====================================================
+*/
 
 function nomeCliente(id){
 
-const c =
-clientes.find(
-x=>x.id===id
-);
+  const c =
+    clientes.find(
+      x =>
+        Number(x.id) ===
+        Number(id)
+    );
 
-return c
-? c.nome
-: "Cliente";
+
+  return c
+    ? c.nome
+    : "Cliente";
 
 }
 
+
+/*
+====================================================
+ESTOQUE
+====================================================
+*/
 
 function renderEstoque(){
 
-const baixos =
-produtos.filter(
-p=>Number(p.estoque)
-<= Number(p.estoqueMin)
-);
+  const baixos =
+    produtos.filter(
+      p =>
+        Number(p.estoque) <=
+        Number(p.estoqueMin)
+    );
 
 
-document.getElementById(
-"alertasEstoque"
-).innerHTML = baixos.length
+  document.getElementById(
+    "alertasEstoque"
+  ).innerHTML = baixos.length
 
-? baixos.map(p=>`
+    ? baixos.map(p => `
 
-<div class="alert">
+        <div class="alert">
 
-⚠️
+          ⚠️
 
-<b>
-Estoque acabando:
-</b>
+          <b>
+            Estoque acabando:
+          </b>
 
-${esc(p.nome)}
+          ${esc(p.nome)}
 
-—
+          —
 
-restam
-${p.estoque}
-unidade(s).
+          restam
+          ${p.estoque}
+          unidade(s).
 
-</div>
+        </div>
 
-`).join("")
+      `).join("")
 
-:
+    : `
 
-`
+        <div class="success">
 
-<div class="success">
+          ✅ Nenhum produto está com estoque baixo.
 
-✅
+        </div>
 
-Nenhum produto está com estoque baixo.
-
-</div>
-
-`;
+      `;
 
 
-document.getElementById(
-"tabelaEstoque"
-).innerHTML = `
+  document.getElementById(
+    "tabelaEstoque"
+  ).innerHTML = `
 
-<table>
+    <table>
 
-<tr>
+      <tr>
 
-<th>Produto</th>
+        <th>Produto</th>
+        <th>Preço</th>
+        <th>Estoque</th>
+        <th>Mínimo</th>
+        <th>Ação</th>
 
-<th>Preço</th>
+      </tr>
 
-<th>Estoque</th>
+      ${
+        produtos.map(p => `
 
-<th>Mínimo</th>
+          <tr>
 
-<th>Ação</th>
+            <td>
+              ${esc(p.nome)}
+            </td>
 
-</tr>
+            <td>
+              ${moeda(p.preco)}
+            </td>
 
-`
+            <td>
+              <b>
+                ${p.estoque}
+              </b>
+            </td>
 
-+
+            <td>
+              ${p.estoqueMin}
+            </td>
 
-produtos.map(p=>`
+            <td>
 
-<tr>
+              <button
+                class="secondary"
+                onclick="alterarEstoque(${p.id},-1)"
+              >
+                −
+              </button>
 
-<td>
-${esc(p.nome)}
-</td>
+              <button
+                class="secondary"
+                onclick="alterarEstoque(${p.id},1)"
+              >
+                +
+              </button>
 
-<td>
-${moeda(p.preco)}
-</td>
+            </td>
 
-<td>
-<b>
-${p.estoque}
-</b>
-</td>
+          </tr>
 
-<td>
-${p.estoqueMin}
-</td>
+        `).join("")
+      }
 
-<td>
+    </table>
 
-<button
-class="secondary"
-onclick="alterarEstoque(${p.id},-1)"
->
-−
-</button>
-
-<button
-class="secondary"
-onclick="alterarEstoque(${p.id},1)"
->
-+
-</button>
-
-</td>
-
-</tr>
-
-`).join("")
-
-+
-
-"</table>";
+  `;
 
 }
 
 
-function alterarEstoque(id,d){
+/*
+====================================================
+ALTERAR ESTOQUE
+====================================================
+*/
 
-const p =
-produtos.find(
-x=>x.id===id
-);
+function alterarEstoque(id, quantidade){
+
+  const produto =
+    produtos.find(
+      p =>
+        Number(p.id) ===
+        Number(id)
+    );
 
 
-p.estoque =
-Math.max(
-0,
-p.estoque+d
-);
+  if(!produto){
+    return;
+  }
 
 
-salvar();
+  produto.estoque =
+    Math.max(
+      0,
+      Number(produto.estoque) +
+      Number(quantidade)
+    );
 
-atualizarTudo();
+
+  salvar();
+
+  atualizarTudo();
 
 }
 
+
+/*
+====================================================
+RELATÓRIOS
+====================================================
+*/
 
 function renderRelatorios(){
 
-const vendas =
-pedidos.reduce(
-(s,p)=>s+Number(p.total || 0),
-0
-);
+  const vendas =
+    pedidos.reduce(
+      (s,p) =>
+        s + Number(p.total || 0),
+      0
+    );
 
 
-const recebido =
-pagamentos.reduce(
-(s,p)=>s+Number(p.valor || 0),
-0
-);
+  const recebido =
+    pagamentos.reduce(
+      (s,p) =>
+        s + Number(p.valor || 0),
+      0
+    );
 
 
-const receber =
-Math.max(
-0,
-vendas-recebido
-);
+  const receber =
+    Math.max(
+      0,
+      vendas - recebido
+    );
 
 
-const entradas =
-caixa
+  const entradas =
+    caixa
 
-.filter(
-x=>x.tipo==="entrada"
-)
+      .filter(
+        x =>
+          x.tipo === "entrada"
+      )
 
-.reduce(
-(s,x)=>s+Number(x.valor || 0),
-0
-);
+      .reduce(
+        (s,x) =>
+          s + Number(x.valor || 0),
+        0
+      );
 
 
-const saidas =
-caixa
+  const saidas =
+    caixa
 
-.filter(
-x=>x.tipo==="saida"
-)
+      .filter(
+        x =>
+          x.tipo === "saida"
+      )
 
-.reduce(
-(s,x)=>s+Number(x.valor || 0),
-0
-);
+      .reduce(
+        (s,x) =>
+          s + Number(x.valor || 0),
+        0
+      );
 
 
-document.getElementById(
-"statVendas"
-).textContent =
-moeda(vendas);
+  document.getElementById(
+    "statVendas"
+  ).textContent =
+    moeda(vendas);
 
 
-document.getElementById(
-"statRecebido"
-).textContent =
-moeda(recebido);
+  document.getElementById(
+    "statRecebido"
+  ).textContent =
+    moeda(recebido);
 
 
-document.getElementById(
-"statReceber"
-).textContent =
-moeda(receber);
+  document.getElementById(
+    "statReceber"
+  ).textContent =
+    moeda(receber);
 
 
-document.getElementById(
-"statCaixa"
-).textContent =
-moeda(
-entradas-saidas
-);
+  document.getElementById(
+    "statCaixa"
+  ).textContent =
+    moeda(
+      entradas - saidas
+    );
 
 
-document.getElementById(
-"relatorioClientes"
-).innerHTML =
+  document.getElementById(
+    "relatorioClientes"
+  ).innerHTML = clientes.length
 
-clientes.length
+    ? `
 
-?
+      <table>
 
-`
+        <tr>
 
-<table>
+          <th>Cliente</th>
+          <th>Pedidos</th>
+          <th>Total</th>
+          <th>Pago</th>
+          <th>A receber</th>
 
-<tr>
+        </tr>
 
-<th>Cliente</th>
+        ${
+          clientes.map(c => {
 
-<th>Pedidos</th>
+            const ps =
+              pedidos.filter(
+                p =>
+                  Number(p.clienteId) ===
+                  Number(c.id)
+              );
 
-<th>Total</th>
 
-<th>Pago</th>
+            return `
 
-<th>A receber</th>
+              <tr>
 
-</tr>
+                <td>
+                  ${esc(c.nome)}
+                </td>
 
-`
+                <td>
+                  ${ps.length}
+                </td>
 
-+
+                <td>
+                  ${moeda(
+                    totalVendasCliente(c.id)
+                  )}
+                </td>
 
-clientes.map(c=>{
+                <td>
+                  ${moeda(
+                    totalPagoCliente(c.id)
+                  )}
+                </td>
 
-const ps =
-pedidos.filter(
-p=>p.clienteId===c.id
-);
+                <td>
 
-return `
+                  <b>
+                    ${moeda(
+                      saldoCliente(c.id)
+                    )}
+                  </b>
 
-<tr>
+                </td>
 
-<td>
-${esc(c.nome)}
-</td>
+              </tr>
 
-<td>
-${ps.length}
-</td>
+            `;
 
-<td>
-${moeda(totalVendasCliente(c.id))}
-</td>
+          }).join("")
+        }
 
-<td>
-${moeda(totalPagoCliente(c.id))}
-</td>
+      </table>
 
-<td>
-<b>
-${moeda(saldoCliente(c.id))}
-</b>
-</td>
+    `
 
-</tr>
+    : `
 
-`;
+      <p class="muted">
+        Nenhum cliente cadastrado.
+      </p>
 
-}).join("")
+    `;
 
-+
 
-"</table>"
+  document.getElementById(
+    "tabelaCaixa"
+  ).innerHTML = caixa.length
 
-:
+    ? `
 
-"<p class='muted'>Nenhum cliente cadastrado.</p>";
+      <table>
 
+        <tr>
 
-document.getElementById(
-"tabelaCaixa"
-).innerHTML =
+          <th>Data</th>
+          <th>Tipo</th>
+          <th>Descrição</th>
+          <th>Valor</th>
 
-caixa.length
+        </tr>
 
-?
+        ${
+          caixa
+            .slice()
+            .reverse()
+            .map(x => `
 
-`
+              <tr>
 
-<table>
+                <td>
+                  ${formatarData(x.data)}
+                </td>
 
-<tr>
+                <td>
+                  ${
+                    x.tipo === "entrada"
+                    ? "Entrada"
+                    : "Saída"
+                  }
+                </td>
 
-<th>Data</th>
+                <td>
+                  ${esc(x.descricao)}
+                </td>
 
-<th>Tipo</th>
+                <td>
+                  ${moeda(x.valor)}
+                </td>
 
-<th>Descrição</th>
+              </tr>
 
-<th>Valor</th>
+            `).join("")
+        }
 
-</tr>
+      </table>
 
-`
+    `
 
-+
+    : `
 
-caixa.slice().reverse().map(x=>`
+      <p class="muted">
+        Nenhum lançamento no caixa.
+      </p>
 
-<tr>
-
-<td>
-${formatarData(x.data)}
-</td>
-
-<td>
-${x.tipo==="entrada"
-?"Entrada"
-:"Saída"}
-</td>
-
-<td>
-${esc(x.descricao)}
-</td>
-
-<td>
-${moeda(x.valor)}
-</td>
-
-</tr>
-
-`).join("")
-
-+
-
-"</table>"
-
-:
-
-"<p class='muted'>Nenhum lançamento no caixa.</p>";
+    `;
 
 }
 
+
+/*
+====================================================
+LANÇAR NO CAIXA
+====================================================
+*/
 
 function lancarCaixa(){
 
-const tipo =
-document.getElementById(
-"caixaTipo"
-).value;
+  const tipo =
+    document.getElementById(
+      "caixaTipo"
+    ).value;
 
 
-const descricao =
-document.getElementById(
-"caixaDescricao"
-).value.trim();
+  const descricao =
+    document.getElementById(
+      "caixaDescricao"
+    ).value.trim();
 
 
-const valor =
-Number(
-document.getElementById(
-"caixaValor"
-).value
-);
+  const valor =
+    Number(
+      document.getElementById(
+        "caixaValor"
+      ).value
+    );
 
 
-if(
-!descricao ||
-!valor ||
-valor<=0
-){
+  if(
+    !descricao ||
+    !valor ||
+    valor <= 0
+  ){
 
-alert(
-"Informe descrição e valor."
-);
+    alert(
+      "Informe descrição e valor."
+    );
 
-return;
+    return;
 
-}
-
-
-caixa.push({
-
-id:Date.now(),
-
-tipo,
-
-descricao,
-
-valor,
-
-data:new Date().toISOString()
-
-});
+  }
 
 
-document.getElementById(
-"caixaDescricao"
-).value = "";
+  caixa.push({
+
+    id:Date.now(),
+
+    tipo:tipo,
+
+    descricao:descricao,
+
+    valor:valor,
+
+    data:new Date().toISOString()
+
+  });
 
 
-document.getElementById(
-"caixaValor"
-).value = "";
+  document.getElementById(
+    "caixaDescricao"
+  ).value = "";
 
 
-salvar();
-
-atualizarTudo();
-
-}
+  document.getElementById(
+    "caixaValor"
+  ).value = "";
 
 
-function formatarData(d){
+  salvar();
 
-return new Date(d)
-.toLocaleString(
-"pt-BR",
-{
-dateStyle:"short",
-timeStyle:"short"
-}
-);
+  atualizarTudo();
 
 }
 
 
-function esc(v){
+/*
+====================================================
+DATA
+====================================================
+*/
 
-return String(v ?? "")
-.replace(
-/[&<>"']/g,
-m=>({
+function formatarData(data){
 
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
-
-}[m])
-);
+  return new Date(data)
+    .toLocaleString(
+      "pt-BR",
+      {
+        dateStyle:"short",
+        timeStyle:"short"
+      }
+    );
 
 }
 
+
+/*
+====================================================
+SEGURANÇA DO TEXTO
+====================================================
+*/
+
+function esc(valor){
+
+  return String(
+    valor ?? ""
+  ).replace(
+    /[&<>"']/g,
+    m => ({
+
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+
+    }[m])
+  );
+
+}
+
+
+/*
+====================================================
+INICIAR SISTEMA
+====================================================
+*/
 
 atualizarTudo();
 
