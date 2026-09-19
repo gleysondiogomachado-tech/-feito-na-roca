@@ -1,734 +1,712 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#2f6f3e">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2f6b3f">
 <title>Feito na Roça</title>
 
 <style>
 *{box-sizing:border-box}
 
-:root{
---green:#2f6f3e;
---green2:#245a32;
---light:#edf4ec;
---cream:#f4f1e8;
---text:#26352a;
---muted:#6d786f;
---white:#fff;
---danger:#b33b32;
---border:#d9ded9;
---shadow:0 5px 20px rgba(30,50,35,.08)
-}
-
 body{
-margin:0;
-background:var(--cream);
-color:var(--text);
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f1e8;
+  color:#263126
 }
 
-button,input,select,textarea{
-font:inherit
+header{
+  background:#2f6b3f;
+  color:#fff;
+  padding:18px 16px;
+  position:sticky;
+  top:0;
+  z-index:5
 }
 
-button{
-cursor:pointer
+header h1{
+  margin:0;
+  font-size:24px
 }
 
-.app-header{
-background:var(--green);
-color:#fff;
-padding:48px 22px 34px
+header small{
+  opacity:.9
 }
 
-.brand{
-display:flex;
-align-items:center;
-gap:12px
+nav{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  padding:10px;
+  background:#fff;
+  position:sticky;
+  top:73px;
+  z-index:4;
+  border-bottom:1px solid #ddd
 }
 
-.brand-icon{
-font-size:42px
+nav button{
+  border:0;
+  background:#e8efe8;
+  color:#285b34;
+  padding:10px 12px;
+  border-radius:10px;
+  font-weight:bold;
+  white-space:nowrap
 }
 
-.brand h1{
-margin:0;
-font-size:34px
-}
-
-.brand p{
-margin:8px 0 0;
-font-size:18px
-}
-
-.nav{
-display:flex;
-overflow:auto;
-background:#fff;
-border-bottom:1px solid var(--border);
-position:sticky;
-top:0;
-z-index:20
-}
-
-.nav button{
-flex:1;
-min-width:105px;
-border:0;
-background:#fff;
-padding:17px 10px;
-color:var(--green);
-font-weight:800;
-border-bottom:5px solid transparent
-}
-
-.nav button.active{
-border-bottom-color:var(--green);
-background:#f1f6f1
+nav button.active{
+  background:#2f6b3f;
+  color:white
 }
 
 main{
-padding:20px;
-max-width:1000px;
-margin:auto
+  max-width:1000px;
+  margin:auto;
+  padding:14px
 }
 
-.page{
-display:none
+section{
+  display:none
 }
 
-.page.active{
-display:block
+.show{
+  display:block
 }
 
 .card{
-background:#fff;
-border-radius:24px;
-padding:22px;
-margin-bottom:18px;
-box-shadow:var(--shadow)
-}
-
-h2{
-font-size:30px;
-margin:0 0 18px
-}
-
-.sub{
-color:var(--muted);
-margin-top:-10px;
-margin-bottom:18px
-}
-
-label{
-display:block;
-font-weight:700;
-margin:13px 0 7px
-}
-
-input,select,textarea{
-width:100%;
-border:2px solid #d7ddd7;
-border-radius:15px;
-padding:14px;
-background:#fff;
-color:var(--text);
-font-size:17px
-}
-
-textarea{
-min-height:90px;
-resize:vertical
-}
-
-.row{
-display:flex;
-gap:10px;
-flex-wrap:wrap
-}
-
-.row>*{
-flex:1;
-min-width:140px
-}
-
-.btn{
-border:0;
-border-radius:15px;
-padding:14px 18px;
-font-weight:800
-}
-
-.btn-green{
-background:var(--green);
-color:#fff
-}
-
-.btn-light{
-background:#e9f0e8;
-color:var(--green)
-}
-
-.btn-danger{
-background:#f8e5e3;
-color:var(--danger)
-}
-
-.btn-dark{
-background:#27362b;
-color:#fff
-}
-
-.btn:active{
-transform:scale(.98)
+  background:#fff;
+  border-radius:14px;
+  padding:15px;
+  margin:10px 0;
+  box-shadow:0 2px 8px #00000012
 }
 
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-gap:14px
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px
 }
 
-.stat{
-background:#f3f7f2;
-border-radius:18px;
-padding:18px
+input,select,textarea{
+  width:100%;
+  padding:11px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:16px;
+  background:#fff
 }
 
-.stat b{
-display:block;
-font-size:27px;
-margin-top:7px
+label{
+  font-size:13px;
+  font-weight:bold;
+  display:block;
+  margin:8px 0 5px
 }
 
-.stat span{
-color:var(--muted)
+button.primary,.primary{
+  background:#2f6b3f;
+  color:white;
+  border:0;
+  border-radius:9px;
+  padding:11px 14px;
+  font-weight:bold
 }
 
-.product{
-border:2px solid var(--border);
-border-radius:20px;
-padding:16px;
-margin-bottom:13px;
-background:#fff
+button.danger{
+  background:#b3261e;
+  color:#fff;
+  border:0;
+  border-radius:8px;
+  padding:8px
 }
 
-.product-top{
-display:flex;
-gap:14px;
-align-items:center
+button.secondary{
+  background:#eee;
+  border:0;
+  border-radius:8px;
+  padding:9px
 }
 
-.product-img{
-width:78px;
-height:78px;
-border-radius:16px;
-background:#edf4ec;
-display:grid;
-place-items:center;
-font-size:42px;
-flex:none
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px
 }
 
-.product h3{
-margin:0 0 6px;
-font-size:21px
+th,td{
+  padding:9px;
+  border-bottom:1px solid #ddd;
+  text-align:left
 }
 
-.price{
-font-size:22px;
-font-weight:900
+th{
+  background:#f1f4f0
 }
 
-.stock{
-color:var(--muted);
-margin-top:4px
+.total{
+  font-size:22px;
+  font-weight:bold;
+  color:#2f6b3f
 }
 
-.qty{
-display:flex;
-align-items:center;
-gap:18px;
-margin-top:14px
+.warn{
+  color:#a35a00;
+  font-weight:bold
 }
 
-.qty button{
-width:54px;
-height:54px;
-border:0;
-border-radius:16px;
-background:#e2ece0;
-color:var(--green);
-font-size:30px;
-font-weight:900
+.debt{
+  color:#b3261e;
+  font-weight:bold
 }
 
-.qty strong{
-font-size:24px;
-min-width:28px;
-text-align:center
+.ok{
+  color:#2f6b3f;
+  font-weight:bold
 }
 
-.total-box{
-background:#eef5ed;
-border-radius:18px;
-padding:18px;
-font-size:20px;
-margin-top:16px
+.row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap
 }
 
-.total-box b{
-font-size:28px
+.report-total{
+  background:#f1f4f0;
+  border-radius:12px;
+  padding:14px;
+  margin-top:12px
 }
 
-.list-item{
-border:2px solid var(--border);
-border-radius:18px;
-padding:16px;
-margin-bottom:12px;
-background:#fff
-}
-
-.list-head{
-display:flex;
-justify-content:space-between;
-gap:10px;
-align-items:center
-}
-
-.list-head h3{
-margin:0;
-font-size:20px
-}
-
-.muted{
-color:var(--muted)
-}
-
-.money{
-font-weight:900;
-color:var(--green)
-}
-
-.actions{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-top:12px
-}
-
-.empty{
-text-align:center;
-color:var(--muted);
-padding:30px
-}
-
-.badge{
-display:inline-block;
-padding:5px 9px;
-border-radius:999px;
-background:#e8f1e6;
-color:var(--green);
-font-weight:800;
-font-size:13px
-}
-
-.low{
-background:#fff0df;
-color:#9a5b00
-}
-
-.danger{
-background:#f9e2df;
-color:var(--danger)
-}
-
-.table-wrap{
-overflow:auto
-}
-
-.table{
-width:100%;
-border-collapse:collapse
-}
-
-.table th,.table td{
-padding:11px 8px;
-border-bottom:1px solid var(--border);
-text-align:left;
-white-space:nowrap
-}
-
-footer{
-padding:30px;
-text-align:center;
-color:var(--muted)
-}
-
-.toast{
-position:fixed;
-left:18px;
-right:18px;
-bottom:20px;
-background:#26352a;
-color:#fff;
-padding:15px 18px;
-border-radius:15px;
-display:none;
-z-index:99;
-box-shadow:0 10px 30px #0003
-}
-
-.modal{
-position:fixed;
-inset:0;
-background:#0008;
-display:none;
-align-items:flex-end;
-justify-content:center;
-z-index:80
-}
-
-.modal.show{
-display:flex
-}
-
-.modal-box{
-background:#fff;
-width:100%;
-max-width:650px;
-border-radius:26px 26px 0 0;
-padding:22px;
-max-height:92vh;
-overflow:auto
-}
-
-.close{
-float:right;
-border:0;
-background:#eee;
-border-radius:50%;
-width:40px;
-height:40px;
-font-size:22px
+.report-total div{
+  margin:6px 0
 }
 
 .small{
-font-size:14px
+  font-size:13px;
+  color:#666
 }
 
-.danger-text{
-color:var(--danger)
+.pill{
+  padding:4px 8px;
+  border-radius:20px;
+  background:#eee;
+  font-size:12px
 }
 
-@media(min-width:700px){
-.modal{
-align-items:center
+.qty-control{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:100%
 }
-.modal-box{
-border-radius:24px
+
+.qty-control button{
+  width:46px;
+  height:46px;
+  border:0;
+  border-radius:10px;
+  background:#e8efe8;
+  color:#285b34;
+  font-size:28px;
+  font-weight:bold;
+  line-height:1
 }
+
+.qty-control input{
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  margin:0
+}
+
+.sale-preview{
+  margin-top:10px;
+  padding:12px;
+  border-radius:10px;
+  background:#f1f4f0;
+  font-weight:bold;
+  text-align:center
+}
+
+@media print{
+  nav,header,.no-print{
+    display:none!important
+  }
+
+  section{
+    display:none
+  }
+
+  .print-area{
+    display:block!important
+  }
+
+  .card{
+    box-shadow:none
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header class="app-header">
-<div class="brand">
-<div class="brand-icon">🌾</div>
-
-<div>
-<h1>Feito na Roça</h1>
-<p>Do campo para sua mesa</p>
-</div>
-</div>
+<header>
+<h1>🌾 Feito na Roça</h1>
+<small>Clientes • Pedidos • Contas • Estoque • Relatórios</small>
 </header>
 
-<nav class="nav">
-
-<button class="active" data-page="pedido">
-🛒 Pedido
-</button>
-
-<button data-page="clientes">
-👤 Clientes
-</button>
-
-<button data-page="estoque">
-📦 Estoque
-</button>
-
-<button data-page="relatorios">
-📊 Relatórios
-</button>
-
-<button data-page="contas">
-💰 Contas
-</button>
-
+<nav id="nav">
+<button data-tab="inicio">Início</button>
+<button data-tab="clientes">Clientes</button>
+<button data-tab="pedidos">Pedidos</button>
+<button data-tab="contas">Contas</button>
+<button data-tab="estoque">Estoque</button>
+<button data-tab="relatorios">Relatórios</button>
 </nav>
 
 <main>
 
-<section id="pedido" class="page active">
+<section id="inicio" class="show">
+
+<div class="grid">
 
 <div class="card">
+<div class="small">Clientes</div>
+<div class="total" id="kClientes">0</div>
+</div>
 
-<h2>Novo pedido</h2>
+<div class="card">
+<div class="small">Pedidos</div>
+<div class="total" id="kPedidos">0</div>
+</div>
 
-<label>Cliente</label>
+<div class="card">
+<div class="small">A receber</div>
+<div class="total" id="kReceber">R$ 0,00</div>
+</div>
 
-<select id="clientePedido"></select>
-
-<div class="row" style="margin-top:12px">
-
-<button class="btn btn-light" onclick="novoCliente()">
-+ Novo cliente
-</button>
-
-<button class="btn btn-light" id="audioToggle" onclick="toggleAudio()">
-🔊 Áudio: ligado
-</button>
-
-<button class="btn btn-light" onclick="testarAudio()">
-🔊 Testar áudio
-</button>
-
-<button class="btn btn-light" onclick="falarPedido()">
-🎙️ Falar pedido
-</button>
-
+<div class="card">
+<div class="small">Estoque baixo</div>
+<div class="total" id="kEstoque">0</div>
 </div>
 
 </div>
 
 <div class="card">
-
-<h2>Produtos</h2>
-
-<div id="listaProdutos"></div>
-
-<div class="total-box">
-Total do pedido:
-<b id="totalPedido">R$ 0,00</b>
-</div>
-
-<button
-class="btn btn-green"
-style="width:100%;margin-top:14px;font-size:18px"
-onclick="salvarPedido()">
-
-Salvar pedido
-
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>Pedidos da semana</h2>
-
-<div id="pedidosSemana"></div>
-
+<h3>Resumo</h3>
+<div id="homeList"></div>
 </div>
 
 </section>
 
-<section id="clientes" class="page">
+
+<section id="clientes">
 
 <div class="card">
 
 <h2>Clientes</h2>
 
-<div class="row">
+<div class="grid">
 
-<input
-id="buscaCliente"
-placeholder="🔎 Buscar cliente"
-oninput="renderClientes()">
+<div>
+<label>Nome</label>
+<input id="cNome" placeholder="Nome do cliente">
+</div>
 
-<button
-class="btn btn-green"
-onclick="novoCliente()">
+<div>
+<label>Telefone</label>
+<input id="cTel" placeholder="(00) 00000-0000">
+</div>
 
-+ Novo cliente
+<div>
+<label>Observação</label>
+<input id="cObs" placeholder="Observação">
+</div>
 
+</div>
+
+<br>
+
+<button class="primary" onclick="addCliente()">
+Cadastrar cliente
 </button>
 
 </div>
 
-</div>
+<div class="card">
+
+<input
+id="buscaCliente"
+oninput="renderClientes()"
+placeholder="🔎 Procurar cliente"
+>
 
 <div id="listaClientes"></div>
 
+</div>
+
 </section>
 
-<section id="estoque" class="page">
+
+<section id="pedidos">
+
+<div class="card">
+
+<h2>Novo pedido</h2>
+
+<div class="grid">
+
+<div>
+<label>Cliente</label>
+<select id="pCliente"></select>
+</div>
+
+<div>
+<label>Produto</label>
+<select id="pProduto"></select>
+</div>
+
+<div>
+
+<label>Quantidade</label>
+
+<div class="qty-control">
+
+<button
+type="button"
+onclick="alterarQtd(-1)"
+>−</button>
+
+<input
+id="pQtd"
+type="number"
+min="1"
+step="1"
+value="1"
+oninput="normalizarQtd();atualizarTotalPedido()"
+>
+
+<button
+type="button"
+onclick="alterarQtd(1)"
+>+</button>
+
+</div>
+
+<div
+class="sale-preview"
+id="pTotalPreview"
+>
+Total: R$ 0,00
+</div>
+
+</div>
+
+<div>
+
+<label>Preço unitário</label>
+
+<input
+id="pPreco"
+type="number"
+step="0.01"
+>
+
+</div>
+
+</div>
+
+<br>
+
+<button
+class="primary"
+onclick="addPedido()"
+>
+Lançar pedido
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>Pedidos</h3>
+
+<div id="listaPedidos"></div>
+
+</div>
+
+</section>
+
+
+<section id="contas">
+
+<div class="card">
+
+<h2>Conta do cliente</h2>
+
+<div class="grid">
+
+<div>
+
+<label>Cliente</label>
+
+<select
+id="contaCliente"
+onchange="renderConta()"
+></select>
+
+</div>
+
+<div>
+
+<label>Pagamento</label>
+
+<input
+id="pagValor"
+type="number"
+step="0.01"
+min="0"
+>
+
+</div>
+
+</div>
+
+<br>
+
+<button
+class="primary"
+onclick="registrarPagamento()"
+>
+Registrar pagamento
+</button>
+
+<button
+class="secondary"
+onclick="imprimirConta()"
+>
+Imprimir conta
+</button>
+
+</div>
+
+<div id="contaResultado"></div>
+
+</section>
+
+
+<section id="estoque">
 
 <div class="card">
 
 <h2>Estoque</h2>
 
-<p class="sub">
-Controle de entrada, saída e estoque baixo.
-</p>
+<div class="grid">
 
-<div id="estoqueResumo" class="grid"></div>
+<div>
+
+<label>Produto</label>
+
+<select id="eProduto"></select>
+
+</div>
+
+<div>
+
+<label>Quantidade atual</label>
+
+<input
+id="eQtd"
+type="number"
+step="0.01"
+min="0"
+>
 
 </div>
 
-<div class="card">
+<div>
 
-<div id="estoqueTabela"></div>
+<label>Estoque mínimo</label>
+
+<input
+id="eMin"
+type="number"
+step="0.01"
+min="0"
+value="3"
+>
 
 </div>
+
+</div>
+
+<br>
+
+<button
+class="primary"
+onclick="salvarEstoque()"
+>
+Salvar estoque
+</button>
+
+</div>
+
+<div
+class="card"
+id="estoqueLista"
+></div>
 
 </section>
 
-<section id="relatorios" class="page">
 
-<div class="card">
+<section id="relatorios">
+
+<div class="card no-print">
 
 <h2>Relatórios</h2>
 
-<div class="grid" id="relatorioCards"></div>
+<div class="grid">
+
+<div>
+
+<label>Cliente</label>
+
+<select
+id="rCliente"
+onchange="renderRelatorio()"
+></select>
 
 </div>
 
-<div class="card">
+<div>
 
-<h2>Vendas e pedidos</h2>
+<label>Tipo</label>
 
-<div id="relatorioPedidos"></div>
+<select
+id="rTipo"
+onchange="renderRelatorio()"
+>
+
+<option value="conta">
+Conta do cliente
+</option>
+
+<option value="clientes">
+Todos os clientes
+</option>
+
+<option value="pedidos">
+Pedidos
+</option>
+
+<option value="geral">
+Resumo geral
+</option>
+
+</select>
+
+</div>
 
 </div>
 
-<div class="card">
+<br>
 
-<h2>Contas dos clientes</h2>
-
-<div id="relatorioContas"></div>
-
-</div>
-
-</section>
-
-<section id="contas" class="page">
-
-<div class="card">
-
-<h2>Contas</h2>
-
-<p class="sub">
-Registre pagamentos e acompanhe o saldo de cada cliente.
-</p>
-
-<div id="listaContas"></div>
+<button
+class="primary"
+onclick="window.print()"
+>
+Imprimir / salvar PDF
+</button>
 
 </div>
+
+<div
+class="card print-area"
+id="relatorioResultado"
+></div>
 
 </section>
 
 </main>
 
-<footer>
-Feito na Roça • dados salvos neste aparelho
-</footer>
-
-<div id="toast" class="toast"></div>
-
-<div id="modal" class="modal">
-
-<div class="modal-box">
-
-<button class="close" onclick="fecharModal()">×</button>
-
-<div id="modalContent"></div>
-
-</div>
-
-</div>
 
 <script>
-const KEYS={
-produtos:"fr_produtos",
-clientes:"fr_clientes",
-pedidos:"fr_pedidos",
-contas:"fr_contas",
-config:"fr_config"
-};
 
-const PRODUTOS_PADRAO=[
-{id:"p1",nome:"Queijo fresco",preco:40,estoque:20,icone:"🧀"},
-{id:"p2",nome:"Queijo curado",preco:45,estoque:20,icone:"🧀"},
-{id:"p3",nome:"Mussarela",preco:50,estoque:20,icone:"🧀"},
-{id:"p4",nome:"Requeijão duro",preco:55,estoque:20,icone:"🥛"},
-{id:"p5",nome:"Pão de queijo pequeno (1 kg)",preco:28,estoque:20,icone:"🥯"},
-{id:"p6",nome:"Pão de queijo grande (1 kg)",preco:27,estoque:20,icone:"🥯"},
-{id:"p7",nome:"Rosca caseira",preco:12,estoque:20,icone:"🍞"},
-{id:"p8",nome:"Doce de leite caseiro 200g",preco:12,estoque:20,icone:"🍯"},
-{id:"p9",nome:"Doce de leite 500g",preco:30,estoque:20,icone:"🍯"}
+const PRODUTOS = [
+
+["Queijo fresco",40],
+
+["Queijo curado",45],
+
+["Requeijão duro",55],
+
+["Pão de queijo pequeno (1 kg)",28],
+
+["Pão de queijo grande (1 kg)",27],
+
+["Rosca caseira",12],
+
+["Doce de leite caseiro 200g",12],
+
+["Doce de leite 500g",30],
+
+["Muçarela",50]
+
 ];
 
-let produtos=carregar(KEYS.produtos,null);
-let clientes=carregar(KEYS.clientes,[]);
-let pedidos=carregar(KEYS.pedidos,[]);
-let contas=carregar(KEYS.contas,[]);
-let config=carregar(KEYS.config,{audio:true});
-let carrinho={};
 
-if(!Array.isArray(produtos)||!produtos.length){
+const KEY = "feitoNaRoca_v2";
 
-produtos=JSON.parse(JSON.stringify(PRODUTOS_PADRAO));
 
-salvar(KEYS.produtos,produtos);
+let db = JSON.parse(
+localStorage.getItem(KEY) ||
+'{"clientes":[],"pedidos":[],"pagamentos":[],"estoque":{}}'
+);
 
-}else{
 
-PRODUTOS_PADRAO.forEach(p=>{
+function save(){
 
-if(!produtos.some(x=>String(x.id)===String(p.id))){
+localStorage.setItem(
+KEY,
+JSON.stringify(db)
+);
 
-produtos.push({...p});
+renderAll();
 
 }
 
-});
 
-salvar(KEYS.produtos,produtos);
+const brl = v =>
+(Number(v)||0).toLocaleString(
+"pt-BR",
+{
+style:"currency",
+currency:"BRL"
+}
+);
+
+
+function id(){
+
+return Date.now() +
+Math.random()
+.toString(16)
+.slice(2);
 
 }
 
-function carregar(key,fallback){
 
-try{
+function esc(s){
 
-const raw=localStorage.getItem(key);
-
-return raw?JSON.parse(raw):fallback;
-
-}catch(e){
-
-return fallback;
-
-}
-
-}
-
-function salvar(key,val){
-
-localStorage.setItem(key,JSON.stringify(val));
-
-}
-
-function esc(v){
-
-return String(v??"").replace(
+return String(s ?? "")
+.replace(
 /[&<>"']/g,
-m=>({
+m => ({
 "&":"&amp;",
 "<":"&lt;",
 ">":"&gt;",
@@ -739,89 +717,1299 @@ m=>({
 
 }
 
-function moeda(v){
 
-return Number(v||0).toLocaleString(
-"pt-BR",
-{
-style:"currency",
-currency:"BRL"
-}
+function cliente(id){
+
+return db.clientes.find(
+c => c.id === id
 );
 
 }
 
-function agora(){
 
-return new Date().toISOString();
+function totalCliente(cid){
 
-}
-
-function mostrar(msg){
-
-const t=document.getElementById("toast");
-
-t.textContent=msg;
-
-t.style.display="block";
-
-setTimeout(()=>{
-t.style.display="none";
-},2600);
+return db.pedidos
+.filter(p => p.clienteId === cid)
+.reduce(
+(a,p) => a + p.total,
+0
+);
 
 }
 
-function falar(txt){
+
+function pagoCliente(cid){
+
+return db.pagamentos
+.filter(p => p.clienteId === cid)
+.reduce(
+(a,p) => a + p.valor,
+0
+);
+
+}
+
+
+function saldoCliente(cid){
+
+return totalCliente(cid) -
+pagoCliente(cid);
+
+}
+
+
+function addCliente(){
+
+let nome =
+cNome.value.trim();
+
+if(!nome){
+
+alert("Informe o nome.");
+
+return;
+
+}
+
+db.clientes.push({
+
+id:id(),
+
+nome:nome,
+
+tel:cTel.value.trim(),
+
+obs:cObs.value.trim(),
+
+criado:new Date().toISOString()
+
+});
+
+cNome.value="";
+cTel.value="";
+cObs.value="";
+
+save();
+
+}
+
+
+function excluirCliente(cid){
 
 if(
-config.audio &&
-"speechSynthesis" in window
+!confirm(
+"Excluir cliente e manter os lançamentos?"
+)
+)return;
+
+db.clientes =
+db.clientes.filter(
+c => c.id !== cid
+);
+
+save();
+
+}
+
+
+function normalizarQtd(){
+
+let q =
+Math.floor(
+Number(pQtd.value)||1
+);
+
+if(q < 1)
+q = 1;
+
+pQtd.value = q;
+
+}
+
+
+function alterarQtd(delta){
+
+normalizarQtd();
+
+pQtd.value =
+Math.max(
+1,
+Number(pQtd.value) + delta
+);
+
+atualizarTotalPedido();
+
+}
+
+
+function atualizarTotalPedido(){
+
+normalizarQtd();
+
+let q =
+Number(pQtd.value)||1;
+
+let preco =
+Number(pPreco.value)||0;
+
+pTotalPreview.textContent =
+"Total: " +
+brl(q * preco);
+
+}
+
+
+function addPedido(){
+
+normalizarQtd();
+
+let cid =
+pCliente.value;
+
+let prod =
+pProduto.value;
+
+let q =
+Number(pQtd.value);
+
+let preco =
+Number(pPreco.value);
+
+if(
+!cid ||
+!prod ||
+q < 1 ||
+preco < 0
 ){
 
-speechSynthesis.cancel();
+alert(
+"Preencha cliente, produto, quantidade e preço."
+);
 
-const u=new SpeechSynthesisUtterance(txt);
+return;
 
-u.lang="pt-BR";
+}
 
-u.rate=.95;
+let total =
+q * preco;
 
-speechSynthesis.speak(u);
+
+db.pedidos.push({
+
+id:id(),
+
+clienteId:cid,
+
+produto:prod,
+
+qtd:q,
+
+preco:preco,
+
+total:total,
+
+data:new Date().toISOString()
+
+});
+
+
+save();
+
+alert(
+"Pedido lançado: " +
+brl(total)
+);
+
+pQtd.value = 1;
+
+atualizarTotalPedido();
+
+}
+
+
+function excluirPedido(pid){
+
+db.pedidos =
+db.pedidos.filter(
+p => p.id !== pid
+);
+
+save();
+
+}
+
+
+function registrarPagamento(){
+
+let cid =
+contaCliente.value;
+
+let v =
+Number(pagValor.value);
+
+if(!cid || v <= 0){
+
+alert(
+"Informe cliente e valor."
+);
+
+return;
+
+}
+
+db.pagamentos.push({
+
+id:id(),
+
+clienteId:cid,
+
+valor:v,
+
+data:new Date().toISOString()
+
+});
+
+pagValor.value="";
+
+save();
+
+renderConta();
+
+}
+
+
+function saldoStyle(s){
+
+return s > 0.005
+
+?
+
+`<span class="debt">${brl(s)}</span>`
+
+:
+
+`<span class="ok">${brl(s)}</span>`;
+
+}
+
+
+function renderClientes(){
+
+let q =
+(buscaCliente.value || "")
+.toLowerCase();
+
+
+listaClientes.innerHTML =
+
+db.clientes
+
+.filter(
+c =>
+c.nome
+.toLowerCase()
+.includes(q)
+)
+
+.map(c => `
+
+<div class="card">
+
+<div class="row">
+
+<div>
+
+<b>
+${esc(c.nome)}
+</b>
+
+<div class="small">
+${esc(c.tel || "")}
+</div>
+
+</div>
+
+<div>
+Saldo:
+${saldoStyle(
+saldoCliente(c.id)
+)}
+</div>
+
+</div>
+
+<br>
+
+<button
+class="secondary"
+onclick="abrirConta('${c.id}')"
+>
+Ver conta
+</button>
+
+<button
+class="danger"
+onclick="excluirCliente('${c.id}')"
+>
+Excluir
+</button>
+
+</div>
+
+`)
+
+.join("")
+
+||
+
+"<p>Nenhum cliente cadastrado.</p>";
+
+}
+
+
+function abrirConta(cid){
+
+contaCliente.value =
+cid;
+
+document
+.querySelector(
+'[data-tab="contas"]'
+)
+.click();
+
+renderConta();
+
+}
+
+
+function renderPedidos(){
+
+listaPedidos.innerHTML =
+
+db.pedidos
+.slice()
+.reverse()
+
+.map(p => {
+
+let c =
+cliente(p.clienteId);
+
+return `
+
+<div class="card">
+
+<div class="row">
+
+<b>
+${esc(
+c?.nome ||
+"Cliente removido"
+)}
+</b>
+
+<span class="pill">
+${new Date(p.data)
+.toLocaleDateString("pt-BR")}
+</span>
+
+</div>
+
+<div>
+
+${esc(p.produto)}
+
+—
+
+${p.qtd}
+×
+
+${brl(p.preco)}
+
+=
+
+<b>
+${brl(p.total)}
+</b>
+
+</div>
+
+<br>
+
+<button
+class="danger"
+onclick="excluirPedido('${p.id}')"
+>
+Excluir
+</button>
+
+</div>
+
+`;
+
+})
+
+.join("")
+
+||
+
+"<p>Nenhum pedido.</p>";
+
+}
+
+
+function contaHTML(cid){
+
+let c =
+cliente(cid);
+
+if(!c)
+
+return "<p>Selecione um cliente.</p>";
+
+
+let ps =
+db.pedidos
+.filter(
+p => p.clienteId === cid
+);
+
+
+let pays =
+db.pagamentos
+.filter(
+p => p.clienteId === cid
+);
+
+
+let compras =
+ps.reduce(
+(a,p) => a + p.total,
+0
+);
+
+
+let pagamentos =
+pays.reduce(
+(a,p) => a + p.valor,
+0
+);
+
+
+let saldo =
+compras - pagamentos;
+
+
+return `
+
+<div class="card">
+
+<h2>
+Conta de ${esc(c.nome)}
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Data</th>
+
+<th>Descrição</th>
+
+<th>Valor</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+${ps.map(p => `
+
+<tr>
+
+<td>
+${new Date(p.data)
+.toLocaleDateString("pt-BR")}
+</td>
+
+<td>
+${esc(p.produto)}
+(${p.qtd}x)
+</td>
+
+<td>
+${brl(p.total)}
+</td>
+
+</tr>
+
+`).join("")}
+
+
+${pays.map(p => `
+
+<tr>
+
+<td>
+${new Date(p.data)
+.toLocaleDateString("pt-BR")}
+</td>
+
+<td>
+<b>Pagamento</b>
+</td>
+
+<td>
+- ${brl(p.valor)}
+</td>
+
+</tr>
+
+`).join("")}
+
+</tbody>
+
+</table>
+
+
+<div class="card">
+
+<div>
+Total de compras:
+<b>
+${brl(compras)}
+</b>
+</div>
+
+<div>
+Total pago:
+<b>
+${brl(pagamentos)}
+</b>
+</div>
+
+<div style="margin-top:8px">
+
+SALDO FINAL:
+
+<span
+class="${
+saldo > 0.005
+?
+"debt"
+:
+"ok"
+}"
+>
+
+<b>
+${brl(saldo)}
+</b>
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function renderConta(){
+
+contaResultado.innerHTML =
+contaHTML(
+contaCliente.value
+);
+
+}
+
+
+function imprimirConta(){
+
+if(!contaCliente.value){
+
+alert(
+"Selecione um cliente."
+);
+
+return;
+
+}
+
+let old =
+document.title;
+
+document.title =
+"Conta - " +
+cliente(
+contaCliente.value
+).nome;
+
+window.print();
+
+document.title =
+old;
+
+}
+
+
+function renderRelatorio(){
+
+let t =
+rTipo.value;
+
+let cid =
+rCliente.value;
+
+
+if(t === "conta"){
+
+relatorioResultado.innerHTML =
+contaHTML(cid);
+
+}
+
+
+else if(t === "clientes"){
+
+let rows =
+db.clientes
+.map(c => {
+
+let compras =
+totalCliente(c.id);
+
+let pago =
+pagoCliente(c.id);
+
+let saldo =
+compras - pago;
+
+return `
+
+<tr>
+
+<td>
+${esc(c.nome)}
+</td>
+
+<td>
+${brl(compras)}
+</td>
+
+<td>
+${brl(pago)}
+</td>
+
+<td>
+${saldoStyle(saldo)}
+</td>
+
+</tr>
+
+`;
+
+})
+
+.join("");
+
+
+let total =
+db.pedidos
+.reduce(
+(a,p) => a + p.total,
+0
+);
+
+
+let pag =
+db.pagamentos
+.reduce(
+(a,p) => a + p.valor,
+0
+);
+
+
+relatorioResultado.innerHTML = `
+
+<h2>
+👥 Relatório de todos os clientes
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Cliente</th>
+
+<th>Total comprado</th>
+
+<th>Total pago</th>
+
+<th>A receber</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+${
+rows ||
+
+'<tr><td colspan="4">Nenhum cliente cadastrado.</td></tr>'
+}
+
+</tbody>
+
+</table>
+
+
+<div class="report-total">
+
+<div>
+Total vendido:
+<b>
+${brl(total)}
+</b>
+</div>
+
+<div>
+Total recebido:
+<b>
+${brl(pag)}
+</b>
+</div>
+
+<div>
+A receber:
+<b>
+${brl(total-pag)}
+</b>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+else if(t === "pedidos"){
+
+let ps =
+db.pedidos
+.filter(
+p =>
+!cid ||
+p.clienteId === cid
+);
+
+
+let total =
+ps.reduce(
+(a,p) => a + p.total,
+0
+);
+
+
+relatorioResultado.innerHTML = `
+
+<h2>
+Relatório de pedidos
+</h2>
+
+<table>
+
+<tr>
+
+<th>Data</th>
+
+<th>Cliente</th>
+
+<th>Produto</th>
+
+<th>Qtd.</th>
+
+<th>Total</th>
+
+</tr>
+
+${
+
+ps.map(p => `
+
+<tr>
+
+<td>
+${new Date(p.data)
+.toLocaleDateString("pt-BR")}
+</td>
+
+<td>
+${esc(
+cliente(p.clienteId)?.nome || ""
+)}
+</td>
+
+<td>
+${esc(p.produto)}
+</td>
+
+<td>
+${p.qtd}
+</td>
+
+<td>
+${brl(p.total)}
+</td>
+
+</tr>
+
+`).join("")
+
+||
+
+'<tr><td colspan="5">Nenhum pedido.</td></tr>'
+
+}
+
+</table>
+
+<h3>
+Total:
+${brl(total)}
+</h3>
+
+`;
+
+}
+
+
+else{
+
+let total =
+db.pedidos
+.reduce(
+(a,p) => a + p.total,
+0
+);
+
+
+let pag =
+db.pagamentos
+.reduce(
+(a,p) => a + p.valor,
+0
+);
+
+
+relatorioResultado.innerHTML = `
+
+<h2>
+📊 Resumo geral
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<div class="small">
+Total de vendas
+</div>
+
+<div class="total">
+${db.pedidos.length}
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="small">
+Valor vendido
+</div>
+
+<div class="total">
+${brl(total)}
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="small">
+Valor recebido
+</div>
+
+<div class="total">
+${brl(pag)}
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="small">
+A receber
+</div>
+
+<div class="total">
+${brl(total-pag)}
+</div>
+
+</div>
+
+</div>
+
+`;
 
 }
 
 }
 
-function toggleAudio(){
 
-config.audio=!config.audio;
+function salvarEstoque(){
 
-salvar(KEYS.config,config);
+let prod =
+eProduto.value;
 
-atualizarAudio();
+if(!prod)
+return;
 
-if(config.audio){
+db.estoque[prod] = {
 
-falar("Áudio ligado");
+qtd:
+Number(eQtd.value) || 0,
+
+min:
+Number(eMin.value) || 0
+
+};
+
+save();
+
+}
+
+
+function renderEstoque(){
+
+estoqueLista.innerHTML =
+
+PRODUTOS
+.map(([p,pre]) => {
+
+let e =
+db.estoque[p] ||
+{
+qtd:0,
+min:3
+};
+
+return `
+
+<div class="row card">
+
+<div>
+
+<b>
+${esc(p)}
+</b>
+
+<div class="small">
+Preço:
+${brl(pre)}
+</div>
+
+</div>
+
+<div>
+
+${
+e.qtd <= e.min
+
+?
+
+'<span class="warn">⚠️ Estoque baixo</span>'
+
+:
+
+'<span class="ok">OK</span>'
+}
+
+<br>
+
+${e.qtd} un.
+
+</div>
+
+</div>
+
+`;
+
+})
+
+.join("");
+
+}
+
+
+function fillSelects(){
+
+let opts =
+
+db.clientes
+.map(c => `
+
+<option value="${c.id}">
+${esc(c.nome)}
+</option>
+
+`)
+.join("");
+
+
+[pCliente,contaCliente,rCliente]
+.forEach(s => {
+
+s.innerHTML =
+(
+s === rCliente
+?
+'<option value="">Todos</option>'
+:
+""
+)
++
+opts;
+
+});
+
+
+pProduto.innerHTML =
+
+PRODUTOS
+.map(([p,pre]) => `
+
+<option value="${esc(p)}">
+
+${esc(p)}
+—
+${brl(pre)}
+
+</option>
+
+`)
+.join("");
+
+
+eProduto.innerHTML =
+
+PRODUTOS
+.map(([p,pre]) => `
+
+<option value="${esc(p)}">
+
+${esc(p)}
+
+</option>
+
+`)
+.join("");
+
+
+if(pProduto.value){
+
+let x =
+PRODUTOS.find(
+x => x[0] === pProduto.value
+);
+
+pPreco.value =
+x?.[1] || 0;
 
 }
 
 }
 
-function atualizarAudio(){
 
-document.getElementById("audioToggle").textContent=
-config.audio
-?"🔊 Áudio: ligado"
-:"🔇 Áudio: desligado";
+pProduto.addEventListener(
+"change",
+() => {
+
+let x =
+PRODUTOS.find(
+x => x[0] === pProduto.value
+);
+
+pPreco.value =
+x?.[1] || 0;
+
+atualizarTotalPedido();
+
+}
+);
+
+
+pPreco.addEventListener(
+"input",
+atualizarTotalPedido
+);
+
+
+document
+.querySelectorAll("nav button")
+.forEach(b => {
+
+b.onclick = () => {
+
+document
+.querySelectorAll("section")
+.forEach(
+s =>
+s.classList.remove("show")
+);
+
+document
+.getElementById(
+b.dataset.tab
+)
+.classList.add("show");
+
+
+document
+.querySelectorAll("nav button")
+.forEach(
+x =>
+x.classList.remove("active")
+);
+
+b.classList.add("active");
+
+renderAll();
+
+};
+
+});
+
+
+function renderAll(){
+
+fillSelects();
+
+renderClientes();
+
+renderPedidos();
+
+renderConta();
+
+renderEstoque();
+
+renderRelatorio();
+
+
+let rec =
+db.clientes.reduce(
+(a,c) =>
+a +
+Math.max(
+0,
+saldoCliente(c.id)
+),
+0
+);
+
+
+kClientes.textContent =
+db.clientes.length;
+
+
+kPedidos.textContent =
+db.pedidos.length;
+
+
+kReceber.textContent =
+brl(rec);
+
+
+kEstoque.textContent =
+
+PRODUTOS.filter(
+([p]) =>
+(
+db.estoque[p]?.qtd ?? 0
+)
+<=
+(
+db.estoque[p]?.min ?? 3
+)
+).length;
+
+
+homeList.innerHTML =
+
+db.clientes
+.slice()
+.sort(
+(a,b) =>
+saldoCliente(b.id)
+-
+saldoCliente(a.id)
+)
+.slice(0,10)
+.map(c => `
+
+<div class="row">
+
+<span>
+${esc(c.nome)}
+</span>
+
+<span>
+${saldoStyle(
+saldoCliente(c.id)
+)}
+</span>
+
+</div>
+
+`)
+.join("")
+
+||
+
+"<p>Cadastre seus clientes para começar.</p>";
 
 }
 
-function testarAudio(){
 
-falar("Áudio do Feito na Roça funcionando.");
+document
+.querySelector(
+'[data-tab="inicio"]'
+)
+.classList.add("active");
 
-mostrar("Teste de áudio enviado.");
 
-}
+renderAll();
+
+atualizarTotalPedido();
+
 </script>
+
+</body>
+</html>
