@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feito na Roça</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f1e8;
+  color:#29251d;
+}
+header{
+  background:#4d321e;
+  color:white;
+  padding:18px 15px;
+  text-align:center;
+}
+header h1{margin:0;font-size:25px}
+header p{margin:5px 0 0;font-size:13px}
+
+nav{
+  display:flex;
+  overflow-x:auto;
+  gap:7px;
+  padding:10px;
+  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:10;
+  box-shadow:0 2px 7px #0002;
+}
+nav button{
+  border:0;
+  background:#eadcc7;
+  color:#432b19;
+  padding:10px 13px;
+  border-radius:9px;
+  white-space:nowrap;
+  font-weight:bold;
+}
+nav button.active{
+  background:#4d321e;
+  color:white;
+}
+
+main{padding:15px;max-width:1100px;margin:auto}
+.section{display:none}
+.section.active{display:block}
+
+.card{
+  background:white;
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px #0001;
+}
+.card h2,.card h3{margin-top:0}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+}
+
+.stat{
+  background:#fff;
+  padding:16px;
+  border-radius:14px;
+  box-shadow:0 2px 8px #0001;
+}
+.stat strong{
+  display:block;
+  font-size:25px;
+  margin-top:6px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:11px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  margin:5px 0 10px;
+  font-size:15px;
+}
+button{
+  cursor:pointer;
+}
+.btn{
+  border:0;
+  border-radius:8px;
+  padding:11px 14px;
+  font-weight:bold;
+  margin:3px;
+}
+.primary{background:#4d321e;color:white}
+.green{background:#318447;color:white}
+.red{background:#b83232;color:white}
+.yellow{background:#d99a20;color:white}
+.gray{background:#777;color:white}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+  min-width:650px;
+}
+.table-wrap{overflow-x:auto}
+th,td{
+  border-bottom:1px solid #ddd;
+  padding:9px;
+  text-align:left;
+}
+th{background:#eee4d4}
+
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+.pago{background:#d8f0dd;color:#17652b}
+.devedor{background:#f8d4d4;color:#8c1f1f}
+
+.alert{
+  background:#fff0c9;
+  border-left:5px solid #d99a20;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#777;
+}
+
+.total-box{
+  background:#4d321e;
+  color:white;
+  border-radius:12px;
+  padding:15px;
+  margin-top:12px;
+}
+.total-box strong{font-size:22px}
+
+@media(max-width:600px){
+  main{padding:10px}
+  header h1{font-size:22px}
+  .grid{grid-template-columns:1fr 1fr}
+  .stat strong{font-size:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌾 Feito na Roça</h1>
+  <p>Controle de vendas, clientes, estoque e contas</p>
+</header>
+
+<nav>
+  <button class="active" onclick="abrir('inicio',this)">🏠 Início</button>
+  <button onclick="abrir('clientes',this)">👥 Clientes</button>
+  <button onclick="abrir('vendas',this)">🛒 Vendas</button>
+  <button onclick="abrir('estoque',this)">📦 Estoque</button>
+  <button onclick="abrir('contas',this)">💰 Contas</button>
+  <button onclick="abrir('relatorios',this)">📊 Relatórios</button>
+</nav>
+
+<main>
+
+<!-- INÍCIO -->
+<section id="inicio" class="section active">
+  <div class="card">
+    <h2>🌾 Painel Feito na Roça</h2>
+    <p>Controle tudo em um só lugar.</p>
+  </div>
+
+  <div class="grid">
+    <div class="stat">
+      👥 Clientes
+      <strong id="totalClientes">0</strong>
+    </div>
+    <div class="stat">
+      🛒 Vendas
+      <strong id="totalVendas">0</strong>
+    </div>
+    <div class="stat">
+      💰 Total vendido
+      <strong id="totalVendido">R$ 0,00</strong>
+    </div>
+    <div class="stat">
+      🔴 A receber
+      <strong id="totalReceber">R$ 0,00</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>⚠️ Estoque baixo</h3>
+    <div id="alertasEstoque"></div>
+  </div>
+</section>
+
+<!-- CLIENTES -->
+<section id="clientes" class="section">
+  <div class="card">
+    <h2>👥 Cadastro de clientes</h2>
+
+    <input id="clienteNome" placeholder="Nome do cliente">
+    <input id="clienteTelefone" placeholder="Telefone">
+    <input id="clienteEndereco" placeholder="Endereço">
+
+    <button class="btn primary" onclick="cadastrarCliente()">
+      + Cadastrar cliente
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>Clientes cadastrados</h2>
+    <div id="listaClientes"></div>
+  </div>
+</section>
+
+<!-- VENDAS -->
+<section id="vendas" class="section">
+  <div class="card">
+    <h2>🛒 Registrar venda</h2>
+
+    <label>Cliente</label>
+    <select id="vendaCliente"></select>
+
+    <label>Produto</label>
+    <select id="vendaProduto"></select>
+
+    <label>Quantidade</label>
+    <input id="vendaQuantidade" type="number" min="1" value="1">
+
+    <label>Pagamento</label>
+    <select id="vendaPagamento">
+      <option value="pago">Pago</option>
+      <option value="pendente">Fiado / Pendente</option>
+    </select>
+
+    <button class="btn green" onclick="registrarVenda()">
+      Registrar venda
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>Últimas vendas</h2>
+    <div id="listaVendas"></div>
+  </div>
+</section>
+
+<!-- ESTOQUE -->
+<section id="estoque" class="section">
+  <div class="card">
+    <h2>📦 Estoque</h2>
+
+    <input id="produtoNome" placeholder="Nome do produto">
+    <input id="produtoPreco" type="number" step="0.01" placeholder="Preço">
+    <input id="produtoEstoque" type="number" min="0" placeholder="Quantidade em estoque">
+    <input id="produtoMinimo" type="number" min="0" value="3" placeholder="Estoque mínimo">
+
+    <button class="btn primary" onclick="cadastrarProduto()">
+      + Cadastrar produto
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>Produtos</h2>
+    <div id="listaEstoque"></div>
+  </div>
+</section>
+
+<!-- CONTAS -->
+<section id="contas" class="section">
+  <div class="card">
+    <h2>💰 Contas dos clientes</h2>
+
+    <label>Selecione o cliente</label>
+    <select id="contaCliente" onchange="mostrarContaCliente()"></select>
+
+    <div id="contaDetalhes"></div>
+  </div>
+</section>
+
+<!-- RELATÓRIOS -->
+<section id="relatorios" class="section">
+
+  <div class="card">
+    <h2>📊 Relatório geral</h2>
+    <div id="relatorioGeral"></div>
+  </div>
+
+  <div class="card">
+    <h2>📄 Relatório de contas por cliente</h2>
+
+    <label>Cliente</label>
+    <select id="relatorioCliente" onchange="gerarRelatorioCliente()"></select>
+
+    <div id="relatorioClienteResultado"></div>
+  </div>
+
+  <div class="card">
+    <h2>👥 Relatório de todos os clientes</h2>
+    <div id="relatorioTodosClientes"></div>
+  </div>
+
+</section>
+
+</main>
+
+<script>
+
+const PRODUTOS_INICIAIS = [
+  {nome:"Queijo fresco",preco:40,estoque:10,minimo:3},
+  {nome:"Queijo curado",preco:45,estoque:10,minimo:3},
+  {nome:"Mussarela",preco:50,estoque:10,minimo:3},
+  {nome:"Requeijão duro",preco:55,estoque:10,minimo:3},
+  {nome:"Pão de queijo pequeno (1 kg)",preco:28,estoque:10,minimo:3},
+  {nome:"Pão de queijo grande (1 kg)",preco:27,estoque:10,minimo:3},
+  {nome:"Rosca caseira",preco:12,estoque:10,minimo:3},
+  {nome:"Doce de leite caseiro 200g",preco:12,estoque:10,minimo:3},
+  {nome:"Doce de leite 500g",preco:30,estoque:10,minimo:3}
+];
+
+let clientes = JSON.parse(localStorage.getItem("fr_clientes") || "[]");
+let vendas = JSON.parse(localStorage.getItem("fr_vendas") || "[]");
+let produtos = JSON.parse(localStorage.getItem("fr_produtos") || "null");
+
+if(!produtos){
+  produtos = PRODUTOS_INICIAIS;
+  salvar();
+}
+
+function salvar(){
+  localStorage.setItem("fr_clientes",JSON.stringify(clientes));
+  localStorage.setItem("fr_vendas",JSON.stringify(vendas));
+  localStorage.setItem("fr_produtos",JSON.stringify(produtos));
+}
+
+function moeda(valor){
+  return Number(valor || 0).toLocaleString("pt-BR",{
+    style:"currency",
+    currency:"BRL"
+  });
+}
+
+function escapeHTML(text){
+  return String(text ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function abrir(id,botao){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+  if(botao) botao.classList.add("active");
+
+  atualizarTudo();
+}
+
+function cadastrarCliente(){
+
+  const nome = document.getElementById("clienteNome").value.trim();
+
+  if(!nome){
+    alert("Digite o nome do cliente.");
+    return;
+  }
+
+  clientes.push({
+    id:Date.now(),
+    nome:nome,
+    telefone:document.getElementById("clienteTelefone").value.trim(),
+    endereco:document.getElementById("clienteEndereco").value.trim(),
+    criado:new Date().toLocaleDateString("pt-BR")
+  });
+
+  document.getElementById("clienteNome").value="";
+  document.getElementById("clienteTelefone").value="";
+  document.getElementById("clienteEndereco").value="";
+
+  salvar();
+  atualizarTudo();
+
+  alert("Cliente cadastrado!");
+}
+
+function excluirCliente(id){
+
+  const cliente = clientes.find(c=>c.id===id);
+
+  if(!cliente)return;
+
+  const temVenda = vendas.some(v=>v.clienteId===id);
+
+  if(temVenda){
+    alert("Este cliente possui vendas registradas e não pode ser excluído.");
+    return;
+  }
+
+  if(confirm("Excluir este cliente?")){
+    clientes = clientes.filter(c=>c.id!==id);
+    salvar();
+    atualizarTudo();
+  }
+}
+
+function cadastrarProduto(){
+
+  const nome=document.getElementById("produtoNome").value.trim();
+  const preco=Number(document.getElementById("produtoPreco").value);
+  const estoque=Number(document.getElementById("produtoEstoque").value);
+  const minimo=Number(document.getElementById("produtoMinimo").value);
+
+  if(!nome || preco<=0){
+    alert("Informe nome e preço do produto.");
+    return;
+  }
+
+  produtos.push({
+    nome,
+    preco,
+    estoque:estoque||0,
+    minimo:minimo||0
+  });
+
+  document.getElementById("produtoNome").value="";
+  document.getElementById("produtoPreco").value="";
+  document.getElementById("produtoEstoque").value="";
+  document.getElementById("produtoMinimo").value="3";
+
+  salvar();
+  atualizarTudo();
+
+  alert("Produto cadastrado!");
+}
+
+function alterarEstoque(index,valor){
+
+  produtos[index].estoque=Math.max(
+    0,
+    Number(produtos[index].estoque)+Number(valor)
+  );
+
+  salvar();
+  atualizarTudo();
+}
+
+function excluirProduto(index){
+
+  if(confirm("Excluir este produto?")){
+    produtos.splice(index,1);
+    salvar();
+    atualizarTudo();
+  }
+}
+
+function registrarVenda(){
+
+  const clienteId=Number(document.getElementById("vendaCliente").value);
+  const produtoIndex=Number(document.getElementById("vendaProduto").value);
+  const quantidade=Number(document.getElementById("vendaQuantidade").value);
+  const pagamento=document.getElementById("vendaPagamento").value;
+
+  if(!clienteId){
+    alert("Selecione um cliente.");
+    return;
+  }
+
+  if(isNaN(produtoIndex) || !produtos[produtoIndex]){
+    alert("Selecione um produto.");
+    return;
+  }
+
+  if(quantidade<=0){
+    alert("Quantidade inválida.");
+    return;
+  }
+
+  const produto=produtos[produtoIndex];
+
+  if(produto.estoque<quantidade){
+    alert("Estoque insuficiente. Estoque disponível: "+produto.estoque);
+    return;
+  }
+
+  const cliente=clientes.find(c=>c.id===clienteId);
+
+  if(!cliente)return;
+
+  const total=produto.preco*quantidade;
+
+  vendas.push({
+    id:Date.now(),
+    data:new Date().toLocaleString("pt-BR"),
+    dataISO:new Date().toISOString(),
+    clienteId:clienteId,
+    clienteNome:cliente.nome,
+    produto:produto.nome,
+    quantidade:quantidade,
+    preco:produto.preco,
+    total:total,
+    pagamento:pagamento
+  });
+
+  produto.estoque-=quantidade;
+
+  document.getElementById("vendaQuantidade").value=1;
+
+  salvar();
+  atualizarTudo();
+
+  alert("Venda registrada: "+moeda(total));
+}
+
+function pagarVenda(id){
+
+  const venda=vendas.find(v=>v.id===id);
+
+  if(!venda)return;
+
+  if(confirm("Registrar pagamento de "+moeda(venda.total)+"?")){
+    venda.pagamento="pago";
+    venda.pagamentoData=new Date().toLocaleString("pt-BR");
+
+    salvar();
+    atualizarTudo();
+  }
+}
+
+function excluirVenda(id){
+
+  const venda=vendas.find(v=>v.id===id);
+
+  if(!venda)return;
+
+  if(confirm("Excluir esta venda? O produto voltará ao estoque.")){
+
+    const produto=produtos.find(p=>p.nome===venda.produto);
+
+    if(produto){
+      produto.estoque+=Number(venda.quantidade);
+    }
+
+    vendas=vendas.filter(v=>v.id!==id);
+
+    salvar();
+    atualizarTudo();
+  }
+}
+
+function totalCliente(clienteId){
+
+  return vendas
+    .filter(v=>v.clienteId===clienteId && v.pagamento!=="pago")
+    .reduce((s,v)=>s+Number(v.total),0);
+}
+
+function totalVendidoCliente(clienteId){
+
+  return vendas
+    .filter(v=>v.clienteId===clienteId)
+    .reduce((s,v)=>s+Number(v.total),0);
+}
+
+function totalPagoCliente(clienteId){
+
+  return vendas
+    .filter(v=>v.clienteId===clienteId && v.pagamento==="pago")
+    .reduce((s,v)=>s+Number(v.total),0);
+}
+
+function atualizarSelects(){
+
+  const clienteOptions =
+    '<option value="">Selecione...</option>'+
+    clientes.map(c=>
+      `<option value="${c.id}">${escapeHTML(c.nome)}</option>`
+    ).join("");
+
+  document.getElementById("vendaCliente").innerHTML=clienteOptions;
+  document.getElementById("contaCliente").innerHTML=clienteOptions;
+  document.getElementById("relatorioCliente").innerHTML=clienteOptions;
+
+  document.getElementById("vendaProduto").innerHTML=
+    '<option value="">Selecione...</option>'+
+    produtos.map((p,i)=>
+      `<option value="${i}">
+        ${escapeHTML(p.nome)} - ${moeda(p.preco)} - estoque: ${p.estoque}
+      </option>`
+    ).join("");
+}
+
+function atualizarClientes(){
+
+  const el=document.getElementById("listaClientes");
+
+  if(clientes.length===0){
+    el.innerHTML='<div class="empty">Nenhum cliente cadastrado.</div>';
+    return;
+  }
+
+  el.innerHTML=clientes.map(c=>{
+
+    const total=totalVendidoCliente(c.id);
+    const receber=totalCliente(c.id);
+
+    return `
+      <div class="card" style="margin:8px 0;border:1px solid #ddd">
+        <strong>${escapeHTML(c.nome)}</strong>
+        <p>📞 ${escapeHTML(c.telefone || "Não informado")}</p>
+        <p>📍 ${escapeHTML(c.endereco || "Não informado")}</p>
+
+        <p>
+          Total comprado:
+          <strong>${moeda(total)}</strong>
+        </p>
+
+        <p>
+          Em aberto:
+          <strong>${moeda(receber)}</strong>
+        </p>
+
+        <button class="btn red" onclick="excluirCliente(${c.id})">
+          Excluir
+        </button>
+      </div>
+    `;
+  }).join("");
+}
+
+function atualizarEstoque(){
+
+  const el=document.getElementById("listaEstoque");
+
+  if(produtos.length===0){
+    el.innerHTML='<div class="empty">Nenhum produto cadastrado.</div>';
+    return;
+  }
+
+  el.innerHTML=`
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Preço</th>
+        <th>Estoque</th>
+        <th>Mínimo</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${produtos.map((p,i)=>`
+        <tr>
+          <td>${escapeHTML(p.nome)}</td>
+          <td>${moeda(p.preco)}</td>
+          <td>
+            <strong>${p.estoque}</strong>
+            ${p.estoque<=p.minimo
+              ? '<span class="badge devedor">BAIXO</span>'
+              : ''}
+          </td>
+          <td>${p.minimo}</td>
+          <td>
+            <button class="btn green" onclick="alterarEstoque(${i},1)">+1</button>
+            <button class="btn yellow" onclick="alterarEstoque(${i},-1)">-1</button>
+            <button class="btn red" onclick="excluirProduto(${i})">Excluir</button>
+          </td>
+        </tr>
+      `).join("")}
+    </tbody>
+  </table>
+  </div>`;
+}
+
+function atualizarVendas(){
+
+  const el=document.getElementById("listaVendas");
+
+  if(vendas.length===0){
+    el.innerHTML='<div class="empty">Nenhuma venda registrada.</div>';
+    return;
+  }
+
+  const lista=[...vendas].reverse();
+
+  el.innerHTML=`
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Cliente</th>
+        <th>Produto</th>
+        <th>Qtd.</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${lista.map(v=>`
+        <tr>
+          <td>${escapeHTML(v.data)}</td>
+          <td>${escapeHTML(v.clienteNome)}</td>
+          <td>${escapeHTML(v.produto)}</td>
+          <td>${v.quantidade}</td>
+          <td><strong>${moeda(v.total)}</strong></td>
+          <td>
+            ${v.pagamento==="pago"
+              ? '<span class="badge pago">PAGO</span>'
+              : '<span class="badge devedor">PENDENTE</span>'}
+          </td>
+          <td>
+            ${v.pagamento!=="pago"
+              ? `<button class="btn green" onclick="pagarVenda(${v.id})">Pagar</button>`
+              : ''}
+            <button class="btn red" onclick="excluirVenda(${v.id})">Excluir</button>
+          </td>
+        </tr>
+      `).join("")}
+    </tbody>
+  </table>
+  </div>`;
+}
+
+function mostrarContaCliente(){
+
+  const id=Number(document.getElementById("contaCliente").value);
+  const el=document.getElementById("contaDetalhes");
+
+  if(!id){
+    el.innerHTML="";
+    return;
+  }
+
+  const cliente=clientes.find(c=>c.id===id);
+
+  if(!cliente)return;
+
+  const lista=vendas.filter(v=>v.clienteId===id);
+  const aberto=totalCliente(id);
+  const comprado=totalVendidoCliente(id);
+  const pago=totalPagoCliente(id);
+
+  el.innerHTML=`
+
+    <div class="total-box">
+      <div>Cliente: <strong>${escapeHTML(cliente.nome)}</strong></div>
+      <br>
+      Total comprado: <strong>${moeda(comprado)}</strong><br>
+      Total pago: <strong>${moeda(pago)}</strong><br>
+      <hr>
+      SALDO EM ABERTO:
+      <strong>${moeda(aberto)}</strong>
+    </div>
+
+    <h3>Histórico da conta</h3>
+
+    ${
+      lista.length===0
+      ? '<div class="empty">Nenhuma compra registrada.</div>'
+      :
+      `<div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Produto</th>
+            <th>Qtd.</th>
+            <th>Valor</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${lista.map(v=>`
+            <tr>
+              <td>${escapeHTML(v.data)}</td>
+              <td>${escapeHTML(v.produto)}</td>
+              <td>${v.quantidade}</td>
+              <td>${moeda(v.total)}</td>
+              <td>
+                ${v.pagamento==="pago"
+                  ? '<span class="badge pago">PAGO</span>'
+                  : '<span class="badge devedor">EM ABERTO</span>'}
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+      </div>`
+    }
+  `;
+}
+
+function gerarRelatorioCliente(){
+
+  const id=Number(document.getElementById("relatorioCliente").value);
+  const el=document.getElementById("relatorioClienteResultado");
+
+  if(!id){
+    el.innerHTML="";
+    return;
+  }
+
+  const cliente=clientes.find(c=>c.id===id);
+  const lista=vendas.filter(v=>v.clienteId===id);
+
+  const total=lista.reduce((s,v)=>s+Number(v.total),0);
+  const pago=lista
+    .filter(v=>v.pagamento==="pago")
+    .reduce((s,v)=>s+Number(v.total),0);
+  const aberto=total-pago;
+
+  el.innerHTML=`
+    <div class="total-box">
+      <h3>${escapeHTML(cliente.nome)}</h3>
+      <p>Total de compras: <strong>${moeda(total)}</strong></p>
+      <p>Total pago: <strong>${moeda(pago)}</strong></p>
+      <p>VALOR EM ABERTO: <strong>${moeda(aberto)}</strong></p>
+    </div>
+
+    ${
+      lista.length===0
+      ? '<div class="empty">Nenhuma venda para este cliente.</div>'
+      :
+      `<div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor</th>
+            <th>Pagamento</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${lista.map(v=>`
+            <tr>
+              <td>${escapeHTML(v.data)}</td>
+              <td>${escapeHTML(v.produto)}</td>
+              <td>${v.quantidade}</td>
+              <td>${moeda(v.total)}</td>
+              <td>${v.pagamento==="pago"?"Pago":"Pendente"}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+      </div>`
+    }
+  `;
+}
+
+function atualizarRelatorios(){
+
+  const total=vendas.reduce((s,v)=>s+Number(v.total),0);
+  const pago=vendas
+    .filter(v=>v.pagamento==="pago")
+    .reduce((s,v)=>s+Number(v.total),0);
+  const aberto=total-pago;
+
+  document.getElementById("relatorioGeral").innerHTML=`
+    <div class="grid">
+      <div class="stat">
+        Total de vendas
+        <strong>${vendas.length}</strong>
+      </div>
+      <div class="stat">
+        Valor vendido
+        <strong>${moeda(total)}</strong>
+      </div>
+      <div class="stat">
+        Valor recebido
+        <strong>${moeda(pago)}</strong>
+      </div>
+      <div class="stat">
+        A receber
+        <strong>${moeda(aberto)}</strong>
+      </div>
+    </div>
+  `;
+
+  const el=document.getElementById("relatorioTodosClientes");
+
+  if(clientes.length===0){
+    el.innerHTML='<div class="empty">Nenhum cliente cadastrado.</div>';
+    return;
+  }
+
+  el.innerHTML=`
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Total comprado</th>
+        <th>Total pago</th>
+        <th>Saldo em aberto</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${clientes.map(c=>{
+
+        const totalClienteGeral=totalVendidoCliente(c.id);
+        const pagoCliente=totalPagoCliente(c.id);
+        const saldo=totalCliente(c.id);
+
+        return `
+          <tr>
+            <td><strong>${escapeHTML(c.nome)}</strong></td>
+            <td>${moeda(totalClienteGeral)}</td>
+            <td>${moeda(pagoCliente)}</td>
+            <td><strong>${moeda(saldo)}</strong></td>
+            <td>
+              ${
+                saldo>0
+                ? '<span class="badge devedor">DEVENDO</span>'
+                : '<span class="badge pago">QUITADO</span>'
+              }
+            </td>
+          </tr>
+        `;
+      }).join("")}
+    </tbody>
+  </table>
+  </div>`;
+}
+
+function atualizarInicio(){
+
+  const total=vendas.reduce((s,v)=>s+Number(v.total),0);
+  const receber=vendas
+    .filter(v=>v.pagamento!=="pago")
+    .reduce((s,v)=>s+Number(v.total),0);
+
+  document.getElementById("totalClientes").textContent=clientes.length;
+  document.getElementById("totalVendas").textContent=vendas.length;
+  document.getElementById("totalVendido").textContent=moeda(total);
+  document.getElementById("totalReceber").textContent=moeda(receber);
+
+  const baixos=produtos.filter(p=>Number(p.estoque)<=Number(p.minimo));
+  const el=document.getElementById("alertasEstoque");
+
+  if(baixos.length===0){
+    el.innerHTML='<p>✅ Nenhum produto com estoque baixo.</p>';
+  }else{
+    el.innerHTML=baixos.map(p=>`
+      <div class="alert">
+        ⚠️ <strong>${escapeHTML(p.nome)}</strong>:
+        restam ${p.estoque} unidade(s).
+      </div>
+    `).join("");
+  }
+}
+
+function atualizarTudo(){
+
+  atualizarSelects();
+  atualizarClientes();
+  atualizarEstoque();
+  atualizarVendas();
+  atualizarInicio();
+  atualizarRelatorios();
+
+  const conta=document.getElementById("contaCliente").value;
+  if(conta) mostrarContaCliente();
+
+  const rel=document.getElementById("relatorioCliente").value;
+  if(rel) gerarRelatorioCliente();
+}
+
+atualizarTudo();
+
+</script>
+
+</body>
+</html>
