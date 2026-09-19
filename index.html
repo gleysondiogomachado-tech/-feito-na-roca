@@ -1,23 +1,422 @@
-<script>
-/* =========================================================
-   CORREÇÃO: QUANTIDADE INDEPENDENTE POR PRODUTO
-   ========================================================= */
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feito na Roça</title>
 
-function criarIdUnicoProduto(produto, indice) {
-  return "produto_" + indice;
+<style>
+*{
+  box-sizing:border-box;
 }
 
-function renderProdutos() {
-  const el = document.getElementById("listaProdutos");
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f1e8;
+  color:#333;
+}
 
-  if (!el) return;
+header{
+  background:#315c35;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
 
-  el.innerHTML = produtos.map((p, indice) => {
+header h1{
+  margin:0;
+  font-size:28px;
+}
 
-    const chave = criarIdUnicoProduto(p, indice);
-    const quantidade = Number(carrinho[chave] || 0);
+header p{
+  margin:6px 0 0;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+h2{
+  margin-top:0;
+  color:#315c35;
+}
+
+.product{
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:12px;
+}
+
+.product h3{
+  margin:0 0 8px;
+}
+
+.price{
+  font-size:20px;
+  font-weight:bold;
+  color:#315c35;
+  margin-bottom:8px;
+}
+
+.estoque{
+  font-size:14px;
+  color:#666;
+  margin-bottom:12px;
+}
+
+.quantidade{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  margin-top:10px;
+}
+
+.btn-qtd{
+  width:45px;
+  height:45px;
+  border:none;
+  border-radius:50%;
+  background:#315c35;
+  color:white;
+  font-size:28px;
+  cursor:pointer;
+}
+
+.btn-qtd:active{
+  transform:scale(.95);
+}
+
+.qtd-valor{
+  min-width:35px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  margin:6px 0 12px;
+  font-size:16px;
+}
+
+button{
+  cursor:pointer;
+}
+
+.btn{
+  width:100%;
+  border:none;
+  border-radius:9px;
+  padding:13px;
+  background:#315c35;
+  color:white;
+  font-size:16px;
+  margin-top:6px;
+}
+
+.btn-sec{
+  background:#777;
+}
+
+.btn-danger{
+  background:#a83232;
+}
+
+.resumo{
+  background:#eef5ed;
+  border-radius:10px;
+  padding:15px;
+  margin-top:15px;
+}
+
+.resumo-linha{
+  display:flex;
+  justify-content:space-between;
+  padding:5px 0;
+}
+
+.total{
+  font-size:22px;
+  font-weight:bold;
+  color:#315c35;
+  border-top:1px solid #ccc;
+  margin-top:8px;
+  padding-top:10px;
+}
+
+.lista-item{
+  border-bottom:1px solid #ddd;
+  padding:10px 0;
+}
+
+.alerta{
+  background:#fff3cd;
+  color:#664d03;
+  padding:12px;
+  border-radius:9px;
+  margin-bottom:12px;
+}
+
+.sucesso{
+  background:#d1e7dd;
+  color:#0f5132;
+  padding:12px;
+  border-radius:9px;
+  margin-bottom:12px;
+}
+
+.vazio{
+  text-align:center;
+  color:#777;
+  padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌾 Feito na Roça</h1>
+  <p>Do campo para sua mesa</p>
+</header>
+
+<div class="container">
+
+  <!-- PRODUTOS -->
+  <div class="card">
+    <h2>🛒 Produtos</h2>
+
+    <div id="listaProdutos"></div>
+
+    <div id="resumo" class="resumo"></div>
+  </div>
+
+
+  <!-- CLIENTE -->
+  <div class="card">
+    <h2>👤 Dados do cliente</h2>
+
+    <label>Nome do cliente</label>
+    <input
+      type="text"
+      id="nomeCliente"
+      placeholder="Digite o nome"
+    >
+
+    <label>Telefone</label>
+    <input
+      type="tel"
+      id="telefoneCliente"
+      placeholder="Digite o telefone"
+    >
+
+    <label>Forma de pagamento</label>
+    <select id="pagamento">
+      <option value="Dinheiro">Dinheiro</option>
+      <option value="Pix">Pix</option>
+      <option value="Cartão">Cartão</option>
+      <option value="Fiado">Fiado</option>
+    </select>
+
+    <button class="btn" onclick="finalizarPedido()">
+      Finalizar pedido
+    </button>
+
+    <button class="btn btn-sec" onclick="limparCarrinho()">
+      Limpar pedido
+    </button>
+
+    <div id="mensagem"></div>
+  </div>
+
+
+  <!-- CLIENTES -->
+  <div class="card">
+    <h2>👥 Clientes e contas</h2>
+
+    <div id="listaClientes"></div>
+  </div>
+
+
+  <!-- ESTOQUE -->
+  <div class="card">
+    <h2>📦 Estoque</h2>
+
+    <div id="listaEstoque"></div>
+  </div>
+
+
+  <!-- RELATÓRIO -->
+  <div class="card">
+    <h2>📊 Relatório de vendas</h2>
+
+    <div id="relatorio"></div>
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   PRODUTOS
+   ========================================================= */
+
+const produtos = [
+  {
+    id:1,
+    nome:"Queijo fresco",
+    preco:40,
+    estoque:10
+  },
+  {
+    id:2,
+    nome:"Queijo curado",
+    preco:45,
+    estoque:10
+  },
+  {
+    id:3,
+    nome:"Requeijão duro",
+    preco:55,
+    estoque:10
+  },
+  {
+    id:4,
+    nome:"Pão de queijo pequeno - 1 kg",
+    preco:28,
+    estoque:10
+  },
+  {
+    id:5,
+    nome:"Pão de queijo grande - 1 kg",
+    preco:27,
+    estoque:10
+  },
+  {
+    id:6,
+    nome:"Rosca caseira",
+    preco:12,
+    estoque:10
+  },
+  {
+    id:7,
+    nome:"Doce de leite caseiro - 200 g",
+    preco:12,
+    estoque:10
+  },
+  {
+    id:8,
+    nome:"Doce de leite - 500 g",
+    preco:30,
+    estoque:10
+  },
+  {
+    id:9,
+    nome:"Mussarela",
+    preco:50,
+    estoque:10
+  },
+  {
+    id:10,
+    nome:"Broinha - 300 g",
+    preco:5.60,
+    estoque:10
+  }
+];
+
+
+/* =========================================================
+   DADOS
+   ========================================================= */
+
+let carrinho =
+  JSON.parse(localStorage.getItem("feitoNaRocaCarrinho")) || {};
+
+let clientes =
+  JSON.parse(localStorage.getItem("feitoNaRocaClientes")) || {};
+
+let pedidos =
+  JSON.parse(localStorage.getItem("feitoNaRocaPedidos")) || {};
+
+
+/* =========================================================
+   FORMATAÇÃO
+   ========================================================= */
+
+function moeda(valor){
+
+  return Number(valor || 0).toLocaleString(
+    "pt-BR",
+    {
+      style:"currency",
+      currency:"BRL"
+    }
+  );
+
+}
+
+
+function esc(texto){
+
+  return String(texto)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   ID INDEPENDENTE
+   ========================================================= */
+
+function criarIdUnicoProduto(produto, indice){
+
+  return "produto_" + produto.id;
+
+}
+
+
+/* =========================================================
+   PRODUTOS
+   ========================================================= */
+
+function renderProdutos(){
+
+  const el =
+    document.getElementById("listaProdutos");
+
+  if(!el) return;
+
+  el.innerHTML = produtos.map((p,indice)=>{
+
+    const chave =
+      criarIdUnicoProduto(p,indice);
+
+    const quantidade =
+      Number(carrinho[chave] || 0);
 
     return `
+
       <div class="product">
 
         <h3>${esc(p.nome)}</h3>
@@ -26,8 +425,9 @@ function renderProdutos() {
           ${moeda(p.preco)}
         </div>
 
-        <div>
-          Estoque disponível: ${p.estoque}
+        <div class="estoque">
+          Estoque disponível:
+          ${Number(p.estoque || 0)}
         </div>
 
         <div class="quantidade">
@@ -35,17 +435,19 @@ function renderProdutos() {
           <button
             type="button"
             class="btn-qtd"
-            data-produto="${indice}"
+            data-indice="${indice}"
             data-delta="-1">
             −
           </button>
 
-          <span>${quantidade}</span>
+          <span class="qtd-valor">
+            ${quantidade}
+          </span>
 
           <button
             type="button"
             class="btn-qtd"
-            data-produto="${indice}"
+            data-indice="${indice}"
             data-delta="1">
             +
           </button>
@@ -53,48 +455,74 @@ function renderProdutos() {
         </div>
 
       </div>
+
     `;
 
   }).join("");
 
-  el.querySelectorAll(".btn-qtd").forEach(botao => {
 
-    botao.addEventListener("click", function() {
+  el.querySelectorAll(".btn-qtd")
+    .forEach(botao=>{
 
-      const indice = Number(this.dataset.produto);
-      const delta = Number(this.dataset.delta);
+      botao.addEventListener(
+        "click",
+        function(){
 
-      alterarQtd(indice, delta);
+          const indice =
+            Number(this.dataset.indice);
+
+          const delta =
+            Number(this.dataset.delta);
+
+          alterarQtd(indice,delta);
+
+        }
+      );
 
     });
 
-  });
 
   atualizarResumo();
+
 }
 
 
-function alterarQtd(indice, delta) {
+/* =========================================================
+   ALTERAR QUANTIDADE
+   ========================================================= */
+
+function alterarQtd(indice,delta){
 
   indice = Number(indice);
+  delta = Number(delta);
 
-  const produto = produtos[indice];
+  const produto =
+    produtos[indice];
 
-  if (!produto) return;
+  if(!produto) return;
 
-  const chave = criarIdUnicoProduto(produto, indice);
+  const chave =
+    criarIdUnicoProduto(produto,indice);
 
-  const atual = Number(carrinho[chave] || 0);
+  const atual =
+    Number(carrinho[chave] || 0);
 
-  let novaQuantidade = atual + delta;
+  let novaQuantidade =
+    atual + delta;
 
-  if (novaQuantidade < 0) {
+
+  if(novaQuantidade < 0){
+
     novaQuantidade = 0;
+
   }
 
-  const estoque = Number(produto.estoque || 0);
 
-  if (novaQuantidade > estoque) {
+  const estoque =
+    Number(produto.estoque || 0);
+
+
+  if(novaQuantidade > estoque){
 
     alert(
       "Você só tem " +
@@ -105,10 +533,680 @@ function alterarQtd(indice, delta) {
     );
 
     novaQuantidade = estoque;
+
   }
 
-  carrinho[chave] = novaQuantidade;
+
+  if(novaQuantidade === 0){
+
+    delete carrinho[chave];
+
+  }else{
+
+    carrinho[chave] =
+      novaQuantidade;
+
+  }
+
+
+  salvarCarrinho();
 
   renderProdutos();
+
 }
+
+
+/* =========================================================
+   SALVAR CARRINHO
+   ========================================================= */
+
+function salvarCarrinho(){
+
+  localStorage.setItem(
+    "feitoNaRocaCarrinho",
+    JSON.stringify(carrinho)
+  );
+
+}
+
+
+/* =========================================================
+   RESUMO
+   ========================================================= */
+
+function atualizarResumo(){
+
+  const resumo =
+    document.getElementById("resumo");
+
+  if(!resumo) return;
+
+
+  let totalItens = 0;
+  let total = 0;
+  let linhas = "";
+
+
+  produtos.forEach((p,indice)=>{
+
+    const chave =
+      criarIdUnicoProduto(p,indice);
+
+    const quantidade =
+      Number(carrinho[chave] || 0);
+
+
+    if(quantidade > 0){
+
+      const subtotal =
+        quantidade * Number(p.preco);
+
+      totalItens += quantidade;
+
+      total += subtotal;
+
+
+      linhas += `
+
+        <div class="resumo-linha">
+
+          <span>
+            ${quantidade}x ${esc(p.nome)}
+          </span>
+
+          <strong>
+            ${moeda(subtotal)}
+          </strong>
+
+        </div>
+
+      `;
+
+    }
+
+  });
+
+
+  if(totalItens === 0){
+
+    resumo.innerHTML = `
+      <div class="vazio">
+        Nenhum produto selecionado.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  resumo.innerHTML = `
+
+    ${linhas}
+
+    <div class="resumo-linha">
+      <strong>Total de itens</strong>
+      <strong>${totalItens}</strong>
+    </div>
+
+    <div class="resumo-linha total">
+      <span>Total</span>
+      <span>${moeda(total)}</span>
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   LIMPAR CARRINHO
+   ========================================================= */
+
+function limparCarrinho(){
+
+  carrinho = {};
+
+  salvarCarrinho();
+
+  renderProdutos();
+
+}
+
+
+/* =========================================================
+   FINALIZAR PEDIDO
+   ========================================================= */
+
+function finalizarPedido(){
+
+  const nome =
+    document.getElementById("nomeCliente")
+      .value.trim();
+
+  const telefone =
+    document.getElementById("telefoneCliente")
+      .value.trim();
+
+  const pagamento =
+    document.getElementById("pagamento")
+      .value;
+
+
+  if(!nome){
+
+    alert("Digite o nome do cliente.");
+
+    return;
+
+  }
+
+
+  let itens = [];
+  let total = 0;
+
+
+  produtos.forEach((p,indice)=>{
+
+    const chave =
+      criarIdUnicoProduto(p,indice);
+
+    const quantidade =
+      Number(carrinho[chave] || 0);
+
+
+    if(quantidade > 0){
+
+      const subtotal =
+        quantidade * Number(p.preco);
+
+      itens.push({
+
+        produto:p.nome,
+        quantidade:quantidade,
+        preco:Number(p.preco),
+        subtotal:subtotal
+
+      });
+
+      total += subtotal;
+
+    }
+
+  });
+
+
+  if(itens.length === 0){
+
+    alert("Selecione pelo menos um produto.");
+
+    return;
+
+  }
+
+
+  const id =
+    Date.now();
+
+
+  const pedido = {
+
+    id:id,
+    cliente:nome,
+    telefone:telefone,
+    pagamento:pagamento,
+    itens:itens,
+    total:total,
+    data:new Date().toLocaleString("pt-BR")
+
+  };
+
+
+  if(!pedidos[nome]){
+
+    pedidos[nome] = [];
+
+  }
+
+
+  pedidos[nome].push(pedido);
+
+
+  if(!clientes[nome]){
+
+    clientes[nome] = {
+
+      nome:nome,
+      telefone:telefone,
+      totalComprado:0,
+      totalPago:0,
+      saldo:0
+
+    };
+
+  }
+
+
+  clientes[nome].telefone =
+    telefone || clientes[nome].telefone;
+
+
+  clientes[nome].totalComprado +=
+    total;
+
+
+  if(pagamento !== "Fiado"){
+
+    clientes[nome].totalPago +=
+      total;
+
+  }
+
+
+  clientes[nome].saldo =
+    clientes[nome].totalComprado -
+    clientes[nome].totalPago;
+
+
+  salvarDados();
+
+
+  const mensagem =
+    document.getElementById("mensagem");
+
+
+  mensagem.innerHTML = `
+
+    <div class="sucesso">
+
+      Pedido registrado com sucesso!<br>
+
+      Cliente:
+      <strong>${esc(nome)}</strong><br>
+
+      Total:
+      <strong>${moeda(total)}</strong>
+
+    </div>
+
+  `;
+
+
+  carrinho = {};
+
+  salvarCarrinho();
+
+  document.getElementById("nomeCliente").value = "";
+
+  document.getElementById("telefoneCliente").value = "";
+
+  renderProdutos();
+
+  renderClientes();
+
+  renderRelatorio();
+
+}
+
+
+/* =========================================================
+   SALVAR DADOS
+   ========================================================= */
+
+function salvarDados(){
+
+  localStorage.setItem(
+    "feitoNaRocaClientes",
+    JSON.stringify(clientes)
+  );
+
+  localStorage.setItem(
+    "feitoNaRocaPedidos",
+    JSON.stringify(pedidos)
+  );
+
+}
+
+
+/* =========================================================
+   CLIENTES
+   ========================================================= */
+
+function renderClientes(){
+
+  const el =
+    document.getElementById("listaClientes");
+
+  if(!el) return;
+
+
+  const nomes =
+    Object.keys(clientes);
+
+
+  if(nomes.length === 0){
+
+    el.innerHTML = `
+      <div class="vazio">
+        Nenhum cliente cadastrado.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  el.innerHTML =
+    nomes.map(nome=>{
+
+      const c =
+        clientes[nome];
+
+
+      return `
+
+        <div class="lista-item">
+
+          <strong>
+            ${esc(c.nome)}
+          </strong>
+
+          <br>
+
+          Telefone:
+          ${esc(c.telefone || "Não informado")}
+
+          <br>
+
+          Compras:
+          <strong>
+            ${moeda(c.totalComprado)}
+          </strong>
+
+          <br>
+
+          Pago:
+          <strong>
+            ${moeda(c.totalPago)}
+          </strong>
+
+          <br>
+
+          Saldo:
+          <strong>
+            ${moeda(c.saldo)}
+          </strong>
+
+          <button
+            class="btn"
+            onclick="registrarPagamento('${encodeURIComponent(nome)}')">
+            Registrar pagamento
+          </button>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================================
+   REGISTRAR PAGAMENTO
+   ========================================================= */
+
+function registrarPagamento(nomeCodificado){
+
+  const nome =
+    decodeURIComponent(nomeCodificado);
+
+  const cliente =
+    clientes[nome];
+
+  if(!cliente) return;
+
+
+  const valorTexto =
+    prompt(
+      "Digite o valor pago por " +
+      nome +
+      ":"
+    );
+
+
+  if(valorTexto === null) return;
+
+
+  const valor =
+    Number(
+      valorTexto
+        .replace(".","")
+        .replace(",",".")
+    );
+
+
+  if(!valor || valor <= 0){
+
+    alert("Digite um valor válido.");
+
+    return;
+
+  }
+
+
+  cliente.totalPago += valor;
+
+  cliente.saldo =
+    cliente.totalComprado -
+    cliente.totalPago;
+
+
+  if(cliente.saldo < 0){
+
+    cliente.saldo = 0;
+
+  }
+
+
+  salvarDados();
+
+  renderClientes();
+
+  renderRelatorio();
+
+}
+
+
+/* =========================================================
+   ESTOQUE
+   ========================================================= */
+
+function renderEstoque(){
+
+  const el =
+    document.getElementById("listaEstoque");
+
+  if(!el) return;
+
+
+  el.innerHTML =
+    produtos.map(p=>{
+
+      const estoque =
+        Number(p.estoque || 0);
+
+
+      let aviso = "";
+
+
+      if(estoque <= 2){
+
+        aviso = `
+          <div class="alerta">
+            ⚠️ Estoque acabando!
+          </div>
+        `;
+
+      }
+
+
+      return `
+
+        <div class="lista-item">
+
+          <strong>
+            ${esc(p.nome)}
+          </strong>
+
+          <br>
+
+          Quantidade:
+          <strong>${estoque}</strong>
+
+          ${aviso}
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================================
+   RELATÓRIO
+   ========================================================= */
+
+function renderRelatorio(){
+
+  const el =
+    document.getElementById("relatorio");
+
+  if(!el) return;
+
+
+  let totalVendas = 0;
+  let totalPedidos = 0;
+  let totalFiado = 0;
+
+
+  Object.values(pedidos)
+    .forEach(lista=>{
+
+      lista.forEach(pedido=>{
+
+        totalVendas +=
+          Number(pedido.total || 0);
+
+        totalPedidos++;
+
+
+        if(pedido.pagamento === "Fiado"){
+
+          totalFiado +=
+            Number(pedido.total || 0);
+
+        }
+
+      });
+
+    });
+
+
+  let clientesHtml = "";
+
+
+  Object.values(clientes)
+    .forEach(c=>{
+
+      clientesHtml += `
+
+        <div class="lista-item">
+
+          <strong>
+            ${esc(c.nome)}
+          </strong>
+
+          <br>
+
+          Total comprado:
+          ${moeda(c.totalComprado)}
+
+          <br>
+
+          Total pago:
+          ${moeda(c.totalPago)}
+
+          <br>
+
+          Saldo:
+          <strong>
+            ${moeda(c.saldo)}
+          </strong>
+
+        </div>
+
+      `;
+
+    });
+
+
+  el.innerHTML = `
+
+    <div class="resumo">
+
+      <div class="resumo-linha">
+        <span>Total de pedidos</span>
+        <strong>${totalPedidos}</strong>
+      </div>
+
+      <div class="resumo-linha">
+        <span>Total vendido</span>
+        <strong>${moeda(totalVendas)}</strong>
+      </div>
+
+      <div class="resumo-linha">
+        <span>Total fiado</span>
+        <strong>${moeda(totalFiado)}</strong>
+      </div>
+
+    </div>
+
+    <h3>Contas dos clientes</h3>
+
+    ${
+      clientesHtml ||
+      '<div class="vazio">Nenhuma conta registrada.</div>'
+    }
+
+  `;
+
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
+
+function inicializar(){
+
+  renderProdutos();
+
+  renderClientes();
+
+  renderEstoque();
+
+  renderRelatorio();
+
+}
+
+
+inicializar();
+
 </script>
+
+</body>
+</html>
