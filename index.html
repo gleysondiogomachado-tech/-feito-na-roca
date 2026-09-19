@@ -2,13 +2,12 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#315c35">
 <title>Feito na Roça</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -20,98 +19,87 @@ body{
 header{
   background:#315c35;
   color:white;
-  padding:20px;
+  padding:18px 15px;
   text-align:center;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
 header h1{
   margin:0;
-  font-size:28px;
+  font-size:25px;
 }
 
 header p{
-  margin:6px 0 0;
+  margin:5px 0 0;
+  font-size:14px;
 }
 
-.container{
+nav{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding:10px;
+  background:#fff;
+  position:sticky;
+  top:76px;
+  z-index:9;
+  box-shadow:0 2px 7px #0002;
+}
+
+nav button{
+  border:0;
+  border-radius:10px;
+  padding:11px 13px;
+  background:#e8e1cf;
+  color:#315c35;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+nav button.active{
+  background:#315c35;
+  color:white;
+}
+
+main{
   max-width:900px;
   margin:auto;
   padding:15px;
 }
 
+section{
+  display:none;
+}
+
+section.active{
+  display:block;
+}
+
 .card{
   background:white;
-  border-radius:14px;
-  padding:18px;
+  border-radius:15px;
+  padding:15px;
   margin-bottom:15px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  box-shadow:0 2px 8px #0001;
 }
 
 h2{
-  margin-top:0;
   color:#315c35;
+  margin-top:5px;
 }
 
-.product{
-  border:1px solid #ddd;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:12px;
+h3{
+  margin:7px 0;
 }
 
-.product h3{
-  margin:0 0 8px;
-}
-
-.price{
-  font-size:20px;
-  font-weight:bold;
-  color:#315c35;
-  margin-bottom:8px;
-}
-
-.estoque{
-  font-size:14px;
-  color:#666;
-  margin-bottom:12px;
-}
-
-.quantidade{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
-  margin-top:10px;
-}
-
-.btn-qtd{
-  width:45px;
-  height:45px;
-  border:none;
-  border-radius:50%;
-  background:#315c35;
-  color:white;
-  font-size:28px;
-  cursor:pointer;
-}
-
-.btn-qtd:active{
-  transform:scale(.95);
-}
-
-.qtd-valor{
-  min-width:35px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-}
-
-input,select{
+input,select,textarea{
   width:100%;
   padding:12px;
+  margin:6px 0 10px;
   border:1px solid #ccc;
-  border-radius:8px;
-  margin:6px 0 12px;
+  border-radius:9px;
   font-size:16px;
 }
 
@@ -120,71 +108,165 @@ button{
 }
 
 .btn{
-  width:100%;
-  border:none;
-  border-radius:9px;
-  padding:13px;
+  border:0;
+  border-radius:10px;
+  padding:12px 15px;
+  font-weight:bold;
   background:#315c35;
   color:white;
-  font-size:16px;
-  margin-top:6px;
+  margin:3px;
 }
 
-.btn-sec{
+.btn.secondary{
   background:#777;
 }
 
-.btn-danger{
-  background:#a83232;
+.btn.danger{
+  background:#b83232;
 }
 
-.resumo{
-  background:#eef5ed;
-  border-radius:10px;
-  padding:15px;
-  margin-top:15px;
+.btn.gold{
+  background:#b88725;
 }
 
-.resumo-linha{
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+}
+
+.product{
+  background:white;
+  border-radius:15px;
+  padding:12px;
+  box-shadow:0 2px 8px #0001;
+  text-align:center;
+}
+
+.product img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:12px;
+  background:#eee;
+}
+
+.product h3{
+  color:#315c35;
+}
+
+.price{
+  font-size:19px;
+  font-weight:bold;
+  color:#9a6814;
+}
+
+.qty{
   display:flex;
-  justify-content:space-between;
-  padding:5px 0;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+
+.qty button{
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  background:#315c35;
+  color:white;
+  font-size:24px;
+  font-weight:bold;
+}
+
+.qty span{
+  min-width:35px;
+  font-size:20px;
+  font-weight:bold;
 }
 
 .total{
   font-size:22px;
   font-weight:bold;
   color:#315c35;
-  border-top:1px solid #ccc;
-  margin-top:8px;
-  padding-top:10px;
+  margin:15px 0;
 }
 
-.lista-item{
-  border-bottom:1px solid #ddd;
-  padding:10px 0;
-}
-
-.alerta{
-  background:#fff3cd;
-  color:#664d03;
+.list-item{
+  background:#fafafa;
+  border-left:5px solid #315c35;
+  border-radius:10px;
   padding:12px;
-  border-radius:9px;
-  margin-bottom:12px;
+  margin:8px 0;
 }
 
-.sucesso{
-  background:#d1e7dd;
-  color:#0f5132;
-  padding:12px;
-  border-radius:9px;
-  margin-bottom:12px;
+.small{
+  font-size:13px;
+  color:#666;
 }
 
-.vazio{
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:20px;
+  background:#e8e1cf;
+  color:#315c35;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.stock-low{
+  color:#b83232;
+  font-weight:bold;
+}
+
+.empty{
   text-align:center;
   color:#777;
-  padding:20px;
+  padding:25px;
+}
+
+.voice-box{
+  background:#eef5ed;
+  border:1px solid #bfd2bd;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+.voice-on{
+  background:#b83232!important;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+
+th,td{
+  padding:8px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
+}
+
+th{
+  background:#315c35;
+  color:white;
+}
+
+@media(max-width:600px){
+  header h1{font-size:22px}
+  .products{grid-template-columns:1fr 1fr}
+  .product img{height:120px}
+  .product h3{font-size:15px}
+  .price{font-size:16px}
+  .btn{padding:10px}
+}
+
+@media(max-width:420px){
+  .products{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -196,164 +278,392 @@ button{
   <p>Do campo para sua mesa</p>
 </header>
 
-<div class="container">
+<nav>
+  <button class="active" onclick="abrirAba('inicio',this)">🏠 Início</button>
+  <button onclick="abrirAba('pedidos',this)">🛒 Pedido</button>
+  <button onclick="abrirAba('clientes',this)">👥 Clientes</button>
+  <button onclick="abrirAba('semana',this)">📅 Semana</button>
+  <button onclick="abrirAba('relatorios',this)">📊 Relatórios</button>
+  <button onclick="abrirAba('estoque',this)">📦 Estoque</button>
+</nav>
 
-  <!-- PRODUTOS -->
+<main>
+
+<section id="inicio" class="active">
+
   <div class="card">
-    <h2>🛒 Produtos</h2>
+    <h2>🌾 Feito na Roça</h2>
+    <p>Produtos caseiros direto da roça.</p>
 
-    <div id="listaProdutos"></div>
-
-    <div id="resumo" class="resumo"></div>
+    <div class="voice-box">
+      <b>🎙️ Controle por voz</b>
+      <p class="small">
+        Ative o botão para usar o microfone quando disponível.
+      </p>
+      <button id="voiceBtn" class="btn" onclick="alternarVoz()">
+        🎙️ Ativar voz
+      </button>
+      <div id="voiceStatus" class="small">
+        Voz desativada
+      </div>
+    </div>
   </div>
 
-
-  <!-- CLIENTE -->
   <div class="card">
-    <h2>👤 Dados do cliente</h2>
+    <h2>🛒 Fazer pedido</h2>
+    <button class="btn" onclick="abrirAbaPorId('pedidos')">
+      Fazer novo pedido
+    </button>
+  </div>
 
-    <label>Nome do cliente</label>
-    <input
-      type="text"
-      id="nomeCliente"
-      placeholder="Digite o nome"
-    >
+  <div class="card">
+    <h2>📅 Pedidos da semana</h2>
+    <div id="resumoSemana"></div>
+  </div>
 
-    <label>Telefone</label>
-    <input
-      type="tel"
-      id="telefoneCliente"
-      placeholder="Digite o telefone"
-    >
+</section>
 
-    <label>Forma de pagamento</label>
-    <select id="pagamento">
-      <option value="Dinheiro">Dinheiro</option>
-      <option value="Pix">Pix</option>
-      <option value="Cartão">Cartão</option>
-      <option value="Fiado">Fiado</option>
+
+<section id="pedidos">
+
+  <div class="card">
+
+    <h2>🛒 Novo pedido</h2>
+
+    <label>Cliente</label>
+    <select id="clientePedido">
+      <option value="">Selecione um cliente</option>
     </select>
 
-    <button class="btn" onclick="finalizarPedido()">
-      Finalizar pedido
+    <button class="btn secondary" onclick="abrirCadastroCliente()">
+      + Cadastrar cliente
     </button>
 
-    <button class="btn btn-sec" onclick="limparCarrinho()">
-      Limpar pedido
-    </button>
-
-    <div id="mensagem"></div>
   </div>
 
-
-  <!-- CLIENTES -->
   <div class="card">
-    <h2>👥 Clientes e contas</h2>
+    <h2>🌾 Produtos</h2>
+    <div id="listaProdutos" class="products"></div>
+  </div>
 
+  <div class="card">
+
+    <h2>Resumo do pedido</h2>
+
+    <div id="resumoPedido"></div>
+
+    <div class="total">
+      Total: <span id="totalPedido">R$ 0,00</span>
+    </div>
+
+    <button class="btn" onclick="salvarPedido()">
+      ✅ Salvar pedido
+    </button>
+
+    <button class="btn gold" onclick="enviarWhatsApp()">
+      📲 Enviar WhatsApp
+    </button>
+
+    <button class="btn secondary" onclick="limparPedido()">
+      🗑️ Limpar
+    </button>
+
+  </div>
+
+</section>
+
+
+<section id="clientes">
+
+  <div class="card">
+
+    <h2>👥 Clientes</h2>
+
+    <input
+      id="nomeCliente"
+      placeholder="Nome do cliente"
+    >
+
+    <input
+      id="telefoneCliente"
+      placeholder="Telefone / WhatsApp"
+      inputmode="tel"
+    >
+
+    <input
+      id="enderecoCliente"
+      placeholder="Endereço"
+    >
+
+    <textarea
+      id="obsCliente"
+      placeholder="Observações"
+    ></textarea>
+
+    <button class="btn" onclick="salvarCliente()">
+      💾 Salvar cliente
+    </button>
+
+  </div>
+
+  <div class="card">
+    <h2>Clientes cadastrados</h2>
     <div id="listaClientes"></div>
   </div>
 
+</section>
 
-  <!-- ESTOQUE -->
+
+<section id="semana">
+
   <div class="card">
-    <h2>📦 Estoque</h2>
+    <h2>📅 Pedidos da semana</h2>
+    <div id="pedidosSemana"></div>
+  </div>
+
+</section>
+
+
+<section id="relatorios">
+
+  <div class="card">
+
+    <h2>📊 Relatório geral</h2>
+
+    <div id="relatorioGeral"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>👤 Conta por cliente</h2>
+
+    <select id="clienteRelatorio" onchange="mostrarContaCliente()">
+      <option value="">Selecione um cliente</option>
+    </select>
+
+    <div id="contaCliente"></div>
+
+  </div>
+
+</section>
+
+
+<section id="estoque">
+
+  <div class="card">
+
+    <h2>📦 Controle de estoque</h2>
 
     <div id="listaEstoque"></div>
+
   </div>
 
+</section>
 
-  <!-- RELATÓRIO -->
-  <div class="card">
-    <h2>📊 Relatório de vendas</h2>
-
-    <div id="relatorio"></div>
-  </div>
-
-</div>
+</main>
 
 
 <script>
+
+/* =========================================================
+   FEITO NA ROÇA
+   SISTEMA DE PEDIDOS
+   DADOS SALVOS NO LOCALSTORAGE
+   ========================================================= */
+
 
 /* =========================================================
    PRODUTOS
    ========================================================= */
 
 const produtos = [
+
   {
-    id:1,
+    id:"queijo-fresco",
     nome:"Queijo fresco",
     preco:40,
-    estoque:10
+    estoque:20,
+    imagem:""
   },
+
   {
-    id:2,
+    id:"queijo-curado",
     nome:"Queijo curado",
     preco:45,
-    estoque:10
+    estoque:20,
+    imagem:""
   },
+
   {
-    id:3,
+    id:"requeijao-duro",
     nome:"Requeijão duro",
     preco:55,
-    estoque:10
+    estoque:20,
+    imagem:""
   },
+
   {
-    id:4,
+    id:"pao-pequeno",
     nome:"Pão de queijo pequeno - 1 kg",
     preco:28,
-    estoque:10
+    estoque:20,
+    imagem:""
   },
+
   {
-    id:5,
+    id:"pao-grande",
     nome:"Pão de queijo grande - 1 kg",
     preco:27,
-    estoque:10
+    estoque:20,
+    imagem:""
   },
+
   {
-    id:6,
+    id:"rosca",
     nome:"Rosca caseira",
     preco:12,
-    estoque:10
+    estoque:20,
+    imagem:""
   },
+
   {
-    id:7,
-    nome:"Doce de leite caseiro - 200 g",
+    id:"doce-200",
+    nome:"Doce de leite caseiro - 200g",
     preco:12,
-    estoque:10
+    estoque:20,
+    imagem:""
   },
+
   {
-    id:8,
-    nome:"Doce de leite - 500 g",
+    id:"doce-500",
+    nome:"Doce de leite - 500g",
     preco:30,
-    estoque:10
+    estoque:20,
+    imagem:""
   },
+
   {
-    id:9,
+    id:"mussarela",
     nome:"Mussarela",
     preco:50,
-    estoque:10
-  },
-  {
-    id:10,
-    nome:"Broinha - 300 g",
-    preco:5.60,
-    estoque:10
+    estoque:20,
+    imagem:""
   }
+
 ];
 
 
 /* =========================================================
-   DADOS
+   CHAVES DE ARMAZENAMENTO
    ========================================================= */
 
-let carrinho =
-  JSON.parse(localStorage.getItem("feitoNaRocaCarrinho")) || {};
+const CHAVE_CLIENTES = "feitoNaRoca_clientes";
+const CHAVE_PEDIDOS = "feitoNaRoca_pedidos";
+const CHAVE_ESTOQUE = "feitoNaRoca_estoque";
 
-let clientes =
-  JSON.parse(localStorage.getItem("feitoNaRocaClientes")) || {};
 
-let pedidos =
-  JSON.parse(localStorage.getItem("feitoNaRocaPedidos")) || {};
+/* =========================================================
+   CARREGAMENTO
+   ========================================================= */
+
+function carregarDados(){
+
+  let clientesSalvos = localStorage.getItem(CHAVE_CLIENTES);
+  let pedidosSalvos = localStorage.getItem(CHAVE_PEDIDOS);
+  let estoqueSalvo = localStorage.getItem(CHAVE_ESTOQUE);
+
+  window.clientes = clientesSalvos
+    ? JSON.parse(clientesSalvos)
+    : [];
+
+  window.pedidos = pedidosSalvos
+    ? JSON.parse(pedidosSalvos)
+    : [];
+
+  window.estoque = estoqueSalvo
+    ? JSON.parse(estoqueSalvo)
+    : {};
+
+  produtos.forEach(p => {
+
+    if(window.estoque[p.id] === undefined){
+      window.estoque[p.id] = p.estoque;
+    }
+
+  });
+
+  salvarTudo();
+
+}
+
+
+/* =========================================================
+   SALVAR
+   ========================================================= */
+
+function salvarTudo(){
+
+  localStorage.setItem(
+    CHAVE_CLIENTES,
+    JSON.stringify(window.clientes)
+  );
+
+  localStorage.setItem(
+    CHAVE_PEDIDOS,
+    JSON.stringify(window.pedidos)
+  );
+
+  localStorage.setItem(
+    CHAVE_ESTOQUE,
+    JSON.stringify(window.estoque)
+  );
+
+}
+
+
+/* =========================================================
+   CARRINHO
+   ========================================================= */
+
+window.carrinho = {};
+
+
+function quantidadeProduto(id){
+
+  return Number(window.carrinho[id] || 0);
+
+}
+
+
+function alterarQuantidade(id, valor){
+
+  const atual = quantidadeProduto(id);
+
+  let nova = atual + Number(valor);
+
+  if(nova < 0){
+    nova = 0;
+  }
+
+  const estoqueDisponivel = Number(window.estoque[id] || 0);
+
+  if(nova > estoqueDisponivel){
+
+    alert(
+      "Quantidade maior que o estoque disponível."
+    );
+
+    nova = estoqueDisponivel;
+
+  }
+
+  window.carrinho[id] = nova;
+
+  renderProdutos();
+  renderResumoPedido();
+
+}
 
 
 /* =========================================================
@@ -375,23 +685,20 @@ function moeda(valor){
 
 function esc(texto){
 
-  return String(texto)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(texto ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
-/* =========================================================
-   ID INDEPENDENTE
-   ========================================================= */
+function gerarId(){
 
-function criarIdUnicoProduto(produto, indice){
-
-  return "produto_" + produto.id;
+  return Date.now().toString() +
+    Math.random().toString(16).slice(2);
 
 }
 
@@ -402,22 +709,40 @@ function criarIdUnicoProduto(produto, indice){
 
 function renderProdutos(){
 
-  const el =
-    document.getElementById("listaProdutos");
+  const el = document.getElementById(
+    "listaProdutos"
+  );
 
   if(!el) return;
 
-  el.innerHTML = produtos.map((p,indice)=>{
+  el.innerHTML = produtos.map(p => {
 
-    const chave =
-      criarIdUnicoProduto(p,indice);
+    const qtd = quantidadeProduto(p.id);
 
-    const quantidade =
-      Number(carrinho[chave] || 0);
+    const estoqueAtual =
+      Number(window.estoque[p.id] || 0);
+
+    const imagem = p.imagem
+      ? `<img src="${p.imagem}" alt="${esc(p.nome)}">`
+      : `
+        <div style="
+          height:150px;
+          border-radius:12px;
+          background:#eee;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-size:45px;
+        ">
+          🌾
+        </div>
+      `;
 
     return `
 
       <div class="product">
+
+        ${imagem}
 
         <h3>${esc(p.nome)}</h3>
 
@@ -425,30 +750,25 @@ function renderProdutos(){
           ${moeda(p.preco)}
         </div>
 
-        <div class="estoque">
-          Estoque disponível:
-          ${Number(p.estoque || 0)}
+        <div class="small">
+          Estoque: ${estoqueAtual}
         </div>
 
-        <div class="quantidade">
+        <div class="qty">
 
           <button
-            type="button"
-            class="btn-qtd"
-            data-indice="${indice}"
-            data-delta="-1">
+            onclick="alterarQuantidade('${p.id}',-1)"
+          >
             −
           </button>
 
-          <span class="qtd-valor">
-            ${quantidade}
+          <span id="qtd-${p.id}">
+            ${qtd}
           </span>
 
           <button
-            type="button"
-            class="btn-qtd"
-            data-indice="${indice}"
-            data-delta="1">
+            onclick="alterarQuantidade('${p.id}',1)"
+          >
             +
           </button>
 
@@ -460,238 +780,105 @@ function renderProdutos(){
 
   }).join("");
 
+}
 
-  el.querySelectorAll(".btn-qtd")
-    .forEach(botao=>{
 
-      botao.addEventListener(
-        "click",
-        function(){
+/* =========================================================
+   RESUMO DO PEDIDO
+   ========================================================= */
 
-          const indice =
-            Number(this.dataset.indice);
+function obterItensCarrinho(){
 
-          const delta =
-            Number(this.dataset.delta);
+  return produtos
+    .filter(p => quantidadeProduto(p.id) > 0)
+    .map(p => {
 
-          alterarQtd(indice,delta);
+      const quantidade =
+        quantidadeProduto(p.id);
 
-        }
-      );
+      return {
+        produtoId:p.id,
+        nome:p.nome,
+        preco:p.preco,
+        quantidade:quantidade,
+        subtotal:p.preco * quantidade
+      };
 
     });
 
+}
 
-  atualizarResumo();
+
+function calcularTotalCarrinho(){
+
+  return obterItensCarrinho()
+    .reduce(
+      (total,item) =>
+        total + item.subtotal,
+      0
+    );
 
 }
 
 
-/* =========================================================
-   ALTERAR QUANTIDADE
-   ========================================================= */
+function renderResumoPedido(){
 
-function alterarQtd(indice,delta){
+  const el =
+    document.getElementById("resumoPedido");
 
-  indice = Number(indice);
-  delta = Number(delta);
+  if(!el) return;
 
-  const produto =
-    produtos[indice];
+  const itens =
+    obterItensCarrinho();
 
-  if(!produto) return;
+  if(!itens.length){
 
-  const chave =
-    criarIdUnicoProduto(produto,indice);
-
-  const atual =
-    Number(carrinho[chave] || 0);
-
-  let novaQuantidade =
-    atual + delta;
-
-
-  if(novaQuantidade < 0){
-
-    novaQuantidade = 0;
-
-  }
-
-
-  const estoque =
-    Number(produto.estoque || 0);
-
-
-  if(novaQuantidade > estoque){
-
-    alert(
-      "Você só tem " +
-      estoque +
-      " unidade(s) de " +
-      produto.nome +
-      " em estoque."
-    );
-
-    novaQuantidade = estoque;
-
-  }
-
-
-  if(novaQuantidade === 0){
-
-    delete carrinho[chave];
+    el.innerHTML =
+      `<div class="empty">
+        Nenhum produto selecionado.
+      </div>`;
 
   }else{
 
-    carrinho[chave] =
-      novaQuantidade;
+    el.innerHTML =
+      itens.map(item => `
 
-  }
+        <div class="list-item">
 
+          <b>${esc(item.nome)}</b>
 
-  salvarCarrinho();
+          <br>
 
-  renderProdutos();
+          ${item.quantidade} ×
+          ${moeda(item.preco)}
 
-}
-
-
-/* =========================================================
-   SALVAR CARRINHO
-   ========================================================= */
-
-function salvarCarrinho(){
-
-  localStorage.setItem(
-    "feitoNaRocaCarrinho",
-    JSON.stringify(carrinho)
-  );
-
-}
-
-
-/* =========================================================
-   RESUMO
-   ========================================================= */
-
-function atualizarResumo(){
-
-  const resumo =
-    document.getElementById("resumo");
-
-  if(!resumo) return;
-
-
-  let totalItens = 0;
-  let total = 0;
-  let linhas = "";
-
-
-  produtos.forEach((p,indice)=>{
-
-    const chave =
-      criarIdUnicoProduto(p,indice);
-
-    const quantidade =
-      Number(carrinho[chave] || 0);
-
-
-    if(quantidade > 0){
-
-      const subtotal =
-        quantidade * Number(p.preco);
-
-      totalItens += quantidade;
-
-      total += subtotal;
-
-
-      linhas += `
-
-        <div class="resumo-linha">
-
-          <span>
-            ${quantidade}x ${esc(p.nome)}
-          </span>
-
-          <strong>
-            ${moeda(subtotal)}
-          </strong>
+          =
+          <b>${moeda(item.subtotal)}</b>
 
         </div>
 
-      `;
-
-    }
-
-  });
-
-
-  if(totalItens === 0){
-
-    resumo.innerHTML = `
-      <div class="vazio">
-        Nenhum produto selecionado.
-      </div>
-    `;
-
-    return;
+      `).join("");
 
   }
 
-
-  resumo.innerHTML = `
-
-    ${linhas}
-
-    <div class="resumo-linha">
-      <strong>Total de itens</strong>
-      <strong>${totalItens}</strong>
-    </div>
-
-    <div class="resumo-linha total">
-      <span>Total</span>
-      <span>${moeda(total)}</span>
-    </div>
-
-  `;
+  document.getElementById(
+    "totalPedido"
+  ).textContent =
+    moeda(calcularTotalCarrinho());
 
 }
 
 
 /* =========================================================
-   LIMPAR CARRINHO
+   CLIENTES
    ========================================================= */
 
-function limparCarrinho(){
-
-  carrinho = {};
-
-  salvarCarrinho();
-
-  renderProdutos();
-
-}
-
-
-/* =========================================================
-   FINALIZAR PEDIDO
-   ========================================================= */
-
-function finalizarPedido(){
+function salvarCliente(){
 
   const nome =
-    document.getElementById("nomeCliente")
-      .value.trim();
-
-  const telefone =
-    document.getElementById("telefoneCliente")
-      .value.trim();
-
-  const pagamento =
-    document.getElementById("pagamento")
-      .value;
-
+    document.getElementById(
+      "nomeCliente"
+    ).value.trim();
 
   if(!nome){
 
@@ -701,196 +888,89 @@ function finalizarPedido(){
 
   }
 
+  const telefone =
+    document.getElementById(
+      "telefoneCliente"
+    ).value.trim();
 
-  let itens = [];
-  let total = 0;
+  const endereco =
+    document.getElementById(
+      "enderecoCliente"
+    ).value.trim();
 
-
-  produtos.forEach((p,indice)=>{
-
-    const chave =
-      criarIdUnicoProduto(p,indice);
-
-    const quantidade =
-      Number(carrinho[chave] || 0);
-
-
-    if(quantidade > 0){
-
-      const subtotal =
-        quantidade * Number(p.preco);
-
-      itens.push({
-
-        produto:p.nome,
-        quantidade:quantidade,
-        preco:Number(p.preco),
-        subtotal:subtotal
-
-      });
-
-      total += subtotal;
-
-    }
-
-  });
+  const observacao =
+    document.getElementById(
+      "obsCliente"
+    ).value.trim();
 
 
-  if(itens.length === 0){
+  const cliente = {
 
-    alert("Selecione pelo menos um produto.");
+    id:gerarId(),
 
-    return;
+    nome:nome,
 
-  }
-
-
-  const id =
-    Date.now();
-
-
-  const pedido = {
-
-    id:id,
-    cliente:nome,
     telefone:telefone,
-    pagamento:pagamento,
-    itens:itens,
-    total:total,
-    data:new Date().toLocaleString("pt-BR")
+
+    endereco:endereco,
+
+    observacao:observacao,
+
+    criadoEm:new Date().toISOString()
 
   };
 
 
-  if(!pedidos[nome]){
+  window.clientes.push(cliente);
 
-    pedidos[nome] = [];
+  salvarTudo();
 
-  }
+  limparFormularioCliente();
 
+  renderTudo();
 
-  pedidos[nome].push(pedido);
-
-
-  if(!clientes[nome]){
-
-    clientes[nome] = {
-
-      nome:nome,
-      telefone:telefone,
-      totalComprado:0,
-      totalPago:0,
-      saldo:0
-
-    };
-
-  }
-
-
-  clientes[nome].telefone =
-    telefone || clientes[nome].telefone;
-
-
-  clientes[nome].totalComprado +=
-    total;
-
-
-  if(pagamento !== "Fiado"){
-
-    clientes[nome].totalPago +=
-      total;
-
-  }
-
-
-  clientes[nome].saldo =
-    clientes[nome].totalComprado -
-    clientes[nome].totalPago;
-
-
-  salvarDados();
-
-
-  const mensagem =
-    document.getElementById("mensagem");
-
-
-  mensagem.innerHTML = `
-
-    <div class="sucesso">
-
-      Pedido registrado com sucesso!<br>
-
-      Cliente:
-      <strong>${esc(nome)}</strong><br>
-
-      Total:
-      <strong>${moeda(total)}</strong>
-
-    </div>
-
-  `;
-
-
-  carrinho = {};
-
-  salvarCarrinho();
-
-  document.getElementById("nomeCliente").value = "";
-
-  document.getElementById("telefoneCliente").value = "";
-
-  renderProdutos();
-
-  renderClientes();
-
-  renderRelatorio();
+  alert("Cliente cadastrado com sucesso!");
 
 }
 
 
-/* =========================================================
-   SALVAR DADOS
-   ========================================================= */
+function limparFormularioCliente(){
 
-function salvarDados(){
+  document.getElementById(
+    "nomeCliente"
+  ).value = "";
 
-  localStorage.setItem(
-    "feitoNaRocaClientes",
-    JSON.stringify(clientes)
-  );
+  document.getElementById(
+    "telefoneCliente"
+  ).value = "";
 
-  localStorage.setItem(
-    "feitoNaRocaPedidos",
-    JSON.stringify(pedidos)
-  );
+  document.getElementById(
+    "enderecoCliente"
+  ).value = "";
+
+  document.getElementById(
+    "obsCliente"
+  ).value = "";
 
 }
 
-
-/* =========================================================
-   CLIENTES
-   ========================================================= */
 
 function renderClientes(){
 
   const el =
-    document.getElementById("listaClientes");
+    document.getElementById(
+      "listaClientes"
+    );
 
   if(!el) return;
 
 
-  const nomes =
-    Object.keys(clientes);
+  if(!window.clientes.length){
 
-
-  if(nomes.length === 0){
-
-    el.innerHTML = `
-      <div class="vazio">
+    el.innerHTML =
+      `<div class="empty">
         Nenhum cliente cadastrado.
-      </div>
-    `;
+      </div>`;
 
     return;
 
@@ -898,50 +978,49 @@ function renderClientes(){
 
 
   el.innerHTML =
-    nomes.map(nome=>{
+    window.clientes.map(cliente => {
 
-      const c =
-        clientes[nome];
-
+      const total =
+        totalCliente(cliente.id);
 
       return `
 
-        <div class="lista-item">
+        <div class="list-item">
 
-          <strong>
-            ${esc(c.nome)}
-          </strong>
+          <h3>
+            👤 ${esc(cliente.nome)}
+          </h3>
 
-          <br>
+          ${
+            cliente.telefone
+              ? `📱 ${esc(cliente.telefone)}<br>`
+              : ""
+          }
 
-          Telefone:
-          ${esc(c.telefone || "Não informado")}
+          ${
+            cliente.endereco
+              ? `📍 ${esc(cliente.endereco)}<br>`
+              : ""
+          }
 
-          <br>
+          <span class="badge">
+            Conta: ${moeda(total)}
+          </span>
 
-          Compras:
-          <strong>
-            ${moeda(c.totalComprado)}
-          </strong>
-
-          <br>
-
-          Pago:
-          <strong>
-            ${moeda(c.totalPago)}
-          </strong>
-
-          <br>
-
-          Saldo:
-          <strong>
-            ${moeda(c.saldo)}
-          </strong>
+          <br><br>
 
           <button
             class="btn"
-            onclick="registrarPagamento('${encodeURIComponent(nome)}')">
-            Registrar pagamento
+            onclick="selecionarCliente('${cliente.id}')"
+          >
+            Fazer pedido
+          </button>
+
+          <button
+            class="btn danger"
+            onclick="excluirCliente('${cliente.id}')"
+          >
+            Excluir
           </button>
 
         </div>
@@ -953,68 +1032,623 @@ function renderClientes(){
 }
 
 
-/* =========================================================
-   REGISTRAR PAGAMENTO
-   ========================================================= */
-
-function registrarPagamento(nomeCodificado){
-
-  const nome =
-    decodeURIComponent(nomeCodificado);
+function excluirCliente(id){
 
   const cliente =
-    clientes[nome];
+    window.clientes.find(
+      c => c.id === id
+    );
 
   if(!cliente) return;
 
-
-  const valorTexto =
-    prompt(
-      "Digite o valor pago por " +
-      nome +
-      ":"
+  const confirmar =
+    confirm(
+      `Excluir o cliente ${cliente.nome}?`
     );
 
+  if(!confirmar) return;
 
-  if(valorTexto === null) return;
-
-
-  const valor =
-    Number(
-      valorTexto
-        .replace(".","")
-        .replace(",",".")
+  window.clientes =
+    window.clientes.filter(
+      c => c.id !== id
     );
 
+  salvarTudo();
 
-  if(!valor || valor <= 0){
+  renderTudo();
 
-    alert("Digite um valor válido.");
+}
+
+
+/* =========================================================
+   SELECT DE CLIENTES
+   ========================================================= */
+
+function renderSelectClientes(){
+
+  const select =
+    document.getElementById(
+      "clientePedido"
+    );
+
+  const relatorio =
+    document.getElementById(
+      "clienteRelatorio"
+    );
+
+  if(select){
+
+    const valorAtual =
+      select.value;
+
+    select.innerHTML =
+      `<option value="">
+        Selecione um cliente
+      </option>` +
+
+      window.clientes.map(c =>
+        `<option value="${c.id}">
+          ${esc(c.nome)}
+        </option>`
+      ).join("");
+
+    if(
+      window.clientes.some(
+        c => c.id === valorAtual
+      )
+    ){
+
+      select.value =
+        valorAtual;
+
+    }
+
+  }
+
+
+  if(relatorio){
+
+    relatorio.innerHTML =
+      `<option value="">
+        Selecione um cliente
+      </option>` +
+
+      window.clientes.map(c =>
+        `<option value="${c.id}">
+          ${esc(c.nome)}
+        </option>`
+      ).join("");
+
+  }
+
+}
+
+
+/* =========================================================
+   SELECIONAR CLIENTE
+   ========================================================= */
+
+function selecionarCliente(id){
+
+  abrirAbaPorId("pedidos");
+
+  setTimeout(() => {
+
+    const select =
+      document.getElementById(
+        "clientePedido"
+      );
+
+    if(select){
+      select.value = id;
+    }
+
+  },100);
+
+}
+
+
+function abrirCadastroCliente(){
+
+  abrirAbaPorId("clientes");
+
+}
+
+
+/* =========================================================
+   SALVAR PEDIDO
+   ========================================================= */
+
+function salvarPedido(){
+
+  const clienteId =
+    document.getElementById(
+      "clientePedido"
+    ).value;
+
+  if(!clienteId){
+
+    alert(
+      "Selecione um cliente."
+    );
 
     return;
 
   }
 
 
-  cliente.totalPago += valor;
+  const itens =
+    obterItensCarrinho();
 
-  cliente.saldo =
-    cliente.totalComprado -
-    cliente.totalPago;
+  if(!itens.length){
 
+    alert(
+      "Selecione pelo menos um produto."
+    );
 
-  if(cliente.saldo < 0){
-
-    cliente.saldo = 0;
+    return;
 
   }
 
 
-  salvarDados();
+  const cliente =
+    window.clientes.find(
+      c => c.id === clienteId
+    );
 
-  renderClientes();
 
-  renderRelatorio();
+  const pedido = {
+
+    id:gerarId(),
+
+    clienteId:clienteId,
+
+    clienteNome:
+      cliente ? cliente.nome : "",
+
+    itens:itens,
+
+    total:calcularTotalCarrinho(),
+
+    data:new Date().toISOString(),
+
+    status:"Aberto"
+
+  };
+
+
+  window.pedidos.push(pedido);
+
+
+  itens.forEach(item => {
+
+    const atual =
+      Number(
+        window.estoque[item.produtoId] || 0
+      );
+
+    window.estoque[item.produtoId] =
+      Math.max(
+        0,
+        atual - item.quantidade
+      );
+
+  });
+
+
+  salvarTudo();
+
+
+  alert(
+    "Pedido salvo com sucesso!"
+  );
+
+
+  window.carrinho = {};
+
+  renderTudo();
+
+}
+
+
+/* =========================================================
+   LIMPAR PEDIDO
+   ========================================================= */
+
+function limparPedido(){
+
+  window.carrinho = {};
+
+  renderProdutos();
+
+  renderResumoPedido();
+
+}
+
+
+/* =========================================================
+   TOTAL DO CLIENTE
+   ========================================================= */
+
+function totalCliente(clienteId){
+
+  return window.pedidos
+    .filter(
+      p =>
+        p.clienteId === clienteId &&
+        p.status !== "Cancelado"
+    )
+    .reduce(
+      (total,p) =>
+        total + Number(p.total || 0),
+      0
+    );
+
+}
+
+
+/* =========================================================
+   CONTA DO CLIENTE
+   ========================================================= */
+
+function mostrarContaCliente(){
+
+  const id =
+    document.getElementById(
+      "clienteRelatorio"
+    ).value;
+
+  const el =
+    document.getElementById(
+      "contaCliente"
+    );
+
+  if(!id){
+
+    el.innerHTML =
+      `<div class="empty">
+        Selecione um cliente.
+      </div>`;
+
+    return;
+
+  }
+
+
+  const cliente =
+    window.clientes.find(
+      c => c.id === id
+    );
+
+
+  const pedidos =
+    window.pedidos.filter(
+      p =>
+        p.clienteId === id &&
+        p.status !== "Cancelado"
+    );
+
+
+  const total =
+    pedidos.reduce(
+      (soma,p) =>
+        soma + Number(p.total || 0),
+      0
+    );
+
+
+  if(!pedidos.length){
+
+    el.innerHTML = `
+
+      <div class="list-item">
+
+        <h3>
+          ${esc(cliente?.nome || "Cliente")}
+        </h3>
+
+        <p>
+          Nenhum pedido registrado.
+        </p>
+
+        <strong>
+          Total: ${moeda(0)}
+        </strong>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  el.innerHTML = `
+
+    <div class="list-item">
+
+      <h3>
+        👤 ${esc(cliente?.nome || "Cliente")}
+      </h3>
+
+      ${pedidos.map(p => `
+
+        <div
+          style="
+          border-top:1px solid #ddd;
+          padding:10px 0;
+          "
+        >
+
+          <b>
+            ${formatarData(p.data)}
+          </b>
+
+          <br>
+
+          ${p.itens.map(i => `
+
+            ${i.quantidade} ×
+            ${esc(i.nome)}
+            =
+            ${moeda(i.subtotal)}
+            <br>
+
+          `).join("")}
+
+          <strong>
+            Total do pedido:
+            ${moeda(p.total)}
+          </strong>
+
+        </div>
+
+      `).join("")}
+
+      <hr>
+
+      <div class="total">
+        Total da conta:
+        ${moeda(total)}
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RELATÓRIO GERAL
+   ========================================================= */
+
+function renderRelatorioGeral(){
+
+  const el =
+    document.getElementById(
+      "relatorioGeral"
+    );
+
+  if(!el) return;
+
+
+  const validos =
+    window.pedidos.filter(
+      p => p.status !== "Cancelado"
+    );
+
+
+  const total =
+    validos.reduce(
+      (s,p) =>
+        s + Number(p.total || 0),
+      0
+    );
+
+
+  let produtosVendidos = {};
+
+
+  validos.forEach(p => {
+
+    (p.itens || []).forEach(item => {
+
+      if(!produtosVendidos[item.nome]){
+        produtosVendidos[item.nome] = 0;
+      }
+
+      produtosVendidos[item.nome] +=
+        Number(item.quantidade || 0);
+
+    });
+
+  });
+
+
+  el.innerHTML = `
+
+    <div class="list-item">
+      <b>Pedidos:</b>
+      ${validos.length}
+    </div>
+
+    <div class="list-item">
+      <b>Faturamento:</b>
+      ${moeda(total)}
+    </div>
+
+    <h3>Produtos vendidos</h3>
+
+    ${
+      Object.keys(produtosVendidos).length
+      ?
+      Object.entries(produtosVendidos)
+        .map(([nome,qtd]) =>
+          `<div class="list-item">
+            ${esc(nome)}:
+            <b>${qtd}</b>
+          </div>`
+        ).join("")
+      :
+      `<div class="empty">
+        Nenhum produto vendido.
+      </div>`
+    }
+
+  `;
+
+}
+
+
+/* =========================================================
+   PEDIDOS DA SEMANA
+   ========================================================= */
+
+function inicioDaSemana(){
+
+  const agora =
+    new Date();
+
+  const dia =
+    agora.getDay();
+
+  const diferenca =
+    dia === 0 ? 6 : dia - 1;
+
+  const inicio =
+    new Date(agora);
+
+  inicio.setHours(
+    0,0,0,0
+  );
+
+  inicio.setDate(
+    agora.getDate() - diferenca
+  );
+
+  return inicio;
+
+}
+
+
+function pedidosDaSemana(){
+
+  const inicio =
+    inicioDaSemana();
+
+  return window.pedidos.filter(p => {
+
+    const data =
+      new Date(p.data);
+
+    return (
+      data >= inicio &&
+      p.status !== "Cancelado"
+    );
+
+  });
+
+}
+
+
+function renderSemana(){
+
+  const lista =
+    pedidosDaSemana();
+
+
+  const inicioEl =
+    document.getElementById(
+      "pedidosSemana"
+    );
+
+  const resumoEl =
+    document.getElementById(
+      "resumoSemana"
+    );
+
+
+  const total =
+    lista.reduce(
+      (s,p) =>
+        s + Number(p.total || 0),
+      0
+    );
+
+
+  if(resumoEl){
+
+    resumoEl.innerHTML = `
+
+      <div class="list-item">
+        <b>${lista.length}</b>
+        pedidos registrados
+      </div>
+
+      <div class="list-item">
+        Total:
+        <b>${moeda(total)}</b>
+      </div>
+
+    `;
+
+  }
+
+
+  if(!inicioEl) return;
+
+
+  if(!lista.length){
+
+    inicioEl.innerHTML =
+      `<div class="empty">
+        Nenhum pedido nesta semana.
+      </div>`;
+
+    return;
+
+  }
+
+
+  inicioEl.innerHTML =
+    lista
+      .slice()
+      .reverse()
+      .map(p => `
+
+        <div class="list-item">
+
+          <h3>
+            👤 ${esc(p.clienteNome)}
+          </h3>
+
+          <div class="small">
+            ${formatarData(p.data)}
+          </div>
+
+          <br>
+
+          ${(p.itens || [])
+            .map(i =>
+              `${i.quantidade} ×
+              ${esc(i.nome)}
+              = ${moeda(i.subtotal)}`
+            )
+            .join("<br>")
+          }
+
+          <br><br>
+
+          <b>
+            Total:
+            ${moeda(p.total)}
+          </b>
+
+        </div>
+
+      `).join("");
 
 }
 
@@ -1026,46 +1660,62 @@ function registrarPagamento(nomeCodificado){
 function renderEstoque(){
 
   const el =
-    document.getElementById("listaEstoque");
+    document.getElementById(
+      "listaEstoque"
+    );
 
   if(!el) return;
 
 
   el.innerHTML =
-    produtos.map(p=>{
+    produtos.map(p => {
 
-      const estoque =
-        Number(p.estoque || 0);
+      const qtd =
+        Number(
+          window.estoque[p.id] || 0
+        );
 
 
-      let aviso = "";
-
-
-      if(estoque <= 2){
-
-        aviso = `
-          <div class="alerta">
-            ⚠️ Estoque acabando!
-          </div>
-        `;
-
-      }
+      const alerta =
+        qtd <= 3
+          ? `<span class="stock-low">
+              ⚠️ Estoque acabando
+             </span>`
+          : `<span class="badge">
+              Estoque normal
+             </span>`;
 
 
       return `
 
-        <div class="lista-item">
+        <div class="list-item">
 
-          <strong>
-            ${esc(p.nome)}
-          </strong>
+          <b>${esc(p.nome)}</b>
 
           <br>
 
-          Quantidade:
-          <strong>${estoque}</strong>
+          Estoque:
+          <strong>${qtd}</strong>
 
-          ${aviso}
+          <br>
+
+          ${alerta}
+
+          <br><br>
+
+          <button
+            class="btn"
+            onclick="alterarEstoque('${p.id}',1)"
+          >
+            +1
+          </button>
+
+          <button
+            class="btn secondary"
+            onclick="alterarEstoque('${p.id}',-1)"
+          >
+            -1
+          </button>
 
         </div>
 
@@ -1076,113 +1726,494 @@ function renderEstoque(){
 }
 
 
+function alterarEstoque(id,valor){
+
+  const atual =
+    Number(
+      window.estoque[id] || 0
+    );
+
+  window.estoque[id] =
+    Math.max(
+      0,
+      atual + Number(valor)
+    );
+
+  salvarTudo();
+
+  renderEstoque();
+
+  renderProdutos();
+
+}
+
+
 /* =========================================================
-   RELATÓRIO
+   WHATSAPP
    ========================================================= */
 
-function renderRelatorio(){
+function enviarWhatsApp(){
 
-  const el =
-    document.getElementById("relatorio");
+  const clienteId =
+    document.getElementById(
+      "clientePedido"
+    ).value;
 
-  if(!el) return;
-
-
-  let totalVendas = 0;
-  let totalPedidos = 0;
-  let totalFiado = 0;
-
-
-  Object.values(pedidos)
-    .forEach(lista=>{
-
-      lista.forEach(pedido=>{
-
-        totalVendas +=
-          Number(pedido.total || 0);
-
-        totalPedidos++;
+  const cliente =
+    window.clientes.find(
+      c => c.id === clienteId
+    );
 
 
-        if(pedido.pagamento === "Fiado"){
-
-          totalFiado +=
-            Number(pedido.total || 0);
-
-        }
-
-      });
-
-    });
+  const itens =
+    obterItensCarrinho();
 
 
-  let clientesHtml = "";
+  if(!cliente){
+
+    alert(
+      "Selecione um cliente."
+    );
+
+    return;
+
+  }
 
 
-  Object.values(clientes)
-    .forEach(c=>{
+  if(!itens.length){
 
-      clientesHtml += `
+    alert(
+      "Selecione os produtos."
+    );
 
-        <div class="lista-item">
+    return;
 
-          <strong>
-            ${esc(c.nome)}
-          </strong>
-
-          <br>
-
-          Total comprado:
-          ${moeda(c.totalComprado)}
-
-          <br>
-
-          Total pago:
-          ${moeda(c.totalPago)}
-
-          <br>
-
-          Saldo:
-          <strong>
-            ${moeda(c.saldo)}
-          </strong>
-
-        </div>
-
-      `;
-
-    });
+  }
 
 
-  el.innerHTML = `
+  let mensagem =
+    `Olá, ${cliente.nome}! 🌾\n\n`;
 
-    <div class="resumo">
+  mensagem +=
+    `Seu pedido Feito na Roça:\n\n`;
 
-      <div class="resumo-linha">
-        <span>Total de pedidos</span>
-        <strong>${totalPedidos}</strong>
-      </div>
 
-      <div class="resumo-linha">
-        <span>Total vendido</span>
-        <strong>${moeda(totalVendas)}</strong>
-      </div>
+  itens.forEach(item => {
 
-      <div class="resumo-linha">
-        <span>Total fiado</span>
-        <strong>${moeda(totalFiado)}</strong>
-      </div>
+    mensagem +=
+      `${item.quantidade}x ${item.nome} - ${moeda(item.subtotal)}\n`;
 
-    </div>
+  });
 
-    <h3>Contas dos clientes</h3>
 
-    ${
-      clientesHtml ||
-      '<div class="vazio">Nenhuma conta registrada.</div>'
+  mensagem +=
+    `\nTotal: ${moeda(calcularTotalCarrinho())}`;
+
+  mensagem +=
+    `\n\nObrigado pelo pedido! 🌾`;
+
+
+  const telefone =
+    String(
+      cliente.telefone || ""
+    ).replace(/\D/g,"");
+
+
+  let url;
+
+
+  if(telefone){
+
+    url =
+      `https://wa.me/55${telefone}?text=` +
+      encodeURIComponent(mensagem);
+
+  }else{
+
+    url =
+      `https://wa.me/?text=` +
+      encodeURIComponent(mensagem);
+
+  }
+
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+
+/* =========================================================
+   VOZ
+   ========================================================= */
+
+let reconhecimento = null;
+
+let vozAtiva = false;
+
+
+function alternarVoz(){
+
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+
+  if(!SpeechRecognition){
+
+    alert(
+      "O reconhecimento de voz não está disponível neste navegador."
+    );
+
+    return;
+
+  }
+
+
+  if(vozAtiva){
+
+    if(reconhecimento){
+
+      reconhecimento.stop();
+
     }
 
-  `;
+    vozAtiva = false;
+
+    atualizarBotaoVoz();
+
+    return;
+
+  }
+
+
+  reconhecimento =
+    new SpeechRecognition();
+
+  reconhecimento.lang =
+    "pt-BR";
+
+  reconhecimento.continuous =
+    false;
+
+  reconhecimento.interimResults =
+    false;
+
+
+  reconhecimento.onstart =
+    function(){
+
+      vozAtiva = true;
+
+      atualizarBotaoVoz();
+
+    };
+
+
+  reconhecimento.onresult =
+    function(event){
+
+      const texto =
+        event.results[0][0].transcript;
+
+      interpretarVoz(texto);
+
+    };
+
+
+  reconhecimento.onerror =
+    function(){
+
+      vozAtiva = false;
+
+      atualizarBotaoVoz();
+
+    };
+
+
+  reconhecimento.onend =
+    function(){
+
+      vozAtiva = false;
+
+      atualizarBotaoVoz();
+
+    };
+
+
+  reconhecimento.start();
+
+}
+
+
+function atualizarBotaoVoz(){
+
+  const btn =
+    document.getElementById(
+      "voiceBtn"
+    );
+
+  const status =
+    document.getElementById(
+      "voiceStatus"
+    );
+
+
+  if(vozAtiva){
+
+    btn.textContent =
+      "🔴 Desativar voz";
+
+    btn.classList.add(
+      "voice-on"
+    );
+
+    status.textContent =
+      "🎙️ Estou ouvindo...";
+
+  }else{
+
+    btn.textContent =
+      "🎙️ Ativar voz";
+
+    btn.classList.remove(
+      "voice-on"
+    );
+
+    status.textContent =
+      "Voz desativada";
+
+  }
+
+}
+
+
+/* =========================================================
+   INTERPRETAÇÃO SIMPLES DA VOZ
+   ========================================================= */
+
+function interpretarVoz(texto){
+
+  const frase =
+    texto.toLowerCase();
+
+  document.getElementById(
+    "voiceStatus"
+  ).textContent =
+    "Você disse: " + texto;
+
+
+  if(frase.includes("cliente")){
+
+    abrirAbaPorId("clientes");
+
+    return;
+
+  }
+
+
+  if(
+    frase.includes("pedido") ||
+    frase.includes("comprar")
+  ){
+
+    abrirAbaPorId("pedidos");
+
+    return;
+
+  }
+
+
+  for(const p of produtos){
+
+    if(
+      frase.includes(
+        p.nome.toLowerCase()
+      )
+    ){
+
+      alterarQuantidade(
+        p.id,
+        1
+      );
+
+      abrirAbaPorId(
+        "pedidos"
+      );
+
+      return;
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO
+   ========================================================= */
+
+function abrirAba(id,botao){
+
+  document
+    .querySelectorAll("section")
+    .forEach(sec =>
+      sec.classList.remove(
+        "active"
+      )
+    );
+
+
+  const sec =
+    document.getElementById(id);
+
+  if(sec){
+
+    sec.classList.add(
+      "active"
+    );
+
+  }
+
+
+  document
+    .querySelectorAll("nav button")
+    .forEach(btn =>
+      btn.classList.remove(
+        "active"
+      )
+    );
+
+
+  if(botao){
+
+    botao.classList.add(
+      "active"
+    );
+
+  }
+
+}
+
+
+function abrirAbaPorId(id){
+
+  const botoes =
+    document.querySelectorAll(
+      "nav button"
+    );
+
+  let encontrado = false;
+
+
+  botoes.forEach(btn => {
+
+    const texto =
+      btn.textContent.toLowerCase();
+
+
+    let corresponde = false;
+
+
+    if(
+      id === "inicio" &&
+      texto.includes("início")
+    ) corresponde = true;
+
+
+    if(
+      id === "pedidos" &&
+      texto.includes("pedido")
+    ) corresponde = true;
+
+
+    if(
+      id === "clientes" &&
+      texto.includes("cliente")
+    ) corresponde = true;
+
+
+    if(
+      id === "semana" &&
+      texto.includes("semana")
+    ) corresponde = true;
+
+
+    if(
+      id === "relatorios" &&
+      texto.includes("relatório")
+    ) corresponde = true;
+
+
+    if(
+      id === "estoque" &&
+      texto.includes("estoque")
+    ) corresponde = true;
+
+
+    if(corresponde){
+
+      abrirAba(
+        id,
+        btn
+      );
+
+      encontrado = true;
+
+    }
+
+  });
+
+
+  if(!encontrado){
+
+    abrirAba(id);
+
+  }
+
+}
+
+
+/* =========================================================
+   DATA
+   ========================================================= */
+
+function formatarData(data){
+
+  return new Date(data)
+    .toLocaleString(
+      "pt-BR",
+      {
+        dateStyle:"short",
+        timeStyle:"short"
+      }
+    );
+
+}
+
+
+/* =========================================================
+   RENDER GERAL
+   ========================================================= */
+
+function renderTudo(){
+
+  renderProdutos();
+
+  renderResumoPedido();
+
+  renderClientes();
+
+  renderSelectClientes();
+
+  renderSemana();
+
+  renderRelatorioGeral();
+
+  renderEstoque();
 
 }
 
@@ -1191,20 +2222,19 @@ function renderRelatorio(){
    INICIALIZAÇÃO
    ========================================================= */
 
-function inicializar(){
+carregarDados();
 
-  renderProdutos();
-
-  renderClientes();
-
-  renderEstoque();
-
-  renderRelatorio();
-
-}
+renderTudo();
 
 
-inicializar();
+/* =========================================================
+   ATUALIZAÇÃO AUTOMÁTICA DA TELA
+   ========================================================= */
+
+setInterval(
+  renderTudo,
+  5000
+);
 
 </script>
 
