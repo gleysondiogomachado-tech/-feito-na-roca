@@ -1,24 +1,20 @@
-/* =========================================
-   CORREÇÃO: QUANTIDADE INDEPENDENTE
-   ========================================= */
+<script>
+/* =========================================================
+   CORREÇÃO: QUANTIDADE INDEPENDENTE POR PRODUTO
+   ========================================================= */
 
-function criarIdUnicoProduto(produto, indice){
-
+function criarIdUnicoProduto(produto, indice) {
   return "produto_" + indice;
-
 }
 
-
-function renderProdutos(){
-
+function renderProdutos() {
   const el = document.getElementById("listaProdutos");
 
-  if(!el) return;
+  if (!el) return;
 
   el.innerHTML = produtos.map((p, indice) => {
 
     const chave = criarIdUnicoProduto(p, indice);
-
     const quantidade = Number(carrinho[chave] || 0);
 
     return `
@@ -30,11 +26,11 @@ function renderProdutos(){
           ${moeda(p.preco)}
         </div>
 
-        <div class="stock">
+        <div>
           Estoque disponível: ${p.estoque}
         </div>
 
-        <div class="qty">
+        <div class="quantidade">
 
           <button
             type="button"
@@ -44,9 +40,7 @@ function renderProdutos(){
             −
           </button>
 
-          <span id="qtd-${indice}">
-            ${quantidade}
-          </span>
+          <span>${quantidade}</span>
 
           <button
             type="button"
@@ -63,10 +57,9 @@ function renderProdutos(){
 
   }).join("");
 
-
   el.querySelectorAll(".btn-qtd").forEach(botao => {
 
-    botao.addEventListener("click", function(){
+    botao.addEventListener("click", function() {
 
       const indice = Number(this.dataset.produto);
       const delta = Number(this.dataset.delta);
@@ -77,22 +70,17 @@ function renderProdutos(){
 
   });
 
-
   atualizarResumo();
-
 }
 
 
-function alterarQtd(indice, delta){
+function alterarQtd(indice, delta) {
 
   indice = Number(indice);
-  delta = Number(delta);
 
   const produto = produtos[indice];
 
-  if(!produto){
-    return;
-  }
+  if (!produto) return;
 
   const chave = criarIdUnicoProduto(produto, indice);
 
@@ -100,13 +88,13 @@ function alterarQtd(indice, delta){
 
   let novaQuantidade = atual + delta;
 
-  if(novaQuantidade < 0){
+  if (novaQuantidade < 0) {
     novaQuantidade = 0;
   }
 
   const estoque = Number(produto.estoque || 0);
 
-  if(novaQuantidade > estoque){
+  if (novaQuantidade > estoque) {
 
     alert(
       "Você só tem " +
@@ -122,5 +110,5 @@ function alterarQtd(indice, delta){
   carrinho[chave] = novaQuantidade;
 
   renderProdutos();
-
 }
+</script>
