@@ -1,11 +1,25 @@
+/* =========================================
+   CORREÇÃO: QUANTIDADE INDEPENDENTE
+   ========================================= */
+
+function criarIdUnicoProduto(produto, indice){
+
+  return "produto_" + indice;
+
+}
+
+
 function renderProdutos(){
 
   const el = document.getElementById("listaProdutos");
 
-  el.innerHTML = produtos.map(p => {
+  if(!el) return;
 
-    const id = Number(p.id);
-    const quantidade = Number(carrinho[id] || 0);
+  el.innerHTML = produtos.map((p, indice) => {
+
+    const chave = criarIdUnicoProduto(p, indice);
+
+    const quantidade = Number(carrinho[chave] || 0);
 
     return `
       <div class="product">
@@ -25,19 +39,19 @@ function renderProdutos(){
           <button
             type="button"
             class="btn-qtd"
-            data-id="${id}"
+            data-produto="${indice}"
             data-delta="-1">
             −
           </button>
 
-          <span id="qtd-${id}">
+          <span id="qtd-${indice}">
             ${quantidade}
           </span>
 
           <button
             type="button"
             class="btn-qtd"
-            data-id="${id}"
+            data-produto="${indice}"
             data-delta="1">
             +
           </button>
@@ -54,10 +68,10 @@ function renderProdutos(){
 
     botao.addEventListener("click", function(){
 
-      const id = Number(this.dataset.id);
+      const indice = Number(this.dataset.produto);
       const delta = Number(this.dataset.delta);
 
-      alterarQtd(id, delta);
+      alterarQtd(indice, delta);
 
     });
 
@@ -69,20 +83,20 @@ function renderProdutos(){
 }
 
 
-function alterarQtd(id, delta){
+function alterarQtd(indice, delta){
 
-  id = Number(id);
+  indice = Number(indice);
   delta = Number(delta);
 
-  const produto = produtos.find(
-    p => Number(p.id) === id
-  );
+  const produto = produtos[indice];
 
   if(!produto){
     return;
   }
 
-  const atual = Number(carrinho[id] || 0);
+  const chave = criarIdUnicoProduto(produto, indice);
+
+  const atual = Number(carrinho[chave] || 0);
 
   let novaQuantidade = atual + delta;
 
@@ -105,7 +119,7 @@ function alterarQtd(id, delta){
     novaQuantidade = estoque;
   }
 
-  carrinho[id] = novaQuantidade;
+  carrinho[chave] = novaQuantidade;
 
   renderProdutos();
 
