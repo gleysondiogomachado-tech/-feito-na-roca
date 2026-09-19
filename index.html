@@ -197,42 +197,128 @@ th{
   font-size:12px
 }
 
-.qty-control{
+/* =========================
+   PRODUTOS DO PEDIDO
+   ========================= */
+
+.produtos-pedido{
   display:flex;
-  align-items:center;
-  gap:8px;
-  width:100%
+  flex-direction:column;
+  gap:9px;
+  margin-top:12px
 }
 
-.qty-control button{
-  width:46px;
-  height:46px;
+.produto-item{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 48px 74px 48px;
+  gap:7px;
+  align-items:center;
+  border:1px solid #e1e5e1;
+  border-radius:12px;
+  padding:9px;
+  background:#fff
+}
+
+.produto-info{
+  min-width:0
+}
+
+.produto-nome{
+  font-weight:bold;
+  font-size:15px;
+  line-height:1.25
+}
+
+.produto-preco{
+  color:#2f6b3f;
+  font-size:13px;
+  margin-top:4px;
+  font-weight:bold
+}
+
+.qty-btn{
+  width:48px;
+  height:48px;
   border:0;
   border-radius:10px;
   background:#e8efe8;
   color:#285b34;
   font-size:28px;
   font-weight:bold;
-  line-height:1
+  display:flex;
+  align-items:center;
+  justify-content:center
 }
 
-.qty-control input{
+.qty-input{
+  width:74px;
+  height:48px;
+  padding:6px;
   text-align:center;
-  font-size:20px;
-  font-weight:bold;
-  margin:0
+  font-size:19px;
+  font-weight:bold
 }
 
-.sale-preview{
-  margin-top:10px;
-  padding:12px;
-  border-radius:10px;
-  background:#f1f4f0;
+.item-total{
+  grid-column:1 / -1;
+  text-align:right;
   font-weight:bold;
-  text-align:center
+  color:#263126;
+  padding-right:3px
+}
+
+.total-pedido{
+  background:#f1f4f0;
+  border-radius:12px;
+  padding:16px;
+  margin-top:14px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  color:#2f6b3f
+}
+
+.limpar-pedido{
+  background:#fbeaea;
+  color:#b3261e;
+  border:0;
+  border-radius:9px;
+  padding:9px 12px;
+  font-weight:bold
+}
+
+.observacoes{
+  margin-top:12px
+}
+
+@media(max-width:520px){
+
+  .produto-item{
+    grid-template-columns:minmax(0,1fr) 43px 62px 43px;
+    gap:5px;
+    padding:8px
+  }
+
+  .qty-btn{
+    width:43px;
+    height:43px;
+    font-size:25px
+  }
+
+  .qty-input{
+    width:62px;
+    height:43px;
+    font-size:18px
+  }
+
+  .produto-nome{
+    font-size:14px
+  }
+
 }
 
 @media print{
+
   nav,header,.no-print{
     display:none!important
   }
@@ -248,6 +334,7 @@ th{
   .card{
     box-shadow:none
   }
+
 }
 </style>
 </head>
@@ -260,15 +347,38 @@ th{
 </header>
 
 <nav id="nav">
-<button data-tab="inicio">Início</button>
-<button data-tab="clientes">Clientes</button>
-<button data-tab="pedidos">Pedidos</button>
-<button data-tab="contas">Contas</button>
-<button data-tab="estoque">Estoque</button>
-<button data-tab="relatorios">Relatórios</button>
+
+<button data-tab="inicio">
+Início
+</button>
+
+<button data-tab="clientes">
+Clientes
+</button>
+
+<button data-tab="pedidos">
+Pedidos
+</button>
+
+<button data-tab="contas">
+Contas
+</button>
+
+<button data-tab="estoque">
+Estoque
+</button>
+
+<button data-tab="relatorios">
+Relatórios
+</button>
+
 </nav>
 
 <main>
+
+<!-- =========================
+     INÍCIO
+     ========================= -->
 
 <section id="inicio" class="show">
 
@@ -303,6 +413,10 @@ th{
 
 </section>
 
+
+<!-- =========================
+     CLIENTES
+     ========================= -->
 
 <section id="clientes">
 
@@ -352,71 +466,63 @@ placeholder="🔎 Procurar cliente"
 </section>
 
 
+<!-- =========================
+     PEDIDOS
+     ========================= -->
+
 <section id="pedidos">
 
 <div class="card">
 
 <h2>Novo pedido</h2>
 
-<div class="grid">
-
-<div>
 <label>Cliente</label>
-<select id="pCliente"></select>
-</div>
 
-<div>
-<label>Produto</label>
-<select id="pProduto"></select>
-</div>
+<select id="pCliente">
+</select>
 
-<div>
 
-<label>Quantidade</label>
+<div class="row" style="margin-top:18px">
 
-<div class="qty-control">
+<h3 style="margin:0">
+Produtos
+</h3>
 
 <button
+class="limpar-pedido"
 type="button"
-onclick="alterarQtd(-1)"
->−</button>
-
-<input
-id="pQtd"
-type="number"
-min="1"
-step="1"
-value="1"
-oninput="normalizarQtd();atualizarTotalPedido()"
+onclick="limparPedidoAtual()"
 >
-
-<button
-type="button"
-onclick="alterarQtd(1)"
->+</button>
+Limpar quantidades
+</button>
 
 </div>
+
 
 <div
-class="sale-preview"
-id="pTotalPreview"
+id="produtosPedido"
+class="produtos-pedido"
 >
-Total: R$ 0,00
 </div>
 
-</div>
 
-<div>
-
-<label>Preço unitário</label>
-
-<input
-id="pPreco"
-type="number"
-step="0.01"
+<div
+id="totalPedido"
+class="total-pedido"
 >
-
+Total do pedido: R$ 0,00
 </div>
+
+
+<div class="observacoes">
+
+<label>Observações do pedido</label>
+
+<textarea
+id="pObservacao"
+rows="3"
+placeholder="Ex.: entregar à tarde, separar queijo fresco..."
+></textarea>
 
 </div>
 
@@ -424,9 +530,10 @@ step="0.01"
 
 <button
 class="primary"
+style="width:100%;font-size:17px;padding:14px"
 onclick="addPedido()"
 >
-Lançar pedido
+✓ Lançar pedido completo
 </button>
 
 </div>
@@ -442,6 +549,10 @@ Lançar pedido
 
 </section>
 
+
+<!-- =========================
+     CONTAS
+     ========================= -->
 
 <section id="contas">
 
@@ -499,6 +610,10 @@ Imprimir conta
 
 </section>
 
+
+<!-- =========================
+     ESTOQUE
+     ========================= -->
 
 <section id="estoque">
 
@@ -563,6 +678,10 @@ id="estoqueLista"
 
 </section>
 
+
+<!-- =========================
+     RELATÓRIOS
+     ========================= -->
 
 <section id="relatorios">
 
@@ -637,6 +756,10 @@ id="relatorioResultado"
 
 <script>
 
+/* =========================================================
+   PRODUTOS
+   ========================================================= */
+
 const PRODUTOS = [
 
 ["Queijo fresco",40],
@@ -660,1354 +783,1959 @@ const PRODUTOS = [
 ];
 
 
+/* =========================================================
+   BANCO DE DADOS
+   IMPORTANTE:
+   A MESMA CHAVE É MANTIDA PARA NÃO PERDER OS DADOS.
+   ========================================================= */
+
 const KEY = "feitoNaRoca_v2";
 
+let db;
 
-let db = JSON.parse(
-localStorage.getItem(KEY) ||
-'{"clientes":[],"pedidos":[],"pagamentos":[],"estoque":{}}'
-);
+try{
 
+  db = JSON.parse(
+    localStorage.getItem(KEY) ||
+    '{"clientes":[],"pedidos":[],"pagamentos":[],"estoque":{}}'
+  );
+
+}catch(e){
+
+  db = {
+    clientes:[],
+    pedidos:[],
+    pagamentos:[],
+    estoque:{}
+  };
+
+}
+
+
+/* =========================================================
+   RASCUNHO DO PEDIDO ATUAL
+   CADA PRODUTO TEM SUA PRÓPRIA QUANTIDADE.
+   ========================================================= */
+
+let pedidoAtual = {};
+
+
+/* =========================================================
+   FUNÇÕES BÁSICAS
+   ========================================================= */
 
 function save(){
 
-localStorage.setItem(
-KEY,
-JSON.stringify(db)
-);
+  localStorage.setItem(
+    KEY,
+    JSON.stringify(db)
+  );
 
-renderAll();
+  renderAll();
 
 }
 
 
-const brl = v =>
-(Number(v)||0).toLocaleString(
-"pt-BR",
-{
-style:"currency",
-currency:"BRL"
+function brl(v){
+
+  return (Number(v)||0).toLocaleString(
+    "pt-BR",
+    {
+      style:"currency",
+      currency:"BRL"
+    }
+  );
+
 }
-);
 
 
 function id(){
 
-return Date.now() +
-Math.random()
-.toString(16)
-.slice(2);
+  return Date.now() +
+  Math.random()
+  .toString(16)
+  .slice(2);
 
 }
 
 
 function esc(s){
 
-return String(s ?? "")
-.replace(
-/[&<>"']/g,
-m => ({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
-}[m])
-);
+  return String(s ?? "")
+  .replace(
+    /[&<>"']/g,
+    m => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[m])
+  );
 
 }
 
 
-function cliente(id){
+function cliente(cid){
 
-return db.clientes.find(
-c => c.id === id
-);
+  return db.clientes.find(
+    c => c.id === cid
+  );
+
+}
+
+
+/* =========================================================
+   COMPATIBILIDADE
+   Aceita pedidos antigos e pedidos novos.
+   ========================================================= */
+
+function itensDoPedido(p){
+
+  if(
+    Array.isArray(p.itens)
+  ){
+
+    return p.itens;
+
+  }
+
+  return [{
+
+    produto:p.produto,
+
+    qtd:Number(p.qtd)||0,
+
+    preco:Number(p.preco)||0,
+
+    total:
+      Number(p.total) ||
+      (
+        (Number(p.qtd)||0) *
+        (Number(p.preco)||0)
+      )
+
+  }];
+
+}
+
+
+function totalDoPedido(p){
+
+  return itensDoPedido(p)
+  .reduce(
+    (a,i) =>
+      a +
+      (
+        Number(i.total) ||
+        (
+          (Number(i.qtd)||0) *
+          (Number(i.preco)||0)
+        )
+      ),
+    0
+  );
 
 }
 
 
 function totalCliente(cid){
 
-return db.pedidos
-.filter(p => p.clienteId === cid)
-.reduce(
-(a,p) => a + p.total,
-0
-);
+  return db.pedidos
+
+  .filter(
+    p => p.clienteId === cid
+  )
+
+  .reduce(
+    (a,p) =>
+      a + totalDoPedido(p),
+    0
+  );
 
 }
 
 
 function pagoCliente(cid){
 
-return db.pagamentos
-.filter(p => p.clienteId === cid)
-.reduce(
-(a,p) => a + p.valor,
-0
-);
+  return db.pagamentos
+
+  .filter(
+    p => p.clienteId === cid
+  )
+
+  .reduce(
+    (a,p) =>
+      a + Number(p.valor||0),
+    0
+  );
 
 }
 
 
 function saldoCliente(cid){
 
-return totalCliente(cid) -
-pagoCliente(cid);
+  return totalCliente(cid) -
+  pagoCliente(cid);
 
 }
 
+
+/* =========================================================
+   CLIENTES
+   ========================================================= */
 
 function addCliente(){
 
-let nome =
-cNome.value.trim();
+  let nome =
+    document.getElementById("cNome")
+    .value
+    .trim();
 
-if(!nome){
+  if(!nome){
 
-alert("Informe o nome.");
+    alert("Informe o nome.");
 
-return;
+    return;
 
-}
+  }
 
-db.clientes.push({
+  db.clientes.push({
 
-id:id(),
+    id:id(),
 
-nome:nome,
+    nome:nome,
 
-tel:cTel.value.trim(),
+    tel:
+      document
+      .getElementById("cTel")
+      .value
+      .trim(),
 
-obs:cObs.value.trim(),
+    obs:
+      document
+      .getElementById("cObs")
+      .value
+      .trim(),
 
-criado:new Date().toISOString()
+    criado:
+      new Date().toISOString()
 
-});
+  });
 
-cNome.value="";
-cTel.value="";
-cObs.value="";
+  document.getElementById("cNome").value="";
+  document.getElementById("cTel").value="";
+  document.getElementById("cObs").value="";
 
-save();
+  save();
 
 }
 
 
 function excluirCliente(cid){
 
-if(
-!confirm(
-"Excluir cliente e manter os lançamentos?"
-)
-)return;
+  if(
+    !confirm(
+      "Excluir cliente e manter os lançamentos?"
+    )
+  )return;
 
-db.clientes =
-db.clientes.filter(
-c => c.id !== cid
-);
+  db.clientes =
+    db.clientes.filter(
+      c => c.id !== cid
+    );
 
-save();
-
-}
-
-
-function normalizarQtd(){
-
-let q =
-Math.floor(
-Number(pQtd.value)||1
-);
-
-if(q < 1)
-q = 1;
-
-pQtd.value = q;
+  save();
 
 }
 
 
-function alterarQtd(delta){
+/* =========================================================
+   PEDIDO — QUANTIDADE INDEPENDENTE
+   ========================================================= */
 
-normalizarQtd();
+function iniciarPedidoAtual(){
 
-pQtd.value =
-Math.max(
-1,
-Number(pQtd.value) + delta
-);
+  pedidoAtual = {};
 
-atualizarTotalPedido();
+  PRODUTOS.forEach(
+    ([produto]) => {
+      pedidoAtual[produto] = 0;
+    }
+  );
 
 }
 
 
-function atualizarTotalPedido(){
+function quantidadeProduto(produto){
 
-normalizarQtd();
+  return Number(
+    pedidoAtual[produto] || 0
+  );
 
-let q =
-Number(pQtd.value)||1;
+}
 
-let preco =
-Number(pPreco.value)||0;
 
-pTotalPreview.textContent =
-"Total: " +
-brl(q * preco);
+function alterarProduto(produto,delta){
+
+  let atual =
+    quantidadeProduto(produto);
+
+  atual += delta;
+
+  if(atual < 0)
+    atual = 0;
+
+  pedidoAtual[produto] = atual;
+
+  renderProdutosPedido();
+
+}
+
+
+function definirQuantidade(produto,valor){
+
+  let q =
+    Math.floor(
+      Number(valor)
+    );
+
+  if(!Number.isFinite(q) || q < 0)
+    q = 0;
+
+  pedidoAtual[produto] = q;
+
+  renderProdutosPedido();
+
+}
+
+
+function totalAtualPedido(){
+
+  return PRODUTOS.reduce(
+    (total,[produto,preco]) => {
+
+      return total +
+        (
+          quantidadeProduto(produto) *
+          preco
+        );
+
+    },
+    0
+  );
+
+}
+
+
+function renderProdutosPedido(){
+
+  const el =
+    document.getElementById(
+      "produtosPedido"
+    );
+
+  if(!el)return;
+
+  el.innerHTML =
+    PRODUTOS.map(
+      ([produto,preco]) => {
+
+        let q =
+          quantidadeProduto(produto);
+
+        let subtotal =
+          q * preco;
+
+        return `
+
+        <div class="produto-item">
+
+          <div class="produto-info">
+
+            <div class="produto-nome">
+              ${esc(produto)}
+            </div>
+
+            <div class="produto-preco">
+              ${brl(preco)}
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="qty-btn"
+            aria-label="Diminuir ${esc(produto)}"
+            onclick='alterarProduto(${JSON.stringify(produto)},-1)'
+          >
+            −
+          </button>
+
+
+          <input
+            class="qty-input"
+            type="number"
+            min="0"
+            step="1"
+            value="${q}"
+            aria-label="Quantidade de ${esc(produto)}"
+            onchange='definirQuantidade(${JSON.stringify(produto)},this.value)'
+            oninput='definirQuantidade(${JSON.stringify(produto)},this.value)'
+          >
+
+
+          <button
+            type="button"
+            class="qty-btn"
+            aria-label="Aumentar ${esc(produto)}"
+            onclick='alterarProduto(${JSON.stringify(produto)},1)'
+          >
+            +
+          </button>
+
+
+          <div class="item-total">
+
+            ${q > 0
+              ? `${q} × ${brl(preco)} = <b>${brl(subtotal)}</b>`
+              : `Subtotal: ${brl(0)}`
+            }
+
+          </div>
+
+        </div>
+
+        `;
+
+      }
+    )
+    .join("");
+
+
+  document.getElementById(
+    "totalPedido"
+  ).textContent =
+    "Total do pedido: " +
+    brl(totalAtualPedido());
+
+}
+
+
+function limparPedidoAtual(){
+
+  iniciarPedidoAtual();
+
+  renderProdutosPedido();
 
 }
 
 
 function addPedido(){
 
-normalizarQtd();
+  const cid =
+    document.getElementById(
+      "pCliente"
+    ).value;
 
-let cid =
-pCliente.value;
+  if(!cid){
 
-let prod =
-pProduto.value;
+    alert(
+      "Selecione o cliente."
+    );
 
-let q =
-Number(pQtd.value);
+    return;
 
-let preco =
-Number(pPreco.value);
+  }
 
-if(
-!cid ||
-!prod ||
-q < 1 ||
-preco < 0
-){
 
-alert(
-"Preencha cliente, produto, quantidade e preço."
-);
+  const itens = [];
 
-return;
+
+  PRODUTOS.forEach(
+    ([produto,preco]) => {
+
+      const q =
+        quantidadeProduto(produto);
+
+      if(q > 0){
+
+        itens.push({
+
+          produto:produto,
+
+          qtd:q,
+
+          preco:preco,
+
+          total:q * preco
+
+        });
+
+      }
+
+    }
+  );
+
+
+  if(itens.length === 0){
+
+    alert(
+      "Escolha pelo menos um produto."
+    );
+
+    return;
+
+  }
+
+
+  const total =
+    itens.reduce(
+      (a,i) =>
+        a + i.total,
+      0
+    );
+
+
+  const observacao =
+    document.getElementById(
+      "pObservacao"
+    ).value.trim();
+
+
+  /*
+    UM ÚNICO PEDIDO
+    COM VÁRIOS PRODUTOS DENTRO DE "itens".
+  */
+
+  db.pedidos.push({
+
+    id:id(),
+
+    clienteId:cid,
+
+    itens:itens,
+
+    total:total,
+
+    observacao:observacao,
+
+    data:
+      new Date().toISOString()
+
+  });
+
+
+  /*
+    NÃO mexemos em clientes,
+    pagamentos ou pedidos antigos.
+  */
+
+  save();
+
+
+  alert(
+    "Pedido completo lançado!\n\nTotal: " +
+    brl(total)
+  );
+
+
+  iniciarPedidoAtual();
+
+  document.getElementById(
+    "pObservacao"
+  ).value="";
+
+  renderProdutosPedido();
 
 }
 
-let total =
-q * preco;
 
-
-db.pedidos.push({
-
-id:id(),
-
-clienteId:cid,
-
-produto:prod,
-
-qtd:q,
-
-preco:preco,
-
-total:total,
-
-data:new Date().toISOString()
-
-});
-
-
-save();
-
-alert(
-"Pedido lançado: " +
-brl(total)
-);
-
-pQtd.value = 1;
-
-atualizarTotalPedido();
-
-}
-
+/* =========================================================
+   PEDIDOS
+   ========================================================= */
 
 function excluirPedido(pid){
 
-db.pedidos =
-db.pedidos.filter(
-p => p.id !== pid
-);
+  if(
+    !confirm(
+      "Excluir este pedido?"
+    )
+  )return;
 
-save();
+  db.pedidos =
+    db.pedidos.filter(
+      p => p.id !== pid
+    );
 
-}
-
-
-function registrarPagamento(){
-
-let cid =
-contaCliente.value;
-
-let v =
-Number(pagValor.value);
-
-if(!cid || v <= 0){
-
-alert(
-"Informe cliente e valor."
-);
-
-return;
-
-}
-
-db.pagamentos.push({
-
-id:id(),
-
-clienteId:cid,
-
-valor:v,
-
-data:new Date().toISOString()
-
-});
-
-pagValor.value="";
-
-save();
-
-renderConta();
+  save();
 
 }
 
 
-function saldoStyle(s){
+function textoItensPedido(p){
 
-return s > 0.005
-
-?
-
-`<span class="debt">${brl(s)}</span>`
-
-:
-
-`<span class="ok">${brl(s)}</span>`;
-
-}
-
-
-function renderClientes(){
-
-let q =
-(buscaCliente.value || "")
-.toLowerCase();
-
-
-listaClientes.innerHTML =
-
-db.clientes
-
-.filter(
-c =>
-c.nome
-.toLowerCase()
-.includes(q)
-)
-
-.map(c => `
-
-<div class="card">
-
-<div class="row">
-
-<div>
-
-<b>
-${esc(c.nome)}
-</b>
-
-<div class="small">
-${esc(c.tel || "")}
-</div>
-
-</div>
-
-<div>
-Saldo:
-${saldoStyle(
-saldoCliente(c.id)
-)}
-</div>
-
-</div>
-
-<br>
-
-<button
-class="secondary"
-onclick="abrirConta('${c.id}')"
->
-Ver conta
-</button>
-
-<button
-class="danger"
-onclick="excluirCliente('${c.id}')"
->
-Excluir
-</button>
-
-</div>
-
-`)
-
-.join("")
-
-||
-
-"<p>Nenhum cliente cadastrado.</p>";
-
-}
-
-
-function abrirConta(cid){
-
-contaCliente.value =
-cid;
-
-document
-.querySelector(
-'[data-tab="contas"]'
-)
-.click();
-
-renderConta();
+  return itensDoPedido(p)
+  .map(i =>
+    `${esc(i.produto)} (${i.qtd}x)`
+  )
+  .join("<br>");
 
 }
 
 
 function renderPedidos(){
 
-listaPedidos.innerHTML =
+  const el =
+    document.getElementById(
+      "listaPedidos"
+    );
 
-db.pedidos
-.slice()
-.reverse()
+  if(!el)return;
 
-.map(p => {
 
-let c =
-cliente(p.clienteId);
+  el.innerHTML =
 
-return `
+    db.pedidos
+    .slice()
+    .reverse()
+    .map(p => {
 
-<div class="card">
+      let c =
+        cliente(p.clienteId);
 
-<div class="row">
+      let itens =
+        itensDoPedido(p);
 
-<b>
-${esc(
-c?.nome ||
-"Cliente removido"
-)}
-</b>
+      let total =
+        totalDoPedido(p);
 
-<span class="pill">
-${new Date(p.data)
-.toLocaleDateString("pt-BR")}
-</span>
 
-</div>
+      return `
 
-<div>
+      <div class="card">
 
-${esc(p.produto)}
+        <div class="row">
 
-—
+          <b>
+            ${esc(
+              c?.nome ||
+              "Cliente removido"
+            )}
+          </b>
 
-${p.qtd}
-×
+          <span class="pill">
+            ${new Date(p.data)
+              .toLocaleDateString(
+                "pt-BR"
+              )}
+          </span>
 
-${brl(p.preco)}
+        </div>
 
-=
 
-<b>
-${brl(p.total)}
-</b>
+        <div style="margin-top:10px">
 
-</div>
+          ${itens.map(i => `
 
-<br>
+            <div
+              style="
+                padding:5px 0;
+                border-bottom:1px solid #eee
+              "
+            >
 
-<button
-class="danger"
-onclick="excluirPedido('${p.id}')"
->
-Excluir
-</button>
+              ${esc(i.produto)}
 
-</div>
+              —
+              ${i.qtd} ×
+              ${brl(i.preco)}
 
-`;
+              =
+              <b>
+                ${brl(
+                  Number(i.total) ||
+                  (
+                    i.qtd *
+                    i.preco
+                  )
+                )}
+              </b>
 
-})
+            </div>
 
-.join("")
+          `).join("")}
 
-||
+        </div>
 
-"<p>Nenhum pedido.</p>";
+
+        ${
+          p.observacao
+          ?
+          `
+          <div
+            class="small"
+            style="margin-top:8px"
+          >
+            📝 ${esc(p.observacao)}
+          </div>
+          `
+          :
+          ""
+        }
+
+
+        <div
+          style="
+            margin-top:10px;
+            font-size:18px;
+            font-weight:bold;
+            color:#2f6b3f
+          "
+        >
+          Total:
+          ${brl(total)}
+        </div>
+
+
+        <br>
+
+        <button
+          class="danger"
+          onclick="excluirPedido('${p.id}')"
+        >
+          Excluir
+        </button>
+
+      </div>
+
+      `;
+
+    })
+    .join("")
+
+    ||
+
+    "<p>Nenhum pedido.</p>";
+
+}
+
+
+/* =========================================================
+   PAGAMENTOS
+   ========================================================= */
+
+function registrarPagamento(){
+
+  const cid =
+    document.getElementById(
+      "contaCliente"
+    ).value;
+
+  const v =
+    Number(
+      document.getElementById(
+        "pagValor"
+      ).value
+    );
+
+
+  if(!cid || v <= 0){
+
+    alert(
+      "Informe cliente e valor."
+    );
+
+    return;
+
+  }
+
+
+  db.pagamentos.push({
+
+    id:id(),
+
+    clienteId:cid,
+
+    valor:v,
+
+    data:
+      new Date().toISOString()
+
+  });
+
+
+  document.getElementById(
+    "pagValor"
+  ).value="";
+
+
+  save();
+
+  renderConta();
+
+}
+
+
+/* =========================================================
+   CONTAS
+   ========================================================= */
+
+function saldoStyle(s){
+
+  return s > 0.005
+
+  ?
+
+  `<span class="debt">
+    ${brl(s)}
+  </span>`
+
+  :
+
+  `<span class="ok">
+    ${brl(s)}
+  </span>`;
+
+}
+
+
+function renderClientes(){
+
+  const busca =
+    document.getElementById(
+      "buscaCliente"
+    );
+
+  const q =
+    (busca?.value || "")
+    .toLowerCase();
+
+
+  document.getElementById(
+    "listaClientes"
+  ).innerHTML =
+
+    db.clientes
+
+    .filter(
+      c =>
+        c.nome
+        .toLowerCase()
+        .includes(q)
+    )
+
+    .map(c => `
+
+      <div class="card">
+
+        <div class="row">
+
+          <div>
+
+            <b>
+              ${esc(c.nome)}
+            </b>
+
+            <div class="small">
+              ${esc(c.tel || "")}
+            </div>
+
+          </div>
+
+          <div>
+            Saldo:
+            ${saldoStyle(
+              saldoCliente(c.id)
+            )}
+          </div>
+
+        </div>
+
+        <br>
+
+        <button
+          class="secondary"
+          onclick="abrirConta('${c.id}')"
+        >
+          Ver conta
+        </button>
+
+        <button
+          class="danger"
+          onclick="excluirCliente('${c.id}')"
+        >
+          Excluir
+        </button>
+
+      </div>
+
+    `)
+
+    .join("")
+
+    ||
+
+    "<p>Nenhum cliente cadastrado.</p>";
+
+}
+
+
+function abrirConta(cid){
+
+  document.getElementById(
+    "contaCliente"
+  ).value = cid;
+
+
+  document
+    .querySelector(
+      '[data-tab="contas"]'
+    )
+    .click();
+
+
+  renderConta();
 
 }
 
 
 function contaHTML(cid){
 
-let c =
-cliente(cid);
+  const c =
+    cliente(cid);
 
-if(!c)
+  if(!c){
 
-return "<p>Selecione um cliente.</p>";
+    return `
+      <div class="card">
+        <p>Selecione um cliente.</p>
+      </div>
+    `;
 
-
-let ps =
-db.pedidos
-.filter(
-p => p.clienteId === cid
-);
-
-
-let pays =
-db.pagamentos
-.filter(
-p => p.clienteId === cid
-);
+  }
 
 
-let compras =
-ps.reduce(
-(a,p) => a + p.total,
-0
-);
+  const ps =
+    db.pedidos
+    .filter(
+      p => p.clienteId === cid
+    );
 
 
-let pagamentos =
-pays.reduce(
-(a,p) => a + p.valor,
-0
-);
+  const pays =
+    db.pagamentos
+    .filter(
+      p => p.clienteId === cid
+    );
 
 
-let saldo =
-compras - pagamentos;
+  const compras =
+    ps.reduce(
+      (a,p) =>
+        a + totalDoPedido(p),
+      0
+    );
 
 
-return `
-
-<div class="card">
-
-<h2>
-Conta de ${esc(c.nome)}
-</h2>
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Data</th>
-
-<th>Descrição</th>
-
-<th>Valor</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-${ps.map(p => `
-
-<tr>
-
-<td>
-${new Date(p.data)
-.toLocaleDateString("pt-BR")}
-</td>
-
-<td>
-${esc(p.produto)}
-(${p.qtd}x)
-</td>
-
-<td>
-${brl(p.total)}
-</td>
-
-</tr>
-
-`).join("")}
+  const pagamentos =
+    pays.reduce(
+      (a,p) =>
+        a + Number(p.valor || 0),
+      0
+    );
 
 
-${pays.map(p => `
-
-<tr>
-
-<td>
-${new Date(p.data)
-.toLocaleDateString("pt-BR")}
-</td>
-
-<td>
-<b>Pagamento</b>
-</td>
-
-<td>
-- ${brl(p.valor)}
-</td>
-
-</tr>
-
-`).join("")}
-
-</tbody>
-
-</table>
+  const saldo =
+    compras - pagamentos;
 
 
-<div class="card">
+  return `
 
-<div>
-Total de compras:
-<b>
-${brl(compras)}
-</b>
-</div>
+  <div class="card">
 
-<div>
-Total pago:
-<b>
-${brl(pagamentos)}
-</b>
-</div>
+    <h2>
+      Conta de ${esc(c.nome)}
+    </h2>
 
-<div style="margin-top:8px">
 
-SALDO FINAL:
+    <table>
 
-<span
-class="${
-saldo > 0.005
-?
-"debt"
-:
-"ok"
-}"
->
+      <thead>
 
-<b>
-${brl(saldo)}
-</b>
+        <tr>
 
-</span>
+          <th>Data</th>
 
-</div>
+          <th>Descrição</th>
 
-</div>
+          <th>Valor</th>
 
-</div>
+        </tr>
 
-`;
+      </thead>
+
+
+      <tbody>
+
+        ${ps.map(p => `
+
+          <tr>
+
+            <td>
+              ${new Date(p.data)
+                .toLocaleDateString(
+                  "pt-BR"
+                )}
+            </td>
+
+            <td>
+
+              ${itensDoPedido(p)
+                .map(i =>
+                  `${esc(i.produto)}
+                   (${i.qtd}x) — ${brl(
+                     Number(i.total) ||
+                     i.qtd * i.preco
+                   )}`
+                )
+                .join("<br>")}
+
+              ${
+                p.observacao
+                ?
+                `<div class="small">
+                  📝 ${esc(p.observacao)}
+                </div>`
+                :
+                ""
+              }
+
+            </td>
+
+            <td>
+              <b>
+                ${brl(
+                  totalDoPedido(p)
+                )}
+              </b>
+            </td>
+
+          </tr>
+
+        `).join("")}
+
+
+        ${pays.map(p => `
+
+          <tr>
+
+            <td>
+              ${new Date(p.data)
+                .toLocaleDateString(
+                  "pt-BR"
+                )}
+            </td>
+
+            <td>
+              <b>Pagamento</b>
+            </td>
+
+            <td>
+              - ${brl(p.valor)}
+            </td>
+
+          </tr>
+
+        `).join("")}
+
+      </tbody>
+
+    </table>
+
+
+    <div class="card">
+
+      <div>
+        Total de compras:
+        <b>
+          ${brl(compras)}
+        </b>
+      </div>
+
+      <div>
+        Total pago:
+        <b>
+          ${brl(pagamentos)}
+        </b>
+      </div>
+
+      <div style="margin-top:8px">
+
+        SALDO FINAL:
+
+        <span
+          class="${
+            saldo > 0.005
+            ? "debt"
+            : "ok"
+          }"
+        >
+
+          <b>
+            ${brl(saldo)}
+          </b>
+
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  `;
 
 }
 
 
 function renderConta(){
 
-contaResultado.innerHTML =
-contaHTML(
-contaCliente.value
-);
+  const el =
+    document.getElementById(
+      "contaResultado"
+    );
+
+  if(!el)return;
+
+  el.innerHTML =
+    contaHTML(
+      document.getElementById(
+        "contaCliente"
+      ).value
+    );
 
 }
 
 
 function imprimirConta(){
 
-if(!contaCliente.value){
+  const cid =
+    document.getElementById(
+      "contaCliente"
+    ).value;
 
-alert(
-"Selecione um cliente."
-);
 
-return;
+  if(!cid){
+
+    alert(
+      "Selecione um cliente."
+    );
+
+    return;
+
+  }
+
+
+  const c =
+    cliente(cid);
+
+
+  const old =
+    document.title;
+
+
+  document.title =
+    "Conta - " +
+    c.nome;
+
+
+  window.print();
+
+
+  document.title =
+    old;
 
 }
 
-let old =
-document.title;
 
-document.title =
-"Conta - " +
-cliente(
-contaCliente.value
-).nome;
-
-window.print();
-
-document.title =
-old;
-
-}
-
+/* =========================================================
+   RELATÓRIOS
+   ========================================================= */
 
 function renderRelatorio(){
 
-let t =
-rTipo.value;
+  const tipo =
+    document.getElementById(
+      "rTipo"
+    ).value;
 
-let cid =
-rCliente.value;
+
+  const cid =
+    document.getElementById(
+      "rCliente"
+    ).value;
 
 
-if(t === "conta"){
+  const el =
+    document.getElementById(
+      "relatorioResultado"
+    );
 
-relatorioResultado.innerHTML =
-contaHTML(cid);
+
+  if(tipo === "conta"){
+
+    el.innerHTML =
+      contaHTML(cid);
+
+    return;
+
+  }
+
+
+  if(tipo === "clientes"){
+
+    const rows =
+      db.clientes
+      .map(c => {
+
+        const compras =
+          totalCliente(c.id);
+
+        const pago =
+          pagoCliente(c.id);
+
+        const saldo =
+          compras - pago;
+
+
+        return `
+
+        <tr>
+
+          <td>
+            ${esc(c.nome)}
+          </td>
+
+          <td>
+            ${brl(compras)}
+          </td>
+
+          <td>
+            ${brl(pago)}
+          </td>
+
+          <td>
+            ${saldoStyle(saldo)}
+          </td>
+
+        </tr>
+
+        `;
+
+      })
+      .join("");
+
+
+    const total =
+      db.pedidos
+      .reduce(
+        (a,p) =>
+          a + totalDoPedido(p),
+        0
+      );
+
+
+    const pag =
+      db.pagamentos
+      .reduce(
+        (a,p) =>
+          a + Number(p.valor || 0),
+        0
+      );
+
+
+    el.innerHTML = `
+
+      <h2>
+        👥 Relatório de todos os clientes
+      </h2>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Cliente</th>
+
+            <th>Total comprado</th>
+
+            <th>Total pago</th>
+
+            <th>A receber</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${
+            rows ||
+
+            '<tr><td colspan="4">Nenhum cliente cadastrado.</td></tr>'
+          }
+
+        </tbody>
+
+      </table>
+
+
+      <div class="report-total">
+
+        <div>
+          Total vendido:
+          <b>
+            ${brl(total)}
+          </b>
+        </div>
+
+        <div>
+          Total recebido:
+          <b>
+            ${brl(pag)}
+          </b>
+        </div>
+
+        <div>
+          A receber:
+          <b>
+            ${brl(total-pag)}
+          </b>
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  if(tipo === "pedidos"){
+
+    const ps =
+      db.pedidos
+      .filter(
+        p =>
+          !cid ||
+          p.clienteId === cid
+      );
+
+
+    const total =
+      ps.reduce(
+        (a,p) =>
+          a + totalDoPedido(p),
+        0
+      );
+
+
+    el.innerHTML = `
+
+      <h2>
+        Relatório de pedidos
+      </h2>
+
+      <table>
+
+        <tr>
+
+          <th>Data</th>
+
+          <th>Cliente</th>
+
+          <th>Produtos</th>
+
+          <th>Total</th>
+
+        </tr>
+
+        ${
+
+          ps.map(p => `
+
+            <tr>
+
+              <td>
+                ${new Date(p.data)
+                  .toLocaleDateString(
+                    "pt-BR"
+                  )}
+              </td>
+
+              <td>
+                ${esc(
+                  cliente(
+                    p.clienteId
+                  )?.nome || ""
+                )}
+              </td>
+
+              <td>
+
+                ${itensDoPedido(p)
+                  .map(i =>
+                    `${esc(i.produto)}
+                    (${i.qtd}x)`
+                  )
+                  .join("<br>")}
+
+              </td>
+
+              <td>
+                <b>
+                  ${brl(
+                    totalDoPedido(p)
+                  )}
+                </b>
+              </td>
+
+            </tr>
+
+          `).join("")
+
+          ||
+
+          '<tr><td colspan="4">Nenhum pedido.</td></tr>'
+
+        }
+
+      </table>
+
+
+      <h3>
+        Total:
+        ${brl(total)}
+      </h3>
+
+    `;
+
+    return;
+
+  }
+
+
+  const total =
+    db.pedidos
+    .reduce(
+      (a,p) =>
+        a + totalDoPedido(p),
+      0
+    );
+
+
+  const pag =
+    db.pagamentos
+    .reduce(
+      (a,p) =>
+        a + Number(p.valor || 0),
+      0
+    );
+
+
+  el.innerHTML = `
+
+    <h2>
+      📊 Resumo geral
+    </h2>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div class="small">
+          Total de pedidos
+        </div>
+
+        <div class="total">
+          ${db.pedidos.length}
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="small">
+          Valor vendido
+        </div>
+
+        <div class="total">
+          ${brl(total)}
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="small">
+          Valor recebido
+        </div>
+
+        <div class="total">
+          ${brl(pag)}
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="small">
+          A receber
+        </div>
+
+        <div class="total">
+          ${brl(total-pag)}
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
 
 }
 
 
-else if(t === "clientes"){
-
-let rows =
-db.clientes
-.map(c => {
-
-let compras =
-totalCliente(c.id);
-
-let pago =
-pagoCliente(c.id);
-
-let saldo =
-compras - pago;
-
-return `
-
-<tr>
-
-<td>
-${esc(c.nome)}
-</td>
-
-<td>
-${brl(compras)}
-</td>
-
-<td>
-${brl(pago)}
-</td>
-
-<td>
-${saldoStyle(saldo)}
-</td>
-
-</tr>
-
-`;
-
-})
-
-.join("");
-
-
-let total =
-db.pedidos
-.reduce(
-(a,p) => a + p.total,
-0
-);
-
-
-let pag =
-db.pagamentos
-.reduce(
-(a,p) => a + p.valor,
-0
-);
-
-
-relatorioResultado.innerHTML = `
-
-<h2>
-👥 Relatório de todos os clientes
-</h2>
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Cliente</th>
-
-<th>Total comprado</th>
-
-<th>Total pago</th>
-
-<th>A receber</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-${
-rows ||
-
-'<tr><td colspan="4">Nenhum cliente cadastrado.</td></tr>'
-}
-
-</tbody>
-
-</table>
-
-
-<div class="report-total">
-
-<div>
-Total vendido:
-<b>
-${brl(total)}
-</b>
-</div>
-
-<div>
-Total recebido:
-<b>
-${brl(pag)}
-</b>
-</div>
-
-<div>
-A receber:
-<b>
-${brl(total-pag)}
-</b>
-</div>
-
-</div>
-
-`;
-
-}
-
-
-else if(t === "pedidos"){
-
-let ps =
-db.pedidos
-.filter(
-p =>
-!cid ||
-p.clienteId === cid
-);
-
-
-let total =
-ps.reduce(
-(a,p) => a + p.total,
-0
-);
-
-
-relatorioResultado.innerHTML = `
-
-<h2>
-Relatório de pedidos
-</h2>
-
-<table>
-
-<tr>
-
-<th>Data</th>
-
-<th>Cliente</th>
-
-<th>Produto</th>
-
-<th>Qtd.</th>
-
-<th>Total</th>
-
-</tr>
-
-${
-
-ps.map(p => `
-
-<tr>
-
-<td>
-${new Date(p.data)
-.toLocaleDateString("pt-BR")}
-</td>
-
-<td>
-${esc(
-cliente(p.clienteId)?.nome || ""
-)}
-</td>
-
-<td>
-${esc(p.produto)}
-</td>
-
-<td>
-${p.qtd}
-</td>
-
-<td>
-${brl(p.total)}
-</td>
-
-</tr>
-
-`).join("")
-
-||
-
-'<tr><td colspan="5">Nenhum pedido.</td></tr>'
-
-}
-
-</table>
-
-<h3>
-Total:
-${brl(total)}
-</h3>
-
-`;
-
-}
-
-
-else{
-
-let total =
-db.pedidos
-.reduce(
-(a,p) => a + p.total,
-0
-);
-
-
-let pag =
-db.pagamentos
-.reduce(
-(a,p) => a + p.valor,
-0
-);
-
-
-relatorioResultado.innerHTML = `
-
-<h2>
-📊 Resumo geral
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<div class="small">
-Total de vendas
-</div>
-
-<div class="total">
-${db.pedidos.length}
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="small">
-Valor vendido
-</div>
-
-<div class="total">
-${brl(total)}
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="small">
-Valor recebido
-</div>
-
-<div class="total">
-${brl(pag)}
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="small">
-A receber
-</div>
-
-<div class="total">
-${brl(total-pag)}
-</div>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-}
-
+/* =========================================================
+   ESTOQUE
+   ========================================================= */
 
 function salvarEstoque(){
 
-let prod =
-eProduto.value;
+  const prod =
+    document.getElementById(
+      "eProduto"
+    ).value;
 
-if(!prod)
-return;
 
-db.estoque[prod] = {
+  if(!prod)return;
 
-qtd:
-Number(eQtd.value) || 0,
 
-min:
-Number(eMin.value) || 0
+  db.estoque[prod] = {
 
-};
+    qtd:
+      Number(
+        document.getElementById(
+          "eQtd"
+        ).value
+      ) || 0,
 
-save();
+    min:
+      Number(
+        document.getElementById(
+          "eMin"
+        ).value
+      ) || 0
+
+  };
+
+
+  save();
 
 }
 
 
 function renderEstoque(){
 
-estoqueLista.innerHTML =
+  const el =
+    document.getElementById(
+      "estoqueLista"
+    );
 
-PRODUTOS
-.map(([p,pre]) => {
 
-let e =
-db.estoque[p] ||
-{
-qtd:0,
-min:3
-};
+  el.innerHTML =
 
-return `
+    PRODUTOS
+    .map(([p,pre]) => {
 
-<div class="row card">
+      const e =
+        db.estoque[p] ||
+        {
+          qtd:0,
+          min:3
+        };
 
-<div>
 
-<b>
-${esc(p)}
-</b>
+      return `
 
-<div class="small">
-Preço:
-${brl(pre)}
-</div>
+      <div class="row card">
 
-</div>
+        <div>
 
-<div>
+          <b>
+            ${esc(p)}
+          </b>
 
-${
-e.qtd <= e.min
+          <div class="small">
+            Preço:
+            ${brl(pre)}
+          </div>
 
-?
+        </div>
 
-'<span class="warn">⚠️ Estoque baixo</span>'
+        <div>
 
-:
+          ${
+            e.qtd <= e.min
 
-'<span class="ok">OK</span>'
+            ?
+
+            '<span class="warn">⚠️ Estoque baixo</span>'
+
+            :
+
+            '<span class="ok">OK</span>'
+          }
+
+          <br>
+
+          ${e.qtd} un.
+
+        </div>
+
+      </div>
+
+      `;
+
+    })
+
+    .join("");
+
 }
 
-<br>
 
-${e.qtd} un.
-
-</div>
-
-</div>
-
-`;
-
-})
-
-.join("");
-
-}
-
+/* =========================================================
+   SELECTS
+   ========================================================= */
 
 function fillSelects(){
 
-let opts =
+  const pCliente =
+    document.getElementById(
+      "pCliente"
+    );
 
-db.clientes
-.map(c => `
+  const contaCliente =
+    document.getElementById(
+      "contaCliente"
+    );
 
-<option value="${c.id}">
-${esc(c.nome)}
-</option>
+  const rCliente =
+    document.getElementById(
+      "rCliente"
+    );
 
-`)
-.join("");
+  const eProduto =
+    document.getElementById(
+      "eProduto"
+    );
 
 
-[pCliente,contaCliente,rCliente]
-.forEach(s => {
+  const clienteAtualPedido =
+    pCliente.value;
 
-s.innerHTML =
-(
-s === rCliente
-?
-'<option value="">Todos</option>'
-:
-""
-)
-+
-opts;
+  const clienteAtualConta =
+    contaCliente.value;
+
+  const clienteAtualRelatorio =
+    rCliente.value;
+
+  const produtoAtualEstoque =
+    eProduto.value;
+
+
+  const opts =
+    db.clientes
+    .map(c => `
+
+      <option value="${esc(c.id)}">
+        ${esc(c.nome)}
+      </option>
+
+    `)
+    .join("");
+
+
+  pCliente.innerHTML =
+    opts;
+
+
+  contaCliente.innerHTML =
+    opts;
+
+
+  rCliente.innerHTML =
+    '<option value="">Todos</option>' +
+    opts;
+
+
+  if(
+    db.clientes.some(
+      c =>
+        c.id === clienteAtualPedido
+    )
+  ){
+
+    pCliente.value =
+      clienteAtualPedido;
+
+  }
+
+
+  if(
+    db.clientes.some(
+      c =>
+        c.id === clienteAtualConta
+    )
+  ){
+
+    contaCliente.value =
+      clienteAtualConta;
+
+  }
+
+
+  if(
+    db.clientes.some(
+      c =>
+        c.id === clienteAtualRelatorio
+    )
+  ){
+
+    rCliente.value =
+      clienteAtualRelatorio;
+
+  }
+
+
+  eProduto.innerHTML =
+
+    PRODUTOS
+    .map(
+      ([p]) => `
+
+        <option value="${esc(p)}">
+          ${esc(p)}
+        </option>
+
+      `
+    )
+    .join("");
+
+
+  if(
+    PRODUTOS.some(
+      ([p]) =>
+        p === produtoAtualEstoque
+    )
+  ){
+
+    eProduto.value =
+      produtoAtualEstoque;
+
+  }
+
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO
+   ========================================================= */
+
+document
+.querySelectorAll("nav button")
+.forEach(button => {
+
+  button.onclick = () => {
+
+    document
+    .querySelectorAll("section")
+    .forEach(
+      s =>
+        s.classList.remove(
+          "show"
+        )
+    );
+
+
+    document
+    .getElementById(
+      button.dataset.tab
+    )
+    .classList.add("show");
+
+
+    document
+    .querySelectorAll(
+      "nav button"
+    )
+    .forEach(
+      b =>
+        b.classList.remove(
+          "active"
+        )
+    );
+
+
+    button.classList.add(
+      "active"
+    );
+
+
+    renderAll();
+
+  };
 
 });
 
 
-pProduto.innerHTML =
-
-PRODUTOS
-.map(([p,pre]) => `
-
-<option value="${esc(p)}">
-
-${esc(p)}
-—
-${brl(pre)}
-
-</option>
-
-`)
-.join("");
-
-
-eProduto.innerHTML =
-
-PRODUTOS
-.map(([p,pre]) => `
-
-<option value="${esc(p)}">
-
-${esc(p)}
-
-</option>
-
-`)
-.join("");
-
-
-if(pProduto.value){
-
-let x =
-PRODUTOS.find(
-x => x[0] === pProduto.value
-);
-
-pPreco.value =
-x?.[1] || 0;
-
-}
-
-}
-
-
-pProduto.addEventListener(
-"change",
-() => {
-
-let x =
-PRODUTOS.find(
-x => x[0] === pProduto.value
-);
-
-pPreco.value =
-x?.[1] || 0;
-
-atualizarTotalPedido();
-
-}
-);
-
-
-pPreco.addEventListener(
-"input",
-atualizarTotalPedido
-);
-
-
-document
-.querySelectorAll("nav button")
-.forEach(b => {
-
-b.onclick = () => {
-
-document
-.querySelectorAll("section")
-.forEach(
-s =>
-s.classList.remove("show")
-);
-
-document
-.getElementById(
-b.dataset.tab
-)
-.classList.add("show");
-
-
-document
-.querySelectorAll("nav button")
-.forEach(
-x =>
-x.classList.remove("active")
-);
-
-b.classList.add("active");
-
-renderAll();
-
-};
-
-});
-
+/* =========================================================
+   RENDERIZAÇÃO GERAL
+   ========================================================= */
 
 function renderAll(){
 
-fillSelects();
+  fillSelects();
 
-renderClientes();
+  renderProdutosPedido();
 
-renderPedidos();
+  renderClientes();
 
-renderConta();
+  renderPedidos();
 
-renderEstoque();
+  renderConta();
 
-renderRelatorio();
+  renderEstoque();
 
-
-let rec =
-db.clientes.reduce(
-(a,c) =>
-a +
-Math.max(
-0,
-saldoCliente(c.id)
-),
-0
-);
+  renderRelatorio();
 
 
-kClientes.textContent =
-db.clientes.length;
+  const rec =
+    db.clientes
+    .reduce(
+      (a,c) =>
+        a +
+        Math.max(
+          0,
+          saldoCliente(c.id)
+        ),
+      0
+    );
 
 
-kPedidos.textContent =
-db.pedidos.length;
+  document.getElementById(
+    "kClientes"
+  ).textContent =
+    db.clientes.length;
 
 
-kReceber.textContent =
-brl(rec);
+  document.getElementById(
+    "kPedidos"
+  ).textContent =
+    db.pedidos.length;
 
 
-kEstoque.textContent =
-
-PRODUTOS.filter(
-([p]) =>
-(
-db.estoque[p]?.qtd ?? 0
-)
-<=
-(
-db.estoque[p]?.min ?? 3
-)
-).length;
+  document.getElementById(
+    "kReceber"
+  ).textContent =
+    brl(rec);
 
 
-homeList.innerHTML =
+  document.getElementById(
+    "kEstoque"
+  ).textContent =
 
-db.clientes
-.slice()
-.sort(
-(a,b) =>
-saldoCliente(b.id)
--
-saldoCliente(a.id)
-)
-.slice(0,10)
-.map(c => `
+    PRODUTOS
+    .filter(
+      ([p]) =>
+        (
+          db.estoque[p]?.qtd ??
+          0
+        )
+        <=
+        (
+          db.estoque[p]?.min ??
+          3
+        )
+    )
+    .length;
 
-<div class="row">
 
-<span>
-${esc(c.nome)}
-</span>
+  document.getElementById(
+    "homeList"
+  ).innerHTML =
 
-<span>
-${saldoStyle(
-saldoCliente(c.id)
-)}
-</span>
+    db.clientes
 
-</div>
+    .slice()
 
-`)
-.join("")
+    .sort(
+      (a,b) =>
+        saldoCliente(b.id) -
+        saldoCliente(a.id)
+    )
 
-||
+    .slice(0,10)
 
-"<p>Cadastre seus clientes para começar.</p>";
+    .map(c => `
+
+      <div class="row">
+
+        <span>
+          ${esc(c.nome)}
+        </span>
+
+        <span>
+          ${saldoStyle(
+            saldoCliente(c.id)
+          )}
+        </span>
+
+      </div>
+
+    `)
+
+    .join("")
+
+    ||
+
+    "<p>Cadastre seus clientes para começar.</p>";
 
 }
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
+
+iniciarPedidoAtual();
 
 
 document
 .querySelector(
-'[data-tab="inicio"]'
+  '[data-tab="inicio"]'
 )
 .classList.add("active");
 
 
 renderAll();
-
-atualizarTotalPedido();
 
 </script>
 
