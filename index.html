@@ -2,8 +2,11 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#315c35">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2f6b3b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Feito na Roça">
 <title>Feito na Roça</title>
 
 <style>
@@ -13,260 +16,213 @@ body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f4f1e8;
-  color:#333;
+  color:#253125
 }
 
 header{
-  background:#315c35;
-  color:white;
-  padding:18px 15px;
-  text-align:center;
+  background:#2f6b3b;
+  color:#fff;
+  padding:18px 14px;
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:5
 }
 
 header h1{
   margin:0;
-  font-size:25px;
+  font-size:25px
 }
 
 header p{
-  margin:5px 0 0;
-  font-size:14px;
+  margin:4px 0 0;
+  font-size:13px
 }
 
 nav{
   display:flex;
-  gap:6px;
-  overflow-x:auto;
-  padding:10px;
+  overflow:auto;
   background:#fff;
+  border-bottom:1px solid #ddd;
   position:sticky;
-  top:76px;
-  z-index:9;
-  box-shadow:0 2px 7px #0002;
+  top:78px;
+  z-index:4
 }
 
 nav button{
   border:0;
-  border-radius:10px;
-  padding:11px 13px;
-  background:#e8e1cf;
-  color:#315c35;
-  font-weight:bold;
+  background:#fff;
+  padding:13px 15px;
   white-space:nowrap;
+  font-weight:bold;
+  color:#315f3a
 }
 
 nav button.active{
-  background:#315c35;
-  color:white;
+  background:#e8f0e8;
+  border-bottom:3px solid #2f6b3b
 }
 
 main{
-  max-width:900px;
+  max-width:850px;
   margin:auto;
-  padding:15px;
+  padding:14px
 }
 
 section{
-  display:none;
+  display:none
 }
 
-section.active{
-  display:block;
+.active-section{
+  display:block
 }
 
 .card{
-  background:white;
-  border-radius:15px;
+  background:#fff;
+  border-radius:14px;
   padding:15px;
-  margin-bottom:15px;
-  box-shadow:0 2px 8px #0001;
+  margin:12px 0;
+  box-shadow:0 2px 8px #00000012
 }
 
 h2{
-  color:#315c35;
-  margin-top:5px;
+  margin:4px 0 12px
 }
 
-h3{
-  margin:7px 0;
-}
-
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  margin:6px 0 10px;
-  border:1px solid #ccc;
-  border-radius:9px;
-  font-size:16px;
-}
-
-button{
-  cursor:pointer;
-}
-
-.btn{
-  border:0;
-  border-radius:10px;
-  padding:12px 15px;
-  font-weight:bold;
-  background:#315c35;
-  color:white;
-  margin:3px;
-}
-
-.btn.secondary{
-  background:#777;
-}
-
-.btn.danger{
-  background:#b83232;
-}
-
-.btn.gold{
-  background:#b88725;
+.grid{
+  display:grid;
+  gap:10px
 }
 
 .products{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:12px;
+  gap:10px
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:16px
+}
+
+button.action{
+  border:0;
+  border-radius:9px;
+  padding:11px 14px;
+  background:#2f6b3b;
+  color:white;
+  font-weight:bold;
+  cursor:pointer
+}
+
+button.secondary{
+  background:#e8eee8;
+  color:#24532e
+}
+
+button.danger{
+  background:#a33b32
+}
+
+.row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap
+}
+
+.between{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center
 }
 
 .product{
-  background:white;
-  border-radius:15px;
-  padding:12px;
-  box-shadow:0 2px 8px #0001;
-  text-align:center;
-}
-
-.product img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
+  border:1px solid #ddd;
   border-radius:12px;
-  background:#eee;
+  padding:13px
 }
 
 .product h3{
-  color:#315c35;
+  margin:0 0 5px
 }
 
 .price{
-  font-size:19px;
   font-weight:bold;
-  color:#9a6814;
+  font-size:18px
 }
 
 .qty{
   display:flex;
-  justify-content:center;
   align-items:center;
   gap:10px;
-  margin-top:10px;
+  margin-top:10px
 }
 
 .qty button{
-  width:42px;
-  height:42px;
+  width:40px;
+  height:40px;
   border:0;
-  border-radius:50%;
-  background:#315c35;
-  color:white;
-  font-size:24px;
-  font-weight:bold;
+  border-radius:9px;
+  font-size:22px;
+  background:#e1eadf;
+  color:#24532e
 }
 
 .qty span{
   min-width:35px;
-  font-size:20px;
+  text-align:center;
   font-weight:bold;
+  font-size:18px
 }
 
 .total{
   font-size:22px;
   font-weight:bold;
-  color:#315c35;
-  margin:15px 0;
+  color:#2f6b3b
 }
 
-.list-item{
-  background:#fafafa;
-  border-left:5px solid #315c35;
-  border-radius:10px;
-  padding:12px;
-  margin:8px 0;
+.muted{
+  color:#667066;
+  font-size:13px
 }
 
-.small{
-  font-size:13px;
-  color:#666;
-}
-
-.badge{
-  display:inline-block;
-  padding:4px 8px;
-  border-radius:20px;
-  background:#e8e1cf;
-  color:#315c35;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.stock-low{
-  color:#b83232;
-  font-weight:bold;
+.item-line{
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid #eee;
+  padding:7px 0;
+  gap:10px
 }
 
 .empty{
+  padding:20px;
   text-align:center;
-  color:#777;
-  padding:25px;
+  color:#777
 }
 
-.voice-box{
-  background:#eef5ed;
-  border:1px solid #bfd2bd;
+.alerta{
+  background:#fff1c7;
   padding:12px;
-  border-radius:12px;
-  margin-bottom:15px;
-}
-
-.voice-on{
-  background:#b83232!important;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:14px;
-}
-
-th,td{
-  padding:8px;
-  border-bottom:1px solid #ddd;
-  text-align:left;
-}
-
-th{
-  background:#315c35;
-  color:white;
+  border-radius:10px;
+  margin-top:10px
 }
 
 @media(max-width:600px){
-  header h1{font-size:22px}
-  .products{grid-template-columns:1fr 1fr}
-  .product img{height:120px}
-  .product h3{font-size:15px}
-  .price{font-size:16px}
-  .btn{padding:10px}
-}
+  main{
+    padding:10px
+  }
 
-@media(max-width:420px){
-  .products{grid-template-columns:1fr}
+  .products{
+    grid-template-columns:1fr
+  }
+
+  .between{
+    align-items:flex-start
+  }
 }
 </style>
 </head>
@@ -278,184 +234,186 @@ th{
   <p>Do campo para sua mesa</p>
 </header>
 
-<nav>
-  <button class="active" onclick="abrirAba('inicio',this)">🏠 Início</button>
-  <button onclick="abrirAba('pedidos',this)">🛒 Pedido</button>
-  <button onclick="abrirAba('clientes',this)">👥 Clientes</button>
-  <button onclick="abrirAba('semana',this)">📅 Semana</button>
-  <button onclick="abrirAba('relatorios',this)">📊 Relatórios</button>
-  <button onclick="abrirAba('estoque',this)">📦 Estoque</button>
+<nav id="nav">
+  <button data-tab="pedido" class="active">🛒 Pedido</button>
+  <button data-tab="clientes">👤 Clientes</button>
+  <button data-tab="estoque">📦 Estoque</button>
+  <button data-tab="relatorios">📊 Relatórios</button>
+  <button data-tab="contas">💰 Contas</button>
 </nav>
 
 <main>
 
-<section id="inicio" class="active">
+<!-- PEDIDOS -->
+<section id="pedido" class="active-section">
 
   <div class="card">
-    <h2>🌾 Feito na Roça</h2>
-    <p>Produtos caseiros direto da roça.</p>
+    <h2>Novo pedido</h2>
 
-    <div class="voice-box">
-      <b>🎙️ Controle por voz</b>
-      <p class="small">
-        Ative o botão para usar o microfone quando disponível.
-      </p>
-      <button id="voiceBtn" class="btn" onclick="alternarVoz()">
-        🎙️ Ativar voz
+    <label>Cliente</label>
+    <select id="clienteSelect"></select>
+
+    <div class="row" style="margin-top:8px">
+
+      <button
+        class="action secondary"
+        onclick="novoClienteRapido()">
+        + Novo cliente
       </button>
-      <div id="voiceStatus" class="small">
-        Voz desativada
-      </div>
+
+      <button
+        id="audioBtn"
+        class="action secondary"
+        onclick="alternarAudio()">
+        🔊 Áudio: ligado
+      </button>
+
+      <button
+        class="action secondary"
+        onclick="falar('Áudio do Feito na Roça funcionando.')">
+        🔊 Testar áudio
+      </button>
+
     </div>
   </div>
 
   <div class="card">
-    <h2>🛒 Fazer pedido</h2>
-    <button class="btn" onclick="abrirAbaPorId('pedidos')">
-      Fazer novo pedido
-    </button>
-  </div>
-
-  <div class="card">
-    <h2>📅 Pedidos da semana</h2>
-    <div id="resumoSemana"></div>
-  </div>
-
-</section>
-
-
-<section id="pedidos">
-
-  <div class="card">
-
-    <h2>🛒 Novo pedido</h2>
-
-    <label>Cliente</label>
-    <select id="clientePedido">
-      <option value="">Selecione um cliente</option>
-    </select>
-
-    <button class="btn secondary" onclick="abrirCadastroCliente()">
-      + Cadastrar cliente
-    </button>
-
-  </div>
-
-  <div class="card">
-    <h2>🌾 Produtos</h2>
+    <h2>Produtos</h2>
     <div id="listaProdutos" class="products"></div>
   </div>
 
   <div class="card">
 
-    <h2>Resumo do pedido</h2>
-
-    <div id="resumoPedido"></div>
-
-    <div class="total">
-      Total: <span id="totalPedido">R$ 0,00</span>
+    <div class="between">
+      <span>Total do pedido</span>
+      <span id="totalPedido" class="total">
+        R$ 0,00
+      </span>
     </div>
 
-    <button class="btn" onclick="salvarPedido()">
-      ✅ Salvar pedido
-    </button>
+    <div class="row" style="margin-top:12px">
 
-    <button class="btn gold" onclick="enviarWhatsApp()">
-      📲 Enviar WhatsApp
-    </button>
+      <button
+        class="action"
+        onclick="salvarPedido()">
+        Salvar pedido
+      </button>
 
-    <button class="btn secondary" onclick="limparPedido()">
-      🗑️ Limpar
-    </button>
+      <button
+        class="action secondary"
+        onclick="limparCarrinho()">
+        Limpar
+      </button>
+
+    </div>
 
   </div>
 
 </section>
 
 
+<!-- CLIENTES -->
 <section id="clientes">
 
   <div class="card">
 
-    <h2>👥 Clientes</h2>
+    <h2>Clientes</h2>
 
-    <input
-      id="nomeCliente"
-      placeholder="Nome do cliente"
-    >
+    <div class="grid">
 
-    <input
-      id="telefoneCliente"
-      placeholder="Telefone / WhatsApp"
-      inputmode="tel"
-    >
+      <div class="row">
 
-    <input
-      id="enderecoCliente"
-      placeholder="Endereço"
-    >
+        <input
+          id="nomeCliente"
+          placeholder="Nome do cliente">
 
-    <textarea
-      id="obsCliente"
-      placeholder="Observações"
-    ></textarea>
+        <button
+          class="action secondary"
+          onclick="ouvirCampo('nomeCliente','Diga o nome do cliente')">
+          🎤
+        </button>
 
-    <button class="btn" onclick="salvarCliente()">
-      💾 Salvar cliente
-    </button>
+      </div>
+
+      <div class="row">
+
+        <input
+          id="telefoneCliente"
+          placeholder="Telefone">
+
+        <button
+          class="action secondary"
+          onclick="ouvirCampo('telefoneCliente','Diga o telefone')">
+          🎤
+        </button>
+
+      </div>
+
+      <div class="row">
+
+        <input
+          id="enderecoCliente"
+          placeholder="Endereço">
+
+        <button
+          class="action secondary"
+          onclick="ouvirCampo('enderecoCliente','Diga o endereço')">
+          🎤
+        </button>
+
+      </div>
+
+      <button
+        class="action"
+        onclick="salvarCliente()">
+        Salvar cliente
+      </button>
+
+    </div>
 
   </div>
 
-  <div class="card">
-    <h2>Clientes cadastrados</h2>
-    <div id="listaClientes"></div>
-  </div>
+  <div id="listaClientes" class="card"></div>
 
 </section>
 
 
-<section id="semana">
-
-  <div class="card">
-    <h2>📅 Pedidos da semana</h2>
-    <div id="pedidosSemana"></div>
-  </div>
-
-</section>
-
-
-<section id="relatorios">
-
-  <div class="card">
-
-    <h2>📊 Relatório geral</h2>
-
-    <div id="relatorioGeral"></div>
-
-  </div>
-
-  <div class="card">
-
-    <h2>👤 Conta por cliente</h2>
-
-    <select id="clienteRelatorio" onchange="mostrarContaCliente()">
-      <option value="">Selecione um cliente</option>
-    </select>
-
-    <div id="contaCliente"></div>
-
-  </div>
-
-</section>
-
-
+<!-- ESTOQUE -->
 <section id="estoque">
 
   <div class="card">
 
-    <h2>📦 Controle de estoque</h2>
+    <h2>Estoque</h2>
 
     <div id="listaEstoque"></div>
+
+  </div>
+
+</section>
+
+
+<!-- RELATÓRIOS -->
+<section id="relatorios">
+
+  <div class="card">
+
+    <h2>Relatório</h2>
+
+    <div id="relatorio"></div>
+
+  </div>
+
+</section>
+
+
+<!-- CONTAS -->
+<section id="contas">
+
+  <div class="card">
+
+    <h2>Contas a receber</h2>
+
+    <div id="listaContas"></div>
 
   </div>
 
@@ -467,212 +425,114 @@ th{
 <script>
 
 /* =========================================================
-   FEITO NA ROÇA
-   SISTEMA DE PEDIDOS
-   DADOS SALVOS NO LOCALSTORAGE
+   BANCO LOCAL
    ========================================================= */
+
+const KEY = {
+  prod:"fr_produtos_v3",
+  cli:"fr_clientes_v3",
+  ped:"fr_pedidos_v3",
+  con:"fr_contas_v3",
+  est:"fr_estoque_v3"
+};
 
 
 /* =========================================================
    PRODUTOS
    ========================================================= */
 
-const produtos = [
+const produtosPadrao = [
 
-  {
-    id:"queijo-fresco",
-    nome:"Queijo fresco",
-    preco:40,
-    estoque:20,
-    imagem:""
-  },
+  ["p1","Queijo fresco",40,20],
 
-  {
-    id:"queijo-curado",
-    nome:"Queijo curado",
-    preco:45,
-    estoque:20,
-    imagem:""
-  },
+  ["p2","Queijo curado",45,20],
 
-  {
-    id:"requeijao-duro",
-    nome:"Requeijão duro",
-    preco:55,
-    estoque:20,
-    imagem:""
-  },
+  ["p3","Mussarela",50,20],
 
-  {
-    id:"pao-pequeno",
-    nome:"Pão de queijo pequeno - 1 kg",
-    preco:28,
-    estoque:20,
-    imagem:""
-  },
+  ["p4","Requeijão duro",55,20],
 
-  {
-    id:"pao-grande",
-    nome:"Pão de queijo grande - 1 kg",
-    preco:27,
-    estoque:20,
-    imagem:""
-  },
+  ["p5","Pão de queijo pequeno (1 kg)",28,20],
 
-  {
-    id:"rosca",
-    nome:"Rosca caseira",
-    preco:12,
-    estoque:20,
-    imagem:""
-  },
+  ["p6","Pão de queijo grande (1 kg)",27,20],
 
-  {
-    id:"doce-200",
-    nome:"Doce de leite caseiro - 200g",
-    preco:12,
-    estoque:20,
-    imagem:""
-  },
+  ["p7","Rosca caseira",12,20],
 
-  {
-    id:"doce-500",
-    nome:"Doce de leite - 500g",
-    preco:30,
-    estoque:20,
-    imagem:""
-  },
+  ["p8","Doce de leite caseiro 200g",12,20],
 
-  {
-    id:"mussarela",
-    nome:"Mussarela",
-    preco:50,
-    estoque:20,
-    imagem:""
+  ["p9","Doce de leite 500g",30,20]
+
+].map(x => ({
+
+  id:x[0],
+
+  nome:x[1],
+
+  preco:x[2],
+
+  estoque:x[3]
+
+}));
+
+
+/* =========================================================
+   LEITURA E GRAVAÇÃO
+   ========================================================= */
+
+function get(k,def=[]){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(k)
+    ) ?? def;
+
+  }catch(e){
+
+    return def;
+
   }
-
-];
-
-
-/* =========================================================
-   CHAVES DE ARMAZENAMENTO
-   ========================================================= */
-
-const CHAVE_CLIENTES = "feitoNaRoca_clientes";
-const CHAVE_PEDIDOS = "feitoNaRoca_pedidos";
-const CHAVE_ESTOQUE = "feitoNaRoca_estoque";
-
-
-/* =========================================================
-   CARREGAMENTO
-   ========================================================= */
-
-function carregarDados(){
-
-  let clientesSalvos = localStorage.getItem(CHAVE_CLIENTES);
-  let pedidosSalvos = localStorage.getItem(CHAVE_PEDIDOS);
-  let estoqueSalvo = localStorage.getItem(CHAVE_ESTOQUE);
-
-  window.clientes = clientesSalvos
-    ? JSON.parse(clientesSalvos)
-    : [];
-
-  window.pedidos = pedidosSalvos
-    ? JSON.parse(pedidosSalvos)
-    : [];
-
-  window.estoque = estoqueSalvo
-    ? JSON.parse(estoqueSalvo)
-    : {};
-
-  produtos.forEach(p => {
-
-    if(window.estoque[p.id] === undefined){
-      window.estoque[p.id] = p.estoque;
-    }
-
-  });
-
-  salvarTudo();
 
 }
 
 
-/* =========================================================
-   SALVAR
-   ========================================================= */
-
-function salvarTudo(){
+function set(k,v){
 
   localStorage.setItem(
-    CHAVE_CLIENTES,
-    JSON.stringify(window.clientes)
-  );
-
-  localStorage.setItem(
-    CHAVE_PEDIDOS,
-    JSON.stringify(window.pedidos)
-  );
-
-  localStorage.setItem(
-    CHAVE_ESTOQUE,
-    JSON.stringify(window.estoque)
+    k,
+    JSON.stringify(v)
   );
 
 }
 
 
 /* =========================================================
-   CARRINHO
+   DADOS
    ========================================================= */
 
-window.carrinho = {};
+let produtos =
+  get(KEY.prod,produtosPadrao);
 
+let clientes =
+  get(KEY.cli,[]);
 
-function quantidadeProduto(id){
+let pedidos =
+  get(KEY.ped,[]);
 
-  return Number(window.carrinho[id] || 0);
+let contas =
+  get(KEY.con,[]);
 
-}
+let carrinho = {};
 
-
-function alterarQuantidade(id, valor){
-
-  const atual = quantidadeProduto(id);
-
-  let nova = atual + Number(valor);
-
-  if(nova < 0){
-    nova = 0;
-  }
-
-  const estoqueDisponivel = Number(window.estoque[id] || 0);
-
-  if(nova > estoqueDisponivel){
-
-    alert(
-      "Quantidade maior que o estoque disponível."
-    );
-
-    nova = estoqueDisponivel;
-
-  }
-
-  window.carrinho[id] = nova;
-
-  renderProdutos();
-  renderResumoPedido();
-
-}
+let clienteAtual = "";
 
 
 /* =========================================================
-   FORMATAÇÃO
+   FUNÇÕES AUXILIARES
    ========================================================= */
 
-function moeda(valor){
+function moeda(v){
 
-  return Number(valor || 0).toLocaleString(
+  return Number(v || 0).toLocaleString(
     "pt-BR",
     {
       style:"currency",
@@ -683,22 +543,189 @@ function moeda(valor){
 }
 
 
-function esc(texto){
+function esc(s){
 
-  return String(texto ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return String(s ?? "")
+    .replace(
+      /[&<>"']/g,
+      m => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[m])
+    );
 
 }
 
 
-function gerarId(){
+function id(prefix){
 
-  return Date.now().toString() +
-    Math.random().toString(16).slice(2);
+  return prefix +
+    "_" +
+    Date.now() +
+    "_" +
+    Math.random()
+      .toString(36)
+      .slice(2,8);
+
+}
+
+
+/* =========================================================
+   ÁUDIO
+   ========================================================= */
+
+let audioAtivo =
+  localStorage.getItem("fr_audio_ativo") !== "0";
+
+
+function atualizarBotaoAudio(){
+
+  const b =
+    document.getElementById("audioBtn");
+
+  if(b){
+
+    b.textContent =
+      audioAtivo
+      ? "🔊 Áudio: ligado"
+      : "🔇 Áudio: desligado";
+
+  }
+
+}
+
+
+function alternarAudio(){
+
+  audioAtivo = !audioAtivo;
+
+  localStorage.setItem(
+    "fr_audio_ativo",
+    audioAtivo ? "1" : "0"
+  );
+
+  atualizarBotaoAudio();
+
+  if(audioAtivo){
+
+    falar("Áudio ligado.");
+
+  }
+
+}
+
+
+function ouvirCampo(idCampo,prompt){
+
+  const SR =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+  if(!SR){
+
+    alert(
+      "O reconhecimento de voz não está disponível neste navegador. Use o Chrome e permita o microfone."
+    );
+
+    return;
+
+  }
+
+  const r = new SR();
+
+  r.lang = "pt-BR";
+
+  r.interimResults = false;
+
+  r.maxAlternatives = 1;
+
+  try{
+
+    r.start();
+
+  }catch(e){
+
+    return;
+
+  }
+
+  r.onresult = e => {
+
+    document.getElementById(
+      idCampo
+    ).value =
+      e.results[0][0].transcript;
+
+  };
+
+  r.onerror = e => {
+
+    if(e.error === "not-allowed"){
+
+      alert(
+        "Permita o acesso ao microfone para usar a voz."
+      );
+
+    }
+
+  };
+
+}
+
+
+function falar(t){
+
+  if(!audioAtivo) return;
+
+  if(!("speechSynthesis" in window)){
+
+    alert(
+      "Seu navegador não disponibiliza áudio de voz."
+    );
+
+    return;
+
+  }
+
+  speechSynthesis.cancel();
+
+  const u =
+    new SpeechSynthesisUtterance(t);
+
+  u.lang = "pt-BR";
+
+  u.rate = .95;
+
+  u.pitch = 1;
+
+  speechSynthesis.speak(u);
+
+}
+
+
+/* =========================================================
+   CLIENTES NO PEDIDO
+   ========================================================= */
+
+function renderClientesSelect(){
+
+  const s =
+    document.getElementById(
+      "clienteSelect"
+    );
+
+  s.innerHTML =
+    '<option value="">Selecione o cliente</option>' +
+    clientes.map(c =>
+      `<option value="${c.id}">
+        ${esc(c.nome)}
+      </option>`
+    ).join("");
+
+  s.value = clienteAtual;
 
 }
 
@@ -709,232 +736,218 @@ function gerarId(){
 
 function renderProdutos(){
 
-  const el = document.getElementById(
-    "listaProdutos"
-  );
+  const el =
+    document.getElementById(
+      "listaProdutos"
+    );
 
-  if(!el) return;
+  el.innerHTML =
+    produtos.map(p => {
 
-  el.innerHTML = produtos.map(p => {
+      /*
+       IMPORTANTE:
+       cada produto usa seu próprio ID
+       no carrinho.
+      */
 
-    const qtd = quantidadeProduto(p.id);
+      const q =
+        Number(
+          carrinho[p.id] || 0
+        );
 
-    const estoqueAtual =
-      Number(window.estoque[p.id] || 0);
+      return `
 
-    const imagem = p.imagem
-      ? `<img src="${p.imagem}" alt="${esc(p.nome)}">`
-      : `
-        <div style="
-          height:150px;
-          border-radius:12px;
-          background:#eee;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          font-size:45px;
-        ">
-          🌾
+        <div class="product">
+
+          <h3>
+            ${esc(p.nome)}
+          </h3>
+
+          <div class="price">
+            ${moeda(p.preco)}
+          </div>
+
+          <div class="muted">
+            Estoque: ${p.estoque}
+          </div>
+
+          <div class="qty">
+
+            <button
+              onclick="alterarQtd('${p.id}',-1)">
+              −
+            </button>
+
+            <span>
+              ${q}
+            </span>
+
+            <button
+              onclick="alterarQtd('${p.id}',1)">
+              +
+            </button>
+
+          </div>
+
         </div>
+
       `;
 
-    return `
+    }).join("");
 
-      <div class="product">
-
-        ${imagem}
-
-        <h3>${esc(p.nome)}</h3>
-
-        <div class="price">
-          ${moeda(p.preco)}
-        </div>
-
-        <div class="small">
-          Estoque: ${estoqueAtual}
-        </div>
-
-        <div class="qty">
-
-          <button
-            onclick="alterarQuantidade('${p.id}',-1)"
-          >
-            −
-          </button>
-
-          <span id="qtd-${p.id}">
-            ${qtd}
-          </span>
-
-          <button
-            onclick="alterarQuantidade('${p.id}',1)"
-          >
-            +
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }).join("");
+  atualizarTotal();
 
 }
 
 
 /* =========================================================
-   RESUMO DO PEDIDO
+   QUANTIDADE INDEPENDENTE
    ========================================================= */
 
-function obterItensCarrinho(){
+function alterarQtd(pid,delta){
 
-  return produtos
-    .filter(p => quantidadeProduto(p.id) > 0)
-    .map(p => {
-
-      const quantidade =
-        quantidadeProduto(p.id);
-
-      return {
-        produtoId:p.id,
-        nome:p.nome,
-        preco:p.preco,
-        quantidade:quantidade,
-        subtotal:p.preco * quantidade
-      };
-
-    });
-
-}
-
-
-function calcularTotalCarrinho(){
-
-  return obterItensCarrinho()
-    .reduce(
-      (total,item) =>
-        total + item.subtotal,
-      0
+  const p =
+    produtos.find(
+      x => x.id === pid
     );
 
+  if(!p) return;
+
+  const atual =
+    Number(
+      carrinho[pid] || 0
+    );
+
+  const novo =
+    Math.max(
+      0,
+      Math.min(
+        p.estoque,
+        atual + delta
+      )
+    );
+
+  carrinho[pid] = novo;
+
+  renderProdutos();
+
 }
 
 
-function renderResumoPedido(){
+/* =========================================================
+   TOTAL DO PEDIDO
+   ========================================================= */
 
-  const el =
-    document.getElementById("resumoPedido");
+function atualizarTotal(){
 
-  if(!el) return;
+  let total = 0;
 
-  const itens =
-    obterItensCarrinho();
+  produtos.forEach(p => {
 
-  if(!itens.length){
+    total +=
+      Number(
+        carrinho[p.id] || 0
+      ) *
+      Number(
+        p.preco || 0
+      );
 
-    el.innerHTML =
-      `<div class="empty">
-        Nenhum produto selecionado.
-      </div>`;
-
-  }else{
-
-    el.innerHTML =
-      itens.map(item => `
-
-        <div class="list-item">
-
-          <b>${esc(item.nome)}</b>
-
-          <br>
-
-          ${item.quantidade} ×
-          ${moeda(item.preco)}
-
-          =
-          <b>${moeda(item.subtotal)}</b>
-
-        </div>
-
-      `).join("");
-
-  }
+  });
 
   document.getElementById(
     "totalPedido"
   ).textContent =
-    moeda(calcularTotalCarrinho());
+    moeda(total);
+
+}
+
+
+function limparCarrinho(){
+
+  carrinho = {};
+
+  renderProdutos();
 
 }
 
 
 /* =========================================================
-   CLIENTES
+   NOVO CLIENTE
+   ========================================================= */
+
+function novoClienteRapido(){
+
+  document
+    .querySelector(
+      '[data-tab="clientes"]'
+    )
+    .click();
+
+  document
+    .getElementById("nomeCliente")
+    .focus();
+
+}
+
+
+/* =========================================================
+   SALVAR CLIENTE
    ========================================================= */
 
 function salvarCliente(){
 
   const nome =
-    document.getElementById(
-      "nomeCliente"
-    ).value.trim();
+    document
+      .getElementById(
+        "nomeCliente"
+      )
+      .value
+      .trim();
 
   if(!nome){
 
-    alert("Digite o nome do cliente.");
+    alert(
+      "Digite o nome do cliente."
+    );
 
     return;
 
   }
 
-  const telefone =
-    document.getElementById(
-      "telefoneCliente"
-    ).value.trim();
+  const c = {
 
-  const endereco =
-    document.getElementById(
-      "enderecoCliente"
-    ).value.trim();
-
-  const observacao =
-    document.getElementById(
-      "obsCliente"
-    ).value.trim();
-
-
-  const cliente = {
-
-    id:gerarId(),
+    id:id("cli"),
 
     nome:nome,
 
-    telefone:telefone,
+    telefone:
+      document
+        .getElementById(
+          "telefoneCliente"
+        )
+        .value
+        .trim(),
 
-    endereco:endereco,
-
-    observacao:observacao,
-
-    criadoEm:new Date().toISOString()
+    endereco:
+      document
+        .getElementById(
+          "enderecoCliente"
+        )
+        .value
+        .trim()
 
   };
 
 
-  window.clientes.push(cliente);
+  clientes.push(c);
 
-  salvarTudo();
+  set(
+    KEY.cli,
+    clientes
+  );
 
-  limparFormularioCliente();
+  clienteAtual = c.id;
 
-  renderTudo();
-
-  alert("Cliente cadastrado com sucesso!");
-
-}
-
-
-function limparFormularioCliente(){
 
   document.getElementById(
     "nomeCliente"
@@ -948,209 +961,20 @@ function limparFormularioCliente(){
     "enderecoCliente"
   ).value = "";
 
-  document.getElementById(
-    "obsCliente"
-  ).value = "";
 
-}
+  renderAll();
 
 
-function renderClientes(){
+  document
+    .querySelector(
+      '[data-tab="pedido"]'
+    )
+    .click();
 
-  const el =
-    document.getElementById(
-      "listaClientes"
-    );
 
-  if(!el) return;
-
-
-  if(!window.clientes.length){
-
-    el.innerHTML =
-      `<div class="empty">
-        Nenhum cliente cadastrado.
-      </div>`;
-
-    return;
-
-  }
-
-
-  el.innerHTML =
-    window.clientes.map(cliente => {
-
-      const total =
-        totalCliente(cliente.id);
-
-      return `
-
-        <div class="list-item">
-
-          <h3>
-            👤 ${esc(cliente.nome)}
-          </h3>
-
-          ${
-            cliente.telefone
-              ? `📱 ${esc(cliente.telefone)}<br>`
-              : ""
-          }
-
-          ${
-            cliente.endereco
-              ? `📍 ${esc(cliente.endereco)}<br>`
-              : ""
-          }
-
-          <span class="badge">
-            Conta: ${moeda(total)}
-          </span>
-
-          <br><br>
-
-          <button
-            class="btn"
-            onclick="selecionarCliente('${cliente.id}')"
-          >
-            Fazer pedido
-          </button>
-
-          <button
-            class="btn danger"
-            onclick="excluirCliente('${cliente.id}')"
-          >
-            Excluir
-          </button>
-
-        </div>
-
-      `;
-
-    }).join("");
-
-}
-
-
-function excluirCliente(id){
-
-  const cliente =
-    window.clientes.find(
-      c => c.id === id
-    );
-
-  if(!cliente) return;
-
-  const confirmar =
-    confirm(
-      `Excluir o cliente ${cliente.nome}?`
-    );
-
-  if(!confirmar) return;
-
-  window.clientes =
-    window.clientes.filter(
-      c => c.id !== id
-    );
-
-  salvarTudo();
-
-  renderTudo();
-
-}
-
-
-/* =========================================================
-   SELECT DE CLIENTES
-   ========================================================= */
-
-function renderSelectClientes(){
-
-  const select =
-    document.getElementById(
-      "clientePedido"
-    );
-
-  const relatorio =
-    document.getElementById(
-      "clienteRelatorio"
-    );
-
-  if(select){
-
-    const valorAtual =
-      select.value;
-
-    select.innerHTML =
-      `<option value="">
-        Selecione um cliente
-      </option>` +
-
-      window.clientes.map(c =>
-        `<option value="${c.id}">
-          ${esc(c.nome)}
-        </option>`
-      ).join("");
-
-    if(
-      window.clientes.some(
-        c => c.id === valorAtual
-      )
-    ){
-
-      select.value =
-        valorAtual;
-
-    }
-
-  }
-
-
-  if(relatorio){
-
-    relatorio.innerHTML =
-      `<option value="">
-        Selecione um cliente
-      </option>` +
-
-      window.clientes.map(c =>
-        `<option value="${c.id}">
-          ${esc(c.nome)}
-        </option>`
-      ).join("");
-
-  }
-
-}
-
-
-/* =========================================================
-   SELECIONAR CLIENTE
-   ========================================================= */
-
-function selecionarCliente(id){
-
-  abrirAbaPorId("pedidos");
-
-  setTimeout(() => {
-
-    const select =
-      document.getElementById(
-        "clientePedido"
-      );
-
-    if(select){
-      select.value = id;
-    }
-
-  },100);
-
-}
-
-
-function abrirCadastroCliente(){
-
-  abrirAbaPorId("clientes");
+  falar(
+    "Cliente salvo com sucesso."
+  );
 
 }
 
@@ -1161,12 +985,7 @@ function abrirCadastroCliente(){
 
 function salvarPedido(){
 
-  const clienteId =
-    document.getElementById(
-      "clientePedido"
-    ).value;
-
-  if(!clienteId){
+  if(!clienteAtual){
 
     alert(
       "Selecione um cliente."
@@ -1178,12 +997,44 @@ function salvarPedido(){
 
 
   const itens =
-    obterItensCarrinho();
+    produtos
+      .filter(
+        p =>
+          Number(
+            carrinho[p.id] || 0
+          ) > 0
+      )
+      .map(p => ({
+
+        produtoId:p.id,
+
+        nome:p.nome,
+
+        quantidade:
+          Number(
+            carrinho[p.id]
+          ),
+
+        preco:
+          Number(
+            p.preco
+          ),
+
+        subtotal:
+          Number(
+            carrinho[p.id]
+          ) *
+          Number(
+            p.preco
+          )
+
+      }));
+
 
   if(!itens.length){
 
     alert(
-      "Selecione pelo menos um produto."
+      "Adicione pelo menos um produto."
     );
 
     return;
@@ -1192,463 +1043,196 @@ function salvarPedido(){
 
 
   const cliente =
-    window.clientes.find(
-      c => c.id === clienteId
+    clientes.find(
+      c =>
+        c.id === clienteAtual
+    );
+
+
+  const total =
+    itens.reduce(
+      (a,b) =>
+        a + b.subtotal,
+      0
     );
 
 
   const pedido = {
 
-    id:gerarId(),
+    id:id("ped"),
 
-    clienteId:clienteId,
+    clienteId:
+      cliente.id,
 
     clienteNome:
-      cliente ? cliente.nome : "",
+      cliente.nome,
+
+    data:
+      new Date().toISOString(),
 
     itens:itens,
 
-    total:calcularTotalCarrinho(),
+    total:total,
 
-    data:new Date().toISOString(),
-
-    status:"Aberto"
+    pago:false
 
   };
 
 
-  window.pedidos.push(pedido);
+  pedidos.push(pedido);
 
-
-  itens.forEach(item => {
-
-    const atual =
-      Number(
-        window.estoque[item.produtoId] || 0
-      );
-
-    window.estoque[item.produtoId] =
-      Math.max(
-        0,
-        atual - item.quantidade
-      );
-
-  });
-
-
-  salvarTudo();
-
-
-  alert(
-    "Pedido salvo com sucesso!"
+  set(
+    KEY.ped,
+    pedidos
   );
 
 
-  window.carrinho = {};
+  /*
+   Desconta do estoque
+  */
+
+  itens.forEach(i => {
+
+    const p =
+      produtos.find(
+        x =>
+          x.id ===
+          i.produtoId
+      );
+
+    if(p){
+
+      p.estoque =
+        Math.max(
+          0,
+          p.estoque -
+          i.quantidade
+        );
 
-  renderTudo();
-
-}
-
-
-/* =========================================================
-   LIMPAR PEDIDO
-   ========================================================= */
-
-function limparPedido(){
-
-  window.carrinho = {};
-
-  renderProdutos();
-
-  renderResumoPedido();
-
-}
-
-
-/* =========================================================
-   TOTAL DO CLIENTE
-   ========================================================= */
-
-function totalCliente(clienteId){
-
-  return window.pedidos
-    .filter(
-      p =>
-        p.clienteId === clienteId &&
-        p.status !== "Cancelado"
-    )
-    .reduce(
-      (total,p) =>
-        total + Number(p.total || 0),
-      0
-    );
-
-}
-
-
-/* =========================================================
-   CONTA DO CLIENTE
-   ========================================================= */
-
-function mostrarContaCliente(){
-
-  const id =
-    document.getElementById(
-      "clienteRelatorio"
-    ).value;
-
-  const el =
-    document.getElementById(
-      "contaCliente"
-    );
-
-  if(!id){
-
-    el.innerHTML =
-      `<div class="empty">
-        Selecione um cliente.
-      </div>`;
-
-    return;
-
-  }
-
-
-  const cliente =
-    window.clientes.find(
-      c => c.id === id
-    );
-
-
-  const pedidos =
-    window.pedidos.filter(
-      p =>
-        p.clienteId === id &&
-        p.status !== "Cancelado"
-    );
-
-
-  const total =
-    pedidos.reduce(
-      (soma,p) =>
-        soma + Number(p.total || 0),
-      0
-    );
-
-
-  if(!pedidos.length){
-
-    el.innerHTML = `
-
-      <div class="list-item">
-
-        <h3>
-          ${esc(cliente?.nome || "Cliente")}
-        </h3>
-
-        <p>
-          Nenhum pedido registrado.
-        </p>
-
-        <strong>
-          Total: ${moeda(0)}
-        </strong>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  el.innerHTML = `
-
-    <div class="list-item">
-
-      <h3>
-        👤 ${esc(cliente?.nome || "Cliente")}
-      </h3>
-
-      ${pedidos.map(p => `
-
-        <div
-          style="
-          border-top:1px solid #ddd;
-          padding:10px 0;
-          "
-        >
-
-          <b>
-            ${formatarData(p.data)}
-          </b>
-
-          <br>
-
-          ${p.itens.map(i => `
-
-            ${i.quantidade} ×
-            ${esc(i.nome)}
-            =
-            ${moeda(i.subtotal)}
-            <br>
-
-          `).join("")}
-
-          <strong>
-            Total do pedido:
-            ${moeda(p.total)}
-          </strong>
-
-        </div>
-
-      `).join("")}
-
-      <hr>
-
-      <div class="total">
-        Total da conta:
-        ${moeda(total)}
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   RELATÓRIO GERAL
-   ========================================================= */
-
-function renderRelatorioGeral(){
-
-  const el =
-    document.getElementById(
-      "relatorioGeral"
-    );
-
-  if(!el) return;
-
-
-  const validos =
-    window.pedidos.filter(
-      p => p.status !== "Cancelado"
-    );
-
-
-  const total =
-    validos.reduce(
-      (s,p) =>
-        s + Number(p.total || 0),
-      0
-    );
-
-
-  let produtosVendidos = {};
-
-
-  validos.forEach(p => {
-
-    (p.itens || []).forEach(item => {
-
-      if(!produtosVendidos[item.nome]){
-        produtosVendidos[item.nome] = 0;
-      }
-
-      produtosVendidos[item.nome] +=
-        Number(item.quantidade || 0);
-
-    });
-
-  });
-
-
-  el.innerHTML = `
-
-    <div class="list-item">
-      <b>Pedidos:</b>
-      ${validos.length}
-    </div>
-
-    <div class="list-item">
-      <b>Faturamento:</b>
-      ${moeda(total)}
-    </div>
-
-    <h3>Produtos vendidos</h3>
-
-    ${
-      Object.keys(produtosVendidos).length
-      ?
-      Object.entries(produtosVendidos)
-        .map(([nome,qtd]) =>
-          `<div class="list-item">
-            ${esc(nome)}:
-            <b>${qtd}</b>
-          </div>`
-        ).join("")
-      :
-      `<div class="empty">
-        Nenhum produto vendido.
-      </div>`
     }
 
-  `;
+  });
+
+
+  set(
+    KEY.prod,
+    produtos
+  );
+
+
+  /*
+   Cria a conta do cliente
+  */
+
+  contas.push({
+
+    id:id("con"),
+
+    pedidoId:
+      pedido.id,
+
+    clienteId:
+      cliente.id,
+
+    clienteNome:
+      cliente.nome,
+
+    data:
+      pedido.data,
+
+    valor:
+      total,
+
+    pago:false
+
+  });
+
+
+  set(
+    KEY.con,
+    contas
+  );
+
+
+  carrinho = {};
+
+
+  renderAll();
+
+
+  falar(
+    `Pedido salvo com sucesso. Cliente ${cliente.nome}. Total ${moeda(total)}.`
+  );
 
 }
 
 
 /* =========================================================
-   PEDIDOS DA SEMANA
+   CLIENTES
    ========================================================= */
 
-function inicioDaSemana(){
+function renderClientes(){
 
-  const agora =
-    new Date();
-
-  const dia =
-    agora.getDay();
-
-  const diferenca =
-    dia === 0 ? 6 : dia - 1;
-
-  const inicio =
-    new Date(agora);
-
-  inicio.setHours(
-    0,0,0,0
-  );
-
-  inicio.setDate(
-    agora.getDate() - diferenca
-  );
-
-  return inicio;
-
-}
-
-
-function pedidosDaSemana(){
-
-  const inicio =
-    inicioDaSemana();
-
-  return window.pedidos.filter(p => {
-
-    const data =
-      new Date(p.data);
-
-    return (
-      data >= inicio &&
-      p.status !== "Cancelado"
-    );
-
-  });
-
-}
-
-
-function renderSemana(){
-
-  const lista =
-    pedidosDaSemana();
-
-
-  const inicioEl =
+  const el =
     document.getElementById(
-      "pedidosSemana"
-    );
-
-  const resumoEl =
-    document.getElementById(
-      "resumoSemana"
+      "listaClientes"
     );
 
 
-  const total =
-    lista.reduce(
-      (s,p) =>
-        s + Number(p.total || 0),
-      0
-    );
+  if(!clientes.length){
 
-
-  if(resumoEl){
-
-    resumoEl.innerHTML = `
-
-      <div class="list-item">
-        <b>${lista.length}</b>
-        pedidos registrados
-      </div>
-
-      <div class="list-item">
-        Total:
-        <b>${moeda(total)}</b>
-      </div>
-
-    `;
-
-  }
-
-
-  if(!inicioEl) return;
-
-
-  if(!lista.length){
-
-    inicioEl.innerHTML =
-      `<div class="empty">
-        Nenhum pedido nesta semana.
-      </div>`;
+    el.innerHTML =
+      '<div class="empty">Nenhum cliente cadastrado.</div>';
 
     return;
 
   }
 
 
-  inicioEl.innerHTML =
-    lista
-      .slice()
-      .reverse()
-      .map(p => `
+  el.innerHTML =
+    clientes.map(c => `
 
-        <div class="list-item">
+      <div class="item-line">
 
-          <h3>
-            👤 ${esc(p.clienteNome)}
-          </h3>
-
-          <div class="small">
-            ${formatarData(p.data)}
-          </div>
-
-          <br>
-
-          ${(p.itens || [])
-            .map(i =>
-              `${i.quantidade} ×
-              ${esc(i.nome)}
-              = ${moeda(i.subtotal)}`
-            )
-            .join("<br>")
-          }
-
-          <br><br>
+        <div>
 
           <b>
-            Total:
-            ${moeda(p.total)}
+            ${esc(c.nome)}
           </b>
+
+          <div class="muted">
+            ${esc(c.telefone || "")}
+            ${c.endereco
+              ? " • " + esc(c.endereco)
+              : ""}
+          </div>
 
         </div>
 
-      `).join("");
+        <button
+          class="action secondary"
+          onclick="selecionarCliente('${c.id}')">
+          Usar
+        </button>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function selecionarCliente(idc){
+
+  clienteAtual = idc;
+
+  renderClientesSelect();
+
+  document
+    .querySelector(
+      '[data-tab="pedido"]'
+    )
+    .click();
 
 }
 
@@ -1659,63 +1243,42 @@ function renderSemana(){
 
 function renderEstoque(){
 
-  const el =
-    document.getElementById(
-      "listaEstoque"
-    );
+  document.getElementById(
+    "listaEstoque"
+  ).innerHTML =
 
-  if(!el) return;
-
-
-  el.innerHTML =
     produtos.map(p => {
 
-      const qtd =
-        Number(
-          window.estoque[p.id] || 0
-        );
+      let alerta = "";
 
+      if(
+        Number(p.estoque) <= 3
+      ){
 
-      const alerta =
-        qtd <= 3
-          ? `<span class="stock-low">
-              ⚠️ Estoque acabando
-             </span>`
-          : `<span class="badge">
-              Estoque normal
-             </span>`;
+        alerta = `
+          <div class="alerta">
+            ⚠️ Estoque baixo
+          </div>
+        `;
 
+      }
 
       return `
 
-        <div class="list-item">
+        <div class="item-line">
 
-          <b>${esc(p.nome)}</b>
+          <span>
+            <b>
+              ${esc(p.nome)}
+            </b>
 
-          <br>
+            ${alerta}
 
-          Estoque:
-          <strong>${qtd}</strong>
+          </span>
 
-          <br>
-
-          ${alerta}
-
-          <br><br>
-
-          <button
-            class="btn"
-            onclick="alterarEstoque('${p.id}',1)"
-          >
-            +1
-          </button>
-
-          <button
-            class="btn secondary"
-            onclick="alterarEstoque('${p.id}',-1)"
-          >
-            -1
-          </button>
+          <b>
+            ${p.estoque}
+          </b>
 
         </div>
 
@@ -1726,328 +1289,249 @@ function renderEstoque(){
 }
 
 
-function alterarEstoque(id,valor){
+/* =========================================================
+   CONTAS
+   ========================================================= */
 
-  const atual =
-    Number(
-      window.estoque[id] || 0
+function renderContas(){
+
+  const el =
+    document.getElementById(
+      "listaContas"
     );
 
-  window.estoque[id] =
-    Math.max(
-      0,
-      atual + Number(valor)
-    );
 
-  salvarTudo();
+  if(!contas.length){
 
-  renderEstoque();
+    el.innerHTML =
+      '<div class="empty">Nenhuma conta.</div>';
 
-  renderProdutos();
+    return;
+
+  }
+
+
+  el.innerHTML =
+    contas
+      .slice()
+      .reverse()
+      .map(c => `
+
+        <div class="item-line">
+
+          <div>
+
+            <b>
+              ${esc(c.clienteNome)}
+            </b>
+
+            <div>
+              ${moeda(c.valor)}
+              •
+              ${new Date(c.data)
+                .toLocaleDateString(
+                  "pt-BR"
+                )}
+            </div>
+
+          </div>
+
+          <button
+            class="action ${c.pago ? "secondary" : ""}"
+            onclick="alternarPago('${c.id}')">
+
+            ${c.pago
+              ? "Paga"
+              : "Marcar paga"}
+
+          </button>
+
+        </div>
+
+      `)
+      .join("");
 
 }
 
 
-/* =========================================================
-   WHATSAPP
-   ========================================================= */
+function alternarPago(cid){
 
-function enviarWhatsApp(){
-
-  const clienteId =
-    document.getElementById(
-      "clientePedido"
-    ).value;
-
-  const cliente =
-    window.clientes.find(
-      c => c.id === clienteId
+  const c =
+    contas.find(
+      x =>
+        x.id === cid
     );
 
+  if(!c) return;
 
-  const itens =
-    obterItensCarrinho();
+  c.pago = !c.pago;
 
+  set(
+    KEY.con,
+    contas
+  );
 
-  if(!cliente){
+  renderContas();
 
-    alert(
-      "Selecione um cliente."
-    );
-
-    return;
-
-  }
-
-
-  if(!itens.length){
-
-    alert(
-      "Selecione os produtos."
-    );
-
-    return;
-
-  }
-
-
-  let mensagem =
-    `Olá, ${cliente.nome}! 🌾\n\n`;
-
-  mensagem +=
-    `Seu pedido Feito na Roça:\n\n`;
-
-
-  itens.forEach(item => {
-
-    mensagem +=
-      `${item.quantidade}x ${item.nome} - ${moeda(item.subtotal)}\n`;
-
-  });
-
-
-  mensagem +=
-    `\nTotal: ${moeda(calcularTotalCarrinho())}`;
-
-  mensagem +=
-    `\n\nObrigado pelo pedido! 🌾`;
-
-
-  const telefone =
-    String(
-      cliente.telefone || ""
-    ).replace(/\D/g,"");
-
-
-  let url;
-
-
-  if(telefone){
-
-    url =
-      `https://wa.me/55${telefone}?text=` +
-      encodeURIComponent(mensagem);
-
-  }else{
-
-    url =
-      `https://wa.me/?text=` +
-      encodeURIComponent(mensagem);
-
-  }
-
-
-  window.open(
-    url,
-    "_blank"
+  falar(
+    c.pago
+      ? "Conta marcada como paga."
+      : "Conta reaberta."
   );
 
 }
 
 
 /* =========================================================
-   VOZ
+   RELATÓRIO
    ========================================================= */
 
-let reconhecimento = null;
+function renderRelatorio(){
 
-let vozAtiva = false;
-
-
-function alternarVoz(){
-
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
-
-
-  if(!SpeechRecognition){
-
-    alert(
-      "O reconhecimento de voz não está disponível neste navegador."
-    );
-
-    return;
-
-  }
-
-
-  if(vozAtiva){
-
-    if(reconhecimento){
-
-      reconhecimento.stop();
-
-    }
-
-    vozAtiva = false;
-
-    atualizarBotaoVoz();
-
-    return;
-
-  }
-
-
-  reconhecimento =
-    new SpeechRecognition();
-
-  reconhecimento.lang =
-    "pt-BR";
-
-  reconhecimento.continuous =
-    false;
-
-  reconhecimento.interimResults =
-    false;
-
-
-  reconhecimento.onstart =
-    function(){
-
-      vozAtiva = true;
-
-      atualizarBotaoVoz();
-
-    };
-
-
-  reconhecimento.onresult =
-    function(event){
-
-      const texto =
-        event.results[0][0].transcript;
-
-      interpretarVoz(texto);
-
-    };
-
-
-  reconhecimento.onerror =
-    function(){
-
-      vozAtiva = false;
-
-      atualizarBotaoVoz();
-
-    };
-
-
-  reconhecimento.onend =
-    function(){
-
-      vozAtiva = false;
-
-      atualizarBotaoVoz();
-
-    };
-
-
-  reconhecimento.start();
-
-}
-
-
-function atualizarBotaoVoz(){
-
-  const btn =
-    document.getElementById(
-      "voiceBtn"
-    );
-
-  const status =
-    document.getElementById(
-      "voiceStatus"
+  const total =
+    pedidos.reduce(
+      (a,p) =>
+        a +
+        Number(
+          p.total || 0
+        ),
+      0
     );
 
 
-  if(vozAtiva){
+  const aberto =
+    contas
+      .filter(
+        c =>
+          !c.pago
+      )
+      .reduce(
+        (a,c) =>
+          a +
+          Number(
+            c.valor || 0
+          ),
+        0
+      );
 
-    btn.textContent =
-      "🔴 Desativar voz";
 
-    btn.classList.add(
-      "voice-on"
-    );
+  const pagos =
+    contas
+      .filter(
+        c =>
+          c.pago
+      )
+      .reduce(
+        (a,c) =>
+          a +
+          Number(
+            c.valor || 0
+          ),
+        0
+      );
 
-    status.textContent =
-      "🎙️ Estou ouvindo...";
 
-  }else{
+  let html = `
 
-    btn.textContent =
-      "🎙️ Ativar voz";
+    <p>
+      <b>Pedidos:</b>
+      ${pedidos.length}
+    </p>
 
-    btn.classList.remove(
-      "voice-on"
-    );
+    <p>
+      <b>Vendas:</b>
+      ${moeda(total)}
+    </p>
 
-    status.textContent =
-      "Voz desativada";
+    <p>
+      <b>Recebido:</b>
+      ${moeda(pagos)}
+    </p>
 
-  }
+    <p>
+      <b>A receber:</b>
+      ${moeda(aberto)}
+    </p>
+
+  `;
+
+
+  html +=
+    pedidos
+      .slice()
+      .reverse()
+      .map(p => `
+
+        <div class="card">
+
+          <div class="between">
+
+            <b>
+              ${esc(p.clienteNome)}
+            </b>
+
+            <b>
+              ${moeda(p.total)}
+            </b>
+
+          </div>
+
+          <div class="muted">
+
+            ${new Date(p.data)
+              .toLocaleString(
+                "pt-BR"
+              )}
+
+          </div>
+
+          ${p.itens.map(i => `
+
+            <div class="item-line">
+
+              <span>
+                ${i.quantidade}x
+                ${esc(i.nome)}
+              </span>
+
+              <span>
+                ${moeda(i.subtotal)}
+              </span>
+
+            </div>
+
+          `).join("")}
+
+        </div>
+
+      `)
+      .join("");
+
+
+  document.getElementById(
+    "relatorio"
+  ).innerHTML = html;
 
 }
 
 
 /* =========================================================
-   INTERPRETAÇÃO SIMPLES DA VOZ
+   ATUALIZA TUDO
    ========================================================= */
 
-function interpretarVoz(texto){
+function renderAll(){
 
-  const frase =
-    texto.toLowerCase();
+  renderClientesSelect();
 
-  document.getElementById(
-    "voiceStatus"
-  ).textContent =
-    "Você disse: " + texto;
+  renderProdutos();
 
+  renderClientes();
 
-  if(frase.includes("cliente")){
+  renderEstoque();
 
-    abrirAbaPorId("clientes");
+  renderContas();
 
-    return;
-
-  }
-
-
-  if(
-    frase.includes("pedido") ||
-    frase.includes("comprar")
-  ){
-
-    abrirAbaPorId("pedidos");
-
-    return;
-
-  }
-
-
-  for(const p of produtos){
-
-    if(
-      frase.includes(
-        p.nome.toLowerCase()
-      )
-    ){
-
-      alterarQuantidade(
-        p.id,
-        1
-      );
-
-      abrirAbaPorId(
-        "pedidos"
-      );
-
-      return;
-
-    }
-
-  }
+  renderRelatorio();
 
 }
 
@@ -2056,185 +1540,77 @@ function interpretarVoz(texto){
    NAVEGAÇÃO
    ========================================================= */
 
-function abrirAba(id,botao){
+document
+  .querySelectorAll(
+    "nav button"
+  )
+  .forEach(b => {
 
-  document
-    .querySelectorAll("section")
-    .forEach(sec =>
-      sec.classList.remove(
+    b.onclick = () => {
+
+      document
+        .querySelectorAll(
+          "nav button"
+        )
+        .forEach(x =>
+          x.classList.remove(
+            "active"
+          )
+        );
+
+
+      document
+        .querySelectorAll(
+          "main section"
+        )
+        .forEach(x =>
+          x.classList.remove(
+            "active-section"
+          )
+        );
+
+
+      b.classList.add(
         "active"
-      )
-    );
-
-
-  const sec =
-    document.getElementById(id);
-
-  if(sec){
-
-    sec.classList.add(
-      "active"
-    );
-
-  }
-
-
-  document
-    .querySelectorAll("nav button")
-    .forEach(btn =>
-      btn.classList.remove(
-        "active"
-      )
-    );
-
-
-  if(botao){
-
-    botao.classList.add(
-      "active"
-    );
-
-  }
-
-}
-
-
-function abrirAbaPorId(id){
-
-  const botoes =
-    document.querySelectorAll(
-      "nav button"
-    );
-
-  let encontrado = false;
-
-
-  botoes.forEach(btn => {
-
-    const texto =
-      btn.textContent.toLowerCase();
-
-
-    let corresponde = false;
-
-
-    if(
-      id === "inicio" &&
-      texto.includes("início")
-    ) corresponde = true;
-
-
-    if(
-      id === "pedidos" &&
-      texto.includes("pedido")
-    ) corresponde = true;
-
-
-    if(
-      id === "clientes" &&
-      texto.includes("cliente")
-    ) corresponde = true;
-
-
-    if(
-      id === "semana" &&
-      texto.includes("semana")
-    ) corresponde = true;
-
-
-    if(
-      id === "relatorios" &&
-      texto.includes("relatório")
-    ) corresponde = true;
-
-
-    if(
-      id === "estoque" &&
-      texto.includes("estoque")
-    ) corresponde = true;
-
-
-    if(corresponde){
-
-      abrirAba(
-        id,
-        btn
       );
 
-      encontrado = true;
 
-    }
+      document
+        .getElementById(
+          b.dataset.tab
+        )
+        .classList.add(
+          "active-section"
+        );
+
+    };
 
   });
 
 
-  if(!encontrado){
-
-    abrirAba(id);
-
-  }
-
-}
-
-
 /* =========================================================
-   DATA
+   CLIENTE SELECIONADO
    ========================================================= */
 
-function formatarData(data){
+document
+  .getElementById(
+    "clienteSelect"
+  )
+  .onchange = e => {
 
-  return new Date(data)
-    .toLocaleString(
-      "pt-BR",
-      {
-        dateStyle:"short",
-        timeStyle:"short"
-      }
-    );
+    clienteAtual =
+      e.target.value;
 
-}
-
-
-/* =========================================================
-   RENDER GERAL
-   ========================================================= */
-
-function renderTudo(){
-
-  renderProdutos();
-
-  renderResumoPedido();
-
-  renderClientes();
-
-  renderSelectClientes();
-
-  renderSemana();
-
-  renderRelatorioGeral();
-
-  renderEstoque();
-
-}
+  };
 
 
 /* =========================================================
    INICIALIZAÇÃO
    ========================================================= */
 
-carregarDados();
+renderAll();
 
-renderTudo();
-
-
-/* =========================================================
-   ATUALIZAÇÃO AUTOMÁTICA DA TELA
-   ========================================================= */
-
-setInterval(
-  renderTudo,
-  5000
-);
+atualizarBotaoAudio();
 
 </script>
 
