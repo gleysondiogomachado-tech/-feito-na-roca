@@ -8,417 +8,71 @@
 
 <style>
 *{box-sizing:border-box}
-
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f1e8;
-color:#222;
-}
-
-header{
-background:#2f6b3f;
-color:#fff;
-padding:16px;
-position:sticky;
-top:0;
-z-index:20;
-}
-
-header h1{
-margin:0 0 4px;
-font-size:24px;
-}
-
-header .sub{
-font-size:13px;
-opacity:.95;
-}
-
-nav{
-display:flex;
-gap:6px;
-overflow:auto;
-background:#fff;
-padding:8px;
-position:sticky;
-top:70px;
-z-index:19;
-border-bottom:1px solid #ddd;
--webkit-overflow-scrolling:touch;
-}
-
-nav button{
-border:0;
-border-radius:9px;
-padding:10px 12px;
-background:#e8eee7;
-white-space:nowrap;
-font-weight:bold;
-}
-
-nav button.active{
-background:#2f6b3f;
-color:#fff;
-}
-
-main{
-max-width:1100px;
-margin:auto;
-padding:12px;
-}
-
-section{
-display:none;
-}
-
-section.show{
-display:block;
-}
-
-.card{
-background:#fff;
-border-radius:14px;
-padding:15px;
-margin-bottom:12px;
-box-shadow:0 2px 8px #0001;
-}
-
-label{
-display:block;
-font-size:13px;
-font-weight:bold;
-margin:8px 0 5px;
-}
-
-input,
-select,
-textarea{
-width:100%;
-padding:11px;
-border:1px solid #ccc;
-border-radius:9px;
-font-size:16px;
-background:#fff;
-}
-
-button{
-cursor:pointer;
--webkit-tap-highlight-color:transparent;
-}
-
-.primary{
-background:#2f6b3f;
-color:#fff;
-border:0;
-border-radius:9px;
-padding:11px 15px;
-font-weight:bold;
-}
-
-.secondary{
-background:#eee;
-color:#222;
-border:0;
-border-radius:9px;
-padding:10px 13px;
-font-weight:bold;
-}
-
-.danger{
-background:#b3261e;
-color:#fff;
-border:0;
-border-radius:8px;
-padding:8px 11px;
-font-weight:bold;
-}
-
-.box{
-border:1px solid #ddd;
-border-radius:11px;
-padding:12px;
-margin-top:9px;
-}
-
-.row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:8px;
-flex-wrap:wrap;
-}
-
-.small{
-font-size:13px;
-color:#666;
-}
-
-.total{
-font-size:21px;
-font-weight:bold;
-color:#2f6b3f;
-}
-
-.ok{
-color:#17652a;
-font-weight:bold;
-}
-
-.debt{
-color:#b3261e;
-font-weight:bold;
-}
-
-.kpis{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
-gap:10px;
-}
-
-.kpi{
-background:#eef5ec;
-padding:14px;
-border-radius:11px;
-}
-
-.kpi b{
-display:block;
-font-size:21px;
-margin-top:5px;
-color:#2f6b3f;
-}
-
-.produtos{
-display:flex;
-flex-direction:column;
-gap:8px;
-}
-
-.produto{
-display:grid;
-grid-template-columns:1fr 44px 65px 44px;
-gap:5px;
-align-items:center;
-border:1px solid #ddd;
-border-radius:10px;
-padding:8px;
-}
-
-.produto button{
-width:44px;
-height:43px;
-border:0;
-border-radius:8px;
-background:#e8eee7;
-color:#285b34;
-font-size:24px;
-font-weight:bold;
-}
-
-.produto input{
-width:65px;
-text-align:center;
-font-weight:bold;
-}
-
-.produto-total{
-grid-column:1/-1;
-text-align:right;
-font-weight:bold;
-}
-
-.total-pedido{
-margin-top:12px;
-padding:15px;
-background:#eef5ec;
-border-radius:11px;
-text-align:center;
-font-size:22px;
-font-weight:bold;
-color:#2f6b3f;
-}
-
-.pagamento{
-margin-top:10px;
-background:#f4f8f3;
-border:1px solid #d5e2d3;
-border-radius:11px;
-padding:12px;
-}
-
-.metodos{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:7px;
-margin-top:9px;
-}
-
-.metodos button{
-border:1px solid #ccc;
-background:#fff;
-padding:11px;
-border-radius:8px;
-font-weight:bold;
-}
-
-.status{
-padding:10px;
-border-radius:9px;
-margin-bottom:10px;
-font-weight:bold;
-}
-
-.status.ok{
-background:#e8f5e9;
-}
-
-.status.erro{
-background:#ffebee;
-color:#b3261e;
-}
-
-.badge{
-display:inline-block;
-padding:7px 10px;
-border-radius:20px;
-font-size:13px;
-font-weight:bold;
-}
-
-.badge-pendente{
-background:#fff3cd;
-color:#856404;
-}
-
-.badge-preparacao{
-background:#dbeafe;
-color:#1e40af;
-}
-
-.badge-entregue{
-background:#dcfce7;
-color:#166534;
-}
-
-.badge-sem{
-background:#eee;
-color:#555;
-}
-
-.entrega-box{
-border-left:5px solid #2f6b3f;
-}
-
-.data-entrega{
-background:#eef5ec;
-border-radius:10px;
-padding:10px;
-margin-top:10px;
-}
-
-.botao-entrega{
-width:100%;
-padding:13px;
-margin-top:8px;
-border:0;
-border-radius:9px;
-background:#2f6b3f;
-color:#fff;
-font-weight:bold;
-font-size:15px;
-}
-
-.botao-preparar{
-width:100%;
-padding:11px;
-margin-top:8px;
-border:0;
-border-radius:9px;
-background:#e8eef7;
-color:#174a7e;
-font-weight:bold;
-}
-
-.botao-voltar{
-width:100%;
-padding:11px;
-margin-top:8px;
-border:0;
-border-radius:9px;
-background:#fff3cd;
-color:#856404;
-font-weight:bold;
-}
-
-.produto-destaque{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-padding:10px;
-border:1px solid #ddd;
-border-radius:10px;
-margin-top:7px;
-background:#fff;
-}
-
-.vazio{
-text-align:center;
-padding:20px;
-color:#777;
-}
-
-.aviso{
-padding:11px;
-background:#fff8df;
-border:1px solid #ead78b;
-border-radius:10px;
-margin-top:10px;
-}
-
-hr{
-border:0;
-border-top:1px solid #ddd;
-margin:14px 0;
-}
-
+body{margin:0;font-family:Arial,sans-serif;background:#f5f1e8;color:#222}
+header{background:#2f6b3f;color:#fff;padding:16px;position:sticky;top:0;z-index:20}
+header h1{margin:0 0 4px;font-size:24px}
+header .sub{font-size:13px;opacity:.95}
+nav{display:flex;gap:6px;overflow:auto;background:#fff;padding:8px;position:sticky;top:70px;z-index:19;border-bottom:1px solid #ddd;-webkit-overflow-scrolling:touch}
+nav button{border:0;border-radius:9px;padding:10px 12px;background:#e8eee7;white-space:nowrap;font-weight:bold}
+nav button.active{background:#2f6b3f;color:#fff}
+main{max-width:1100px;margin:auto;padding:12px}
+section{display:none}
+section.show{display:block}
+.card{background:#fff;border-radius:14px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #0001}
+label{display:block;font-size:13px;font-weight:bold;margin:8px 0 5px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:9px;font-size:16px;background:#fff}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.primary{background:#2f6b3f;color:#fff;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}
+.secondary{background:#eee;color:#222;border:0;border-radius:9px;padding:10px 13px;font-weight:bold}
+.danger{background:#b3261e;color:#fff;border:0;border-radius:8px;padding:8px 11px;font-weight:bold}
+.box{border:1px solid #ddd;border-radius:11px;padding:12px;margin-top:9px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.small{font-size:13px;color:#666}
+.total{font-size:21px;font-weight:bold;color:#2f6b3f}
+.ok{color:#17652a;font-weight:bold}
+.debt{color:#b3261e;font-weight:bold}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.kpi{background:#eef5ec;padding:14px;border-radius:11px}
+.kpi b{display:block;font-size:21px;margin-top:5px;color:#2f6b3f}
+.produtos{display:flex;flex-direction:column;gap:8px}
+.produto{display:grid;grid-template-columns:1fr 44px 65px 44px;gap:5px;align-items:center;border:1px solid #ddd;border-radius:10px;padding:8px}
+.produto button{width:44px;height:43px;border:0;border-radius:8px;background:#e8eee7;color:#285b34;font-size:24px;font-weight:bold}
+.produto input{width:65px;text-align:center;font-weight:bold}
+.produto-total{grid-column:1/-1;text-align:right;font-weight:bold}
+.total-pedido{margin-top:12px;padding:15px;background:#eef5ec;border-radius:11px;text-align:center;font-size:22px;font-weight:bold;color:#2f6b3f}
+.pagamento{margin-top:10px;background:#f4f8f3;border:1px solid #d5e2d3;border-radius:11px;padding:12px}
+.metodos{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}
+.metodos button{border:1px solid #ccc;background:#fff;padding:11px;border-radius:8px;font-weight:bold}
+.status{padding:10px;border-radius:9px;margin-bottom:10px;font-weight:bold}
+.status.ok{background:#e8f5e9}
+.status.erro{background:#ffebee;color:#b3261e}
+.badge{display:inline-block;padding:7px 10px;border-radius:20px;font-size:13px;font-weight:bold}
+.badge-pendente{background:#fff3cd;color:#856404}
+.badge-preparacao{background:#dbeafe;color:#1e40af}
+.badge-entregue{background:#dcfce7;color:#166534}
+.badge-sem{background:#eee;color:#555}
+.entrega-box{border-left:5px solid #2f6b3f}
+.data-entrega{background:#eef5ec;border-radius:10px;padding:10px;margin-top:10px}
+.botao-entrega,.botao-preparar,.botao-voltar{width:100%;padding:12px;margin-top:8px;border:0;border-radius:9px;font-weight:bold;font-size:15px}
+.botao-entrega{background:#2f6b3f;color:#fff}
+.botao-preparar{background:#e8eef7;color:#174a7e}
+.botao-voltar{background:#fff3cd;color:#856404}
+.produto-destaque{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid #ddd;border-radius:10px;margin-top:7px;background:#fff}
+.vazio{text-align:center;padding:20px;color:#777}
+.aviso{padding:11px;background:#fff8df;border:1px solid #ead78b;border-radius:10px;margin-top:10px}
+.preco-atual{font-size:20px;font-weight:bold;color:#2f6b3f;margin-top:5px}
+.linha-preco{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
 @media(max-width:500px){
-
-.produto{
-grid-template-columns:1fr 40px 58px 40px;
+.produto{grid-template-columns:1fr 40px 58px 40px}
+.produto button{width:40px}
+.produto input{width:58px}
+nav button{padding:10px}
+.linha-preco{grid-template-columns:1fr}
 }
-
-.produto button{
-width:40px;
-}
-
-.produto input{
-width:58px;
-}
-
-nav button{
-padding:10px;
-}
-
-}
-
 @media print{
-
-header,
-nav,
-.no-print{
-display:none!important;
-}
-
-body{
-background:#fff;
-}
-
-.card{
-box-shadow:none;
-}
-
+header,nav,.no-print{display:none!important}
+body{background:#fff}
+.card{box-shadow:none}
 }
 </style>
 </head>
@@ -433,7 +87,6 @@ Clientes • Pedidos • Entregas • Pagamentos • Contas • Relatórios
 </header>
 
 <nav>
-
 <button data-tab="inicio">Início</button>
 <button data-tab="clientes">Clientes</button>
 <button data-tab="pedidos">Pedidos</button>
@@ -443,14 +96,9 @@ Clientes • Pedidos • Entregas • Pagamentos • Contas • Relatórios
 <button data-tab="financeiro">Financeiro</button>
 <button data-tab="produtos">Produtos</button>
 <button data-tab="relatorios">Relatórios</button>
-
 </nav>
 
 <main>
-
-<!-- =====================================================
-INÍCIO
-===================================================== -->
 
 <section id="inicio" class="show">
 
@@ -486,40 +134,29 @@ Entregas hoje
 </div>
 
 <div class="card">
-
 <h3>📊 Resumo</h3>
-
 <div id="resumoInicio"></div>
-
 </div>
 
 <div class="card">
-
 <h3>🚚 Próximas entregas</h3>
-
 <div id="resumoEntregas"></div>
-
 </div>
 
 <div class="card">
-
 <h3>💾 Segurança dos dados</h3>
 
 <p class="small">
-Clientes, pedidos, pagamentos, estoque e informações de entrega
-são salvos no aparelho. Faça backups regularmente.
+Clientes, pedidos, pagamentos, estoque, preços e entregas são salvos no aparelho.
+Faça backups regularmente.
 </p>
 
 <button class="primary" onclick="fazerBackup()">
 ⬇️ Fazer backup
 </button>
 
-<button
-class="secondary"
-onclick="document.getElementById('arquivoBackup').click()">
-
+<button class="secondary" onclick="document.getElementById('arquivoBackup').click()">
 ⬆️ Restaurar backup
-
 </button>
 
 <input
@@ -534,10 +171,6 @@ onchange="restaurarBackup(event)"
 
 </section>
 
-
-<!-- =====================================================
-CLIENTES
-===================================================== -->
 
 <section id="clientes">
 
@@ -584,10 +217,6 @@ oninput="mostrarClientes()"
 </section>
 
 
-<!-- =====================================================
-PEDIDOS
-===================================================== -->
-
 <section id="pedidos">
 
 <div class="card">
@@ -595,7 +224,6 @@ PEDIDOS
 <h2>🛒 Novo pedido</h2>
 
 <label>Cliente</label>
-
 <select id="clientePedido"></select>
 
 <h3>Produtos</h3>
@@ -657,10 +285,6 @@ onclick="salvarPedido()">
 
 </section>
 
-
-<!-- =====================================================
-ENTREGAS
-===================================================== -->
 
 <section id="entregas">
 
@@ -729,17 +353,11 @@ onclick="limparFiltrosEntregas()">
 </div>
 
 <div class="card">
-
 <div id="listaEntregas"></div>
-
 </div>
 
 </section>
 
-
-<!-- =====================================================
-CONTAS
-===================================================== -->
 
 <section id="contas">
 
@@ -761,10 +379,6 @@ onchange="mostrarConta()">
 </section>
 
 
-<!-- =====================================================
-ESTOQUE
-===================================================== -->
-
 <section id="estoque">
 
 <div class="card">
@@ -777,10 +391,6 @@ ESTOQUE
 
 </section>
 
-
-<!-- =====================================================
-FINANCEIRO
-===================================================== -->
 
 <section id="financeiro">
 
@@ -822,10 +432,6 @@ Lucro bruto
 </section>
 
 
-<!-- =====================================================
-PRODUTOS
-===================================================== -->
-
 <section id="produtos">
 
 <div class="card">
@@ -833,7 +439,8 @@ PRODUTOS
 <h2>📦 Produtos e preços</h2>
 
 <p class="small">
-Cada produto possui seu próprio preço. Os preços são independentes.
+Cada produto possui seu próprio preço. Alterar um produto não altera os outros.
+O novo preço será usado somente nos próximos pedidos.
 </p>
 
 <div id="listaProdutos"></div>
@@ -842,10 +449,6 @@ Cada produto possui seu próprio preço. Os preços são independentes.
 
 </section>
 
-
-<!-- =====================================================
-RELATÓRIOS
-===================================================== -->
 
 <section id="relatorios">
 
@@ -921,12 +524,6 @@ const PRODUTOS=[
 BANCO
 ===================================================== */
 
-/*
-IMPORTANTE:
-Esta chave permanece exatamente igual
-à versão anterior.
-*/
-
 const CHAVE="feito_na_roca_banco_principal_v5";
 
 let banco=carregarBanco();
@@ -935,7 +532,7 @@ let quantidades={};
 
 
 /* =====================================================
-CARREGAR BANCO
+CARREGAR
 ===================================================== */
 
 function carregarBanco(){
@@ -944,23 +541,19 @@ let resultado={
 clientes:[],
 pedidos:[],
 pagamentos:[],
-estoque:{}
+estoque:{},
+precos:{}
 };
 
 try{
 
-const texto=
-localStorage.getItem(CHAVE);
+const texto=localStorage.getItem(CHAVE);
 
 if(texto){
 
-const dados=
-JSON.parse(texto);
+const dados=JSON.parse(texto);
 
-if(
-dados &&
-typeof dados==="object"
-){
+if(dados && typeof dados==="object"){
 
 resultado={
 ...resultado,
@@ -971,16 +564,12 @@ resultado={
 
 }
 
-
-/* Bancos antigos */
-
 if(
 resultado.clientes.length===0 &&
 resultado.pedidos.length===0
 ){
 
 const chavesAntigas=[
-
 "feitoNaRoca_v2",
 "feitoNaRoca_dados_v3",
 "feitoNaRoca",
@@ -988,74 +577,39 @@ const chavesAntigas=[
 "fr_pedidos",
 "fr_contas",
 "fr_produtos"
-
 ];
 
-
-for(
-const chave of chavesAntigas
-){
+for(const chave of chavesAntigas){
 
 try{
 
-const antigo=
-localStorage.getItem(chave);
+const antigo=localStorage.getItem(chave);
 
-if(!antigo)
-continue;
+if(!antigo)continue;
 
-const dados=
-JSON.parse(antigo);
+const dados=JSON.parse(antigo);
 
-if(!dados)
-continue;
+if(!dados)continue;
 
+if(Array.isArray(dados.clientes))
+resultado.clientes=dados.clientes;
 
-if(
-Array.isArray(dados.clientes)
-){
+if(Array.isArray(dados.pedidos))
+resultado.pedidos=dados.pedidos;
 
-resultado.clientes=
-dados.clientes;
+if(Array.isArray(dados.pagamentos))
+resultado.pagamentos=dados.pagamentos;
 
-}
+if(dados.estoque)
+resultado.estoque=dados.estoque;
 
-if(
-Array.isArray(dados.pedidos)
-){
-
-resultado.pedidos=
-dados.pedidos;
-
-}
-
-if(
-Array.isArray(dados.pagamentos)
-){
-
-resultado.pagamentos=
-dados.pagamentos;
-
-}
-
-if(
-dados.estoque
-){
-
-resultado.estoque=
-dados.estoque;
-
-}
-
+if(dados.precos)
+resultado.precos=dados.precos;
 
 if(
 resultado.clientes.length ||
 resultado.pedidos.length
-){
-
-break;
-
-}
+)break;
 
 }catch(e){}
 
@@ -1065,39 +619,18 @@ break;
 
 }catch(e){
 
-console.error(
-"Erro ao carregar:",
-e
-);
+console.error("Erro ao carregar banco:",e);
 
 }
 
-
-/* Garantias */
-
-if(
-!Array.isArray(resultado.clientes)
-){
-
+if(!Array.isArray(resultado.clientes))
 resultado.clientes=[];
 
-}
-
-if(
-!Array.isArray(resultado.pedidos)
-){
-
+if(!Array.isArray(resultado.pedidos))
 resultado.pedidos=[];
 
-}
-
-if(
-!Array.isArray(resultado.pagamentos)
-){
-
+if(!Array.isArray(resultado.pagamentos))
 resultado.pagamentos=[];
-
-}
 
 if(
 !resultado.estoque ||
@@ -1108,17 +641,18 @@ resultado.estoque={};
 
 }
 
+if(
+!resultado.precos ||
+typeof resultado.precos!=="object"
+){
 
-/*
-Criar estoque dos novos produtos
-sem apagar o que já existe.
-*/
+resultado.precos={};
+
+}
 
 PRODUTOS.forEach(p=>{
 
-if(
-resultado.estoque[p.nome]===undefined
-){
+if(resultado.estoque[p.nome]===undefined){
 
 resultado.estoque[p.nome]=0;
 
@@ -1126,58 +660,42 @@ resultado.estoque[p.nome]=0;
 
 });
 
+PRODUTOS.forEach(p=>{
 
-/*
-Compatibilidade com pedidos antigos.
-*/
+if(resultado.precos[p.nome]===undefined){
 
-resultado.pedidos.forEach(p=>{
-
-if(
-p.dataEntrega===undefined
-){
-
-p.dataEntrega="";
-
-}
-
-if(
-p.horaEntrega===undefined
-){
-
-p.horaEntrega="";
-
-}
-
-if(
-p.entregueEm===undefined
-){
-
-p.entregueEm="";
-
-}
-
-if(
-p.preparadoEm===undefined
-){
-
-p.preparadoEm="";
-
-}
-
-if(
-p.statusEntrega===undefined
-){
-
-p.statusEntrega=
-p.dataEntrega
-?"A entregar"
-:"Sem entrega programada";
+resultado.precos[p.nome]=Number(p.preco);
 
 }
 
 });
 
+resultado.pedidos.forEach(p=>{
+
+if(p.dataEntrega===undefined)
+p.dataEntrega="";
+
+if(p.horaEntrega===undefined)
+p.horaEntrega="";
+
+if(p.entregueEm===undefined)
+p.entregueEm="";
+
+if(p.preparadoEm===undefined)
+p.preparadoEm="";
+
+if(p.statusEntrega===undefined){
+
+p.statusEntrega=
+p.dataEntrega
+?
+"A entregar"
+:
+"Sem entrega programada";
+
+}
+
+});
 
 return resultado;
 
@@ -1192,24 +710,13 @@ function salvarBanco(){
 
 try{
 
-const texto=
-JSON.stringify(banco);
+const texto=JSON.stringify(banco);
 
-localStorage.setItem(
-CHAVE,
-texto
-);
+localStorage.setItem(CHAVE,texto);
 
-const confirmado=
-localStorage.getItem(CHAVE);
+if(localStorage.getItem(CHAVE)!==texto){
 
-if(
-confirmado!==texto
-){
-
-throw new Error(
-"Falha na confirmação."
-);
+throw new Error("Falha na confirmação.");
 
 }
 
@@ -1233,26 +740,138 @@ return false;
 
 
 /* =====================================================
+PREÇO
+===================================================== */
+
+function precoProduto(nome){
+
+const valor=Number(
+banco.precos?.[nome]
+);
+
+if(
+Number.isFinite(valor) &&
+valor>=0
+){
+
+return valor;
+
+}
+
+const produto=PRODUTOS.find(
+p=>p.nome===nome
+);
+
+return Number(produto?.preco||0);
+
+}
+
+
+function alterarPreco(nome){
+
+const atual=precoProduto(nome);
+
+const valorDigitado=prompt(
+"Novo preço para:\n"+nome+
+"\n\nPreço atual: "+dinheiro(atual)+
+"\n\nDigite o novo valor:",
+atual.toFixed(2)
+);
+
+if(valorDigitado===null)
+return;
+
+const texto=String(valorDigitado)
+.trim()
+.replace(/^R\$\s*/i,"")
+.trim();
+
+let valorFinal;
+
+if(texto.includes(",") && texto.includes(".")){
+
+valorFinal=Number(
+texto.replace(/\./g,"").replace(",",".")
+);
+
+}else if(texto.includes(",")){
+
+valorFinal=Number(
+texto.replace(",",".")
+);
+
+}else{
+
+valorFinal=Number(texto);
+
+}
+
+if(
+!Number.isFinite(valorFinal) ||
+valorFinal<0
+){
+
+alert("❌ Preço inválido.");
+return;
+
+}
+
+if(valorFinal>999999){
+
+alert("❌ Preço muito alto.");
+return;
+
+}
+
+const antigo=banco.precos[nome];
+
+banco.precos[nome]=valorFinal;
+
+if(!salvarBanco()){
+
+if(antigo===undefined){
+
+delete banco.precos[nome];
+
+}else{
+
+banco.precos[nome]=antigo;
+
+}
+
+return;
+
+}
+
+renderizar();
+
+alert(
+"✓ Preço salvo!\n\n"+
+nome+
+"\nNovo preço: "+
+dinheiro(valorFinal)+
+"\n\nEsse preço será usado nos próximos pedidos."
+);
+
+}
+
+
+/* =====================================================
 UTILIDADES
 ===================================================== */
 
 function novoId(){
 
-return Date.now()
-.toString(36)
-+
+return Date.now().toString(36)+
 "-"+
-Math.random()
-.toString(36)
-.slice(2);
+Math.random().toString(36).slice(2);
 
 }
 
 
 function dinheiro(v){
 
-return Number(v||0)
-.toLocaleString(
+return Number(v||0).toLocaleString(
 "pt-BR",
 {
 style:"currency",
@@ -1290,56 +909,36 @@ const d=new Date();
 
 return d.getFullYear()+
 "-"+
-String(
-d.getMonth()+1
-).padStart(2,"0")+
+String(d.getMonth()+1).padStart(2,"0")+
 "-"+
-String(
-d.getDate()
-).padStart(2,"0");
+String(d.getDate()).padStart(2,"0");
 
 }
 
 
 function dataBR(data){
 
-if(!data)
-return"";
+if(!data)return"";
 
-const p=
-String(data).split("-");
+const p=String(data).split("-");
 
-if(p.length!==3)
-return data;
+if(p.length!==3)return data;
 
-return p[2]+"/"+
-p[1]+"/"+
-p[0];
+return p[2]+"/"+p[1]+"/"+p[0];
 
 }
 
 
 function dataHoraBR(iso){
 
-if(!iso)
-return"";
+if(!iso)return"";
 
 const d=new Date(iso);
 
-if(
-Number.isNaN(
-d.getTime()
-)
-){
-
+if(Number.isNaN(d.getTime()))
 return"";
 
-}
-
-return d.toLocaleDateString(
-"pt-BR"
-)
-+
+return d.toLocaleDateString("pt-BR")+
 " às "+
 d.toLocaleTimeString(
 "pt-BR",
@@ -1352,24 +951,14 @@ minute:"2-digit"
 }
 
 
-function mostrarStatus(
-id,
-texto,
-tipo
-){
+function mostrarStatus(id,texto,tipo){
 
-const el=
-document.getElementById(id);
+const el=document.getElementById(id);
 
-if(!el)
-return;
+if(!el)return;
 
 el.innerHTML=
-`
-<div class="status ${tipo}">
-${texto}
-</div>
-`;
+`<div class="status ${tipo}">${texto}</div>`;
 
 setTimeout(()=>{
 
@@ -1387,21 +976,17 @@ CLIENTES
 
 function cadastrarCliente(){
 
-const nome=
-document.getElementById(
+const nome=document.getElementById(
 "nomeCliente"
 ).value.trim();
 
-const telefone=
-document.getElementById(
+const telefone=document.getElementById(
 "telefoneCliente"
 ).value.trim();
 
-const observacao=
-document.getElementById(
+const observacao=document.getElementById(
 "observacaoCliente"
 ).value.trim();
-
 
 if(!nome){
 
@@ -1415,19 +1000,13 @@ return;
 
 }
 
-
-const existente=
-banco.clientes.find(
+const existente=banco.clientes.find(
 c=>
-(c.nome||"")
-.trim()
-.toLowerCase()
-===
+(c.nome||"").trim().toLowerCase()===
 nome.toLowerCase()
 &&
 (c.telefone||"")===telefone
 );
-
 
 if(existente){
 
@@ -1441,27 +1020,15 @@ return;
 
 }
 
-
 const cliente={
-
 id:novoId(),
-
-nome:nome,
-
-telefone:telefone,
-
-observacao:observacao,
-
-criadoEm:
-new Date().toISOString()
-
+nome,
+telefone,
+observacao,
+criadoEm:new Date().toISOString()
 };
 
-
-banco.clientes.push(
-cliente
-);
-
+banco.clientes.push(cliente);
 
 if(!salvarBanco()){
 
@@ -1474,22 +1041,11 @@ return;
 
 }
 
-
-document.getElementById(
-"nomeCliente"
-).value="";
-
-document.getElementById(
-"telefoneCliente"
-).value="";
-
-document.getElementById(
-"observacaoCliente"
-).value="";
-
+document.getElementById("nomeCliente").value="";
+document.getElementById("telefoneCliente").value="";
+document.getElementById("observacaoCliente").value="";
 
 renderizar();
-
 
 mostrarStatus(
 "statusCliente",
@@ -1501,34 +1057,24 @@ mostrarStatus(
 
 
 /* =====================================================
-SALDO CLIENTE
+SALDO
 ===================================================== */
 
 function saldoCliente(cid){
 
-const compras=
-banco.pedidos
-.filter(
-p=>p.clienteId===cid
-)
+const compras=banco.pedidos
+.filter(p=>p.clienteId===cid)
 .reduce(
-(t,p)=>
-t+totalPedido(p),
+(t,p)=>t+totalPedido(p),
 0
 );
 
-
-const pagamentos=
-banco.pagamentos
-.filter(
-p=>p.clienteId===cid
-)
+const pagamentos=banco.pagamentos
+.filter(p=>p.clienteId===cid)
 .reduce(
-(t,p)=>
-t+Number(p.valor||0),
+(t,p)=>t+Number(p.valor||0),
 0
 );
-
 
 return compras-pagamentos;
 
@@ -1536,36 +1082,23 @@ return compras-pagamentos;
 
 
 /* =====================================================
-MOSTRAR CLIENTES
+CLIENTES
 ===================================================== */
 
 function mostrarClientes(){
 
-const campo=
-document.getElementById(
+const campo=document.getElementById(
 "buscaCliente"
 );
 
-const busca=
-(campo?.value||"")
-.toLowerCase();
+const busca=(campo?.value||"").toLowerCase();
 
-
-const clientes=
-banco.clientes.filter(
+const clientes=banco.clientes.filter(
 c=>
-
-(c.nome||"")
-.toLowerCase()
-.includes(busca)
-
+(c.nome||"").toLowerCase().includes(busca)
 ||
-
-(c.telefone||"")
-.includes(busca)
-
+(c.telefone||"").includes(busca)
 );
-
 
 document.getElementById(
 "listaClientes"
@@ -1573,9 +1106,7 @@ document.getElementById(
 
 clientes.map(c=>{
 
-const saldo=
-saldoCliente(c.id);
-
+const saldo=saldoCliente(c.id);
 
 return `
 
@@ -1585,9 +1116,7 @@ return `
 
 <div>
 
-<b>
-${escapar(c.nome)}
-</b>
+<b>${escapar(c.nome)}</b>
 
 <div class="small">
 ${escapar(c.telefone||"")}
@@ -1612,11 +1141,9 @@ saldo>0
 ${
 c.observacao
 ?
-`
-<div class="small">
+`<div class="small">
 Obs.: ${escapar(c.observacao)}
-</div>
-`
+</div>`
 :""
 }
 
@@ -1653,21 +1180,22 @@ Excluir
 
 function excluirCliente(id){
 
-if(
-!confirm(
-"Excluir este cliente?"
-)
-)
+if(!confirm("Excluir este cliente?"))
 return;
 
+const antigos=[...banco.clientes];
 
 banco.clientes=
 banco.clientes.filter(
 c=>c.id!==id
 );
 
+if(!salvarBanco()){
 
-salvarBanco();
+banco.clientes=antigos;
+return;
+
+}
 
 renderizar();
 
@@ -1683,9 +1211,7 @@ function iniciarQuantidades(){
 quantidades={};
 
 PRODUTOS.forEach(
-p=>{
-quantidades[p.nome]=0;
-}
+p=>quantidades[p.nome]=0
 );
 
 }
@@ -1696,28 +1222,20 @@ function totalPedidoAtual(){
 return PRODUTOS.reduce(
 (t,p)=>
 t+
-Number(
-quantidades[p.nome]||0
-)*
-Number(p.preco||0),
+Number(quantidades[p.nome]||0)*
+precoProduto(p.nome),
 0
 );
 
 }
 
 
-function alterarQuantidade(
-nome,
-valor
-){
+function alterarQuantidade(nome,valor){
 
 quantidades[nome]=
 Math.max(
 0,
-Number(
-quantidades[nome]||0
-)
-+
+Number(quantidades[nome]||0)+
 Number(valor||0)
 );
 
@@ -1726,22 +1244,12 @@ mostrarProdutosPedido();
 }
 
 
-function definirQuantidade(
-nome,
-valor
-){
+function definirQuantidade(nome,valor){
 
-let q=
-parseInt(valor);
+let q=parseInt(valor);
 
-if(
-!Number.isFinite(q)||
-q<0
-){
-
+if(!Number.isFinite(q)||q<0)
 q=0;
-
-}
 
 quantidades[nome]=q;
 
@@ -1751,27 +1259,23 @@ mostrarProdutosPedido();
 
 
 /* =====================================================
-PRODUTOS NO PEDIDO
+PRODUTOS DO PEDIDO
 ===================================================== */
 
 function mostrarProdutosPedido(){
 
-const area=
-document.getElementById(
+const area=document.getElementById(
 "produtosPedido"
 );
 
-if(!area)
-return;
-
+if(!area)return;
 
 area.innerHTML=
 
 PRODUTOS.map(p=>{
 
-const q=
-quantidades[p.nome]||0;
-
+const q=quantidades[p.nome]||0;
+const preco=precoProduto(p.nome);
 
 return `
 
@@ -1779,21 +1283,17 @@ return `
 
 <div>
 
-<b>
-${escapar(p.nome)}
-</b>
+<b>${escapar(p.nome)}</b>
 
 <div class="small">
-${dinheiro(p.preco)}
+${dinheiro(preco)}
 </div>
 
 </div>
 
 <button
 onclick='alterarQuantidade(${JSON.stringify(p.nome)},-1)'>
-
 −
-
 </button>
 
 <input
@@ -1805,18 +1305,16 @@ onchange='definirQuantidade(${JSON.stringify(p.nome)},this.value)'
 
 <button
 onclick='alterarQuantidade(${JSON.stringify(p.nome)},1)'>
-
 +
-
 </button>
 
 <div class="produto-total">
 
 ${q}
 ×
-${dinheiro(p.preco)}
+${dinheiro(preco)}
 =
-${dinheiro(q*p.preco)}
+${dinheiro(q*preco)}
 
 </div>
 
@@ -1826,14 +1324,10 @@ ${dinheiro(q*p.preco)}
 
 }).join("");
 
-
 document.getElementById(
 "totalPedido"
 ).textContent=
-"Total: "+
-dinheiro(
-totalPedidoAtual()
-);
+"Total: "+dinheiro(totalPedidoAtual());
 
 }
 
@@ -1844,75 +1338,52 @@ SALVAR PEDIDO
 
 function salvarPedido(){
 
-const clienteId=
-document.getElementById(
+const clienteId=document.getElementById(
 "clientePedido"
 ).value;
 
-
 if(!clienteId){
 
-alert(
-"Selecione o cliente."
-);
-
+alert("Selecione o cliente.");
 return;
 
 }
 
-
-const itens=
-PRODUTOS
+const itens=PRODUTOS
 .filter(
-p=>
-Number(
-quantidades[p.nome]
-)>0
+p=>Number(quantidades[p.nome])>0
 )
 .map(p=>({
 
 produto:p.nome,
 
 quantidade:
-Number(
-quantidades[p.nome]
-),
+Number(quantidades[p.nome]),
 
 preco:
-Number(p.preco),
+precoProduto(p.nome),
 
 custo:
 Number(p.custo||0)
 
 }));
 
-
 if(!itens.length){
 
-alert(
-"Escolha pelo menos um produto."
-);
-
+alert("Escolha pelo menos um produto.");
 return;
 
 }
 
-
-const dataEntrega=
-document.getElementById(
+const dataEntrega=document.getElementById(
 "dataEntrega"
 ).value;
 
-const horaEntrega=
-document.getElementById(
+const horaEntrega=document.getElementById(
 "horaEntrega"
 ).value;
 
-
-if(
-horaEntrega &&
-!dataEntrega
-){
+if(horaEntrega&&!dataEntrega){
 
 alert(
 "Para informar o horário, informe também a data."
@@ -1922,28 +1393,24 @@ return;
 
 }
 
-
 const pedido={
 
 id:novoId(),
 
-clienteId:clienteId,
+clienteId,
 
-data:
-new Date().toISOString(),
+data:new Date().toISOString(),
 
-itens:itens,
+itens,
 
 observacao:
 document.getElementById(
 "observacaoPedido"
 ).value.trim(),
 
-dataEntrega:
-dataEntrega||"",
+dataEntrega:dataEntrega||"",
 
-horaEntrega:
-horaEntrega||"",
+horaEntrega:horaEntrega||"",
 
 statusEntrega:
 dataEntrega
@@ -1958,32 +1425,15 @@ entregueEm:""
 
 };
 
+banco.pedidos.push(pedido);
 
-banco.pedidos.push(
-pedido
-);
+itens.forEach(item=>{
 
-
-/* Baixar estoque */
-
-itens.forEach(
-item=>{
-
-banco.estoque[
-item.produto
-]=
-Number(
-banco.estoque[
-item.produto
-]||0
-)
--
-Number(
-item.quantidade
-);
+banco.estoque[item.produto]=
+Number(banco.estoque[item.produto]||0)-
+Number(item.quantidade);
 
 });
-
 
 if(!salvarBanco()){
 
@@ -1992,29 +1442,17 @@ banco.pedidos.filter(
 p=>p.id!==pedido.id
 );
 
+itens.forEach(item=>{
 
-itens.forEach(
-item=>{
-
-banco.estoque[
-item.produto
-]=
-Number(
-banco.estoque[
-item.produto
-]||0
-)
-+
-Number(
-item.quantidade
-);
+banco.estoque[item.produto]=
+Number(banco.estoque[item.produto]||0)+
+Number(item.quantidade);
 
 });
 
 return;
 
 }
-
 
 document.getElementById(
 "observacaoPedido"
@@ -2028,19 +1466,14 @@ document.getElementById(
 "horaEntrega"
 ).value="";
 
-
 iniciarQuantidades();
 
 renderizar();
 
-
 alert(
-
 "✓ Pedido salvo!\n\n"+
 "Total: "+
-dinheiro(
-totalPedido(pedido)
-)+
+dinheiro(totalPedido(pedido))+
 (
 dataEntrega
 ?
@@ -2054,7 +1487,6 @@ horaEntrega
 )
 :""
 )
-
 );
 
 }
@@ -2062,10 +1494,7 @@ horaEntrega
 
 function totalPedido(pedido){
 
-return (
-pedido.itens||[]
-)
-.reduce(
+return (pedido.itens||[]).reduce(
 (t,i)=>
 t+
 Number(i.quantidade||0)*
@@ -2078,10 +1507,7 @@ Number(i.preco||0),
 
 function custoPedido(pedido){
 
-return (
-pedido.itens||[]
-)
-.reduce(
+return (pedido.itens||[]).reduce(
 (t,i)=>
 t+
 Number(i.quantidade||0)*
@@ -2099,92 +1525,55 @@ PAGAMENTOS
 function totalPagoPedido(pid){
 
 return banco.pagamentos
-.filter(
-p=>p.pedidoId===pid
-)
+.filter(p=>p.pedidoId===pid)
 .reduce(
-(t,p)=>
-t+
-Number(p.valor||0),
+(t,p)=>t+Number(p.valor||0),
 0
 );
 
 }
 
 
-function registrarPagamento(
-pid,
-metodo
-){
+function registrarPagamento(pid,metodo){
 
-const pedido=
-banco.pedidos.find(
+const pedido=banco.pedidos.find(
 p=>p.id===pid
 );
 
-if(!pedido)
-return;
+if(!pedido)return;
 
-
-const total=
-totalPedido(pedido);
-
-const pago=
-totalPagoPedido(pid);
-
-const restante=
-total-pago;
-
+const total=totalPedido(pedido);
+const pago=totalPagoPedido(pid);
+const restante=total-pago;
 
 if(restante<=0){
 
-alert(
-"Este pedido já está totalmente pago."
-);
-
+alert("Este pedido já está totalmente pago.");
 return;
 
 }
 
-
-let valor=
-prompt(
-"Pagamento em "+
-metodo+
-"\n\nRestante: "+
-dinheiro(restante),
+let valor=prompt(
+"Pagamento em "+metodo+
+"\n\nRestante: "+dinheiro(restante),
 restante.toFixed(2)
 );
 
+if(valor===null)return;
 
-if(valor===null)
-return;
-
-
-valor=
-Number(
-String(valor)
-.replace(",",".")
+valor=Number(
+String(valor).replace(",",".")
 );
 
+if(!Number.isFinite(valor)||valor<=0){
 
-if(
-!Number.isFinite(valor)||
-valor<=0
-){
-
-alert(
-"Valor inválido."
-);
-
+alert("Valor inválido.");
 return;
 
 }
 
-
 if(valor>restante)
 valor=restante;
-
 
 const pagamento={
 
@@ -2192,23 +1581,17 @@ id:novoId(),
 
 pedidoId:pid,
 
-clienteId:
-pedido.clienteId,
+clienteId:pedido.clienteId,
 
-valor:valor,
+valor,
 
-metodo:metodo,
+metodo,
 
-data:
-new Date().toISOString()
+data:new Date().toISOString()
 
 };
 
-
-banco.pagamentos.push(
-pagamento
-);
-
+banco.pagamentos.push(pagamento);
 
 if(!salvarBanco()){
 
@@ -2221,24 +1604,19 @@ return;
 
 }
 
-
 renderizar();
 
-
 alert(
-
 "✓ Pagamento confirmado!\n\n"+
 "Forma: "+metodo+
-"\nValor: "+
-dinheiro(valor)
-
+"\nValor: "+dinheiro(valor)
 );
 
 }
 
 
 /* =====================================================
-STATUS ENTREGA
+ENTREGAS
 ===================================================== */
 
 function classeEntrega(status){
@@ -2257,51 +1635,31 @@ return"badge-sem";
 }
 
 
-function alterarStatusEntrega(
-pid,
-novoStatus
-){
+function alterarStatusEntrega(pid,novoStatus){
 
-const pedido=
-banco.pedidos.find(
+const pedido=banco.pedidos.find(
 p=>p.id===pid
 );
 
-if(!pedido)
-return;
+if(!pedido)return;
 
+const anteriorStatus=pedido.statusEntrega;
+const anteriorEntregue=pedido.entregueEm;
+const anteriorPreparado=pedido.preparadoEm;
 
-const anterior=
-pedido.statusEntrega;
+if(novoStatus==="Entregue"){
 
-
-if(
-novoStatus==="Entregue"
-){
-
-if(
-!confirm(
+if(!confirm(
 "Confirmar que este pedido foi entregue agora?"
-)
-)
+))
 return;
 
+pedido.statusEntrega="Entregue";
+pedido.entregueEm=new Date().toISOString();
 
-pedido.statusEntrega=
-"Entregue";
+}else if(novoStatus==="Em preparação"){
 
-pedido.entregueEm=
-new Date().toISOString();
-
-}
-
-
-else if(
-novoStatus==="Em preparação"
-){
-
-pedido.statusEntrega=
-"Em preparação";
+pedido.statusEntrega="Em preparação";
 
 if(!pedido.preparadoEm){
 
@@ -2310,28 +1668,22 @@ new Date().toISOString();
 
 }
 
-}
+}else{
 
-
-else{
-
-pedido.statusEntrega=
-"A entregar";
-
+pedido.statusEntrega="A entregar";
 pedido.entregueEm="";
 
 }
 
-
 if(!salvarBanco()){
 
-pedido.statusEntrega=
-anterior;
+pedido.statusEntrega=anteriorStatus;
+pedido.entregueEm=anteriorEntregue;
+pedido.preparadoEm=anteriorPreparado;
 
 return;
 
 }
-
 
 renderizar();
 
@@ -2344,39 +1696,22 @@ PEDIDOS
 
 function mostrarPedidos(){
 
-const lista=
-document.getElementById(
+const lista=document.getElementById(
 "listaPedidos"
 );
 
-if(!lista)
-return;
+if(!lista)return;
 
-
-const pedidos=
-[...banco.pedidos].reverse();
-
+const pedidos=[...banco.pedidos].reverse();
 
 lista.innerHTML=
 
 pedidos.map(p=>{
 
-const cliente=
-clientePorId(
-p.clienteId
-);
-
-const total=
-totalPedido(p);
-
-const pago=
-totalPagoPedido(p.id);
-
-const restante=
-Math.max(
-0,
-total-pago
-);
+const cliente=clientePorId(p.clienteId);
+const total=totalPedido(p);
+const pago=totalPagoPedido(p.id);
+const restante=Math.max(0,total-pago);
 
 const status=
 p.statusEntrega||
@@ -2388,7 +1723,6 @@ p.dataEntrega
 "Sem entrega programada"
 );
 
-
 return `
 
 <div class="box">
@@ -2398,9 +1732,7 @@ return `
 <div>
 
 <b>
-${escapar(
-cliente?.nome||"Cliente"
-)}
+${escapar(cliente?.nome||"Cliente")}
 </b>
 
 <div class="small">
@@ -2432,8 +1764,7 @@ ${dinheiro(total)}
 
 <br>
 
-<span
-class="badge ${classeEntrega(status)}">
+<span class="badge ${classeEntrega(status)}">
 
 ${
 status==="Entregue"
@@ -2452,7 +1783,6 @@ status==="A entregar"
 }
 
 </span>
-
 
 ${
 p.dataEntrega
@@ -2478,11 +1808,8 @@ p.entregueEm
 ?
 `
 <hr>
-
 <b>✅ Entregue em:</b>
-
 <br>
-
 ${dataHoraBR(p.entregueEm)}
 `
 :""
@@ -2493,35 +1820,25 @@ ${dataHoraBR(p.entregueEm)}
 :""
 }
 
-
 <br>
 
-${
-p.itens.map(i=>`
+${p.itens.map(i=>`
 
 <div>
 
 ${escapar(i.produto)}
-
 —
-
 ${i.quantidade}
 ×
-
 ${dinheiro(i.preco)}
-
 =
-
 <b>
-${dinheiro(
-i.quantidade*i.preco
-)}
+${dinheiro(i.quantidade*i.preco)}
 </b>
 
 </div>
 
-`).join("")
-}
+`).join("")}
 
 
 <div class="pagamento">
@@ -2530,8 +1847,7 @@ i.quantidade*i.preco
 
 <b>Pagamento</b>
 
-<span
-class="${restante<=0?"ok":"debt"}">
+<span class="${restante<=0?"ok":"debt"}">
 
 ${
 restante<=0
@@ -2547,21 +1863,13 @@ restante<=0
 
 <div class="small">
 
-Total:
-${dinheiro(total)}
-
+Total: ${dinheiro(total)}
 <br>
-
-Pago:
-${dinheiro(pago)}
-
+Pago: ${dinheiro(pago)}
 <br>
-
-Restante:
-${dinheiro(restante)}
+Restante: ${dinheiro(restante)}
 
 </div>
-
 
 ${
 restante>0
@@ -2569,32 +1877,20 @@ restante>0
 `
 <div class="metodos">
 
-<button
-onclick="registrarPagamento('${p.id}','Dinheiro')">
-
+<button onclick="registrarPagamento('${p.id}','Dinheiro')">
 💵 Dinheiro
-
 </button>
 
-<button
-onclick="registrarPagamento('${p.id}','Pix')">
-
+<button onclick="registrarPagamento('${p.id}','Pix')">
 📱 Pix
-
 </button>
 
-<button
-onclick="registrarPagamento('${p.id}','Cartão')">
-
+<button onclick="registrarPagamento('${p.id}','Cartão')">
 💳 Cartão
-
 </button>
 
-<button
-onclick="registrarPagamento('${p.id}','Outros')">
-
+<button onclick="registrarPagamento('${p.id}','Outros')">
 🔹 Outros
-
 </button>
 
 </div>
@@ -2699,14 +1995,11 @@ ENTREGAS
 
 function mostrarEntregas(){
 
-const area=
-document.getElementById(
+const area=document.getElementById(
 "listaEntregas"
 );
 
-if(!area)
-return;
-
+if(!area)return;
 
 const filtroData=
 document.getElementById(
@@ -2718,73 +2011,51 @@ document.getElementById(
 "filtroEntregaStatus"
 )?.value||"";
 
-
-let pedidos=
-banco.pedidos.filter(
+let pedidos=banco.pedidos.filter(
 p=>p.dataEntrega
 );
 
-
 if(filtroData){
 
-pedidos=
-pedidos.filter(
+pedidos=pedidos.filter(
 p=>p.dataEntrega===filtroData
 );
 
 }
 
-
 if(filtroStatus){
 
-pedidos=
-pedidos.filter(
+pedidos=pedidos.filter(
 p=>
-(
-p.statusEntrega||
-"A entregar"
-)===filtroStatus
+(p.statusEntrega||"A entregar")===
+filtroStatus
 );
 
 }
 
-
-/* Horário primeiro */
-
 pedidos.sort(
 (a,b)=>
+(a.dataEntrega||"9999-99-99")
+.localeCompare(
+b.dataEntrega||"9999-99-99"
+)
+||
 (a.horaEntrega||"99:99")
 .localeCompare(
 b.horaEntrega||"99:99"
 )
 );
 
-
 area.innerHTML=
 
 pedidos.map(p=>{
 
-const cliente=
-clientePorId(
-p.clienteId
-);
+const cliente=clientePorId(p.clienteId);
+const total=totalPedido(p);
+const pago=totalPagoPedido(p.id);
+const restante=Math.max(0,total-pago);
 
-const total=
-totalPedido(p);
-
-const pago=
-totalPagoPedido(p.id);
-
-const restante=
-Math.max(
-0,
-total-pago
-);
-
-const status=
-p.statusEntrega||
-"A entregar";
-
+const status=p.statusEntrega||"A entregar";
 
 return `
 
@@ -2796,9 +2067,7 @@ return `
 
 <h3 style="margin:0">
 
-${escapar(
-cliente?.nome||"Cliente"
-)}
+${escapar(cliente?.nome||"Cliente")}
 
 </h3>
 
@@ -2814,9 +2083,7 @@ cliente?.telefone||
 
 </div>
 
-
-<span
-class="badge ${classeEntrega(status)}">
+<span class="badge ${classeEntrega(status)}">
 
 ${
 status==="Entregue"
@@ -2859,17 +2126,13 @@ Horário não informado
 `
 }
 
-
 ${
 p.entregueEm
 ?
 `
 <hr>
-
 <b>✅ Entrega realizada</b>
-
 <br>
-
 ${dataHoraBR(p.entregueEm)}
 `
 :""
@@ -2880,7 +2143,6 @@ ${dataHoraBR(p.entregueEm)}
 
 <h4>📦 Produtos</h4>
 
-
 ${
 p.itens.map(i=>`
 
@@ -2888,25 +2150,16 @@ p.itens.map(i=>`
 
 <div>
 
-<b>
-${escapar(i.produto)}
-</b>
+<b>${escapar(i.produto)}</b>
 
 <div class="small">
-
-${i.quantidade}
-unidade(s)
-
+${i.quantidade} unidade(s)
 </div>
 
 </div>
 
 <strong class="total">
-
-${dinheiro(
-i.quantidade*i.preco
-)}
-
+${dinheiro(i.quantidade*i.preco)}
 </strong>
 
 </div>
@@ -2915,20 +2168,15 @@ i.quantidade*i.preco
 }
 
 
-<div
-class="row"
-style="margin-top:12px">
+<div class="row" style="margin-top:12px">
 
 <b>Total</b>
 
 <strong class="total">
-
 ${dinheiro(total)}
-
 </strong>
 
 </div>
-
 
 <div class="small">
 
@@ -2937,8 +2185,7 @@ restante<=0
 ?
 "✓ Pedido pago"
 :
-"⏳ A receber: "+
-dinheiro(restante)
+"⏳ A receber: "+dinheiro(restante)
 }
 
 </div>
@@ -3027,7 +2274,6 @@ onclick="alterarStatusEntrega('${p.id}','A entregar')">
 
 "<div class='vazio'>Nenhuma entrega encontrada.</div>";
 
-
 atualizarKpisEntregas();
 
 }
@@ -3035,21 +2281,17 @@ atualizarKpisEntregas();
 
 function mostrarEntregasHoje(){
 
-const data=
-document.getElementById(
+const data=document.getElementById(
 "filtroEntregaData"
 );
 
-const status=
-document.getElementById(
+const status=document.getElementById(
 "filtroEntregaStatus"
 );
 
-if(data)
-data.value=hojeISO();
+if(data)data.value=hojeISO();
 
-if(status)
-status.value="";
+if(status)status.value="";
 
 mostrarEntregas();
 
@@ -3073,54 +2315,37 @@ mostrarEntregas();
 
 function atualizarKpisEntregas(){
 
-const hoje=
-hojeISO();
+const hoje=hojeISO();
 
-
-const hojeCount=
-banco.pedidos.filter(
-p=>
-p.dataEntrega===hoje
+const hojeCount=banco.pedidos.filter(
+p=>p.dataEntrega===hoje
 ).length;
 
-
-const pendentes=
-banco.pedidos.filter(
+const pendentes=banco.pedidos.filter(
 p=>
 p.dataEntrega &&
 p.statusEntrega!=="Entregue"
 ).length;
 
-
-const entregues=
-banco.pedidos.filter(
-p=>
-p.statusEntrega==="Entregue"
+const entregues=banco.pedidos.filter(
+p=>p.statusEntrega==="Entregue"
 ).length;
-
 
 document.getElementById(
 "entregasHojeKpi"
-).textContent=
-hojeCount;
-
+).textContent=hojeCount;
 
 document.getElementById(
 "entregasPendentesKpi"
-).textContent=
-pendentes;
-
+).textContent=pendentes;
 
 document.getElementById(
 "entregasConcluidasKpi"
-).textContent=
-entregues;
-
+).textContent=entregues;
 
 document.getElementById(
 "totalEntregasHoje"
-).textContent=
-hojeCount;
+).textContent=hojeCount;
 
 }
 
@@ -3131,17 +2356,13 @@ CONTAS
 
 function abrirConta(id){
 
-document
-.querySelector(
+document.querySelector(
 '[data-tab="contas"]'
-)
-.click();
-
+).click();
 
 document.getElementById(
 "clienteConta"
 ).value=id;
-
 
 mostrarConta();
 
@@ -3150,99 +2371,70 @@ mostrarConta();
 
 function mostrarConta(){
 
-const id=
-document.getElementById(
+const id=document.getElementById(
 "clienteConta"
 )?.value;
 
-
-const area=
-document.getElementById(
+const area=document.getElementById(
 "resultadoConta"
 );
 
-if(!area)
-return;
-
+if(!area)return;
 
 if(!id){
 
 area.innerHTML="";
-
 return;
 
 }
 
-
-const cliente=
-clientePorId(id);
+const cliente=clientePorId(id);
 
 if(!cliente){
 
 area.innerHTML="";
-
 return;
 
 }
 
-
-const pedidos=
-banco.pedidos.filter(
+const pedidos=banco.pedidos.filter(
 p=>p.clienteId===id
 );
 
-
-const pagamentos=
-banco.pagamentos.filter(
+const pagamentos=banco.pagamentos.filter(
 p=>p.clienteId===id
 );
 
-
-const compras=
-pedidos.reduce(
-(t,p)=>
-t+totalPedido(p),
+const compras=pedidos.reduce(
+(t,p)=>t+totalPedido(p),
 0
 );
 
-
-const pagos=
-pagamentos.reduce(
-(t,p)=>
-t+Number(p.valor||0),
+const pagos=pagamentos.reduce(
+(t,p)=>t+Number(p.valor||0),
 0
 );
 
+const saldo=compras-pagos;
 
-const saldo=
-compras-pagos;
-
-
-area.innerHTML=
-
-`
+area.innerHTML=`
 
 <div class="card">
 
 <h2>
-Conta:
-${escapar(cliente.nome)}
+Conta: ${escapar(cliente.nome)}
 </h2>
 
 <div class="kpis">
 
 <div class="kpi">
 Compras
-<b>
-${dinheiro(compras)}
-</b>
+<b>${dinheiro(compras)}</b>
 </div>
 
 <div class="kpi">
 Pagamentos
-<b>
-${dinheiro(pagos)}
-</b>
+<b>${dinheiro(pagos)}</b>
 </div>
 
 <div class="kpi">
@@ -3273,8 +2465,7 @@ ${new Date(p.data)
 .toLocaleDateString("pt-BR")}
 </b>
 
-<span
-class="badge ${classeEntrega(
+<span class="badge ${classeEntrega(
 p.statusEntrega
 )}">
 
@@ -3291,8 +2482,7 @@ p.dataEntrega
 `
 <div class="data-entrega">
 
-🚚
-${dataBR(p.dataEntrega)}
+🚚 ${dataBR(p.dataEntrega)}
 
 ${
 p.horaEntrega
@@ -3306,8 +2496,7 @@ p.entregueEm
 ?
 `
 <br>
-✅
-${dataHoraBR(p.entregueEm)}
+✅ ${dataHoraBR(p.entregueEm)}
 `
 :""
 }
@@ -3326,31 +2515,22 @@ p.itens.map(i=>`
 <div>
 
 ${escapar(i.produto)}
-
 —
-
 ${i.quantidade}
 ×
-
 ${dinheiro(i.preco)}
-
 =
-
-${dinheiro(
-i.quantidade*i.preco
-)}
+${dinheiro(i.quantidade*i.preco)}
 
 </div>
 
 `).join("")
 }
 
-
 <hr>
 
 <b>
-Total:
-${dinheiro(totalPedido(p))}
+Total: ${dinheiro(totalPedido(p))}
 </b>
 
 </div>
@@ -3380,16 +2560,12 @@ ${dataHoraBR(p.data)}
 <br>
 
 Valor:
-<b>
-${dinheiro(p.valor)}
-</b>
+<b>${dinheiro(p.valor)}</b>
 
 <br>
 
 Forma:
-<b>
-${escapar(p.metodo)}
-</b>
+<b>${escapar(p.metodo)}</b>
 
 </div>
 
@@ -3421,10 +2597,7 @@ document.getElementById(
 PRODUTOS.map(p=>{
 
 const quantidade=
-Number(
-banco.estoque[p.nome]||0
-);
-
+Number(banco.estoque[p.nome]||0);
 
 return `
 
@@ -3432,12 +2605,9 @@ return `
 
 <div class="row">
 
-<b>
-${escapar(p.nome)}
-</b>
+<b>${escapar(p.nome)}</b>
 
-<span
-class="${quantidade<=3?"debt":"ok"}">
+<span class="${quantidade<=3?"debt":"ok"}">
 
 ${
 quantidade<=3
@@ -3451,15 +2621,10 @@ quantidade<=3
 
 </div>
 
-
 Quantidade:
-<strong>
-${quantidade}
-</strong>
-
+<strong>${quantidade}</strong>
 
 <br><br>
-
 
 <button
 class="secondary"
@@ -3481,60 +2646,39 @@ Alterar estoque
 function alterarEstoque(nome){
 
 const atual=
-Number(
-banco.estoque[nome]||0
-);
+Number(banco.estoque[nome]||0);
 
-
-const valor=
-prompt(
+const valor=prompt(
 "Quantidade de "+nome,
 atual
 );
 
-
-if(valor===null)
-return;
-
+if(valor===null)return;
 
 const quantidade=
-Number(
-String(valor)
-.replace(",",".")
-);
-
+Number(String(valor).replace(",","."));
 
 if(
 !Number.isFinite(quantidade)||
 quantidade<0
 ){
 
-alert(
-"Quantidade inválida."
-);
-
+alert("Quantidade inválida.");
 return;
 
 }
 
+const antigo=banco.estoque[nome];
 
-const antigo=
-banco.estoque[nome];
-
-
-banco.estoque[nome]=
-quantidade;
-
+banco.estoque[nome]=quantidade;
 
 if(!salvarBanco()){
 
-banco.estoque[nome]=
-antigo;
+banco.estoque[nome]=antigo;
 
 return;
 
 }
-
 
 renderizar();
 
@@ -3547,72 +2691,50 @@ FINANCEIRO
 
 function mostrarFinanceiro(){
 
-const vendas=
-banco.pedidos.reduce(
-(t,p)=>
-t+totalPedido(p),
+const vendas=banco.pedidos.reduce(
+(t,p)=>t+totalPedido(p),
 0
 );
 
-
-const recebido=
-banco.pagamentos.reduce(
-(t,p)=>
-t+Number(p.valor||0),
+const recebido=banco.pagamentos.reduce(
+(t,p)=>t+Number(p.valor||0),
 0
 );
 
+const receber=vendas-recebido;
 
-const receber=
-vendas-recebido;
-
-
-const custo=
-banco.pedidos.reduce(
-(t,p)=>
-t+custoPedido(p),
+const custo=banco.pedidos.reduce(
+(t,p)=>t+custoPedido(p),
 0
 );
 
-
-const lucro=
-vendas-custo;
-
+const lucro=vendas-custo;
 
 document.getElementById(
 "finVendas"
-).textContent=
-dinheiro(vendas);
-
+).textContent=dinheiro(vendas);
 
 document.getElementById(
 "finRecebido"
-).textContent=
-dinheiro(recebido);
-
+).textContent=dinheiro(recebido);
 
 document.getElementById(
 "finReceber"
-).textContent=
-dinheiro(receber);
-
+).textContent=dinheiro(receber);
 
 document.getElementById(
 "finCusto"
-).textContent=
-dinheiro(custo);
-
+).textContent=dinheiro(custo);
 
 document.getElementById(
 "finLucro"
-).textContent=
-dinheiro(lucro);
+).textContent=dinheiro(lucro);
 
 }
 
 
 /* =====================================================
-PRODUTOS
+PRODUTOS E PREÇOS
 ===================================================== */
 
 function mostrarProdutos(){
@@ -3621,17 +2743,19 @@ document.getElementById(
 "listaProdutos"
 ).innerHTML=
 
-PRODUTOS.map(p=>`
+PRODUTOS.map(p=>{
+
+const preco=precoProduto(p.nome);
+
+return `
 
 <div class="box">
 
-<div class="row">
+<div class="linha-preco">
 
 <div>
 
-<b>
-${escapar(p.nome)}
-</b>
+<b>${escapar(p.nome)}</b>
 
 <div class="small">
 
@@ -3646,19 +2770,27 @@ dinheiro(p.custo)
 
 </div>
 
-</div>
-
-<div class="total">
-
-${dinheiro(p.preco)}
-
+<div class="preco-atual">
+${dinheiro(preco)}
 </div>
 
 </div>
 
+<button
+class="primary"
+onclick='alterarPreco(${JSON.stringify(p.nome)})'>
+
+✏️ Alterar preço
+
+</button>
+
 </div>
 
-`).join("");
+</div>
+
+`;
+
+}).join("");
 
 }
 
@@ -3669,117 +2801,75 @@ RELATÓRIO
 
 function gerarRelatorio(){
 
-const cid=
-document.getElementById(
+const cid=document.getElementById(
 "clienteRelatorio"
 )?.value;
 
-
-const area=
-document.getElementById(
+const area=document.getElementById(
 "relatorio"
 );
 
-
-if(!area)
-return;
-
+if(!area)return;
 
 if(!cid){
 
 area.innerHTML="";
-
 return;
 
 }
 
-
-const cliente=
-clientePorId(cid);
+const cliente=clientePorId(cid);
 
 if(!cliente){
 
 area.innerHTML="";
-
 return;
 
 }
 
-
-const pedidos=
-banco.pedidos.filter(
+const pedidos=banco.pedidos.filter(
 p=>p.clienteId===cid
 );
 
-
-const pagamentos=
-banco.pagamentos.filter(
+const pagamentos=banco.pagamentos.filter(
 p=>p.clienteId===cid
 );
 
-
-const compras=
-pedidos.reduce(
-(t,p)=>
-t+totalPedido(p),
+const compras=pedidos.reduce(
+(t,p)=>t+totalPedido(p),
 0
 );
 
-
-const pagos=
-pagamentos.reduce(
-(t,p)=>
-t+Number(p.valor||0),
+const pagos=pagamentos.reduce(
+(t,p)=>t+Number(p.valor||0),
 0
 );
 
+const saldo=compras-pagos;
 
-const saldo=
-compras-pagos;
-
-
-area.innerHTML=
-
-`
+area.innerHTML=`
 
 <div class="card">
 
-<h2>
-RELATÓRIO DE CONTA
-</h2>
+<h2>RELATÓRIO DE CONTA</h2>
 
-<h3>
-🌾 Feito na Roça
-</h3>
+<h3>🌾 Feito na Roça</h3>
 
 <hr>
 
 <p>
-
-<strong>
-Cliente:
-</strong>
-
+<strong>Cliente:</strong>
 ${escapar(cliente.nome)}
-
 </p>
 
 <p>
-
-<strong>
-Telefone:
-</strong>
-
+<strong>Telefone:</strong>
 ${escapar(cliente.telefone||"")}
-
 </p>
 
 <hr>
 
-<h3>
-📋 Pedidos
-</h3>
-
+<h3>📋 Pedidos</h3>
 
 ${
 pedidos.map(p=>`
@@ -3789,27 +2879,19 @@ pedidos.map(p=>`
 <div class="row">
 
 <strong>
-
 ${new Date(p.data)
 .toLocaleDateString("pt-BR")}
-
 </strong>
 
 <strong>
-
-${dinheiro(
-totalPedido(p)
-)}
-
+${dinheiro(totalPedido(p))}
 </strong>
 
 </div>
 
-
 <div style="margin-top:8px">
 
-<span
-class="badge ${classeEntrega(
+<span class="badge ${classeEntrega(
 p.statusEntrega
 )}">
 
@@ -3855,7 +2937,6 @@ ${dataHoraBR(p.entregueEm)}
 
 <br>
 
-
 ${
 p.itens.map(i=>`
 
@@ -3867,17 +2948,10 @@ ${escapar(i.produto)}
 
 ${i.quantidade}
 ×
-
 ${dinheiro(i.preco)}
-
 =
-
 <strong>
-
-${dinheiro(
-i.quantidade*i.preco
-)}
-
+${dinheiro(i.quantidade*i.preco)}
 </strong>
 
 </div>
@@ -3891,10 +2965,7 @@ p.observacao
 ?
 `
 <div class="small">
-
-📝
-${escapar(p.observacao)}
-
+📝 ${escapar(p.observacao)}
 </div>
 `
 :""
@@ -3913,10 +2984,7 @@ ${escapar(p.observacao)}
 
 <hr>
 
-<h3>
-💳 Pagamentos
-</h3>
-
+<h3>💳 Pagamentos</h3>
 
 ${
 pagamentos.map(p=>`
@@ -3928,7 +2996,6 @@ ${dataHoraBR(p.data)}
 <br>
 
 Valor:
-
 <strong>
 ${dinheiro(p.valor)}
 </strong>
@@ -3936,7 +3003,6 @@ ${dinheiro(p.valor)}
 <br>
 
 Forma:
-
 <strong>
 ${escapar(p.metodo)}
 </strong>
@@ -3954,53 +3020,34 @@ ${escapar(p.metodo)}
 
 <hr>
 
-
 <div class="kpis">
 
 <div class="kpi">
-
 Total comprado
-
-<b>
-${dinheiro(compras)}
-</b>
-
+<b>${dinheiro(compras)}</b>
 </div>
 
 <div class="kpi">
-
 Total pago
-
-<b>
-${dinheiro(pagos)}
-</b>
-
+<b>${dinheiro(pagos)}</b>
 </div>
 
 <div class="kpi">
-
 Saldo
-
 <b class="${saldo>0?"debt":"ok"}">
-
 ${dinheiro(saldo)}
-
 </b>
-
 </div>
 
 </div>
-
 
 <br>
 
 <div style="text-align:center">
 
 <strong>
-
 Feito na Roça —
 O verdadeiro sabor da roça na sua mesa.
-
 </strong>
 
 </div>
@@ -4028,16 +3075,13 @@ ${escapar(c.nome)}
 `
 ).join("");
 
-
 document.getElementById(
 "clientePedido"
 ).innerHTML=html;
 
-
 document.getElementById(
 "clienteConta"
 ).innerHTML=html;
-
 
 document.getElementById(
 "clienteRelatorio"
@@ -4052,94 +3096,58 @@ INÍCIO
 
 function mostrarInicio(){
 
-const vendas=
-banco.pedidos.reduce(
-(t,p)=>
-t+totalPedido(p),
+const vendas=banco.pedidos.reduce(
+(t,p)=>t+totalPedido(p),
 0
 );
 
-
-const receber=
-banco.clientes.reduce(
+const receber=banco.clientes.reduce(
 (t,c)=>
-t+
-Math.max(
-0,
-saldoCliente(c.id)
-),
+t+Math.max(0,saldoCliente(c.id)),
 0
 );
-
 
 document.getElementById(
 "totalClientes"
-).textContent=
-banco.clientes.length;
-
+).textContent=banco.clientes.length;
 
 document.getElementById(
 "totalPedidos"
-).textContent=
-banco.pedidos.length;
-
+).textContent=banco.pedidos.length;
 
 document.getElementById(
 "totalVendas"
-).textContent=
-dinheiro(vendas);
-
+).textContent=dinheiro(vendas);
 
 document.getElementById(
 "totalReceber"
-).textContent=
-dinheiro(receber);
-
+).textContent=dinheiro(receber);
 
 document.getElementById(
 "resumoInicio"
-).innerHTML=
-
-`
+).innerHTML=`
 
 <div class="box">
-
 Clientes:
-<strong>
-${banco.clientes.length}
-</strong>
-
+<strong>${banco.clientes.length}</strong>
 </div>
 
 <div class="box">
-
 Pedidos:
-<strong>
-${banco.pedidos.length}
-</strong>
-
+<strong>${banco.pedidos.length}</strong>
 </div>
 
 <div class="box">
-
 Vendas:
-<strong>
-${dinheiro(vendas)}
-</strong>
-
+<strong>${dinheiro(vendas)}</strong>
 </div>
 
 <div class="box">
-
 A receber:
-<strong>
-${dinheiro(receber)}
-</strong>
-
+<strong>${dinheiro(receber)}</strong>
 </div>
 
 `;
-
 
 mostrarResumoEntregas();
 
@@ -4148,12 +3156,9 @@ mostrarResumoEntregas();
 
 function mostrarResumoEntregas(){
 
-const hoje=
-hojeISO();
+const hoje=hojeISO();
 
-
-const pedidos=
-banco.pedidos
+const pedidos=banco.pedidos
 .filter(
 p=>
 p.dataEntrega===hoje &&
@@ -4167,21 +3172,15 @@ b.horaEntrega||"99:99"
 )
 );
 
-
-const area=
-document.getElementById(
+const area=document.getElementById(
 "resumoEntregas"
 );
 
-
-if(!area)
-return;
-
+if(!area)return;
 
 if(!pedidos.length){
 
-area.innerHTML=
-`
+area.innerHTML=`
 <div class="vazio">
 ✓ Nenhuma entrega pendente para hoje.
 </div>
@@ -4191,15 +3190,10 @@ return;
 
 }
 
-
 area.innerHTML=
 pedidos.map(p=>{
 
-const c=
-clientePorId(
-p.clienteId
-);
-
+const c=clientePorId(p.clienteId);
 
 return `
 
@@ -4222,8 +3216,7 @@ ${p.horaEntrega||"Horário não informado"}
 ${p.itens
 .map(i=>
 escapar(i.produto)+
-" × "+
-i.quantidade
+" × "+i.quantidade
 )
 .join(" • ")}
 
@@ -4246,46 +3239,33 @@ function fazerBackup(){
 
 try{
 
-const dados=
-JSON.stringify(
+const dados=JSON.stringify(
 banco,
 null,
 2
 );
 
-
-const blob=
-new Blob(
+const blob=new Blob(
 [dados],
-{
-type:"application/json"
-}
+{type:"application/json"}
 );
 
+const url=URL.createObjectURL(blob);
 
-const url=
-URL.createObjectURL(blob);
-
-
-const a=
-document.createElement("a");
-
+const a=document.createElement("a");
 
 a.href=url;
-
 
 a.download=
 "backup-feito-na-roca-"+
 hojeISO()+
 ".json";
 
-
 document.body.appendChild(a);
 
 a.click();
 
 a.remove();
-
 
 setTimeout(
 ()=>{
@@ -4294,12 +3274,14 @@ URL.revokeObjectURL(url);
 1000
 );
 
-
 alert(
-"✓ Backup gerado com sucesso."
+"✓ Backup gerado com sucesso.\n\n"+
+"Clientes, pedidos, pagamentos, estoque, preços e entregas foram incluídos."
 );
 
 }catch(e){
+
+console.error(e);
 
 alert(
 "❌ Não foi possível gerar o backup."
@@ -4319,15 +3301,11 @@ function restaurarBackup(event){
 const arquivo=
 event.target.files?.[0];
 
-if(!arquivo)
-return;
+if(!arquivo)return;
 
-
-if(
-!confirm(
+if(!confirm(
 "Restaurar este backup?\n\nOs dados atuais serão substituídos pelos dados do arquivo."
-)
-){
+)){
 
 event.target.value="";
 
@@ -4335,20 +3313,15 @@ return;
 
 }
 
-
-const reader=
-new FileReader();
-
+const reader=new FileReader();
 
 reader.onload=function(){
 
 try{
 
-const dados=
-JSON.parse(
+const dados=JSON.parse(
 reader.result
 );
-
 
 if(
 !dados ||
@@ -4356,33 +3329,28 @@ if(
 !Array.isArray(dados.pedidos)
 ){
 
-throw new Error(
-"Backup inválido"
-);
+throw new Error("Backup inválido");
 
 }
 
-
 banco={
 
-clientes:
-dados.clientes||[],
+clientes:dados.clientes||[],
 
-pedidos:
-dados.pedidos||[],
+pedidos:dados.pedidos||[],
 
-pagamentos:
-dados.pagamentos||[],
+pagamentos:dados.pagamentos||[],
 
-estoque:
-dados.estoque||{}
+estoque:dados.estoque||{},
+
+precos:dados.precos||{}
 
 };
 
 
 /*
-Garantir os produtos atuais
-sem apagar o estoque restaurado.
+Garante produtos atuais
+sem apagar o que veio no backup.
 */
 
 PRODUTOS.forEach(p=>{
@@ -4395,12 +3363,17 @@ banco.estoque[p.nome]=0;
 
 }
 
+if(
+banco.precos[p.nome]===undefined
+){
+
+banco.precos[p.nome]=
+Number(p.preco);
+
+}
+
 });
 
-
-/*
-Garantir campos de entrega.
-*/
 
 banco.pedidos.forEach(p=>{
 
@@ -4440,14 +3413,11 @@ return;
 
 }
 
-
 renderizar();
-
 
 alert(
 "✓ Backup restaurado com sucesso."
 );
-
 
 }catch(e){
 
@@ -4459,15 +3429,11 @@ alert(
 
 }
 
-
 event.target.value="";
 
 };
 
-
-reader.readAsText(
-arquivo
-);
+reader.readAsText(arquivo);
 
 }
 
@@ -4509,8 +3475,7 @@ NAVEGAÇÃO
 
 document
 .querySelectorAll("nav button")
-.forEach(
-botao=>{
+.forEach(botao=>{
 
 botao.addEventListener(
 "click",
@@ -4519,41 +3484,30 @@ botao.addEventListener(
 document
 .querySelectorAll("section")
 .forEach(
-s=>
-s.classList.remove("show")
+s=>s.classList.remove("show")
 );
 
-
-const secao=
-document.getElementById(
+const secao=document.getElementById(
 botao.dataset.tab
 );
-
 
 if(secao)
 secao.classList.add("show");
 
-
 document
 .querySelectorAll("nav button")
 .forEach(
-b=>
-b.classList.remove("active")
+b=>b.classList.remove("active")
 );
 
-
-botao.classList.add(
-"active"
-);
-
+botao.classList.add("active");
 
 renderizar();
 
 }
 );
 
-}
-);
+});
 
 
 /* =====================================================
@@ -4562,27 +3516,17 @@ INICIALIZAÇÃO
 
 iniciarQuantidades();
 
-
-/*
-NÃO substitui nem limpa os dados.
-Apenas garante que o banco atual possa ser salvo.
-*/
-
-if(
-!localStorage.getItem(CHAVE)
-){
+if(!localStorage.getItem(CHAVE)){
 
 salvarBanco();
 
 }
-
 
 document
 .querySelector(
 '[data-tab="inicio"]'
 )
 .classList.add("active");
-
 
 renderizar();
 
