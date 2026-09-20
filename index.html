@@ -1,240 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#2f6b3f">
 <title>Feito na Roça</title>
 
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f5f1e8;
- color:#222;
-}
-header{
- background:#2f6b3f;
- color:white;
- padding:16px;
- position:sticky;
- top:0;
- z-index:20;
-}
-header h1{margin:0}
-nav{
- display:flex;
- overflow:auto;
- gap:6px;
- padding:8px;
- background:white;
- position:sticky;
- top:68px;
- z-index:19;
-}
-nav button{
- border:0;
- padding:10px 12px;
- border-radius:9px;
- background:#e8eee7;
- white-space:nowrap;
- font-weight:bold;
-}
-nav button.active{
- background:#2f6b3f;
- color:white;
-}
-main{
- max-width:1100px;
- margin:auto;
- padding:12px;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f1e8;color:#222}
+header{background:#2f6b3f;color:#fff;padding:16px;position:sticky;top:0;z-index:20}
+header h1{margin:0 0 4px;font-size:24px}
+nav{display:flex;gap:6px;overflow:auto;background:#fff;padding:8px;position:sticky;top:70px;z-index:19;border-bottom:1px solid #ddd}
+nav button{border:0;border-radius:9px;padding:10px 12px;background:#e8eee7;white-space:nowrap;font-weight:bold}
+nav button.active{background:#2f6b3f;color:#fff}
+main{max-width:1100px;margin:auto;padding:12px}
 section{display:none}
 section.show{display:block}
-.card{
- background:white;
- padding:15px;
- border-radius:14px;
- margin-bottom:12px;
- box-shadow:0 2px 8px #0001;
-}
-.grid{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
- gap:10px;
-}
-label{
- display:block;
- font-weight:bold;
- font-size:13px;
- margin-bottom:5px;
-}
-input,select,textarea{
- width:100%;
- padding:11px;
- border:1px solid #ccc;
- border-radius:8px;
- font-size:16px;
- background:white;
-}
-button{
- cursor:pointer;
-}
-.primary{
- background:#2f6b3f;
- color:white;
- border:0;
- border-radius:9px;
- padding:11px 15px;
- font-weight:bold;
-}
-.secondary{
- background:#eee;
- border:0;
- border-radius:9px;
- padding:10px 13px;
-}
-.danger{
- background:#b3261e;
- color:white;
- border:0;
- border-radius:8px;
- padding:8px 11px;
-}
-.box{
- border:1px solid #ddd;
- border-radius:11px;
- padding:12px;
- margin-top:9px;
-}
-.row{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:8px;
- flex-wrap:wrap;
-}
-.total{
- font-size:21px;
- font-weight:bold;
- color:#2f6b3f;
-}
-.small{
- color:#666;
- font-size:13px;
-}
-.debt{
- color:#b3261e;
- font-weight:bold;
-}
-.ok{
- color:#17652a;
- font-weight:bold;
-}
-.produtos{
- display:flex;
- flex-direction:column;
- gap:8px;
- margin-top:10px;
-}
-.produto{
- display:grid;
- grid-template-columns:1fr 45px 65px 45px;
- gap:5px;
- align-items:center;
- border:1px solid #ddd;
- border-radius:10px;
- padding:8px;
-}
-.produto button{
- width:45px;
- height:43px;
- border:0;
- border-radius:8px;
- background:#e8eee7;
- color:#285b34;
- font-size:24px;
- font-weight:bold;
-}
-.produto input{
- width:65px;
- text-align:center;
- font-weight:bold;
-}
-.produto-total{
- grid-column:1/-1;
- text-align:right;
- font-weight:bold;
-}
-.total-pedido{
- margin-top:12px;
- padding:15px;
- background:#eef5ec;
- border-radius:11px;
- text-align:center;
- font-size:22px;
- font-weight:bold;
- color:#2f6b3f;
-}
-.pagamento{
- margin-top:10px;
- background:#f4f8f3;
- border:1px solid #d5e2d3;
- border-radius:11px;
- padding:12px;
-}
-.metodos{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:7px;
- margin-top:9px;
-}
-.metodos button{
- border:1px solid #ccc;
- background:white;
- padding:11px;
- border-radius:8px;
- font-weight:bold;
-}
-.kpis{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
- gap:10px;
-}
-.kpi{
- background:#eef5ec;
- padding:14px;
- border-radius:11px;
-}
-.kpi b{
- display:block;
- font-size:21px;
- margin-top:5px;
- color:#2f6b3f;
-}
-table{
- width:100%;
- border-collapse:collapse;
-}
-th,td{
- padding:9px;
- border-bottom:1px solid #ddd;
- text-align:left;
-}
-.table-wrap{
- overflow:auto;
-}
+.card{background:#fff;border-radius:14px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #0001}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+label{display:block;font-size:13px;font-weight:bold;margin:8px 0 5px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:9px;font-size:16px;background:#fff}
+button{cursor:pointer}
+.primary{background:#2f6b3f;color:#fff;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}
+.secondary{background:#eee;color:#222;border:0;border-radius:9px;padding:10px 13px}
+.danger{background:#b3261e;color:#fff;border:0;border-radius:8px;padding:8px 11px}
+.box{border:1px solid #ddd;border-radius:11px;padding:12px;margin-top:9px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.small{font-size:13px;color:#666}
+.total{font-size:21px;font-weight:bold;color:#2f6b3f}
+.ok{color:#17652a;font-weight:bold}
+.debt{color:#b3261e;font-weight:bold}
+.produtos{display:flex;flex-direction:column;gap:8px}
+.produto{display:grid;grid-template-columns:1fr 44px 65px 44px;gap:5px;align-items:center;border:1px solid #ddd;border-radius:10px;padding:8px}
+.produto button{width:44px;height:43px;border:0;border-radius:8px;background:#e8eee7;color:#285b34;font-size:24px;font-weight:bold}
+.produto input{width:65px;text-align:center;font-weight:bold}
+.produto-total{grid-column:1/-1;text-align:right;font-weight:bold}
+.total-pedido{margin-top:12px;padding:15px;background:#eef5ec;border-radius:11px;text-align:center;font-size:22px;font-weight:bold;color:#2f6b3f}
+.pagamento{margin-top:10px;background:#f4f8f3;border:1px solid #d5e2d3;border-radius:11px;padding:12px}
+.metodos{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}
+.metodos button{border:1px solid #ccc;background:#fff;padding:11px;border-radius:8px;font-weight:bold}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.kpi{background:#eef5ec;padding:14px;border-radius:11px}
+.kpi b{display:block;font-size:21px;margin-top:5px;color:#2f6b3f}
+table{width:100%;border-collapse:collapse}
+th,td{padding:9px;border-bottom:1px solid #ddd;text-align:left}
+.table-wrap{overflow:auto}
+.status{padding:10px;border-radius:9px;margin-bottom:10px;font-weight:bold}
+.status.ok{background:#e8f5e9}
+.status.erro{background:#ffebee;color:#b3261e}
 @media(max-width:500px){
- .produto{
-  grid-template-columns:1fr 40px 60px 40px;
- }
- .produto button{
-  width:40px;
- }
- .produto input{
-  width:60px;
- }
+.produto{grid-template-columns:1fr 40px 58px 40px}
+.produto button{width:40px}
+.produto input{width:58px}
+}
+@media print{
+header,nav,.no-print{display:none!important}
+body{background:#fff}
+.card{box-shadow:none}
 }
 </style>
 </head>
@@ -261,28 +84,13 @@ th,td{
 
 <section id="inicio" class="show">
 
+<div id="statusSistema"></div>
+
 <div class="kpis">
-
-<div class="kpi">
-Clientes
-<b id="totalClientes">0</b>
-</div>
-
-<div class="kpi">
-Pedidos
-<b id="totalPedidos">0</b>
-</div>
-
-<div class="kpi">
-A receber
-<b id="totalReceber">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-Vendas
-<b id="totalVendas">R$ 0,00</b>
-</div>
-
+<div class="kpi">Clientes<b id="totalClientes">0</b></div>
+<div class="kpi">Pedidos<b id="totalPedidos">0</b></div>
+<div class="kpi">Vendas<b id="totalVendas">R$ 0,00</b></div>
+<div class="kpi">A receber<b id="totalReceber">R$ 0,00</b></div>
 </div>
 
 <div class="card">
@@ -291,28 +99,21 @@ Vendas
 </div>
 
 <div class="card">
-<h3>💾 Backup</h3>
-
+<h3>💾 Segurança dos dados</h3>
 <p class="small">
-Faça backups regularmente para proteger clientes, pedidos e pagamentos.
+Os clientes, pedidos, pagamentos e estoque são salvos no aparelho.
+Faça backup regularmente.
 </p>
 
-<button class="primary" onclick="backup()">
-Baixar backup
+<button class="primary" onclick="fazerBackup()">
+⬇️ Fazer backup
 </button>
 
-<button class="secondary" onclick="document.getElementById('arquivo').click()">
-Restaurar backup
+<button class="secondary" onclick="document.getElementById('arquivoBackup').click()">
+⬆️ Restaurar backup
 </button>
 
-<input
-id="arquivo"
-type="file"
-accept=".json"
-style="display:none"
-onchange="restaurar(event)"
->
-
+<input id="arquivoBackup" type="file" accept=".json" style="display:none" onchange="restaurarBackup(event)">
 </div>
 
 </section>
@@ -322,42 +123,30 @@ onchange="restaurar(event)"
 
 <div class="card">
 
-<h2>Clientes</h2>
+<h2>👥 Cadastro de clientes</h2>
 
-<div class="grid">
+<div id="statusCliente"></div>
 
-<div>
-<label>Nome</label>
-<input id="nomeCliente">
-</div>
+<label>Nome do cliente</label>
+<input id="nomeCliente" autocomplete="name">
 
-<div>
 <label>Telefone</label>
-<input id="telefoneCliente">
-</div>
+<input id="telefoneCliente" type="tel">
 
-<div>
 <label>Observação</label>
-<input id="obsCliente">
-</div>
+<input id="observacaoCliente">
 
-</div>
+<br><br>
 
-<br>
-
-<button class="primary" onclick="cadastrarCliente()">
-Cadastrar cliente
+<button class="primary" style="width:100%;padding:14px" onclick="cadastrarCliente()">
+✓ SALVAR CLIENTE
 </button>
 
 </div>
 
 <div class="card">
 
-<input
-id="buscarCliente"
-placeholder="🔎 Procurar cliente"
-oninput="mostrarClientes()"
->
+<input id="buscaCliente" placeholder="🔎 Procurar cliente" oninput="mostrarClientes()">
 
 <div id="listaClientes"></div>
 
@@ -370,47 +159,33 @@ oninput="mostrarClientes()"
 
 <div class="card">
 
-<h2>Novo pedido</h2>
+<h2>🛒 Novo pedido</h2>
 
 <label>Cliente</label>
-
 <select id="clientePedido"></select>
 
 <h3>Produtos</h3>
 
-<div id="listaProdutosPedido" class="produtos"></div>
+<div id="produtosPedido" class="produtos"></div>
 
 <div id="totalPedido" class="total-pedido">
 Total: R$ 0,00
 </div>
 
-<label style="margin-top:12px">
-Observação
-</label>
-
-<textarea
-id="obsPedido"
-rows="3"
-placeholder="Observações do pedido">
-</textarea>
+<label>Observação</label>
+<textarea id="observacaoPedido" rows="3"></textarea>
 
 <br><br>
 
-<button
-class="primary"
-style="width:100%;padding:14px"
-onclick="salvarPedido()">
-✓ Salvar pedido
+<button class="primary" style="width:100%;padding:14px" onclick="salvarPedido()">
+✓ SALVAR PEDIDO
 </button>
 
 </div>
 
 <div class="card">
-
-<h2>Pedidos cadastrados</h2>
-
+<h2>Pedidos</h2>
 <div id="listaPedidos"></div>
-
 </div>
 
 </section>
@@ -420,10 +195,9 @@ onclick="salvarPedido()">
 
 <div class="card">
 
-<h2>Conta do cliente</h2>
+<h2>💰 Conta do cliente</h2>
 
 <label>Cliente</label>
-
 <select id="clienteConta" onchange="mostrarConta()"></select>
 
 <div id="resultadoConta"></div>
@@ -437,7 +211,7 @@ onclick="salvarPedido()">
 
 <div class="card">
 
-<h2>Estoque</h2>
+<h2>📦 Estoque</h2>
 
 <div id="listaEstoque"></div>
 
@@ -453,32 +227,11 @@ onclick="salvarPedido()">
 <h2>💰 Financeiro</h2>
 
 <div class="kpis">
-
-<div class="kpi">
-Vendas
-<b id="finVendas">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-Recebido
-<b id="finRecebido">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-A receber
-<b id="finReceber">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-Custo
-<b id="finCusto">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-Lucro bruto
-<b id="finLucro">R$ 0,00</b>
-</div>
-
+<div class="kpi">Vendas<b id="finVendas">R$ 0,00</b></div>
+<div class="kpi">Recebido<b id="finRecebido">R$ 0,00</b></div>
+<div class="kpi">A receber<b id="finReceber">R$ 0,00</b></div>
+<div class="kpi">Custo<b id="finCusto">R$ 0,00</b></div>
+<div class="kpi">Lucro bruto<b id="finLucro">R$ 0,00</b></div>
 </div>
 
 </div>
@@ -490,10 +243,10 @@ Lucro bruto
 
 <div class="card">
 
-<h2>📦 Produtos</h2>
+<h2>📦 Produtos e preços</h2>
 
 <p class="small">
-Cada produto possui preço independente.
+Cada produto tem seu próprio preço. Alterar um não altera os demais.
 </p>
 
 <div id="listaProdutos"></div>
@@ -507,11 +260,10 @@ Cada produto possui preço independente.
 
 <div class="card">
 
-<h2>📊 Relatório</h2>
+<h2>📊 Relatório do cliente</h2>
 
 <label>Cliente</label>
-
-<select id="clienteRelatorio" onchange="gerarRelatorio()"></select>
+<select id="clienteRelatorio"></select>
 
 <br><br>
 
@@ -520,7 +272,7 @@ Gerar relatório
 </button>
 
 <button class="secondary" onclick="window.print()">
-Imprimir / Salvar PDF
+Imprimir / PDF
 </button>
 
 </div>
@@ -536,10 +288,9 @@ Imprimir / Salvar PDF
 
 /* =====================================================
    PRODUTOS
-   ===================================================== */
+===================================================== */
 
-const PRODUTOS = [
-
+const PRODUTOS=[
 {nome:"Queijo fresco",preco:40,custo:27},
 {nome:"Queijo curado",preco:45,custo:30},
 {nome:"Muçarela",preco:50,custo:40},
@@ -549,104 +300,263 @@ const PRODUTOS = [
 {nome:"Rosca caseira",preco:12,custo:7},
 {nome:"Doce de leite caseiro 200g",preco:12,custo:8},
 {nome:"Doce de leite 500g",preco:30,custo:20}
-
 ];
 
 
 /* =====================================================
-   BANCO DE DADOS
-   ===================================================== */
+   BANCO
+===================================================== */
 
-const CHAVE="feitoNaRoca_dados_v3";
+const CHAVE="feito_na_roca_banco_principal_v5";
 
-let banco={
- clientes:[],
- pedidos:[],
- pagamentos:[],
- estoque:{}
+let bancoPadrao={
+clientes:[],
+pedidos:[],
+pagamentos:[],
+estoque:{}
 };
+
+let banco=carregarBanco();
 
 
 /* =====================================================
-   CARREGAR DADOS SEM APAGAR
-   ===================================================== */
+   CARREGAMENTO ROBUSTO
+===================================================== */
+
+function carregarBanco(){
+
+let resultado={
+clientes:[],
+pedidos:[],
+pagamentos:[],
+estoque:{}
+};
 
 try{
 
-const salvo=localStorage.getItem(CHAVE);
+/* Primeiro banco principal */
 
-if(salvo){
+let texto=localStorage.getItem(CHAVE);
 
-const dados=JSON.parse(salvo);
+if(texto){
 
-banco={
- ...banco,
- ...dados
+let dados=JSON.parse(texto);
+
+if(dados && typeof dados==="object"){
+
+resultado={
+...resultado,
+...dados
 };
+
+}
+
+}
+
+
+/* Migração de bancos antigos */
+
+const chavesAntigas=[
+"feitoNaRoca_v2",
+"feitoNaRoca_dados_v3",
+"feitoNaRoca",
+"fr_clientes",
+"fr_pedidos",
+"fr_contas",
+"fr_produtos"
+];
+
+/*
+Só usa dados antigos se o banco novo
+ainda estiver vazio.
+*/
+
+if(
+resultado.clientes.length===0 &&
+resultado.pedidos.length===0
+){
+
+for(const chave of chavesAntigas){
+
+try{
+
+const antigo=localStorage.getItem(chave);
+
+if(!antigo)continue;
+
+const dados=JSON.parse(antigo);
+
+if(!dados)continue;
+
+
+/* Formato antigo com clientes/pedidos */
+
+if(Array.isArray(dados.clientes)){
+resultado.clientes=dados.clientes;
+}
+
+if(Array.isArray(dados.pedidos)){
+resultado.pedidos=dados.pedidos;
+}
+
+if(Array.isArray(dados.pagamentos)){
+resultado.pagamentos=dados.pagamentos;
+}
+
+if(dados.estoque){
+resultado.estoque=dados.estoque;
+}
+
+if(
+resultado.clientes.length ||
+resultado.pedidos.length
+){
+
+break;
+
+}
+
+}catch(e){}
+
+}
 
 }
 
 }catch(e){
 
-console.log("Erro ao carregar dados",e);
+console.error("Erro ao carregar banco:",e);
 
 }
 
 
-banco.clientes ||= [];
-banco.pedidos ||= [];
-banco.pagamentos ||= [];
-banco.estoque ||= {};
+/* Garantir arrays */
+
+if(!Array.isArray(resultado.clientes))
+resultado.clientes=[];
+
+if(!Array.isArray(resultado.pedidos))
+resultado.pedidos=[];
+
+if(!Array.isArray(resultado.pagamentos))
+resultado.pagamentos=[];
+
+if(
+!resultado.estoque ||
+typeof resultado.estoque!=="object"
+)
+resultado.estoque={};
 
 
-/* =====================================================
-   PREÇOS DOS PRODUTOS
-   ===================================================== */
-
-const precos={};
+/* Estoque */
 
 PRODUTOS.forEach(p=>{
 
-precos[p.nome]=p.preco;
+if(
+resultado.estoque[p.nome]===undefined
+){
 
-if(banco.estoque[p.nome]===undefined){
-
-banco.estoque[p.nome]=0;
+resultado.estoque[p.nome]=0;
 
 }
 
 });
 
 
+return resultado;
+
+}
+
+
 /* =====================================================
-   SALVAR
-   ===================================================== */
+   SALVAMENTO COM VERIFICAÇÃO
+===================================================== */
 
-function salvar(){
+function salvarBanco(){
 
-localStorage.setItem(
-CHAVE,
-JSON.stringify(banco)
+try{
+
+const texto=JSON.stringify(banco);
+
+localStorage.setItem(CHAVE,texto);
+
+
+/* Verificação real */
+
+const confirmado=
+localStorage.getItem(CHAVE);
+
+if(confirmado!==texto){
+
+throw new Error(
+"Os dados não foram confirmados no armazenamento."
 );
+
+}
+
+return true;
+
+}catch(erro){
+
+console.error(erro);
+
+mostrarStatus(
+"statusSistema",
+"⚠️ O navegador não permitiu salvar os dados. Faça um backup imediatamente.",
+"erro"
+);
+
+mostrarStatus(
+"statusCliente",
+"⚠️ O navegador não confirmou o salvamento.",
+"erro"
+);
+
+return false;
+
+}
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function mostrarStatus(id,texto,tipo){
+
+const el=document.getElementById(id);
+
+if(!el)return;
+
+el.innerHTML=
+`<div class="status ${tipo}">
+${texto}
+</div>`;
+
+setTimeout(()=>{
+
+if(el)el.innerHTML="";
+
+},5000);
 
 }
 
 
 /* =====================================================
    UTILIDADES
-   ===================================================== */
+===================================================== */
 
-function id(){
+function novoId(){
 
 return Date.now().toString(36)+
-Math.random().toString(36).substring(2);
+"-"+
+Math.random().toString(36).slice(2);
 
 }
 
+function dinheiro(v){
 
-function dinheiro(valor){
-
-return Number(valor||0).toLocaleString(
+return Number(v||0).toLocaleString(
 "pt-BR",
 {
 style:"currency",
@@ -656,10 +566,9 @@ currency:"BRL"
 
 }
 
+function escapar(v){
 
-function escapeHTML(texto){
-
-return String(texto??"")
+return String(v??"")
 .replaceAll("&","&amp;")
 .replaceAll("<","&lt;")
 .replaceAll(">","&gt;")
@@ -668,55 +577,26 @@ return String(texto??"")
 
 }
 
-
-function clientePorId(cid){
+function clientePorId(id){
 
 return banco.clientes.find(
-c=>c.id===cid
+c=>c.id===id
 );
 
 }
 
+function produtoPorNome(nome){
 
-function pedidoTotal(pedido){
-
-return pedido.itens.reduce(
-(total,item)=>
-total+
-Number(item.quantidade)*Number(item.preco),
-0
-);
-
-}
-
-
-function pedidoCusto(pedido){
-
-return pedido.itens.reduce(
-(total,item)=>
-total+
-Number(item.quantidade)*Number(item.custo),
-0
-);
-
-}
-
-
-function totalPagoPedido(pid){
-
-return banco.pagamentos
-.filter(p=>p.pedidoId===pid)
-.reduce(
-(total,p)=>total+Number(p.valor),
-0
+return PRODUTOS.find(
+p=>p.nome===nome
 );
 
 }
 
 
 /* =====================================================
-   CLIENTES
-   ===================================================== */
+   CLIENTES — SALVAMENTO CORRIGIDO
+===================================================== */
 
 function cadastrarCliente(){
 
@@ -724,76 +604,182 @@ const nome=
 document.getElementById("nomeCliente")
 .value.trim();
 
+const telefone=
+document.getElementById("telefoneCliente")
+.value.trim();
+
+const observacao=
+document.getElementById("observacaoCliente")
+.value.trim();
+
+
 if(!nome){
 
-alert("Digite o nome do cliente.");
+mostrarStatus(
+"statusCliente",
+"Digite o nome do cliente.",
+"erro"
+);
 
 return;
 
 }
 
-banco.clientes.push({
 
-id:id(),
-nome:nome,
-telefone:
-document.getElementById("telefoneCliente")
-.value.trim(),
+/*
+Evita cadastro duplicado acidental.
+*/
 
-observacao:
-document.getElementById("obsCliente")
-.value.trim(),
+const existente=
+banco.clientes.find(
+c=>
+c.nome.trim().toLowerCase()===
+nome.toLowerCase() &&
+(c.telefone||"")===telefone
+);
 
-data:new Date().toISOString()
+if(existente){
 
-});
+mostrarStatus(
+"statusCliente",
+"Esse cliente já está cadastrado.",
+"erro"
+);
 
-document.getElementById("nomeCliente").value="";
-document.getElementById("telefoneCliente").value="";
-document.getElementById("obsCliente").value="";
-
-salvar();
-renderizar();
-
-alert("Cliente cadastrado.");
+return;
 
 }
 
 
-function excluirCliente(cid){
+const cliente={
 
-if(!confirm(
-"Excluir este cliente?"
-))return;
+id:novoId(),
+
+nome:nome,
+
+telefone:telefone,
+
+observacao:observacao,
+
+criadoEm:new Date().toISOString()
+
+};
+
+
+/*
+ADICIONA AO BANCO ANTES DE QUALQUER RENDERIZAÇÃO.
+*/
+
+banco.clientes.push(cliente);
+
+
+/*
+SALVA E CONFIRMA.
+*/
+
+const salvo=salvarBanco();
+
+
+if(!salvo){
+
+/*
+Se não conseguiu salvar,
+não finge que salvou.
+*/
 
 banco.clientes=
 banco.clientes.filter(
-c=>c.id!==cid
+c=>c.id!==cliente.id
 );
 
-salvar();
-renderizar();
+return;
 
 }
 
 
+/*
+CONFIRMAÇÃO EXTRA:
+procura novamente no banco salvo.
+*/
+
+try{
+
+const teste=
+JSON.parse(
+localStorage.getItem(CHAVE)
+);
+
+const encontrado=
+teste.clientes?.some(
+c=>c.id===cliente.id
+);
+
+if(!encontrado){
+
+banco.clientes=
+banco.clientes.filter(
+c=>c.id!==cliente.id
+);
+
+mostrarStatus(
+"statusCliente",
+"❌ O cliente não foi confirmado no armazenamento.",
+"erro"
+);
+
+return;
+
+}
+
+}catch(e){
+
+return;
+
+}
+
+
+/* Limpar */
+
+document.getElementById("nomeCliente").value="";
+document.getElementById("telefoneCliente").value="";
+document.getElementById("observacaoCliente").value="";
+
+
+renderizar();
+
+
+mostrarStatus(
+"statusCliente",
+"✓ Cliente salvo com sucesso!",
+"ok"
+);
+
+}
+
+
+/* =====================================================
+   CLIENTES
+===================================================== */
+
 function saldoCliente(cid){
 
-const compras=banco.pedidos
+const compras=
+banco.pedidos
 .filter(p=>p.clienteId===cid)
 .reduce(
-(t,p)=>t+pedidoTotal(p),
+(t,p)=>t+totalPedido(p),
 0
 );
 
-const pagos=banco.pagamentos
+const pagamentos=
+banco.pagamentos
 .filter(p=>p.clienteId===cid)
 .reduce(
-(t,p)=>t+Number(p.valor),
+(t,p)=>t+Number(p.valor||0),
 0
 );
 
-return compras-pagos;
+return compras-pagamentos;
 
 }
 
@@ -801,19 +787,20 @@ return compras-pagos;
 function mostrarClientes(){
 
 const busca=
-document.getElementById("buscarCliente")
-.value
+(document.getElementById("buscaCliente").value||"")
 .toLowerCase();
 
-const lista=
-document.getElementById("listaClientes");
-
-const clientes=banco.clientes.filter(c=>
-c.nome.toLowerCase().includes(busca) ||
+const clientes=
+banco.clientes.filter(c=>
+(c.nome||"").toLowerCase().includes(busca) ||
 (c.telefone||"").includes(busca)
 );
 
-lista.innerHTML=clientes.map(c=>{
+document.getElementById(
+"listaClientes"
+).innerHTML=
+
+clientes.map(c=>{
 
 const saldo=saldoCliente(c.id);
 
@@ -824,24 +811,28 @@ return `
 <div class="row">
 
 <div>
-<b>${escapeHTML(c.nome)}</b>
+
+<b>${escapar(c.nome)}</b>
 
 <div class="small">
-${escapeHTML(c.telefone||"")}
+${escapar(c.telefone||"")}
 </div>
+
 </div>
 
 <div class="${saldo>0?"debt":"ok"}">
+
 ${saldo>0
 ?"Deve "+dinheiro(saldo)
 :"Conta quitada"}
+
 </div>
 
 </div>
 
 ${c.observacao
 ?`<div class="small">
-${escapeHTML(c.observacao)}
+Obs.: ${escapar(c.observacao)}
 </div>`
 :""}
 
@@ -863,29 +854,57 @@ Excluir
 
 `;
 
-}).join("") ||
+}).join("")||
 "<p>Nenhum cliente cadastrado.</p>";
+
+}
+
+
+function excluirCliente(cid){
+
+if(!confirm(
+"Excluir este cliente?"
+))return;
+
+banco.clientes=
+banco.clientes.filter(
+c=>c.id!==cid
+);
+
+salvarBanco();
+
+renderizar();
 
 }
 
 
 /* =====================================================
    PEDIDOS
-   ===================================================== */
+===================================================== */
 
 let quantidades={};
 
-
-function iniciarPedido(){
+function iniciarQuantidades(){
 
 quantidades={};
 
-PRODUTOS.forEach(
-p=>quantidades[p.nome]=0
-);
+PRODUTOS.forEach(p=>{
+quantidades[p.nome]=0;
+});
 
 }
 
+function totalPedidoAtual(){
+
+return PRODUTOS.reduce(
+(t,p)=>
+t+
+Number(quantidades[p.nome]||0)*
+p.preco,
+0
+);
+
+}
 
 function alterarQuantidade(nome,valor){
 
@@ -898,16 +917,12 @@ mostrarProdutosPedido();
 
 }
 
-
 function definirQuantidade(nome,valor){
 
 let q=parseInt(valor);
 
-if(!Number.isFinite(q)||q<0){
-
+if(!Number.isFinite(q)||q<0)
 q=0;
-
-}
 
 quantidades[nome]=q;
 
@@ -915,27 +930,13 @@ mostrarProdutosPedido();
 
 }
 
-
-function totalAtual(){
-
-return PRODUTOS.reduce(
-(total,p)=>
-total+
-quantidades[p.nome]*p.preco,
-0
-);
-
-}
-
-
 function mostrarProdutosPedido(){
 
-const area=
 document.getElementById(
-"listaProdutosPedido"
-);
+"produtosPedido"
+).innerHTML=
 
-area.innerHTML=PRODUTOS.map(p=>{
+PRODUTOS.map(p=>{
 
 const q=quantidades[p.nome]||0;
 
@@ -945,16 +946,15 @@ return `
 
 <div>
 
-<b>${escapeHTML(p.nome)}</b>
+<b>${escapar(p.nome)}</b>
 
 <div class="small">
-Preço: ${dinheiro(p.preco)}
+${dinheiro(p.preco)}
 </div>
 
 </div>
 
-<button
-onclick='alterarQuantidade(${JSON.stringify(p.nome)},-1)'>
+<button onclick='alterarQuantidade(${JSON.stringify(p.nome)},-1)'>
 −
 </button>
 
@@ -965,8 +965,7 @@ value="${q}"
 onchange='definirQuantidade(${JSON.stringify(p.nome)},this.value)'
 >
 
-<button
-onclick='alterarQuantidade(${JSON.stringify(p.nome)},1)'>
+<button onclick='alterarQuantidade(${JSON.stringify(p.nome)},1)'>
 +
 </button>
 
@@ -987,7 +986,7 @@ ${dinheiro(q*p.preco)}
 document.getElementById(
 "totalPedido"
 ).textContent=
-"Total: "+dinheiro(totalAtual());
+"Total: "+dinheiro(totalPedidoAtual());
 
 }
 
@@ -995,8 +994,9 @@ document.getElementById(
 function salvarPedido(){
 
 const clienteId=
-document.getElementById("clientePedido")
-.value;
+document.getElementById(
+"clientePedido"
+).value;
 
 if(!clienteId){
 
@@ -1006,8 +1006,9 @@ return;
 
 }
 
-const itens=PRODUTOS
-.filter(p=>quantidades[p.nome]>0)
+const itens=
+PRODUTOS
+.filter(p=>Number(quantidades[p.nome])>0)
 .map(p=>({
 
 produto:p.nome,
@@ -1017,15 +1018,13 @@ quantidades[p.nome]
 ),
 
 /*
-IMPORTANTE:
-o preço é gravado dentro do pedido.
-Assim, se o preço mudar depois,
-o pedido antigo não muda.
+PREÇO HISTÓRICO:
+o preço fica gravado dentro do pedido.
 */
 
-preco:Number(p.preco),
+preco:p.preco,
 
-custo:Number(p.custo)
+custo:p.custo
 
 }));
 
@@ -1039,7 +1038,7 @@ return;
 
 const pedido={
 
-id:id(),
+id:novoId(),
 
 clienteId:clienteId,
 
@@ -1049,7 +1048,7 @@ itens:itens,
 
 observacao:
 document.getElementById(
-"obsPedido"
+"observacaoPedido"
 ).value.trim()
 
 };
@@ -1057,35 +1056,96 @@ document.getElementById(
 banco.pedidos.push(pedido);
 
 
-/* BAIXAR ESTOQUE */
+/* baixa estoque */
 
 itens.forEach(item=>{
 
 banco.estoque[item.produto]=
 Number(banco.estoque[item.produto]||0)-
-Number(item.quantidade);
+item.quantidade;
 
 });
 
 
-document.getElementById("obsPedido").value="";
+if(!salvarBanco()){
 
-iniciarPedido();
+/* desfaz se não salvou */
 
-salvar();
+banco.pedidos=
+banco.pedidos.filter(
+p=>p.id!==pedido.id
+);
+
+itens.forEach(item=>{
+
+banco.estoque[item.produto]=
+Number(banco.estoque[item.produto]||0)+
+item.quantidade;
+
+});
+
+return;
+
+}
+
+
+document.getElementById(
+"observacaoPedido"
+).value="";
+
+iniciarQuantidades();
+
 renderizar();
 
 alert(
-"Pedido salvo: "+
-dinheiro(pedidoTotal(pedido))
+"✓ Pedido salvo!\n\n"+
+"Total: "+
+dinheiro(totalPedido(pedido))
+);
+
+}
+
+
+function totalPedido(pedido){
+
+return (pedido.itens||[]).reduce(
+(t,i)=>
+t+
+Number(i.quantidade||0)*
+Number(i.preco||0),
+0
+);
+
+}
+
+function custoPedido(pedido){
+
+return (pedido.itens||[]).reduce(
+(t,i)=>
+t+
+Number(i.quantidade||0)*
+Number(i.custo||0),
+0
 );
 
 }
 
 
 /* =====================================================
-   PAGAMENTO
-   ===================================================== */
+   PAGAMENTOS
+===================================================== */
+
+function totalPagoPedido(pid){
+
+return banco.pagamentos
+.filter(p=>p.pedidoId===pid)
+.reduce(
+(t,p)=>t+Number(p.valor||0),
+0
+);
+
+}
+
 
 function registrarPagamento(pid,metodo){
 
@@ -1096,7 +1156,7 @@ p=>p.id===pid
 
 if(!pedido)return;
 
-const total=pedidoTotal(pedido);
+const total=totalPedido(pedido);
 
 const pago=totalPagoPedido(pid);
 
@@ -1104,14 +1164,14 @@ const restante=total-pago;
 
 if(restante<=0){
 
-alert("Este pedido já está pago.");
+alert("Este pedido já está totalmente pago.");
 
 return;
 
 }
 
 let valor=prompt(
-"Valor recebido ("+metodo+"):\n\n"+
+"Pagamento em "+metodo+"\n\n"+
 "Restante: "+dinheiro(restante),
 restante.toFixed(2)
 );
@@ -1130,15 +1190,12 @@ return;
 
 }
 
-if(valor>restante){
-
+if(valor>restante)
 valor=restante;
 
-}
+const pagamento={
 
-banco.pagamentos.push({
-
-id:id(),
+id:novoId(),
 
 pedidoId:pid,
 
@@ -1150,13 +1207,25 @@ metodo:metodo,
 
 data:new Date().toISOString()
 
-});
+};
 
-salvar();
+banco.pagamentos.push(pagamento);
+
+if(!salvarBanco()){
+
+banco.pagamentos=
+banco.pagamentos.filter(
+p=>p.id!==pagamento.id
+);
+
+return;
+
+}
+
 renderizar();
 
 alert(
-"Pagamento confirmado!\n\n"+
+"✓ Pagamento confirmado!\n\n"+
 "Forma: "+metodo+
 "\nValor: "+dinheiro(valor)
 );
@@ -1165,65 +1234,29 @@ alert(
 
 
 /* =====================================================
-   PEDIDOS
-   ===================================================== */
-
-function excluirPedido(pid){
-
-if(!confirm(
-"Excluir este pedido?"
-))return;
-
-const pedido=
-banco.pedidos.find(
-p=>p.id===pid
-);
-
-if(pedido){
-
-pedido.itens.forEach(item=>{
-
-banco.estoque[item.produto]=
-Number(banco.estoque[item.produto]||0)+
-Number(item.quantidade);
-
-});
-
-}
-
-banco.pedidos=
-banco.pedidos.filter(
-p=>p.id!==pid
-);
-
-banco.pagamentos=
-banco.pagamentos.filter(
-p=>p.pedidoId!==pid
-);
-
-salvar();
-renderizar();
-
-}
-
+   LISTA DE PEDIDOS
+===================================================== */
 
 function mostrarPedidos(){
 
 const lista=
 document.getElementById("listaPedidos");
 
-const pedidos=[
-...banco.pedidos
-].reverse();
+const pedidos=
+[...banco.pedidos].reverse();
 
-lista.innerHTML=pedidos.map(p=>{
+lista.innerHTML=
 
-const cliente=
+pedidos.map(p=>{
+
+const c=
 clientePorId(p.clienteId);
 
-const total=pedidoTotal(p);
+const total=
+totalPedido(p);
 
-const pago=totalPagoPedido(p.id);
+const pago=
+totalPagoPedido(p.id);
 
 const restante=
 Math.max(0,total-pago);
@@ -1237,10 +1270,7 @@ return `
 <div>
 
 <b>
-${escapeHTML(
-cliente?.nome||
-"Cliente"
-)}
+${escapar(c?.nome||"Cliente")}
 </b>
 
 <div class="small">
@@ -1256,58 +1286,54 @@ ${dinheiro(total)}
 
 </div>
 
-<div style="margin-top:8px">
+<br>
 
 ${p.itens.map(i=>`
 
 <div>
-${escapeHTML(i.produto)}
+${escapar(i.produto)}
 —
 ${i.quantidade} ×
 ${dinheiro(i.preco)}
 =
-<b>${dinheiro(
-i.quantidade*i.preco
-)}</b>
+<b>
+${dinheiro(i.quantidade*i.preco)}
+</b>
 </div>
 
 `).join("")}
-
-</div>
 
 <div class="pagamento">
 
 <div class="row">
 
-<div>
-<strong>Pagamento</strong>
-</div>
+<b>Pagamento</b>
 
-<div class="${restante<=0?"ok":"debt"}">
+<span class="${restante<=0?"ok":"debt"}">
 
 ${restante<=0
 ?"✓ PAGO"
-:"PENDENTE"}
+:"⏳ PENDENTE"}
 
-</div>
+</span>
 
 </div>
 
 <div class="small">
+
 Total: ${dinheiro(total)}
 <br>
 Pago: ${dinheiro(pago)}
 <br>
 Restante: ${dinheiro(restante)}
+
 </div>
 
 ${
 restante>0
 ?
 
-`
-
-<div class="metodos">
+`<div class="metodos">
 
 <button onclick="registrarPagamento('${p.id}','Dinheiro')">
 💵 Dinheiro
@@ -1325,29 +1351,18 @@ restante>0
 🔹 Outros
 </button>
 
-</div>
+</div>`
 
-`
-
-:"<div class='ok'>Pagamento completo.</div>"
+:"<div class='ok'>Pagamento totalmente confirmado.</div>"
 }
 
 </div>
 
 ${p.observacao
 ?`<div class="small">
-<b>Obs.:</b>
-${escapeHTML(p.observacao)}
+Obs.: ${escapar(p.observacao)}
 </div>`
 :""}
-
-<br>
-
-<button
-class="danger"
-onclick="excluirPedido('${p.id}')">
-Excluir pedido
-</button>
 
 </div>
 
@@ -1360,8 +1375,8 @@ Excluir pedido
 
 
 /* =====================================================
-   CONTAS
-   ===================================================== */
+   CONTA
+===================================================== */
 
 function abrirConta(cid){
 
@@ -1377,7 +1392,6 @@ mostrarConta();
 
 }
 
-
 function mostrarConta(){
 
 const cid=
@@ -1392,15 +1406,12 @@ document.getElementById(
 
 if(!cid){
 
-area.innerHTML=
-"<p>Selecione um cliente.</p>";
-
+area.innerHTML="";
 return;
 
 }
 
-const cliente=
-clientePorId(cid);
+const c=clientePorId(cid);
 
 const pedidos=
 banco.pedidos.filter(
@@ -1412,13 +1423,15 @@ banco.pagamentos.filter(
 p=>p.clienteId===cid
 );
 
-const compras=pedidos.reduce(
-(t,p)=>t+pedidoTotal(p),
+const compras=
+pedidos.reduce(
+(t,p)=>t+totalPedido(p),
 0
 );
 
-const pagos=pagamentos.reduce(
-(t,p)=>t+Number(p.valor),
+const pagos=
+pagamentos.reduce(
+(t,p)=>t+Number(p.valor||0),
 0
 );
 
@@ -1428,7 +1441,7 @@ area.innerHTML=`
 
 <div class="card">
 
-<h2>Conta de ${escapeHTML(cliente.nome)}</h2>
+<h2>Conta: ${escapar(c.nome)}</h2>
 
 <div class="kpis">
 
@@ -1471,15 +1484,14 @@ ${new Date(p.data)
 ${p.itens.map(i=>`
 
 <div>
-${escapeHTML(i.produto)}
-— ${i.quantidade} ×
+${escapar(i.produto)}
+—
+${i.quantidade} ×
 ${dinheiro(i.preco)}
 =
-<b>
 ${dinheiro(
 i.quantidade*i.preco
 )}
-</b>
 </div>
 
 `).join("")}
@@ -1487,7 +1499,7 @@ i.quantidade*i.preco
 <hr>
 
 <b>
-Total: ${dinheiro(pedidoTotal(p))}
+Total: ${dinheiro(totalPedido(p))}
 </b>
 
 </div>
@@ -1508,13 +1520,15 @@ ${pagamentos.map(p=>`
 ${new Date(p.data)
 .toLocaleDateString("pt-BR")}
 
-—
+<br>
 
+Valor:
 <b>${dinheiro(p.valor)}</b>
 
-—
+<br>
 
-${escapeHTML(p.metodo)}
+Forma:
+<b>${escapar(p.metodo)}</b>
 
 </div>
 
@@ -1530,7 +1544,7 @@ ${escapeHTML(p.metodo)}
 
 /* =====================================================
    ESTOQUE
-   ===================================================== */
+===================================================== */
 
 function mostrarEstoque(){
 
@@ -1540,7 +1554,7 @@ document.getElementById(
 
 PRODUTOS.map(p=>{
 
-const qtd=
+const q=
 Number(banco.estoque[p.nome]||0);
 
 return `
@@ -1549,29 +1563,27 @@ return `
 
 <div class="row">
 
-<b>${escapeHTML(p.nome)}</b>
+<b>${escapar(p.nome)}</b>
 
-<span class="${qtd<=3?"debt":"ok"}">
+<span class="${q<=3?"debt":"ok"}">
 
-${qtd<=3
+${q<=3
 ?"⚠️ Estoque baixo"
-:"Estoque normal"}
+:"✓ Normal"}
 
 </span>
 
 </div>
 
-<div>
 Quantidade:
-<strong>${qtd}</strong>
-</div>
+<strong>${q}</strong>
 
-<br>
+<br><br>
 
 <button
 class="secondary"
-onclick="alterarEstoque('${p.nome}')">
-Alterar
+onclick='alterarEstoque(${JSON.stringify(p.nome)})'>
+Alterar estoque
 </button>
 
 </div>
@@ -1582,25 +1594,23 @@ Alterar
 
 }
 
-
 function alterarEstoque(nome){
 
 const atual=
 Number(banco.estoque[nome]||0);
 
-const novo=prompt(
-"Quantidade de "+
-nome+":",
+const valor=prompt(
+"Quantidade de "+nome,
 atual
 );
 
-if(novo===null)return;
+if(valor===null)return;
 
-const n=Number(
-String(novo).replace(",",".")
+const q=Number(
+String(valor).replace(",",".")
 );
 
-if(!Number.isFinite(n)||n<0){
+if(!Number.isFinite(q)||q<0){
 
 alert("Quantidade inválida.");
 
@@ -1608,9 +1618,18 @@ return;
 
 }
 
-banco.estoque[nome]=n;
+const antigo=banco.estoque[nome];
 
-salvar();
+banco.estoque[nome]=q;
+
+if(!salvarBanco()){
+
+banco.estoque[nome]=antigo;
+
+return;
+
+}
+
 renderizar();
 
 }
@@ -1618,19 +1637,19 @@ renderizar();
 
 /* =====================================================
    FINANCEIRO
-   ===================================================== */
+===================================================== */
 
 function mostrarFinanceiro(){
 
 const vendas=
 banco.pedidos.reduce(
-(t,p)=>t+pedidoTotal(p),
+(t,p)=>t+totalPedido(p),
 0
 );
 
 const recebido=
 banco.pagamentos.reduce(
-(t,p)=>t+Number(p.valor),
+(t,p)=>t+Number(p.valor||0),
 0
 );
 
@@ -1638,38 +1657,24 @@ const receber=vendas-recebido;
 
 const custo=
 banco.pedidos.reduce(
-(t,p)=>t+pedidoCusto(p),
+(t,p)=>t+custoPedido(p),
 0
 );
 
 const lucro=vendas-custo;
 
-document.getElementById(
-"finVendas"
-).textContent=dinheiro(vendas);
-
-document.getElementById(
-"finRecebido"
-).textContent=dinheiro(recebido);
-
-document.getElementById(
-"finReceber"
-).textContent=dinheiro(receber);
-
-document.getElementById(
-"finCusto"
-).textContent=dinheiro(custo);
-
-document.getElementById(
-"finLucro"
-).textContent=dinheiro(lucro);
+document.getElementById("finVendas").textContent=dinheiro(vendas);
+document.getElementById("finRecebido").textContent=dinheiro(recebido);
+document.getElementById("finReceber").textContent=dinheiro(receber);
+document.getElementById("finCusto").textContent=dinheiro(custo);
+document.getElementById("finLucro").textContent=dinheiro(lucro);
 
 }
 
 
 /* =====================================================
    PRODUTOS
-   ===================================================== */
+===================================================== */
 
 function mostrarProdutos(){
 
@@ -1684,7 +1689,7 @@ PRODUTOS.map(p=>`
 <div class="row">
 
 <div>
-<b>${escapeHTML(p.nome)}</b>
+<b>${escapar(p.nome)}</b>
 
 <div class="small">
 Custo: ${dinheiro(p.custo)}
@@ -1706,7 +1711,7 @@ ${dinheiro(p.preco)}
 
 /* =====================================================
    RELATÓRIO
-   ===================================================== */
+===================================================== */
 
 function gerarRelatorio(){
 
@@ -1725,8 +1730,7 @@ return;
 
 }
 
-const cliente=
-clientePorId(cid);
+const c=clientePorId(cid);
 
 const pedidos=
 banco.pedidos.filter(
@@ -1738,21 +1742,19 @@ banco.pagamentos.filter(
 p=>p.clienteId===cid
 );
 
-const totalCompras=
+const compras=
 pedidos.reduce(
-(t,p)=>t+pedidoTotal(p),
+(t,p)=>t+totalPedido(p),
 0
 );
 
-const totalPagamentos=
+const pagos=
 pagamentos.reduce(
-(t,p)=>t+Number(p.valor),
+(t,p)=>t+Number(p.valor||0),
 0
 );
 
-const saldo=
-totalCompras-totalPagamentos;
-
+const saldo=compras-pagos;
 
 document.getElementById(
 "relatorio"
@@ -1760,24 +1762,20 @@ document.getElementById(
 
 <div class="card">
 
-<h2>
-RELATÓRIO DE CONTA
-</h2>
+<h2>RELATÓRIO DE CONTA</h2>
 
-<h3>
-Feito na Roça
-</h3>
+<h3>🌾 Feito na Roça</h3>
 
 <hr>
 
 <p>
 <strong>Cliente:</strong>
-${escapeHTML(cliente.nome)}
+${escapar(c.nome)}
 </p>
 
 <p>
 <strong>Telefone:</strong>
-${escapeHTML(cliente.telefone||"")}
+${escapar(c.telefone||"")}
 </p>
 
 <hr>
@@ -1796,7 +1794,7 @@ ${new Date(p.data)
 </strong>
 
 <strong>
-${dinheiro(pedidoTotal(p))}
+${dinheiro(totalPedido(p))}
 </strong>
 
 </div>
@@ -1806,15 +1804,16 @@ ${dinheiro(pedidoTotal(p))}
 ${p.itens.map(i=>`
 
 <div>
-${escapeHTML(i.produto)}
+${escapar(i.produto)}
 <br>
-${i.quantidade}
-×
+${i.quantidade} ×
 ${dinheiro(i.preco)}
 =
+<strong>
 ${dinheiro(
 i.quantidade*i.preco
 )}
+</strong>
 </div>
 
 `).join("<hr>")}
@@ -1826,7 +1825,7 @@ i.quantidade*i.preco
 
 <hr>
 
-<h3>Pagamentos realizados</h3>
+<h3>Pagamentos</h3>
 
 ${pagamentos.map(p=>`
 
@@ -1843,12 +1842,12 @@ Valor:
 <br>
 
 Forma:
-<strong>${escapeHTML(p.metodo)}</strong>
+<strong>${escapar(p.metodo)}</strong>
 
 </div>
 
 `).join("")||
-"<p>Nenhum pagamento registrado.</p>"}
+"<p>Nenhum pagamento.</p>"}
 
 <hr>
 
@@ -1856,12 +1855,12 @@ Forma:
 
 <div class="kpi">
 Total comprado
-<b>${dinheiro(totalCompras)}</b>
+<b>${dinheiro(compras)}</b>
 </div>
 
 <div class="kpi">
 Total pago
-<b>${dinheiro(totalPagamentos)}</b>
+<b>${dinheiro(pagos)}</b>
 </div>
 
 <div class="kpi">
@@ -1876,11 +1875,9 @@ ${dinheiro(saldo)}
 <br>
 
 <div style="text-align:center">
-
 <strong>
 Feito na Roça — O verdadeiro sabor da roça na sua mesa.
 </strong>
-
 </div>
 
 </div>
@@ -1892,80 +1889,58 @@ Feito na Roça — O verdadeiro sabor da roça na sua mesa.
 
 /* =====================================================
    SELECTS
-   ===================================================== */
+===================================================== */
 
 function atualizarSelects(){
 
-const clientes=
-banco.clientes.map(c=>`
-
-<option value="${c.id}">
-${escapeHTML(c.nome)}
-</option>
-
-`).join("");
-
-document.getElementById(
-"clientePedido"
-).innerHTML=
+const html=
 '<option value="">Selecione...</option>'+
-clientes;
+banco.clientes.map(c=>
+`<option value="${c.id}">
+${escapar(c.nome)}
+</option>`
+).join("");
 
-document.getElementById(
-"clienteConta"
-).innerHTML=
-'<option value="">Selecione...</option>'+
-clientes;
-
-document.getElementById(
-"clienteRelatorio"
-).innerHTML=
-'<option value="">Selecione...</option>'+
-clientes;
+document.getElementById("clientePedido").innerHTML=html;
+document.getElementById("clienteConta").innerHTML=html;
+document.getElementById("clienteRelatorio").innerHTML=html;
 
 }
 
 
 /* =====================================================
    INÍCIO
-   ===================================================== */
+===================================================== */
 
 function mostrarInicio(){
 
 const vendas=
 banco.pedidos.reduce(
-(t,p)=>t+pedidoTotal(p),
+(t,p)=>t+totalPedido(p),
 0
 );
 
 const receber=
 banco.clientes.reduce(
-(t,c)=>t+Math.max(
-0,
-saldoCliente(c.id)
-),
+(t,c)=>t+Math.max(0,saldoCliente(c.id)),
 0
 );
 
 document.getElementById(
 "totalClientes"
-).textContent=
-banco.clientes.length;
+).textContent=banco.clientes.length;
 
 document.getElementById(
 "totalPedidos"
-).textContent=
-banco.pedidos.length;
+).textContent=banco.pedidos.length;
 
 document.getElementById(
 "totalVendas"
-).textContent=
-dinheiro(vendas);
+).textContent=dinheiro(vendas);
 
 document.getElementById(
 "totalReceber"
-).textContent=
-dinheiro(receber);
+).textContent=dinheiro(receber);
 
 document.getElementById(
 "resumoInicio"
@@ -1973,22 +1948,22 @@ document.getElementById(
 
 <div class="box">
 Clientes:
-<b>${banco.clientes.length}</b>
+<strong>${banco.clientes.length}</strong>
 </div>
 
 <div class="box">
 Pedidos:
-<b>${banco.pedidos.length}</b>
+<strong>${banco.pedidos.length}</strong>
 </div>
 
 <div class="box">
 Vendas:
-<b>${dinheiro(vendas)}</b>
+<strong>${dinheiro(vendas)}</strong>
 </div>
 
 <div class="box">
 A receber:
-<b>${dinheiro(receber)}</b>
+<strong>${dinheiro(receber)}</strong>
 </div>
 
 `;
@@ -1998,9 +1973,9 @@ A receber:
 
 /* =====================================================
    BACKUP
-   ===================================================== */
+===================================================== */
 
-function backup(){
+function fazerBackup(){
 
 const dados=JSON.stringify(
 banco,
@@ -2010,16 +1985,13 @@ null,
 
 const blob=new Blob(
 [dados],
-{
-type:"application/json"
-}
+{type:"application/json"}
 );
 
 const url=
 URL.createObjectURL(blob);
 
-const a=
-document.createElement("a");
+const a=document.createElement("a");
 
 a.href=url;
 
@@ -2031,22 +2003,26 @@ new Date()
 .slice(0,10)+
 ".json";
 
+document.body.appendChild(a);
+
 a.click();
+
+a.remove();
 
 URL.revokeObjectURL(url);
 
 }
 
 
-function restaurar(event){
+function restaurarBackup(event){
 
 const arquivo=
-event.target.files[0];
+event.target.files?.[0];
 
 if(!arquivo)return;
 
 if(!confirm(
-"Restaurar este backup? Os dados atuais deste aparelho serão substituídos."
+"Restaurar este backup? Os dados atuais serão substituídos pelos dados do arquivo."
 )){
 
 event.target.value="";
@@ -2055,15 +2031,14 @@ return;
 
 }
 
-const leitor=
-new FileReader();
+const reader=new FileReader();
 
-leitor.onload=function(){
+reader.onload=function(){
 
 try{
 
 const dados=
-JSON.parse(leitor.result);
+JSON.parse(reader.result);
 
 if(
 !dados ||
@@ -2082,18 +2057,26 @@ pagamentos:dados.pagamentos||[],
 estoque:dados.estoque||{}
 };
 
-salvar();
+if(!salvarBanco()){
+
+alert(
+"Não foi possível salvar o backup restaurado."
+);
+
+return;
+
+}
 
 renderizar();
 
 alert(
-"Backup restaurado com sucesso."
+"✓ Backup restaurado com sucesso."
 );
 
 }catch(e){
 
 alert(
-"Esse arquivo não é um backup válido."
+"❌ Arquivo de backup inválido."
 );
 
 }
@@ -2102,14 +2085,14 @@ event.target.value="";
 
 };
 
-leitor.readAsText(arquivo);
+reader.readAsText(arquivo);
 
 }
 
 
 /* =====================================================
-   RENDERIZAÇÃO
-   ===================================================== */
+   RENDERIZAR TUDO
+===================================================== */
 
 function renderizar(){
 
@@ -2138,57 +2121,56 @@ gerarRelatorio();
 
 /* =====================================================
    NAVEGAÇÃO
-   ===================================================== */
+===================================================== */
 
 document
 .querySelectorAll("nav button")
 .forEach(botao=>{
 
-botao.addEventListener(
-"click",
-function(){
+botao.addEventListener("click",()=>{
 
 document
 .querySelectorAll("section")
-.forEach(s=>
-s.classList.remove("show")
-);
+.forEach(s=>s.classList.remove("show"));
 
 document
-.getElementById(
-this.dataset.tab
-)
+.getElementById(botao.dataset.tab)
 .classList.add("show");
 
 document
 .querySelectorAll("nav button")
-.forEach(b=>
-b.classList.remove("active")
-);
+.forEach(b=>b.classList.remove("active"));
 
-this.classList.add("active");
+botao.classList.add("active");
 
 renderizar();
 
-}
-);
+});
 
 });
 
 
 /* =====================================================
-   INICIAR
-   ===================================================== */
+   INÍCIO DO SISTEMA
+===================================================== */
 
-iniciarPedido();
+iniciarQuantidades();
 
-renderizar();
+if(!salvarBanco()){
+
+mostrarStatus(
+"statusSistema",
+"⚠️ Atenção: o navegador não confirmou o armazenamento. Faça um backup.",
+"erro"
+);
+
+}
 
 document
-.querySelector(
-'nav button[data-tab="inicio"]'
-)
+.querySelector('[data-tab="inicio"]')
 .classList.add("active");
+
+renderizar();
 
 </script>
 
