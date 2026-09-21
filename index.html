@@ -5,329 +5,437 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#2f6b3f">
 <title>Feito na Roça</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f1e8;color:#222}
-header{background:#2f6b3f;color:#fff;padding:16px;position:sticky;top:0;z-index:20}
-header h1{margin:0 0 4px;font-size:24px}.sub{font-size:13px}
-nav{display:flex;gap:6px;overflow:auto;background:#fff;padding:8px;position:sticky;top:70px;z-index:19;border-bottom:1px solid #ddd}
-nav button{border:0;border-radius:9px;padding:10px 12px;background:#e8eee7;white-space:nowrap;font-weight:bold}
-.active{background:#2f6b3f!important;color:#fff!important}
-main{max-width:1100px;margin:auto;padding:12px}section{display:none}section.show{display:block}
-.card{background:#fff;border-radius:14px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #0001}
-label{display:block;font-size:13px;font-weight:bold;margin:8px 0 5px}
-input,select,textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:9px;font-size:16px;background:#fff}
-button{cursor:pointer;-webkit-tap-highlight-color:transparent}
-.primary{background:#2f6b3f;color:#fff;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}
-.secondary{background:#eee;border:0;border-radius:9px;padding:10px 13px;font-weight:bold}
-.danger{background:#b3261e;color:#fff;border:0;border-radius:8px;padding:8px 11px;font-weight:bold}
-.box{border:1px solid #ddd;border-radius:11px;padding:12px;margin-top:9px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.small{font-size:13px;color:#666}.total{font-size:21px;font-weight:bold;color:#2f6b3f}
-.ok{color:#17652a;font-weight:bold}.debt{color:#b3261e;font-weight:bold}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
-.kpi{background:#eef5ec;padding:14px;border-radius:11px}.kpi b{display:block;font-size:21px;margin-top:5px;color:#2f6b3f}
-.produtos{display:flex;flex-direction:column;gap:8px}
-.produto{display:grid;grid-template-columns:1fr 44px 65px 44px;gap:5px;align-items:center;border:1px solid #ddd;border-radius:10px;padding:8px}
-.produto button{width:44px;height:43px;border:0;border-radius:8px;background:#e8eee7;color:#285b34;font-size:24px;font-weight:bold}
-.produto input{width:65px;text-align:center;font-weight:bold}.produto-total{grid-column:1/-1;text-align:right;font-weight:bold}
-.total-pedido{margin-top:12px;padding:15px;background:#eef5ec;border-radius:11px;text-align:center;font-size:22px;font-weight:bold;color:#2f6b3f}
-.pagamento{margin-top:12px;background:#f4f8f3;border:2px solid #2f6b3f;border-radius:11px;padding:12px}
-.metodos{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}
-.metodos button{border:1px solid #bbb;background:#fff;padding:13px;border-radius:8px;font-weight:bold;font-size:15px}
-.status{padding:10px;border-radius:9px;margin-bottom:10px;font-weight:bold}.status.ok{background:#e8f5e9}
-.status.erro{background:#ffebee;color:#b3261e}.badge{display:inline-block;padding:7px 10px;border-radius:20px;font-size:13px;font-weight:bold}
-.badge-pendente{background:#fff3cd;color:#856404}.badge-preparacao{background:#dbeafe;color:#1e40af}
-.badge-entregue{background:#dcfce7;color:#166534}.badge-sem{background:#eee;color:#555}
-.data-entrega{background:#eef5ec;border-radius:10px;padding:10px;margin-top:10px}
-.botao-entrega,.botao-preparar,.botao-voltar{width:100%;padding:12px;margin-top:8px;border:0;border-radius:9px;font-weight:bold;font-size:15px}
-.botao-entrega{background:#2f6b3f;color:#fff}.botao-preparar{background:#e8eef7;color:#174a7e}
-.botao-voltar{background:#fff3cd;color:#856404}.produto-destaque{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid #ddd;border-radius:10px;margin-top:7px}
-.vazio{text-align:center;padding:20px;color:#777}.aviso{padding:11px;background:#fff8df;border:1px solid #ead78b;border-radius:10px;margin-top:10px}
-.preco-atual{font-size:20px;font-weight:bold;color:#2f6b3f;margin-top:5px}.linha-preco{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
-@media(max-width:500px){.produto{grid-template-columns:1fr 40px 58px 40px}.produto button{width:40px}.produto input{width:58px}.linha-preco{grid-template-columns:1fr}}
-@media print{header,nav,.no-print{display:none!important}body{background:#fff}.card{box-shadow:none}}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f1e8;
+  color:#222;
+}
+header{
+  background:#2f6b3f;
+  color:white;
+  padding:16px;
+  text-align:center;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+header h1{margin:0;font-size:23px}
+header small{opacity:.9}
+
+nav{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+  padding:7px;
+  background:#fff;
+  position:sticky;
+  top:70px;
+  z-index:19;
+  box-shadow:0 2px 7px #0002;
+}
+nav button{
+  border:0;
+  background:#e8eee8;
+  color:#244d2e;
+  padding:10px 4px;
+  border-radius:8px;
+  font-weight:bold;
+  font-size:12px;
+}
+nav button.ativo{
+  background:#2f6b3f;
+  color:#fff;
+}
+
+main{padding:12px;max-width:1000px;margin:auto}
+.secao{display:none}
+.secao.ativa{display:block}
+
+.card{
+  background:#fff;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:12px;
+  box-shadow:0 2px 8px #0001;
+}
+.card h2,.card h3{margin-top:0;color:#2f6b3f}
+
+input,select,textarea{
+  width:100%;
+  padding:11px;
+  border:1px solid #bbb;
+  border-radius:8px;
+  margin:5px 0 9px;
+  font-size:16px;
+  background:#fff;
+}
+textarea{min-height:75px}
+
+button{
+  border:0;
+  border-radius:8px;
+  padding:11px 13px;
+  background:#2f6b3f;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+button.sec{
+  background:#e5e5e5;
+  color:#222;
+}
+button.perigo{background:#b52c2c}
+button.amarelo{background:#c28b13}
+button.azul{background:#2868a8}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px;
+}
+
+.produto{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:11px;
+  background:#fafafa;
+}
+.produto strong{display:block;font-size:17px}
+.produto .preco{
+  color:#2f6b3f;
+  font-size:18px;
+  font-weight:bold;
+  margin:6px 0;
+}
+.qtd{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.qtd button{
+  width:38px;
+  height:38px;
+  padding:0;
+  font-size:20px;
+}
+.qtd span{
+  min-width:30px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.linha{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:center;
+  padding:9px 0;
+  border-bottom:1px solid #eee;
+}
+.linha:last-child{border-bottom:0}
+
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+  background:#e5eee6;
+  color:#285f35;
+}
+
+.total{
+  font-size:20px;
+  font-weight:bold;
+  color:#2f6b3f;
+}
+
+.alerta{
+  background:#fff3cd;
+  border:1px solid #e3c45c;
+  color:#654f00;
+  padding:10px;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+
+.ok{
+  background:#dff2e3;
+  border:1px solid #8cc995;
+  color:#245c2d;
+  padding:10px;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+
+.acoes{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.tabela{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+.tabela th,.tabela td{
+  padding:7px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
+}
+
+.vazio{
+  color:#777;
+  text-align:center;
+  padding:20px;
+}
+
+@media(max-width:600px){
+  nav{
+    grid-template-columns:repeat(4,1fr);
+  }
+  nav button{
+    font-size:10px;
+    padding:9px 2px;
+  }
+}
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>🌾 Feito na Roça</h1>
-<div class="sub">Clientes • Pedidos • Entregas • Pagamentos • Contas • Relatórios</div>
+  <h1>🌱 Feito na Roça</h1>
+  <small>Gestão de vendas, clientes e produtos</small>
 </header>
 
 <nav>
-<button data-tab="inicio">Início</button>
-<button data-tab="clientes">Clientes</button>
-<button data-tab="pedidos">Pedidos</button>
-<button data-tab="entregas">🚚 Entregas</button>
-<button data-tab="contas">Contas</button>
-<button data-tab="estoque">Estoque</button>
-<button data-tab="financeiro">Financeiro</button>
-<button data-tab="produtos">Produtos</button>
-<button data-tab="relatorios">Relatórios</button>
+  <button class="ativo" onclick="abrirAba('inicio',this)">🏠 Início</button>
+  <button onclick="abrirAba('produtos',this)">🧀 Produtos</button>
+  <button onclick="abrirAba('clientes',this)">👥 Clientes</button>
+  <button onclick="abrirAba('pedidos',this)">🛒 Pedidos</button>
+  <button onclick="abrirAba('pagamentos',this)">💰 Pagamentos</button>
+  <button onclick="abrirAba('estoque',this)">📦 Estoque</button>
+  <button onclick="abrirAba('relatorios',this)">📊 Relatórios</button>
+  <button onclick="abrirAba('backup',this)">💾 Backup</button>
 </nav>
 
 <main>
 
-<section id="inicio" class="show">
-<div id="statusSistema"></div>
+<section id="inicio" class="secao ativa">
+  <div class="card">
+    <h2>Resumo</h2>
+    <div id="resumoInicio"></div>
+  </div>
 
-<div class="kpis">
-<div class="kpi">Clientes<b id="totalClientes">0</b></div>
-<div class="kpi">Pedidos<b id="totalPedidos">0</b></div>
-<div class="kpi">Vendas<b id="totalVendas">R$ 0,00</b></div>
-<div class="kpi">A receber<b id="totalReceber">R$ 0,00</b></div>
-<div class="kpi">Entregas hoje<b id="totalEntregasHoje">0</b></div>
-</div>
-
-<div class="card">
-<h3>📊 Resumo</h3>
-<div id="resumoInicio"></div>
-</div>
-
-<div class="card">
-<h3>🚚 Próximas entregas</h3>
-<div id="resumoEntregas"></div>
-</div>
-
-<div class="card">
-<h3>💾 Segurança dos dados</h3>
-<p class="small">
-Clientes, pedidos, pagamentos, estoque, preços e entregas são salvos no aparelho.
-Faça backups regularmente.
-</p>
-
-<button class="primary" onclick="fazerBackup()">⬇️ Fazer backup</button>
-<button class="secondary" onclick="document.getElementById('arquivoBackup').click()">⬆️ Restaurar backup</button>
-
-<input id="arquivoBackup" type="file" accept=".json" style="display:none" onchange="restaurarBackup(event)">
-</div>
+  <div class="card">
+    <h3>Atalhos</h3>
+    <div class="acoes">
+      <button onclick="abrirAbaPorId('clientes')">Cadastrar cliente</button>
+      <button onclick="abrirAbaPorId('pedidos')">Novo pedido</button>
+      <button onclick="abrirAbaPorId('backup')">Fazer backup</button>
+    </div>
+  </div>
 </section>
 
-<section id="clientes">
+<section id="produtos" class="secao">
+  <div class="card">
+    <h2>Produtos</h2>
+    <div id="listaProdutos" class="grid"></div>
+  </div>
 
-<div class="card">
-<h2>👥 Cadastro de clientes</h2>
-<div id="statusCliente"></div>
+  <div class="card">
+    <h3>Alterar preço</h3>
 
-<label>Nome do cliente</label>
-<input id="nomeCliente" autocomplete="name">
+    <select id="produtoPreco"></select>
 
-<label>Telefone</label>
-<input id="telefoneCliente" type="tel">
+    <input
+      id="novoPreco"
+      type="number"
+      step="0.01"
+      inputmode="decimal"
+      placeholder="Novo preço"
+    >
 
-<label>Observação</label>
-<input id="observacaoCliente">
-
-<br><br>
-
-<button class="primary" style="width:100%;padding:14px" onclick="cadastrarCliente()">
-✓ SALVAR CLIENTE
-</button>
-</div>
-
-<div class="card">
-<input id="buscaCliente" placeholder="🔎 Procurar cliente" oninput="mostrarClientes()">
-<div id="listaClientes"></div>
-</div>
-
+    <button onclick="alterarPreco()">Salvar preço</button>
+  </div>
 </section>
 
-<section id="pedidos">
+<section id="clientes" class="secao">
 
-<div class="card">
+  <div class="card">
+    <h2>Novo cliente</h2>
 
-<h2>🛒 Novo pedido</h2>
+    <input id="clienteNome" placeholder="Nome do cliente">
 
-<label>Cliente</label>
-<select id="clientePedido"></select>
+    <input
+      id="clienteTelefone"
+      placeholder="Telefone / WhatsApp"
+      inputmode="tel"
+    >
 
-<h3>Produtos</h3>
+    <textarea
+      id="clienteObs"
+      placeholder="Observação"
+    ></textarea>
 
-<div id="produtosPedido" class="produtos"></div>
+    <button onclick="salvarCliente()">Salvar cliente</button>
+  </div>
 
-<div id="totalPedido" class="total-pedido">
-Total: R$ 0,00
-</div>
+  <div class="card">
+    <h2>Clientes cadastrados</h2>
 
-<h3>🚚 Entrega</h3>
+    <input
+      id="buscarCliente"
+      placeholder="Pesquisar cliente"
+      oninput="renderClientes()"
+    >
 
-<label>Data prevista para entrega</label>
-<input id="dataEntrega" type="date">
-
-<label>Horário previsto</label>
-<input id="horaEntrega" type="time">
-
-<div class="small">
-Informe data e horário quando o pedido tiver entrega programada.
-</div>
-
-<label>Observação do pedido</label>
-<textarea id="observacaoPedido" rows="3" placeholder="Ex.: entregar à tarde, levar troco..."></textarea>
-
-<br><br>
-
-<button class="primary" style="width:100%;padding:14px" onclick="salvarPedido()">
-✓ SALVAR PEDIDO
-</button>
-
-</div>
-
-<div class="card">
-<h2>📋 Pedidos</h2>
-<div id="listaPedidos"></div>
-</div>
+    <div id="listaClientes"></div>
+  </div>
 
 </section>
 
-<section id="entregas">
+<section id="pedidos" class="secao">
 
-<div class="card">
+  <div class="card">
+    <h2>Novo pedido</h2>
 
-<h2>🚚 Controle de entregas</h2>
+    <select id="pedidoCliente"></select>
 
-<div class="kpis">
-<div class="kpi">Hoje<b id="entregasHojeKpi">0</b></div>
-<div class="kpi">A entregar<b id="entregasPendentesKpi">0</b></div>
-<div class="kpi">Entregues<b id="entregasConcluidasKpi">0</b></div>
-</div>
+    <div id="produtosPedido" class="grid"></div>
 
-<label>Filtrar data</label>
-<input id="filtroEntregaData" type="date" onchange="mostrarEntregas()">
+    <textarea
+      id="pedidoObs"
+      placeholder="Observação do pedido"
+    ></textarea>
 
-<label>Status</label>
+    <div class="card">
+      <div>Total do pedido:</div>
+      <div id="totalPedido" class="total">R$ 0,00</div>
+    </div>
 
-<select id="filtroEntregaStatus" onchange="mostrarEntregas()">
-<option value="">Todos</option>
-<option value="A entregar">A entregar</option>
-<option value="Em preparação">Em preparação</option>
-<option value="Entregue">Entregue</option>
-</select>
+    <button onclick="salvarPedido()">Salvar pedido</button>
+  </div>
 
-<br><br>
+  <div class="card">
+    <h2>Pedidos</h2>
 
-<button class="secondary" onclick="mostrarEntregasHoje()">
-📅 Entregas de hoje
-</button>
+    <input
+      id="buscarPedido"
+      placeholder="Pesquisar cliente ou pedido"
+      oninput="renderPedidos()"
+    >
 
-<button class="secondary" onclick="limparFiltrosEntregas()">
-🔄 Mostrar todas
-</button>
-
-</div>
-
-<div class="card">
-<div id="listaEntregas"></div>
-</div>
+    <div id="listaPedidos"></div>
+  </div>
 
 </section>
 
-<section id="contas">
+<section id="pagamentos" class="secao">
 
-<div class="card">
+  <div class="card">
+    <h2>Registrar pagamento</h2>
 
-<h2>💰 Conta do cliente</h2>
+    <select id="pagamentoPedido"></select>
 
-<label>Cliente</label>
-<select id="clienteConta" onchange="mostrarConta()"></select>
+    <input
+      id="pagamentoValor"
+      type="number"
+      step="0.01"
+      inputmode="decimal"
+      placeholder="Valor pago"
+    >
 
-<div id="resultadoConta"></div>
+    <select id="pagamentoForma">
+      <option value="Dinheiro">Dinheiro</option>
+      <option value="Pix">Pix</option>
+      <option value="Cartão">Cartão</option>
+      <option value="Outros">Outros</option>
+    </select>
 
-</div>
+    <button onclick="registrarPagamento()">Confirmar pagamento</button>
+  </div>
 
-</section>
-
-<section id="estoque">
-
-<div class="card">
-
-<h2>📦 Estoque</h2>
-
-<div id="listaEstoque"></div>
-
-</div>
-
-</section>
-
-<section id="financeiro">
-
-<div class="card">
-
-<h2>💰 Financeiro</h2>
-
-<div class="kpis">
-
-<div class="kpi">
-Vendas
-<b id="finVendas">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-Recebido
-<b id="finRecebido">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-A receber
-<b id="finReceber">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-Custo
-<b id="finCusto">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-Lucro bruto
-<b id="finLucro">R$ 0,00</b>
-</div>
-
-</div>
-</div>
+  <div class="card">
+    <h2>Pagamentos registrados</h2>
+    <div id="listaPagamentos"></div>
+  </div>
 
 </section>
 
-<section id="produtos">
+<section id="estoque" class="secao">
 
-<div class="card">
-
-<h2>📦 Produtos e preços</h2>
-
-<p class="small">
-Cada produto possui seu próprio preço. Alterar um produto não altera os outros.
-O novo preço será usado somente nos próximos pedidos.
-</p>
-
-<div id="listaProdutos"></div>
-
-</div>
+  <div class="card">
+    <h2>Estoque</h2>
+    <div id="listaEstoque"></div>
+  </div>
 
 </section>
 
-<section id="relatorios">
+<section id="relatorios" class="secao">
 
-<div class="card">
+  <div class="card">
+    <h2>Relatórios</h2>
+    <div id="relatorioGeral"></div>
+  </div>
 
-<h2>📊 Relatório do cliente</h2>
+  <div class="card">
+    <h3>Clientes e valores</h3>
+    <div id="relatorioClientes"></div>
+  </div>
 
-<label>Cliente</label>
+</section>
 
-<select id="clienteRelatorio"></select>
+<section id="backup" class="secao">
 
-<br><br>
+  <div class="card">
+    <h2>💾 Backup</h2>
 
-<button class="primary" onclick="gerarRelatorio()">
-Gerar relatório
-</button>
+    <div class="ok">
+      O backup é somente uma cópia dos dados atuais.
+      Fazer backup não soma, não duplica e não altera clientes,
+      pedidos, pagamentos ou valores.
+    </div>
 
-<button class="secondary" onclick="window.print()">
-Imprimir / PDF
-</button>
+    <button onclick="fazerBackup()">⬇️ Fazer backup agora</button>
 
-</div>
+    <br><br>
 
-<div id="relatorio"></div>
+    <label>
+      Restaurar backup:
+      <input
+        type="file"
+        id="arquivoBackup"
+        accept=".json,application/json"
+        onchange="restaurarBackup(event)"
+      >
+    </label>
+
+    <br><br>
+
+    <button class="amarelo" onclick="backupAutomatico()">Criar cópia de segurança</button>
+
+    <br><br>
+
+    <button class="perigo" onclick="limparSomenteDadosTeste()">
+      Limpar somente dados locais
+    </button>
+
+    <p style="font-size:12px;color:#777">
+      Não use o botão de limpeza se quiser preservar os dados atuais.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Estado dos dados</h3>
+    <div id="estadoBackup"></div>
+  </div>
 
 </section>
 
@@ -335,1890 +443,3017 @@ Imprimir / PDF
 
 <script>
 
-const PRODUTOS=[
-{nome:"Queijo fresco",preco:40,custo:27},
-{nome:"Queijo curado",preco:45,custo:30},
-{nome:"Muçarela",preco:50,custo:40},
-{nome:"Mussarela redonda",preco:45,custo:0},
-{nome:"Mussarela redonda pequena",preco:30,custo:0},
-{nome:"Requeijão duro",preco:55,custo:42},
-{nome:"Pão de queijo pequeno (1 kg)",preco:28,custo:23},
-{nome:"Pão de queijo grande (1 kg)",preco:27,custo:22},
-{nome:"Rosca caseira",preco:12,custo:7},
-{nome:"Doce de leite caseiro 200g",preco:12,custo:8},
-{nome:"Doce de leite 500g",preco:30,custo:20}
+/* ============================================================
+   FEITO NA ROÇA
+   CORREÇÃO PRINCIPAL DO BACKUP
+
+   IMPORTANTE:
+   - O backup NÃO altera banco.
+   - O carregamento NÃO mistura bancos antigos toda vez.
+   - A migração antiga acontece somente uma vez.
+   - Os IDs dos registros são preservados.
+   - Pedidos antigos não têm seus preços recalculados.
+   ============================================================ */
+
+const CHAVE = "feito_na_roca_banco_principal_v7";
+
+const CHAVES_ANTIGAS = [
+  "feito_na_roca_banco_principal_v6",
+  "feito_na_roca_banco_principal_v5",
+  "feitoNaRoca_v2",
+  "feitoNaRoca_dados_v3",
+  "feitoNaRoca",
+  "fr_clientes",
+  "fr_pedidos",
+  "fr_contas",
+  "fr_produtos"
 ];
 
-const CHAVE="feito_na_roca_banco_principal_v6";
+const PRODUTOS_PADRAO = [
 
-let banco=carregarBanco(),quantidades={};
+  {
+    id:"queijo_fresco",
+    nome:"Queijo fresco",
+    preco:40,
+    custo:27,
+    estoque:0
+  },
 
-function novoId(){
-return Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,10)+"_"+Math.random().toString(36).slice(2,6)
-}
+  {
+    id:"queijo_curado",
+    nome:"Queijo curado",
+    preco:45,
+    custo:30,
+    estoque:0
+  },
 
-function gerarIdUnico(set){
-let id=novoId();
-while(set.has(id))id=novoId();
-return id;
-}
+  {
+    id:"mucarela",
+    nome:"Muçarela",
+    preco:50,
+    custo:40,
+    estoque:0
+  },
 
-function normalizarBanco(b){
+  {
+    id:"mussarela_redonda",
+    nome:"Mussarela redonda",
+    preco:55,
+    custo:40,
+    estoque:0
+  },
 
-const out={
-clientes:Array.isArray(b?.clientes)?b.clientes:[],
-pedidos:Array.isArray(b?.pedidos)?b.pedidos:[],
-pagamentos:Array.isArray(b?.pagamentos)?b.pagamentos:[],
-estoque:b?.estoque&&typeof b.estoque==="object"?b.estoque:{},
-precos:b?.precos&&typeof b.precos==="object"?b.precos:{}
-};
+  {
+    id:"mussarela_redonda_pequena",
+    nome:"Mussarela redonda pequena",
+    preco:30,
+    custo:25,
+    estoque:0
+  },
 
-const ids=new Set();
+  {
+    id:"requeijao_duro",
+    nome:"Requeijão duro",
+    preco:55,
+    custo:42,
+    estoque:0
+  },
 
-out.clientes=out.clientes.map(c=>{
+  {
+    id:"pao_pequeno",
+    nome:"Pão de queijo pequeno (1 kg)",
+    preco:28,
+    custo:23,
+    estoque:0
+  },
 
-let id=String(c?.id||"").trim();
+  {
+    id:"pao_grande",
+    nome:"Pão de queijo grande (1 kg)",
+    preco:27,
+    custo:22,
+    estoque:0
+  },
 
-if(!id||ids.has(id))
-id=gerarIdUnico(ids);
+  {
+    id:"rosca",
+    nome:"Rosca caseira",
+    preco:12,
+    custo:7,
+    estoque:0
+  },
 
-ids.add(id);
+  {
+    id:"doce_200",
+    nome:"Doce de leite caseiro 200g",
+    preco:12,
+    custo:8,
+    estoque:0
+  },
 
-return {...c,id};
+  {
+    id:"doce_500",
+    nome:"Doce de leite 500g",
+    preco:30,
+    custo:20,
+    estoque:0
+  }
 
-});
-
-out.pedidos=out.pedidos.map(p=>({
-...p,
-id:String(p?.id||novoId()),
-clienteId:String(p?.clienteId||""),
-itens:Array.isArray(p?.itens)?p.itens:[],
-data:p?.data||new Date().toISOString(),
-dataEntrega:p?.dataEntrega||"",
-horaEntrega:p?.horaEntrega||"",
-entregueEm:p?.entregueEm||"",
-preparadoEm:p?.preparadoEm||"",
-statusEntrega:p?.statusEntrega||(p?.dataEntrega?"A entregar":"Sem entrega programada")
-}));
-
-out.pagamentos=out.pagamentos.map(p=>({
-...p,
-id:String(p?.id||novoId()),
-clienteId:String(p?.clienteId||""),
-pedidoId:String(p?.pedidoId||""),
-valor:Number(p?.valor||0)
-}));
-
-PRODUTOS.forEach(p=>{
-
-if(out.precos[p.nome]==null)
-out.precos[p.nome]=p.preco;
-
-if(out.estoque[p.nome]==null)
-out.estoque[p.nome]=0;
-
-});
-
-return out;
-}
-
-function carregarBanco(){
-
-let b={
-clientes:[],
-pedidos:[],
-pagamentos:[],
-estoque:{},
-precos:{}
-};
-
-try{
-
-const atual=localStorage.getItem(CHAVE);
-
-if(atual)
-b={...b,...JSON.parse(atual)};
-
-}catch(e){}
-
-const chaves=[
-"feito_na_roca_banco_principal_v5",
-"feitoNaRoca_v2",
-"feitoNaRoca_dados_v3",
-"feitoNaRoca",
-"fr_clientes",
-"fr_pedidos",
-"fr_contas",
-"fr_produtos"
 ];
 
-for(const chave of chaves){
 
-try{
+/* ============================================================
+   BANCO
+   ============================================================ */
 
-const antigo=JSON.parse(localStorage.getItem(chave)||"null");
+let banco = {
+  clientes:[],
+  pedidos:[],
+  pagamentos:[],
+  produtos:JSON.parse(JSON.stringify(PRODUTOS_PADRAO)),
+  configuracao:{
+    versao:7
+  }
+};
 
-if(!antigo)continue;
 
-if(Array.isArray(antigo.clientes))
-b.clientes=[...b.clientes,...antigo.clientes];
+/* ============================================================
+   FUNÇÕES BÁSICAS
+   ============================================================ */
 
-if(Array.isArray(antigo.pedidos))
-b.pedidos=[...b.pedidos,...antigo.pedidos];
+function novoId(prefixo){
 
-if(Array.isArray(antigo.pagamentos))
-b.pagamentos=[...b.pagamentos,...antigo.pagamentos];
-
-if(antigo.estoque)
-b.estoque={...b.estoque,...antigo.estoque};
-
-if(antigo.precos)
-b.precos={...b.precos,...antigo.precos};
-
-}catch(e){}
+  return prefixo +
+    "_" +
+    Date.now().toString(36) +
+    "_" +
+    Math.random().toString(36).slice(2,8);
 
 }
 
-return normalizarBanco(b);
+
+function numero(valor){
+
+  const n = Number(valor);
+
+  return Number.isFinite(n) ? n : 0;
+
 }
+
+
+function moeda(valor){
+
+  return numero(valor).toLocaleString(
+    "pt-BR",
+    {
+      style:"currency",
+      currency:"BRL"
+    }
+  );
+
+}
+
+
+function escapar(texto){
+
+  return String(texto ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* ============================================================
+   DEDUPLICAÇÃO
+
+   NÃO usamos isso para alterar o conteúdo do backup restaurado.
+   É usada somente na migração de bancos antigos.
+   ============================================================ */
+
+function deduplicarPorId(lista){
+
+  if(!Array.isArray(lista)) return [];
+
+  const mapa = new Map();
+
+  for(const item of lista){
+
+    if(!item || typeof item !== "object"){
+      continue;
+    }
+
+    const id = item.id || item.codigo || item._id;
+
+    if(id){
+
+      if(!mapa.has(String(id))){
+        mapa.set(String(id),item);
+      }
+
+    }else{
+
+      const chave =
+        JSON.stringify(item);
+
+      if(!mapa.has(chave)){
+        mapa.set(chave,item);
+      }
+
+    }
+
+  }
+
+  return Array.from(mapa.values());
+
+}
+
+
+/* ============================================================
+   NORMALIZA BANCO
+   ============================================================ */
+
+function normalizarBanco(dados){
+
+  const b = dados && typeof dados === "object"
+    ? dados
+    : {};
+
+  if(!Array.isArray(b.clientes))
+    b.clientes=[];
+
+  if(!Array.isArray(b.pedidos))
+    b.pedidos=[];
+
+  if(!Array.isArray(b.pagamentos))
+    b.pagamentos=[];
+
+  if(!Array.isArray(b.produtos))
+    b.produtos=[];
+
+
+  b.clientes = b.clientes.map(c=>({
+
+    ...c,
+
+    id:c.id || novoId("cli"),
+
+    nome:String(c.nome || "").trim(),
+
+    telefone:
+      c.telefone ??
+      c.tel ??
+      "",
+
+    observacao:
+      c.observacao ??
+      c.obs ??
+      "",
+
+    criadoEm:
+      c.criadoEm ??
+      c.criado ??
+      Date.now()
+
+  }));
+
+
+  b.pedidos = b.pedidos.map(p=>({
+
+    ...p,
+
+    id:p.id || novoId("ped"),
+
+    clienteId:
+      p.clienteId ??
+      p.cliente ??
+      "",
+
+    itens:
+      Array.isArray(p.itens)
+        ? p.itens
+        : [],
+
+    total:
+      p.total !== undefined
+        ? numero(p.total)
+        : calcularTotalItens(p.itens),
+
+    criadoEm:
+      p.criadoEm ??
+      p.criado ??
+      Date.now()
+
+  }));
+
+
+  b.pagamentos = b.pagamentos.map(p=>({
+
+    ...p,
+
+    id:p.id || novoId("pag"),
+
+    pedidoId:
+      p.pedidoId ??
+      p.pedido ??
+      "",
+
+    valor:
+      numero(p.valor),
+
+    forma:
+      p.forma ||
+      p.metodo ||
+      "Outros",
+
+    criadoEm:
+      p.criadoEm ??
+      p.criado ??
+      Date.now()
+
+  }));
+
+
+  /* ----------------------------------------------------------
+     Produtos:
+     preserva os produtos já existentes.
+     Só adiciona produtos que ainda não existem.
+     ---------------------------------------------------------- */
+
+  for(const padrao of PRODUTOS_PADRAO){
+
+    const existente =
+      b.produtos.find(
+        p => String(p.id) === String(padrao.id)
+      );
+
+    if(!existente){
+
+      b.produtos.push({
+        ...padrao
+      });
+
+    }else{
+
+      if(existente.nome === undefined)
+        existente.nome = padrao.nome;
+
+      if(existente.preco === undefined)
+        existente.preco = padrao.preco;
+
+      if(existente.custo === undefined)
+        existente.custo = padrao.custo;
+
+      if(existente.estoque === undefined)
+        existente.estoque = padrao.estoque;
+
+    }
+
+  }
+
+
+  b.configuracao = {
+    ...(b.configuracao || {}),
+    versao:7
+  };
+
+
+  return b;
+
+}
+
+
+function calcularTotalItens(itens){
+
+  if(!Array.isArray(itens))
+    return 0;
+
+  return itens.reduce(
+    (soma,item)=>{
+
+      const quantidade =
+        numero(
+          item.quantidade ??
+          item.qtd ??
+          0
+        );
+
+      const preco =
+        numero(
+          item.preco ??
+          item.valor ??
+          0
+        );
+
+      return soma + quantidade * preco;
+
+    },
+    0
+  );
+
+}
+
+
+/* ============================================================
+   SALVAR BANCO
+
+   UMA ÚNICA operação de localStorage.
+   ============================================================ */
 
 function salvarBanco(){
 
-try{
+  try{
 
-localStorage.setItem(CHAVE,JSON.stringify(banco));
+    localStorage.setItem(
+      CHAVE,
+      JSON.stringify(banco)
+    );
 
-return true;
+    atualizarEstadoBackup();
 
-}catch(e){
+  }catch(erro){
 
-alert("❌ Não foi possível salvar os dados neste aparelho.");
+    console.error(erro);
 
-return false;
+    alert(
+      "Não foi possível salvar os dados no iPhone."
+    );
 
-}
-
-}
-
-function dinheiro(v){
-
-return Number(v||0).toLocaleString("pt-BR",{
-style:"currency",
-currency:"BRL"
-});
+  }
 
 }
 
-function escapar(v){
 
-return String(v??"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
+/* ============================================================
+   CARREGAR BANCO
+
+   ESTA É A CORREÇÃO MAIS IMPORTANTE.
+
+   Se o v7 já existe:
+   NÃO importa nenhum banco antigo.
+
+   Isso impede que os dados sejam somados
+   toda vez que a página carrega.
+   ============================================================ */
+
+function carregarBanco(){
+
+  try{
+
+    const atual =
+      localStorage.getItem(CHAVE);
+
+    if(atual){
+
+      const dados =
+        JSON.parse(atual);
+
+      banco =
+        normalizarBanco(dados);
+
+      /*
+       * IMPORTANTE:
+       * Não fazemos merge com chaves antigas aqui.
+       */
+
+      salvarBanco();
+
+      return;
+
+    }
+
+
+    /*
+     * Primeira execução do sistema novo.
+     *
+     * Fazemos UMA ÚNICA migração.
+     */
+
+    let migrado = null;
+
+    for(const chave of CHAVES_ANTIGAS){
+
+      const texto =
+        localStorage.getItem(chave);
+
+      if(!texto)
+        continue;
+
+      try{
+
+        const dados =
+          JSON.parse(texto);
+
+        if(
+          dados &&
+          typeof dados === "object"
+        ){
+
+          migrado = dados;
+          break;
+
+        }
+
+      }catch(e){
+
+        console.warn(
+          "Banco antigo inválido:",
+          chave
+        );
+
+      }
+
+    }
+
+
+    if(migrado){
+
+      banco =
+        normalizarBanco(migrado);
+
+    }else{
+
+      banco =
+        normalizarBanco({
+          clientes:[],
+          pedidos:[],
+          pagamentos:[],
+          produtos:JSON.parse(
+            JSON.stringify(PRODUTOS_PADRAO)
+          )
+        });
+
+    }
+
+
+    /*
+     * Salva a migração somente no v7.
+     * Nas próximas aberturas, NÃO volta
+     * a misturar os bancos antigos.
+     */
+
+    salvarBanco();
+
+  }catch(erro){
+
+    console.error(
+      "Erro ao carregar banco:",
+      erro
+    );
+
+    alert(
+      "Erro ao carregar os dados. " +
+      "Não faça limpeza do navegador."
+    );
+
+  }
 
 }
 
-function clientePorId(id){
 
-return banco.clientes.find(c=>String(c.id)===String(id));
+/* ============================================================
+   NAVEGAÇÃO
+   ============================================================ */
 
-}
+function abrirAba(id,botao){
 
-function hojeISO(){
+  document
+    .querySelectorAll(".secao")
+    .forEach(sec=>{
+      sec.classList.remove("ativa");
+    });
 
-return new Date().toISOString().slice(0,10);
+  const sec =
+    document.getElementById(id);
 
-}
+  if(sec)
+    sec.classList.add("ativa");
 
-function dataBR(v){
 
-if(!v)return"";
+  document
+    .querySelectorAll("nav button")
+    .forEach(btn=>{
+      btn.classList.remove("ativo");
+    });
 
-const[a,m,d]=v.split("-");
+  if(botao)
+    botao.classList.add("ativo");
 
-return d+"/"+m+"/"+a;
 
-}
-
-function dataHoraBR(v){
-
-if(!v)return"";
-
-const d=new Date(v);
-
-return d.toLocaleDateString("pt-BR")+" "+
-d.toLocaleTimeString("pt-BR",{
-hour:"2-digit",
-minute:"2-digit"
-});
+  atualizarTudo();
 
 }
 
-function mostrarStatus(id,texto,tipo="ok"){
 
-const el=document.getElementById(id);
+function abrirAbaPorId(id){
 
-if(!el)return;
+  const botoes =
+    document.querySelectorAll("nav button");
 
-el.innerHTML=`<div class="status ${tipo}">${texto}</div>`;
+  let botaoEncontrado = null;
 
-setTimeout(()=>{
+  botoes.forEach(btn=>{
 
-if(el)el.innerHTML="";
+    if(
+      btn.getAttribute("onclick") &&
+      btn.getAttribute("onclick").includes(
+        "'" + id + "'"
+      )
+    ){
 
-},3000);
+      botaoEncontrado = btn;
 
-}
+    }
 
-function cadastrarCliente(){
+  });
 
-const nome=nomeCliente.value.trim();
-const telefone=telefoneCliente.value.trim();
-const observacao=observacaoCliente.value.trim();
-
-if(!nome){
-
-mostrarStatus(
-"statusCliente",
-"Informe o nome do cliente.",
-"erro"
-);
-
-return;
+  abrirAba(
+    id,
+    botaoEncontrado
+  );
 
 }
 
-const cliente={
-id:novoId(),
-nome,
-telefone,
-observacao,
-criadoEm:new Date().toISOString()
-};
 
-banco.clientes.push(cliente);
+/* ============================================================
+   CLIENTES
+   ============================================================ */
 
-if(!salvarBanco()){
+function salvarCliente(){
 
-banco.clientes.pop();
+  const nome =
+    document
+      .getElementById("clienteNome")
+      .value
+      .trim();
 
-return;
+  const telefone =
+    document
+      .getElementById("clienteTelefone")
+      .value
+      .trim();
+
+  const observacao =
+    document
+      .getElementById("clienteObs")
+      .value
+      .trim();
+
+
+  if(!nome){
+
+    alert("Digite o nome do cliente.");
+
+    return;
+
+  }
+
+
+  banco.clientes.push({
+
+    id:novoId("cli"),
+
+    nome,
+
+    telefone,
+
+    observacao,
+
+    criadoEm:Date.now()
+
+  });
+
+
+  salvarBanco();
+
+
+  document.getElementById(
+    "clienteNome"
+  ).value="";
+
+  document.getElementById(
+    "clienteTelefone"
+  ).value="";
+
+  document.getElementById(
+    "clienteObs"
+  ).value="";
+
+
+  renderClientes();
+
+  atualizarSelectClientes();
+
+  atualizarResumo();
+
+}
+
+
+function renderClientes(){
+
+  const div =
+    document.getElementById(
+      "listaClientes"
+    );
+
+  const busca =
+    (
+      document
+        .getElementById(
+          "buscarCliente"
+        )
+        ?.value ||
+      ""
+    )
+    .toLowerCase()
+    .trim();
+
+
+  const clientes =
+    banco.clientes.filter(c=>{
+
+      const texto =
+        (
+          c.nome +
+          " " +
+          (c.telefone || "")
+        )
+        .toLowerCase();
+
+      return texto.includes(busca);
+
+    });
+
+
+  if(!clientes.length){
+
+    div.innerHTML =
+      '<div class="vazio">Nenhum cliente encontrado.</div>';
+
+    return;
+
+  }
+
+
+  div.innerHTML =
+    clientes.map(c=>{
+
+      const total =
+        totalCliente(c.id);
+
+      const aberto =
+        receberCliente(c.id);
+
+
+      return `
+        <div class="card">
+
+          <div class="linha">
+
+            <div>
+              <strong>${escapar(c.nome)}</strong>
+
+              <div style="font-size:13px;color:#666">
+                ${escapar(c.telefone || "")}
+              </div>
+
+              ${
+                c.observacao
+                  ? `<div style="font-size:13px">
+                      ${escapar(c.observacao)}
+                     </div>`
+                  : ""
+              }
+
+            </div>
+
+            <span class="badge">
+              ${moeda(total)}
+            </span>
+
+          </div>
+
+          <div style="font-size:13px;margin-top:7px">
+            Em aberto:
+            <strong>${moeda(aberto)}</strong>
+          </div>
+
+          <div class="acoes" style="margin-top:8px">
+
+            ${
+              c.telefone
+                ? `<button
+                     onclick="whatsappCliente('${c.id}')"
+                   >
+                     WhatsApp
+                   </button>`
+                : ""
+            }
+
+            <button
+              class="sec"
+              onclick="editarCliente('${c.id}')"
+            >
+              Editar
+            </button>
+
+            <button
+              class="perigo"
+              onclick="excluirCliente('${c.id}')"
+            >
+              Excluir
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
 
 }
 
-nomeCliente.value="";
-telefoneCliente.value="";
-observacaoCliente.value="";
 
-mostrarStatus(
-"statusCliente",
-"✓ Cliente salvo com sucesso."
-);
+function editarCliente(id){
 
-renderizar();
+  const c =
+    banco.clientes.find(
+      x=>x.id===id
+    );
 
-}
+  if(!c)
+    return;
 
-function saldoCliente(id){
 
-const idTexto=String(id);
+  const nome =
+    prompt(
+      "Nome do cliente:",
+      c.nome || ""
+    );
 
-const compras=banco.pedidos
-.filter(p=>String(p.clienteId)===idTexto)
-.reduce((t,p)=>t+totalPedido(p),0);
+  if(nome===null)
+    return;
 
-const pagamentos=banco.pagamentos
-.filter(p=>String(p.clienteId)===idTexto)
-.reduce((t,p)=>t+Number(p.valor||0),0);
 
-return compras-pagamentos;
+  const telefone =
+    prompt(
+      "Telefone / WhatsApp:",
+      c.telefone || ""
+    );
 
-}
+  if(telefone===null)
+    return;
 
-function mostrarClientes(){
 
-const lista=document.getElementById("listaClientes");
+  const observacao =
+    prompt(
+      "Observação:",
+      c.observacao || ""
+    );
 
-if(!lista)return;
+  if(observacao===null)
+    return;
 
-const busca=(
-document.getElementById("buscaCliente")?.value||""
-).toLowerCase();
 
-const clientes=banco.clientes.filter(c=>
-(c.nome||"").toLowerCase().includes(busca)
-);
+  c.nome = nome.trim();
 
-lista.innerHTML=clientes.map(c=>{
+  c.telefone =
+    telefone.trim();
 
-const saldo=saldoCliente(c.id);
+  c.observacao =
+    observacao.trim();
 
-return `<div class="box">
 
-<div class="row">
+  salvarBanco();
 
-<div>
+  renderClientes();
 
-<b>${escapar(c.nome)}</b>
+  atualizarSelectClientes();
 
-<div class="small">
-${escapar(c.telefone||"")}
-</div>
-
-</div>
-
-<strong class="${saldo>0?"debt":"ok"}">
-${dinheiro(saldo)}
-</strong>
-
-</div>
-
-${c.observacao?
-`<div class="small">📝 ${escapar(c.observacao)}</div>`:""}
-
-<br>
-
-<button class="secondary"
-onclick="abrirConta('${escapar(c.id)}')">
-💰 Ver conta
-</button>
-
-<button class="danger"
-onclick="excluirCliente('${escapar(c.id)}')">
-Excluir
-</button>
-
-</div>`;
-
-}).join("")||
-"<div class='vazio'>Nenhum cliente encontrado.</div>";
+  atualizarTudo();
 
 }
+
 
 function excluirCliente(id){
 
-const idAlvo=String(id);
+  const c =
+    banco.clientes.find(
+      x=>x.id===id
+    );
 
-const cliente=clientePorId(idAlvo);
+  if(!c)
+    return;
 
-if(!cliente){
 
-alert("Cliente não encontrado.");
+  const possuiPedidos =
+    banco.pedidos.some(
+      p=>p.clienteId===id
+    );
 
-return;
 
-}
+  if(possuiPedidos){
 
-const pedidos=banco.pedidos
-.filter(p=>String(p.clienteId)===idAlvo)
-.length;
+    alert(
+      "Este cliente possui pedidos. " +
+      "Para preservar seu histórico, o cliente não será excluído."
+    );
 
-const pagamentos=banco.pagamentos
-.filter(p=>String(p.clienteId)===idAlvo)
-.length;
+    return;
 
-if(!confirm(
-`Excluir o cliente "${cliente.nome}"?
+  }
 
-Pedidos registrados: ${pedidos}
-Pagamentos registrados: ${pagamentos}
 
-Os valores dos OUTROS clientes não serão alterados.`
-))return;
+  if(
+    !confirm(
+      "Excluir o cliente " +
+      c.nome +
+      "?"
+    )
+  ){
 
-const copia=JSON.stringify(banco);
+    return;
 
-try{
+  }
 
-banco.clientes=
-banco.clientes.filter(
-c=>String(c.id)!==idAlvo
-);
 
-if(!salvarBanco())
-throw new Error("Falha ao salvar");
+  banco.clientes =
+    banco.clientes.filter(
+      x=>x.id!==id
+    );
 
-renderizar();
 
-alert(
-`✓ Cliente "${cliente.nome}" excluído.
+  salvarBanco();
 
-Os demais clientes, pedidos, pagamentos, estoque e preços foram preservados.`
-);
+  renderClientes();
 
-}catch(e){
+  atualizarSelectClientes();
 
-banco=JSON.parse(copia);
-
-salvarBanco();
-
-renderizar();
-
-alert(
-"❌ Não foi possível excluir o cliente. Nenhum dado foi alterado."
-);
+  atualizarResumo();
 
 }
 
-}
 
-function iniciarQuantidades(){
+/* ============================================================
+   WHATSAPP
+   ============================================================ */
 
-quantidades={};
+function whatsappCliente(id){
 
-PRODUTOS.forEach(p=>
-quantidades[p.nome]=0
-);
+  const c =
+    banco.clientes.find(
+      x=>x.id===id
+    );
 
-}
+  if(!c || !c.telefone)
+    return;
 
-function precoProduto(nome){
 
-const p=PRODUTOS.find(x=>x.nome===nome);
+  let telefone =
+    String(c.telefone)
+      .replace(/\D/g,"");
 
-return p?
-Number(banco.precos[nome]??p.preco):
-0;
 
-}
+  if(
+    telefone.length === 10 ||
+    telefone.length === 11
+  ){
 
-function totalPedidoAtual(){
+    telefone =
+      "55" + telefone;
 
-return PRODUTOS.reduce(
-(t,p)=>t+quantidades[p.nome]*precoProduto(p.nome),
-0
-);
+  }
 
-}
 
-function alterarQuantidade(nome,delta){
+  const mensagem =
+    "Olá, " +
+    c.nome +
+    "! Aqui é da Feito na Roça. 🌱";
 
-quantidades[nome]=Math.max(
-0,
-Number(quantidades[nome]||0)+delta
-);
 
-mostrarProdutosPedido();
+  const url =
+    "https://wa.me/" +
+    telefone +
+    "?text=" +
+    encodeURIComponent(mensagem);
 
-}
 
-function definirQuantidade(nome,valor){
-
-quantidades[nome]=Math.max(
-0,
-parseInt(valor||0,10)||0
-);
-
-mostrarProdutosPedido();
-
-}
-
-function mostrarProdutosPedido(){
-
-const el=document.getElementById("produtosPedido");
-
-if(!el)return;
-
-el.innerHTML=PRODUTOS.map(p=>{
-
-const q=Number(quantidades[p.nome]||0);
-const preco=precoProduto(p.nome);
-
-return `<div class="produto">
-
-<div>
-<b>${escapar(p.nome)}</b>
-<div class="small">${dinheiro(preco)}</div>
-</div>
-
-<button type="button"
-onclick='alterarQuantidade(${JSON.stringify(p.nome)},-1)'>
-−
-</button>
-
-<input
-type="number"
-min="0"
-value="${q}"
-onchange='definirQuantidade(${JSON.stringify(p.nome)},this.value)'>
-
-<button type="button"
-onclick='alterarQuantidade(${JSON.stringify(p.nome)},1)'>
-+
-</button>
-
-<div class="produto-total">
-${dinheiro(q*preco)}
-</div>
-
-</div>`;
-
-}).join("");
-
-if(totalPedido)
-totalPedido.textContent=
-"Total: "+dinheiro(totalPedidoAtual());
+  window.open(
+    url,
+    "_blank"
+  );
 
 }
 
-function alterarPreco(nome){
 
-const atual=precoProduto(nome);
+/* ============================================================
+   PRODUTOS
+   ============================================================ */
 
-const valor=prompt(
-"Novo preço para "+nome,
-atual.toFixed(2).replace(".",",")
-);
+function produtoPorId(id){
 
-if(valor===null)return;
-
-const numero=Number(
-String(valor)
-.replace("R$","")
-.replace(/\s/g,"")
-.replace(/\./g,"")
-.replace(",",".")
-);
-
-if(!Number.isFinite(numero)||numero<0){
-
-alert("Preço inválido.");
-
-return;
+  return banco.produtos.find(
+    p=>String(p.id)===String(id)
+  );
 
 }
 
-const anterior=banco.precos[nome];
 
-banco.precos[nome]=numero;
+function renderProdutos(){
 
-if(!salvarBanco()){
+  const div =
+    document.getElementById(
+      "listaProdutos"
+    );
 
-banco.precos[nome]=anterior;
 
-return;
+  div.innerHTML =
+    banco.produtos.map(p=>`
+
+      <div class="produto">
+
+        <strong>${escapar(p.nome)}</strong>
+
+        <div class="preco">
+          ${moeda(p.preco)}
+        </div>
+
+        <div>
+          Estoque:
+          <strong>${numero(p.estoque)}</strong>
+        </div>
+
+        <div style="font-size:12px;color:#777">
+          Custo: ${moeda(p.custo)}
+        </div>
+
+        <br>
+
+        <button
+          onclick="alterarEstoque('${p.id}',1)"
+        >
+          + estoque
+        </button>
+
+        <button
+          class="sec"
+          onclick="alterarEstoque('${p.id}',-1)"
+        >
+          - estoque
+        </button>
+
+      </div>
+
+    `).join("");
+
+
+  const select =
+    document.getElementById(
+      "produtoPreco"
+    );
+
+
+  select.innerHTML =
+    banco.produtos.map(p=>`
+
+      <option value="${escapar(p.id)}">
+        ${escapar(p.nome)} -
+        ${moeda(p.preco)}
+      </option>
+
+    `).join("");
 
 }
 
-renderizar();
+
+function alterarPreco(){
+
+  const id =
+    document.getElementById(
+      "produtoPreco"
+    ).value;
+
+  const campo =
+    document.getElementById(
+      "novoPreco"
+    );
+
+  const valor =
+    Number(campo.value);
+
+
+  if(!Number.isFinite(valor) || valor<0){
+
+    alert("Digite um preço válido.");
+
+    return;
+
+  }
+
+
+  const p =
+    produtoPorId(id);
+
+  if(!p)
+    return;
+
+
+  p.preco =
+    Math.round(
+      valor * 100
+    ) / 100;
+
+
+  salvarBanco();
+
+  campo.value="";
+
+  renderProdutos();
+
+  renderProdutosPedido();
+
+  alert(
+    "Preço alterado com sucesso."
+  );
 
 }
+
+
+function alterarEstoque(id,quantidade){
+
+  const p =
+    produtoPorId(id);
+
+  if(!p)
+    return;
+
+
+  p.estoque =
+    numero(p.estoque) +
+    quantidade;
+
+
+  salvarBanco();
+
+  renderProdutos();
+
+  renderEstoque();
+
+  atualizarResumo();
+
+}
+
+
+/* ============================================================
+   PEDIDOS
+   ============================================================ */
+
+const carrinho = {};
+
+
+function limparCarrinho(){
+
+  for(const id in carrinho){
+
+    delete carrinho[id];
+
+  }
+
+}
+
+
+function alterarQuantidadeProduto(
+  id,
+  delta
+){
+
+  const atual =
+    numero(carrinho[id] || 0);
+
+  const nova =
+    Math.max(
+      0,
+      atual + delta
+    );
+
+
+  if(nova===0){
+
+    delete carrinho[id];
+
+  }else{
+
+    carrinho[id]=nova;
+
+  }
+
+
+  renderProdutosPedido();
+
+  atualizarTotalPedido();
+
+}
+
+
+function renderProdutosPedido(){
+
+  const div =
+    document.getElementById(
+      "produtosPedido"
+    );
+
+  if(!div)
+    return;
+
+
+  div.innerHTML =
+    banco.produtos.map(p=>{
+
+      const qtd =
+        numero(
+          carrinho[p.id] || 0
+        );
+
+
+      return `
+
+        <div class="produto">
+
+          <strong>
+            ${escapar(p.nome)}
+          </strong>
+
+          <div class="preco">
+            ${moeda(p.preco)}
+          </div>
+
+          <div class="qtd">
+
+            <button
+              onclick="alterarQuantidadeProduto('${p.id}',-1)"
+            >
+              −
+            </button>
+
+            <span>
+              ${qtd}
+            </span>
+
+            <button
+              onclick="alterarQuantidadeProduto('${p.id}',1)"
+            >
+              +
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+function atualizarTotalPedido(){
+
+  let total=0;
+
+
+  for(const id in carrinho){
+
+    const p =
+      produtoPorId(id);
+
+    if(!p)
+      continue;
+
+
+    total +=
+      numero(carrinho[id]) *
+      numero(p.preco);
+
+  }
+
+
+  const campo =
+    document.getElementById(
+      "totalPedido"
+    );
+
+
+  if(campo)
+    campo.textContent =
+      moeda(total);
+
+}
+
+
+function atualizarSelectClientes(){
+
+  const select =
+    document.getElementById(
+      "pedidoCliente"
+    );
+
+  if(!select)
+    return;
+
+
+  select.innerHTML =
+    '<option value="">Selecione o cliente</option>' +
+
+    banco.clientes.map(c=>`
+
+      <option value="${escapar(c.id)}">
+        ${escapar(c.nome)}
+      </option>
+
+    `).join("");
+
+}
+
 
 function salvarPedido(){
 
-const clienteId=String(clientePedido.value);
+  const clienteId =
+    document.getElementById(
+      "pedidoCliente"
+    ).value;
 
-if(!clienteId){
 
-alert("Selecione um cliente.");
+  if(!clienteId){
 
-return;
+    alert(
+      "Selecione o cliente."
+    );
 
-}
+    return;
 
-const itens=PRODUTOS
-.filter(p=>Number(quantidades[p.nome]||0)>0)
-.map(p=>({
-produto:p.nome,
-quantidade:Number(quantidades[p.nome]),
-preco:precoProduto(p.nome)
-}));
+  }
 
-if(!itens.length){
 
-alert("Adicione pelo menos um produto.");
+  const itens=[];
 
-return;
 
-}
+  for(const id in carrinho){
 
-const pedido={
-id:novoId(),
-clienteId,
-data:new Date().toISOString(),
-itens,
-dataEntrega:dataEntrega.value,
-horaEntrega:horaEntrega.value,
-observacao:observacaoPedido.value.trim(),
-statusEntrega:dataEntrega.value?
-"A entregar":
-"Sem entrega programada",
-entregueEm:"",
-preparadoEm:""
-};
+    const qtd =
+      numero(carrinho[id]);
 
-banco.pedidos.push(pedido);
+    if(qtd<=0)
+      continue;
 
-if(!salvarBanco()){
 
-banco.pedidos.pop();
+    const p =
+      produtoPorId(id);
 
-return;
+    if(!p)
+      continue;
 
-}
 
-iniciarQuantidades();
+    itens.push({
 
-dataEntrega.value="";
-horaEntrega.value="";
-observacaoPedido.value="";
+      produtoId:p.id,
 
-mostrarStatus(
-"statusSistema",
-"✓ Pedido salvo com sucesso."
-);
+      nome:p.nome,
 
-renderizar();
+      quantidade:qtd,
 
-}
+      preco:numero(p.preco),
 
-function totalPedido(p){
+      custo:numero(p.custo)
 
-return(p.itens||[])
-.reduce(
-(t,i)=>t+
-Number(i.quantidade||0)*
-Number(i.preco||0),
-0
-);
+    });
 
-}
+  }
 
-function custoPedido(p){
 
-return(p.itens||[])
-.reduce((t,i)=>{
+  if(!itens.length){
 
-const produto=
-PRODUTOS.find(x=>x.nome===i.produto);
+    alert(
+      "Adicione pelo menos um produto."
+    );
 
-return t+
-Number(i.quantidade||0)*
-Number(produto?.custo||0);
+    return;
 
-},0);
+  }
 
-}
 
-function totalPagoPedido(pid){
+  const total =
+    calcularTotalItens(itens);
 
-return banco.pagamentos
-.filter(p=>String(p.pedidoId)===String(pid))
-.reduce(
-(t,p)=>t+Number(p.valor||0),
-0
-);
 
-}
+  const observacao =
+    document.getElementById(
+      "pedidoObs"
+    ).value.trim();
 
-function registrarPagamento(pid,metodo){
 
-const pedido=
-banco.pedidos.find(
-p=>String(p.id)===String(pid)
-);
+  const pedido={
 
-if(!pedido)return;
+    id:novoId("ped"),
 
-const total=totalPedido(pedido);
-const pago=totalPagoPedido(pid);
-const restante=Math.max(0,total-pago);
+    clienteId,
 
-if(restante<=0){
+    itens,
 
-alert("Este pedido já está totalmente pago.");
+    total,
 
-return;
+    observacao,
 
-}
+    criadoEm:Date.now(),
 
-const entrada=prompt(
-`Pagamento — ${metodo}
+    status:"Pendente",
 
-Restante: ${dinheiro(restante)}
+    pago:false
 
-Digite o valor recebido:`,
-restante.toFixed(2).replace(".",",")
-);
+  };
 
-if(entrada===null)return;
 
-const valor=Number(
-String(entrada)
-.replace("R$","")
-.replace(/\s/g,"")
-.replace(/\./g,"")
-.replace(",",".")
-);
+  banco.pedidos.push(pedido);
 
-if(!Number.isFinite(valor)||valor<=0){
 
-alert("Valor inválido.");
+  /*
+   * Diminui estoque somente no momento
+   * de salvar o pedido.
+   */
 
-return;
+  itens.forEach(item=>{
+
+    const p =
+      produtoPorId(
+        item.produtoId
+      );
+
+    if(p){
+
+      p.estoque =
+        numero(p.estoque) -
+        numero(item.quantidade);
+
+    }
+
+  });
+
+
+  salvarBanco();
+
+
+  limparCarrinho();
+
+  document.getElementById(
+    "pedidoObs"
+  ).value="";
+
+
+  renderProdutosPedido();
+
+  atualizarTotalPedido();
+
+  renderPedidos();
+
+  renderEstoque();
+
+  atualizarResumo();
+
+  atualizarSelectPagamentos();
+
+
+  alert(
+    "Pedido salvo com sucesso."
+  );
 
 }
 
-const valorFinal=Math.min(valor,restante);
 
-const pg={
-id:novoId(),
-pedidoId:String(pid),
-clienteId:String(pedido.clienteId),
-valor:valorFinal,
-metodo,
-data:new Date().toISOString()
-};
+function renderPedidos(){
 
-banco.pagamentos.push(pg);
+  const div =
+    document.getElementById(
+      "listaPedidos"
+    );
 
-if(!salvarBanco()){
 
-banco.pagamentos.pop();
+  const busca =
+    (
+      document.getElementById(
+        "buscarPedido"
+      )?.value || ""
+    )
+    .toLowerCase()
+    .trim();
 
-return;
+
+  const pedidos =
+    [...banco.pedidos]
+      .sort(
+        (a,b)=>
+          numero(b.criadoEm) -
+          numero(a.criadoEm)
+      )
+      .filter(p=>{
+
+        const c =
+          banco.clientes.find(
+            x=>x.id===p.clienteId
+          );
+
+        const nome =
+          c?.nome || "";
+
+        return (
+          nome
+            .toLowerCase()
+            .includes(busca) ||
+
+          String(p.id)
+            .toLowerCase()
+            .includes(busca)
+        );
+
+      });
+
+
+  if(!pedidos.length){
+
+    div.innerHTML =
+      '<div class="vazio">Nenhum pedido encontrado.</div>';
+
+    return;
+
+  }
+
+
+  div.innerHTML =
+    pedidos.map(p=>{
+
+      const c =
+        banco.clientes.find(
+          x=>x.id===p.clienteId
+        );
+
+
+      const recebido =
+        totalPagoPedido(p.id);
+
+
+      const restante =
+        Math.max(
+          0,
+          numero(p.total) -
+          recebido
+        );
+
+
+      const itens =
+        (p.itens || [])
+          .map(i=>
+            `${escapar(i.nome)}
+             x${numero(i.quantidade)}`
+          )
+          .join(", ");
+
+
+      return `
+
+        <div class="card">
+
+          <div class="linha">
+
+            <strong>
+              ${escapar(
+                c?.nome ||
+                "Cliente não encontrado"
+              )}
+            </strong>
+
+            <span class="badge">
+              ${escapar(
+                p.status || "Pendente"
+              )}
+            </span>
+
+          </div>
+
+          <div style="font-size:13px;margin:7px 0">
+            ${itens}
+          </div>
+
+          <div>
+            Total:
+            <strong>
+              ${moeda(p.total)}
+            </strong>
+          </div>
+
+          <div style="font-size:13px">
+            Recebido:
+            ${moeda(recebido)}
+            |
+            Falta:
+            <strong>${moeda(restante)}</strong>
+          </div>
+
+          ${
+            p.observacao
+              ? `<div style="font-size:13px;margin-top:6px">
+                  Obs.: ${escapar(p.observacao)}
+                 </div>`
+              : ""
+          }
+
+          <div class="acoes" style="margin-top:9px">
+
+            ${
+              restante > 0
+                ? `<button
+                     onclick="abrirPagamentoPedido('${p.id}')"
+                   >
+                     Receber
+                   </button>`
+                : `<button
+                     class="sec"
+                     disabled
+                   >
+                     Pago
+                   </button>`
+            }
+
+            <button
+              class="azul"
+              onclick="whatsappPedido('${p.id}')"
+            >
+              WhatsApp
+            </button>
+
+            <button
+              class="perigo"
+              onclick="excluirPedido('${p.id}')"
+            >
+              Excluir
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
 
 }
 
-renderizar();
 
-alert(
-`✓ Pagamento registrado!
+function excluirPedido(id){
 
-Forma: ${metodo}
-Valor: ${dinheiro(valorFinal)}`
-);
+  const pedido =
+    banco.pedidos.find(
+      p=>p.id===id
+    );
 
-}
+  if(!pedido)
+    return;
 
-function classeEntrega(status){
 
-if(status==="Entregue")
-return"badge-entregue";
+  if(
+    !confirm(
+      "Excluir este pedido?\n\n" +
+      "O estoque será devolvido."
+    )
+  ){
 
-if(status==="Em preparação")
-return"badge-preparacao";
+    return;
 
-if(status==="A entregar")
-return"badge-pendente";
+  }
 
-return"badge-sem";
 
-}
+  /*
+   * Devolve o estoque.
+   */
 
-function alterarStatusEntrega(pid,status){
+  (pedido.itens || [])
+    .forEach(item=>{
 
-const p=banco.pedidos.find(
-x=>String(x.id)===String(pid)
-);
+      const produto =
+        produtoPorId(
+          item.produtoId
+        );
 
-if(!p)return;
+      if(produto){
 
-const anterior={
-statusEntrega:p.statusEntrega,
-preparadoEm:p.preparadoEm,
-entregueEm:p.entregueEm
-};
+        produto.estoque =
+          numero(produto.estoque) +
+          numero(item.quantidade);
 
-p.statusEntrega=status;
+      }
 
-if(status==="Em preparação")
-p.preparadoEm=new Date().toISOString();
+    });
 
-if(status==="Entregue")
-p.entregueEm=new Date().toISOString();
 
-if(status!=="Entregue")
-p.entregueEm="";
+  banco.pedidos =
+    banco.pedidos.filter(
+      p=>p.id!==id
+    );
 
-if(!salvarBanco()){
 
-Object.assign(p,anterior);
+  banco.pagamentos =
+    banco.pagamentos.filter(
+      p=>p.pedidoId!==id
+    );
 
-return;
 
-}
+  salvarBanco();
 
-renderizar();
+  renderPedidos();
 
-}
+  renderEstoque();
 
-function mostrarPedidos(){
+  atualizarSelectPagamentos();
 
-const lista=document.getElementById("listaPedidos");
-
-if(!lista)return;
-
-lista.innerHTML=[...banco.pedidos]
-.reverse()
-.map(p=>{
-
-const cliente=clientePorId(p.clienteId);
-const total=totalPedido(p);
-const pago=totalPagoPedido(p.id);
-const restante=Math.max(0,total-pago);
-const status=p.statusEntrega||
-(p.dataEntrega?"A entregar":"Sem entrega programada");
-
-return `<div class="box">
-
-<div class="row">
-
-<div>
-
-<b>${escapar(cliente?.nome||"Cliente")}</b>
-
-<div class="small">
-Pedido:
-${new Date(p.data).toLocaleDateString("pt-BR")}
-às
-${new Date(p.data).toLocaleTimeString("pt-BR",{
-hour:"2-digit",
-minute:"2-digit"
-})}
-</div>
-
-</div>
-
-<div class="total">
-${dinheiro(total)}
-</div>
-
-</div>
-
-<br>
-
-<span class="badge ${classeEntrega(status)}">
-${status==="Entregue"?
-"✓ ENTREGUE":
-status==="Em preparação"?
-"🔵 EM PREPARAÇÃO":
-status==="A entregar"?
-"🟡 A ENTREGAR":
-"⚪ SEM ENTREGA"}
-</span>
-
-${p.dataEntrega?
-`<div class="data-entrega">
-<b>🚚 Entrega programada</b><br>
-📅 ${dataBR(p.dataEntrega)}
-${p.horaEntrega?
-"<br>🕐 "+p.horaEntrega:""}
-${p.entregueEm?
-`<hr><b>✅ Entregue em:</b><br>
-${dataHoraBR(p.entregueEm)}`:""}
-</div>`:""}
-
-<br>
-
-${p.itens.map(i=>
-`<div>
-${escapar(i.produto)}
-—
-${i.quantidade} ×
-${dinheiro(i.preco)}
-=
-<b>${dinheiro(i.quantidade*i.preco)}</b>
-</div>`
-).join("")}
-
-<div class="pagamento">
-
-<h3 style="margin-top:0">
-💳 PAGAMENTO
-</h3>
-
-<div class="box" style="background:#fff">
-
-<div class="row">
-<div>Total do pedido</div>
-<strong>${dinheiro(total)}</strong>
-</div>
-
-<div class="row">
-<div>Já pago</div>
-<strong class="ok">${dinheiro(pago)}</strong>
-</div>
-
-<div class="row">
-<div>Restante</div>
-<strong class="${restante>0?"debt":"ok"}">
-${dinheiro(restante)}
-</strong>
-</div>
-
-</div>
-
-${restante>0?
-`<div style="margin-top:10px;font-weight:bold;text-align:center">
-Escolha a forma de pagamento:
-</div>
-
-<div class="metodos">
-
-<button onclick="registrarPagamento('${escapar(p.id)}','Dinheiro')">
-💵 Dinheiro
-</button>
-
-<button onclick="registrarPagamento('${escapar(p.id)}','Pix')">
-📱 Pix
-</button>
-
-<button onclick="registrarPagamento('${escapar(p.id)}','Cartão')">
-💳 Cartão
-</button>
-
-<button onclick="registrarPagamento('${escapar(p.id)}','Outros')">
-🔹 Outros
-</button>
-
-</div>`
-:
-`<div class="status ok" style="margin-top:10px">
-✓ PAGAMENTO TOTALMENTE CONFIRMADO
-</div>`}
-
-</div>
-
-${status==="A entregar"?
-`<button class="botao-preparar"
-onclick="alterarStatusEntrega('${escapar(p.id)}','Em preparação')">
-🔵 Marcar como em preparação
-</button>
-
-<button class="botao-entrega"
-onclick="alterarStatusEntrega('${escapar(p.id)}','Entregue')">
-✅ MARCAR COMO ENTREGUE
-</button>`:""}
-
-${status==="Em preparação"?
-`<button class="botao-entrega"
-onclick="alterarStatusEntrega('${escapar(p.id)}','Entregue')">
-✅ MARCAR COMO ENTREGUE
-</button>`:""}
-
-${status==="Entregue"?
-`<button class="botao-voltar"
-onclick="alterarStatusEntrega('${escapar(p.id)}','A entregar')">
-↩️ Voltar para A entregar
-</button>`:""}
-
-${p.observacao?
-`<div class="small" style="margin-top:10px">
-📝 Obs.: ${escapar(p.observacao)}
-</div>`:""}
-
-</div>`;
-
-}).join("")||
-"<div class='vazio'>Nenhum pedido cadastrado.</div>";
+  atualizarResumo();
 
 }
 
-function mostrarEntregas(){
 
-const lista=document.getElementById("listaEntregas");
+/* ============================================================
+   WHATSAPP DO PEDIDO
+   ============================================================ */
 
-if(!lista)return;
+function whatsappPedido(id){
 
-const data=
-document.getElementById("filtroEntregaData")?.value||"";
+  const p =
+    banco.pedidos.find(
+      x=>x.id===id
+    );
 
-const filtro=
-document.getElementById("filtroEntregaStatus")?.value||"";
+  if(!p)
+    return;
 
-let pedidos=
-banco.pedidos.filter(p=>p.dataEntrega);
 
-if(data)
-pedidos=pedidos.filter(
-p=>p.dataEntrega===data
-);
+  const c =
+    banco.clientes.find(
+      x=>x.id===p.clienteId
+    );
 
-if(filtro)
-pedidos=pedidos.filter(
-p=>(p.statusEntrega||"A entregar")===filtro
-);
 
-pedidos.sort(
-(a,b)=>
-(a.dataEntrega+" "+(a.horaEntrega||"99:99"))
-.localeCompare(
-b.dataEntrega+" "+(b.horaEntrega||"99:99")
-)
-);
+  if(!c || !c.telefone){
 
-lista.innerHTML=pedidos.map(p=>{
+    alert(
+      "Este cliente não possui telefone."
+    );
 
-const cliente=clientePorId(p.clienteId);
-const status=p.statusEntrega||"A entregar";
-const total=totalPedido(p);
-const pago=totalPagoPedido(p.id);
-const restante=Math.max(0,total-pago);
+    return;
 
-return `<div class="box">
+  }
 
-<div class="row">
 
-<div>
+  let telefone =
+    String(c.telefone)
+      .replace(/\D/g,"");
 
-<b>${escapar(cliente?.nome||"Cliente")}</b>
 
-<div class="small">
-${escapar(cliente?.telefone||"")}
-</div>
+  if(
+    telefone.length===10 ||
+    telefone.length===11
+  ){
 
-</div>
+    telefone =
+      "55" + telefone;
 
-<strong class="total">
-${dinheiro(total)}
-</strong>
+  }
 
-</div>
 
-<br>
+  let texto =
+    "Olá, " +
+    c.nome +
+    "! 🌱\n\n" +
+    "Seu pedido da Feito na Roça:\n\n";
 
-<span class="badge ${classeEntrega(status)}">
-${status}
-</span>
 
-<div class="data-entrega">
+  (p.itens || [])
+    .forEach(i=>{
 
-<b>🚚 Entrega programada</b><br>
+      texto +=
+        i.nome +
+        " x" +
+        i.quantidade +
+        " - " +
+        moeda(
+          numero(i.quantidade) *
+          numero(i.preco)
+        ) +
+        "\n";
 
-📅 ${dataBR(p.dataEntrega)}
+    });
 
-${p.horaEntrega?
-"<br>🕐 <b>"+p.horaEntrega+"</b>":
-"<br><span class='small'>Horário não informado</span>"}
 
-${p.entregueEm?
-`<hr>
-<b>✅ Entrega realizada</b><br>
-${dataHoraBR(p.entregueEm)}`:""}
+  texto +=
+    "\nTotal: " +
+    moeda(p.total);
 
-</div>
 
-<h4>📦 Produtos</h4>
+  const url =
+    "https://wa.me/" +
+    telefone +
+    "?text=" +
+    encodeURIComponent(texto);
 
-${p.itens.map(i=>
-`<div class="produto-destaque">
 
-<div>
-
-<b>${escapar(i.produto)}</b>
-
-<div class="small">
-${i.quantidade} unidade(s)
-</div>
-
-</div>
-
-<strong class="total">
-${dinheiro(i.quantidade*i.preco)}
-</strong>
-
-</div>`
-).join("")}
-
-<div class="row" style="margin-top:12px">
-<b>Total</b>
-<strong class="total">${dinheiro(total)}</strong>
-</div>
-
-<div class="small">
-${restante<=0?
-"✓ Pedido pago":
-"⏳ A receber: "+dinheiro(restante)}
-</div>
-
-${p.observacao?
-`<div class="aviso">
-<b>📝 Observação:</b><br>
-${escapar(p.observacao)}
-</div>`:""}
-
-${status==="A entregar"?
-`<button class="botao-preparar"
-onclick="alterarStatusEntrega('${escapar(p.id)}','Em preparação')">
-🔵 Marcar em preparação
-</button>
-
-<button class="botao-entrega"
-onclick="alterarStatusEntrega('${escapar(p.id)}','Entregue')">
-✅ CONFIRMAR ENTREGA
-</button>`:""}
-
-${status==="Em preparação"?
-`<button class="botao-entrega"
-onclick="alterarStatusEntrega('${escapar(p.id)}','Entregue')">
-✅ CONFIRMAR ENTREGA
-</button>`:""}
-
-${status==="Entregue"?
-`<button class="botao-voltar"
-onclick="alterarStatusEntrega('${escapar(p.id)}','A entregar')">
-↩️ Voltar para A entregar
-</button>`:""}
-
-</div>`;
-
-}).join("")||
-"<div class='vazio'>Nenhuma entrega encontrada.</div>";
-
-atualizarKpisEntregas();
+  window.open(
+    url,
+    "_blank"
+  );
 
 }
 
-function mostrarEntregasHoje(){
 
-filtroEntregaData.value=hojeISO();
-filtroEntregaStatus.value="";
-mostrarEntregas();
+/* ============================================================
+   PAGAMENTOS
+   ============================================================ */
 
-}
+function totalPagoPedido(id){
 
-function limparFiltrosEntregas(){
-
-filtroEntregaData.value="";
-filtroEntregaStatus.value="";
-mostrarEntregas();
-
-}
-
-function atualizarKpisEntregas(){
-
-const h=hojeISO();
-
-const hc=banco.pedidos
-.filter(p=>p.dataEntrega===h)
-.length;
-
-const pe=banco.pedidos
-.filter(p=>
-p.dataEntrega&&
-p.statusEntrega!=="Entregue"
-)
-.length;
-
-const en=banco.pedidos
-.filter(p=>p.statusEntrega==="Entregue")
-.length;
-
-entregasHojeKpi.textContent=hc;
-entregasPendentesKpi.textContent=pe;
-entregasConcluidasKpi.textContent=en;
-totalEntregasHoje.textContent=hc;
+  return banco.pagamentos
+    .filter(
+      p=>p.pedidoId===id
+    )
+    .reduce(
+      (soma,p)=>
+        soma + numero(p.valor),
+      0
+    );
 
 }
 
-function abrirConta(id){
 
-document.querySelector(
-'[data-tab="contas"]'
-).click();
+function atualizarSelectPagamentos(){
 
-clienteConta.value=String(id);
+  const select =
+    document.getElementById(
+      "pagamentoPedido"
+    );
 
-mostrarConta();
+  if(!select)
+    return;
 
-}
 
-function mostrarConta(){
+  select.innerHTML =
+    '<option value="">Selecione o pedido</option>' +
 
-const id=String(
-document.getElementById("clienteConta")?.value||""
-);
+    banco.pedidos
+      .slice()
+      .sort(
+        (a,b)=>
+          numero(b.criadoEm) -
+          numero(a.criadoEm)
+      )
+      .map(p=>{
 
-const area=document.getElementById("resultadoConta");
+        const c =
+          banco.clientes.find(
+            x=>x.id===p.clienteId
+          );
 
-if(!area)return;
 
-if(!id){
+        const recebido =
+          totalPagoPedido(p.id);
 
-area.innerHTML="";
 
-return;
+        const falta =
+          Math.max(
+            0,
+            numero(p.total) -
+            recebido
+          );
 
-}
 
-const c=clientePorId(id);
+        if(falta<=0)
+          return "";
 
-if(!c){
 
-area.innerHTML=
-"<div class='vazio'>Cliente não encontrado.</div>";
+        return `
 
-return;
+          <option value="${escapar(p.id)}">
 
-}
+            ${escapar(
+              c?.nome ||
+              "Cliente"
+            )}
 
-const ps=banco.pedidos
-.filter(p=>String(p.clienteId)===id);
+            -
+            ${moeda(falta)}
 
-const pg=banco.pagamentos
-.filter(p=>String(p.clienteId)===id);
+          </option>
 
-const compras=ps.reduce(
-(t,p)=>t+totalPedido(p),0
-);
+        `;
 
-const pagos=pg.reduce(
-(t,p)=>t+Number(p.valor||0),0
-);
-
-const saldo=compras-pagos;
-
-area.innerHTML=`
-
-<div class="card">
-
-<h2>Conta: ${escapar(c.nome)}</h2>
-
-<div class="kpis">
-
-<div class="kpi">
-Compras
-<b>${dinheiro(compras)}</b>
-</div>
-
-<div class="kpi">
-Pagamentos
-<b>${dinheiro(pagos)}</b>
-</div>
-
-<div class="kpi">
-Saldo
-<b class="${saldo>0?"debt":"ok"}">
-${dinheiro(saldo)}
-</b>
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>📋 Pedidos</h3>
-
-${ps.map(p=>
-`<div class="box">
-${new Date(p.data).toLocaleDateString("pt-BR")}
-—
-<b>${dinheiro(totalPedido(p))}</b>
-<br>
-${p.itens.map(i=>
-`${escapar(i.produto)}
-—
-${i.quantidade} ×
-${dinheiro(i.preco)}`
-).join("<br>")}
-</div>`
-).join("")||
-"<p>Nenhum pedido.</p>"}
-
-</div>
-
-<div class="card">
-
-<h3>💳 Pagamentos</h3>
-
-${pg.map(p=>
-`<div class="box">
-${dataHoraBR(p.data)}
-<br>
-Valor:
-<b>${dinheiro(p.valor)}</b>
-<br>
-Forma:
-<b>${escapar(p.metodo)}</b>
-</div>`
-).join("")||
-"<p>Nenhum pagamento.</p>"}
-
-</div>`;
+      })
+      .join("");
 
 }
 
-function mostrarEstoque(){
 
-document.getElementById("listaEstoque").innerHTML=
-PRODUTOS.map(p=>{
+function abrirPagamentoPedido(id){
 
-const q=Number(
-banco.estoque[p.nome]||0
-);
+  const select =
+    document.getElementById(
+      "pagamentoPedido"
+    );
 
-return `<div class="box">
+  if(select){
 
-<div class="row">
+    select.value=id;
 
-<b>${escapar(p.nome)}</b>
+  }
 
-<span class="${q<=3?"debt":"ok"}">
-${q<=3?"⚠️ Estoque baixo":"✓ Normal"}
-</span>
 
-</div>
+  const p =
+    banco.pedidos.find(
+      x=>x.id===id
+    );
 
-Quantidade:
-<strong>${q}</strong>
+  if(p){
 
-<br><br>
+    const recebido =
+      totalPagoPedido(id);
 
-<button class="secondary"
-onclick='alterarEstoque(${JSON.stringify(p.nome)})'>
-Alterar estoque
-</button>
+    const falta =
+      Math.max(
+        0,
+        numero(p.total) -
+        recebido
+      );
 
-</div>`;
 
-}).join("");
+    document.getElementById(
+      "pagamentoValor"
+    ).value =
+      falta.toFixed(2);
 
-}
+  }
 
-function alterarEstoque(nome){
 
-const anterior=
-Number(banco.estoque[nome]||0);
-
-const valor=prompt(
-"Quantidade de "+nome,
-anterior
-);
-
-if(valor===null)return;
-
-const q=Number(
-String(valor).replace(",",".")
-);
-
-if(!Number.isFinite(q)||q<0){
-
-alert("Quantidade inválida.");
-
-return;
+  abrirAbaPorId(
+    "pagamentos"
+  );
 
 }
 
-banco.estoque[nome]=q;
 
-if(!salvarBanco()){
+function registrarPagamento(){
 
-banco.estoque[nome]=anterior;
+  const pedidoId =
+    document.getElementById(
+      "pagamentoPedido"
+    ).value;
 
-return;
+
+  const valor =
+    Number(
+      document.getElementById(
+        "pagamentoValor"
+      ).value
+    );
+
+
+  const forma =
+    document.getElementById(
+      "pagamentoForma"
+    ).value;
+
+
+  if(!pedidoId){
+
+    alert(
+      "Selecione o pedido."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !Number.isFinite(valor) ||
+    valor<=0
+  ){
+
+    alert(
+      "Digite um valor válido."
+    );
+
+    return;
+
+  }
+
+
+  const pedido =
+    banco.pedidos.find(
+      p=>p.id===pedidoId
+    );
+
+
+  if(!pedido)
+    return;
+
+
+  const recebido =
+    totalPagoPedido(pedidoId);
+
+
+  const falta =
+    Math.max(
+      0,
+      numero(pedido.total) -
+      recebido
+    );
+
+
+  if(valor > falta){
+
+    if(
+      !confirm(
+        "O valor informado é maior que o valor em aberto.\n\n" +
+        "Deseja registrar mesmo assim?"
+      )
+    ){
+
+      return;
+
+    }
+
+  }
+
+
+  banco.pagamentos.push({
+
+    id:novoId("pag"),
+
+    pedidoId,
+
+    valor,
+
+    forma,
+
+    criadoEm:Date.now()
+
+  });
+
+
+  const novoRecebido =
+    recebido + valor;
+
+
+  if(
+    novoRecebido >=
+    numero(pedido.total)
+  ){
+
+    pedido.pago=true;
+
+    pedido.status="Pago";
+
+  }else{
+
+    pedido.pago=false;
+
+    pedido.status="Parcial";
+
+  }
+
+
+  salvarBanco();
+
+
+  document.getElementById(
+    "pagamentoValor"
+  ).value="";
+
+
+  renderPedidos();
+
+  renderPagamentos();
+
+  atualizarSelectPagamentos();
+
+  atualizarResumo();
+
+
+  alert(
+    "Pagamento confirmado."
+  );
 
 }
 
-renderizar();
+
+function renderPagamentos(){
+
+  const div =
+    document.getElementById(
+      "listaPagamentos"
+    );
+
+
+  const lista =
+    [...banco.pagamentos]
+      .sort(
+        (a,b)=>
+          numero(b.criadoEm) -
+          numero(a.criadoEm)
+      );
+
+
+  if(!lista.length){
+
+    div.innerHTML =
+      '<div class="vazio">Nenhum pagamento registrado.</div>';
+
+    return;
+
+  }
+
+
+  div.innerHTML =
+    lista.map(p=>{
+
+      const pedido =
+        banco.pedidos.find(
+          x=>x.id===p.pedidoId
+        );
+
+
+      const cliente =
+        banco.clientes.find(
+          x=>x.id===pedido?.clienteId
+        );
+
+
+      return `
+
+        <div class="linha">
+
+          <div>
+
+            <strong>
+              ${escapar(
+                cliente?.nome ||
+                "Cliente"
+              )}
+            </strong>
+
+            <div style="font-size:12px;color:#777">
+
+              ${escapar(
+                p.forma || "Outros"
+              )}
+
+            </div>
+
+          </div>
+
+          <strong>
+            ${moeda(p.valor)}
+          </strong>
+
+        </div>
+
+      `;
+
+    }).join("");
 
 }
 
-function mostrarFinanceiro(){
 
-const vendas=banco.pedidos.reduce(
-(t,p)=>t+totalPedido(p),0
-);
+/* ============================================================
+   ESTOQUE
+   ============================================================ */
 
-const recebido=banco.pagamentos.reduce(
-(t,p)=>t+Number(p.valor||0),0
-);
+function renderEstoque(){
 
-const custo=banco.pedidos.reduce(
-(t,p)=>t+custoPedido(p),0
-);
+  const div =
+    document.getElementById(
+      "listaEstoque"
+    );
 
-finVendas.textContent=dinheiro(vendas);
-finRecebido.textContent=dinheiro(recebido);
-finReceber.textContent=dinheiro(vendas-recebido);
-finCusto.textContent=dinheiro(custo);
-finLucro.textContent=dinheiro(vendas-custo);
 
-}
+  div.innerHTML =
+    banco.produtos.map(p=>{
 
-function mostrarProdutos(){
+      const estoque =
+        numero(p.estoque);
 
-listaProdutos.innerHTML=
-PRODUTOS.map(p=>
 
-`<div class="box">
+      return `
 
-<div class="linha-preco">
+        <div class="linha">
 
-<div>
+          <div>
+            <strong>
+              ${escapar(p.nome)}
+            </strong>
+          </div>
 
-<b>${escapar(p.nome)}</b>
+          <div>
 
-<div class="small">
-Custo:
-${p.custo>0?
-dinheiro(p.custo):
-"Não informado"}
-</div>
+            <span
+              class="badge"
+              style="${
+                estoque<=0
+                  ? "background:#f8d7da;color:#842029"
+                  : ""
+              }"
+            >
+              ${estoque}
+            </span>
 
-<div class="preco-atual">
-${dinheiro(precoProduto(p.nome))}
-</div>
+            <button
+              onclick="alterarEstoque('${p.id}',1)"
+            >
+              +
+            </button>
 
-</div>
+            <button
+              class="sec"
+              onclick="alterarEstoque('${p.id}',-1)"
+            >
+              -
+            </button>
 
-<button class="primary"
-onclick='alterarPreco(${JSON.stringify(p.nome)})'>
-✏️ Alterar preço
-</button>
+          </div>
 
-</div>
+        </div>
 
-</div>`
+      `;
 
-).join("");
-
-}
-
-function gerarRelatorio(){
-
-const id=String(
-document.getElementById("clienteRelatorio")?.value||""
-);
-
-const area=document.getElementById("relatorio");
-
-if(!area)return;
-
-if(!id){
-
-area.innerHTML="";
-
-return;
+    }).join("");
 
 }
 
-const c=clientePorId(id);
 
-if(!c){
+/* ============================================================
+   FINANCEIRO
+   ============================================================ */
 
-area.innerHTML=
-"<div class='vazio'>Cliente não encontrado.</div>";
+function totalVendas(){
 
-return;
-
-}
-
-const ps=banco.pedidos
-.filter(p=>String(p.clienteId)===id);
-
-const pg=banco.pagamentos
-.filter(p=>String(p.clienteId)===id);
-
-const compras=ps.reduce(
-(t,p)=>t+totalPedido(p),0
-);
-
-const pagos=pg.reduce(
-(t,p)=>t+Number(p.valor||0),0
-);
-
-const saldo=compras-pagos;
-
-area.innerHTML=`
-
-<div class="card">
-
-<h2>RELATÓRIO DE CONTA</h2>
-
-<h3>🌾 Feito na Roça</h3>
-
-<hr>
-
-<p>
-<strong>Cliente:</strong>
-${escapar(c.nome)}
-</p>
-
-<p>
-<strong>Telefone:</strong>
-${escapar(c.telefone||"")}
-</p>
-
-<hr>
-
-<h3>📋 Pedidos</h3>
-
-${ps.map(p=>
-
-`<div class="box">
-
-<div class="row">
-
-<strong>
-${new Date(p.data).toLocaleDateString("pt-BR")}
-</strong>
-
-<strong>
-${dinheiro(totalPedido(p))}
-</strong>
-
-</div>
-
-<br>
-
-${p.itens.map(i=>
-`${escapar(i.produto)}
-—
-${i.quantidade} ×
-${dinheiro(i.preco)}
-=
-<strong>
-${dinheiro(i.quantidade*i.preco)}
-</strong>`
-).join("<hr>")}
-
-</div>`
-
-).join("")||
-"<p>Nenhum pedido.</p>"}
-
-<hr>
-
-<h3>💳 Pagamentos</h3>
-
-${pg.map(p=>
-
-`<div class="box">
-
-${dataHoraBR(p.data)}
-
-<br>
-
-Valor:
-<strong>${dinheiro(p.valor)}</strong>
-
-<br>
-
-Forma:
-<strong>${escapar(p.metodo)}</strong>
-
-</div>`
-
-).join("")||
-"<p>Nenhum pagamento.</p>"}
-
-<hr>
-
-<div class="kpis">
-
-<div class="kpi">
-Total comprado
-<b>${dinheiro(compras)}</b>
-</div>
-
-<div class="kpi">
-Total pago
-<b>${dinheiro(pagos)}</b>
-</div>
-
-<div class="kpi">
-Saldo
-<b class="${saldo>0?"debt":"ok"}">
-${dinheiro(saldo)}
-</b>
-</div>
-
-</div>
-
-<br>
-
-<div style="text-align:center">
-<strong>
-Feito na Roça — O verdadeiro sabor da roça na sua mesa.
-</strong>
-</div>
-
-</div>`;
+  return banco.pedidos
+    .reduce(
+      (soma,p)=>
+        soma + numero(p.total),
+      0
+    );
 
 }
 
-function atualizarSelects(){
 
-const h=
-'<option value="">Selecione...</option>'+
-banco.clientes.map(c=>
-`<option value="${escapar(c.id)}">
-${escapar(c.nome)}
-</option>`
-).join("");
+function totalRecebido(){
 
-clientePedido.innerHTML=h;
-clienteConta.innerHTML=h;
-clienteRelatorio.innerHTML=h;
+  return banco.pagamentos
+    .reduce(
+      (soma,p)=>
+        soma + numero(p.valor),
+      0
+    );
 
 }
 
-function mostrarInicio(){
 
-const vendas=banco.pedidos.reduce(
-(t,p)=>t+totalPedido(p),0
-);
+function contasReceber(){
 
-const receber=banco.clientes.reduce(
-(t,c)=>t+Math.max(0,saldoCliente(c.id)),
-0
-);
-
-totalClientes.textContent=
-banco.clientes.length;
-
-totalPedidos.textContent=
-banco.pedidos.length;
-
-totalVendas.textContent=
-dinheiro(vendas);
-
-totalReceber.textContent=
-dinheiro(receber);
-
-resumoInicio.innerHTML=`
-
-<div class="box">
-Clientes:
-<strong>${banco.clientes.length}</strong>
-</div>
-
-<div class="box">
-Pedidos:
-<strong>${banco.pedidos.length}</strong>
-</div>
-
-<div class="box">
-Vendas:
-<strong>${dinheiro(vendas)}</strong>
-</div>
-
-<div class="box">
-A receber:
-<strong>${dinheiro(receber)}</strong>
-</div>`;
-
-mostrarResumoEntregas();
+  return banco.pedidos
+    .reduce(
+      (soma,p)=>
+        soma +
+        Math.max(
+          0,
+          numero(p.total) -
+          totalPagoPedido(p.id)
+        ),
+      0
+    );
 
 }
 
-function mostrarResumoEntregas(){
 
-const ps=banco.pedidos
-.filter(p=>
-p.dataEntrega===hojeISO()&&
-p.statusEntrega!=="Entregue"
-)
-.sort(
-(a,b)=>
-(a.horaEntrega||"99:99")
-.localeCompare(
-b.horaEntrega||"99:99"
-)
-);
+function custoPedido(pedido){
 
-resumoEntregas.innerHTML=ps.length?
+  return (pedido.itens || [])
+    .reduce(
+      (soma,i)=>{
 
-ps.map(p=>{
+        /*
+         * IMPORTANTE:
+         * Se o pedido antigo tiver custo salvo,
+         * usamos o custo daquele pedido.
+         * Não usamos o custo atual do produto.
+         */
 
-const c=clientePorId(p.clienteId);
+        const custo =
+          i.custo !== undefined
+            ? numero(i.custo)
+            : numero(
+                produtoPorId(
+                  i.produtoId
+                )?.custo
+              );
 
-return `<div class="box">
 
-<div class="row">
+        return soma +
+          numero(i.quantidade) *
+          custo;
 
-<b>${escapar(c?.nome||"Cliente")}</b>
-
-<b>${p.horaEntrega||"Horário não informado"}</b>
-
-</div>
-
-<div class="small">
-
-${p.itens.map(i=>
-escapar(i.produto)+" × "+i.quantidade
-).join(" • ")}
-
-</div>
-
-</div>`;
-
-}).join("")
-
-:
-
-"<div class='vazio'>✓ Nenhuma entrega pendente para hoje.</div>";
+      },
+      0
+    );
 
 }
+
+
+function lucroEstimado(){
+
+  return banco.pedidos
+    .reduce(
+      (soma,p)=>
+        soma +
+        (
+          numero(p.total) -
+          custoPedido(p)
+        ),
+      0
+    );
+
+}
+
+
+function totalCliente(clienteId){
+
+  return banco.pedidos
+    .filter(
+      p=>p.clienteId===clienteId
+    )
+    .reduce(
+      (soma,p)=>
+        soma + numero(p.total),
+      0
+    );
+
+}
+
+
+function receberCliente(clienteId){
+
+  return banco.pedidos
+    .filter(
+      p=>p.clienteId===clienteId
+    )
+    .reduce(
+      (soma,p)=>{
+
+        const recebido =
+          totalPagoPedido(p.id);
+
+        return soma +
+          Math.max(
+            0,
+            numero(p.total) -
+            recebido
+          );
+
+      },
+      0
+    );
+
+}
+
+
+/* ============================================================
+   RELATÓRIOS
+   ============================================================ */
+
+function renderRelatorios(){
+
+  const vendas =
+    totalVendas();
+
+  const recebido =
+    totalRecebido();
+
+  const receber =
+    contasReceber();
+
+  const lucro =
+    lucroEstimado();
+
+
+  document.getElementById(
+    "relatorioGeral"
+  ).innerHTML = `
+
+    <div class="grid">
+
+      <div class="card">
+        <div>Vendas</div>
+        <div class="total">
+          ${moeda(vendas)}
+        </div>
+      </div>
+
+      <div class="card">
+        <div>Recebido</div>
+        <div class="total">
+          ${moeda(recebido)}
+        </div>
+      </div>
+
+      <div class="card">
+        <div>Contas a receber</div>
+        <div class="total">
+          ${moeda(receber)}
+        </div>
+      </div>
+
+      <div class="card">
+        <div>Lucro estimado</div>
+        <div class="total">
+          ${moeda(lucro)}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="linha">
+      <span>Clientes</span>
+      <strong>${banco.clientes.length}</strong>
+    </div>
+
+    <div class="linha">
+      <span>Pedidos</span>
+      <strong>${banco.pedidos.length}</strong>
+    </div>
+
+    <div class="linha">
+      <span>Pagamentos</span>
+      <strong>${banco.pagamentos.length}</strong>
+    </div>
+
+  `;
+
+
+  const clientes =
+    [...banco.clientes]
+      .sort(
+        (a,b)=>
+          receberCliente(b.id) -
+          receberCliente(a.id)
+      );
+
+
+  document.getElementById(
+    "relatorioClientes"
+  ).innerHTML =
+
+    clientes.length
+
+      ? clientes.map(c=>`
+
+          <div class="linha">
+
+            <div>
+              <strong>
+                ${escapar(c.nome)}
+              </strong>
+
+              <div style="font-size:12px;color:#777">
+                Vendas:
+                ${moeda(
+                  totalCliente(c.id)
+                )}
+              </div>
+
+            </div>
+
+            <strong>
+              ${moeda(
+                receberCliente(c.id)
+              )}
+            </strong>
+
+          </div>
+
+        `).join("")
+
+      : '<div class="vazio">Nenhum cliente.</div>';
+
+}
+
+
+/* ============================================================
+   RESUMO
+   ============================================================ */
+
+function atualizarResumo(){
+
+  const vendas =
+    totalVendas();
+
+  const recebido =
+    totalRecebido();
+
+  const receber =
+    contasReceber();
+
+
+  document.getElementById(
+    "resumoInicio"
+  ).innerHTML = `
+
+    <div class="grid">
+
+      <div class="card">
+        <strong>Clientes</strong>
+        <div class="total">
+          ${banco.clientes.length}
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>Pedidos</strong>
+        <div class="total">
+          ${banco.pedidos.length}
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>Vendas</strong>
+        <div class="total">
+          ${moeda(vendas)}
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>Recebido</strong>
+        <div class="total">
+          ${moeda(recebido)}
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>A receber</strong>
+        <div class="total">
+          ${moeda(receber)}
+        </div>
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   BACKUP
+
+   ATENÇÃO:
+   Esta função NÃO chama salvarBanco().
+   Ela NÃO altera banco.
+   Ela NÃO soma nada.
+   Ela NÃO recalcula pedidos.
+   Ela apenas transforma o banco atual em JSON.
+   ============================================================ */
 
 function fazerBackup(){
 
-try{
+  try{
 
-const blob=new Blob(
-[JSON.stringify(banco,null,2)],
-{type:"application/json"}
-);
+    /*
+     * Cópia independente somente para gerar
+     * o arquivo.
+     */
 
-const url=URL.createObjectURL(blob);
+    const copia =
+      JSON.parse(
+        JSON.stringify(banco)
+      );
 
-const a=document.createElement("a");
 
-a.href=url;
+    const texto =
+      JSON.stringify(
+        copia,
+        null,
+        2
+      );
 
-a.download=
-"backup-feito-na-roca-"+hojeISO()+".json";
 
-document.body.appendChild(a);
+    const blob =
+      new Blob(
+        [texto],
+        {
+          type:
+            "application/json;charset=utf-8"
+        }
+      );
 
-a.click();
 
-a.remove();
+    const url =
+      URL.createObjectURL(blob);
 
-setTimeout(
-()=>URL.revokeObjectURL(url),
-1000
-);
 
-alert("✓ Backup gerado com sucesso.");
+    const link =
+      document.createElement("a");
 
-}catch(e){
 
-alert(
-"❌ Não foi possível gerar o backup."
-);
+    const data =
+      new Date();
 
-}
 
-}
+    const nome =
+      "backup_feito_na_roca_" +
+      data
+        .toISOString()
+        .replace(/[:.]/g,"-") +
+      ".json";
 
-function restaurarBackup(ev){
 
-const ar=ev.target.files?.[0];
+    link.href=url;
 
-if(!ar)return;
+    link.download=nome;
 
-if(!confirm(
-"Restaurar este backup?\n\n"+
-"Antes de substituir, o sistema fará uma cópia automática dos dados atuais."
-)){
+    document.body.appendChild(link);
 
-ev.target.value="";
+    link.click();
 
-return;
+    link.remove();
 
-}
 
-const r=new FileReader();
+    setTimeout(
+      ()=>URL.revokeObjectURL(url),
+      1000
+    );
 
-r.onload=()=>{
 
-try{
+    atualizarEstadoBackup();
 
-const d=JSON.parse(r.result);
 
-if(
-!d||
-!Array.isArray(d.clientes)||
-!Array.isArray(d.pedidos)
-)
-throw Error();
+  }catch(erro){
 
-const copiaAtual=JSON.stringify(banco);
+    console.error(erro);
 
-try{
+    alert(
+      "Erro ao criar o backup."
+    );
 
-localStorage.setItem(
-CHAVE+"_antes_restauracao",
-copiaAtual
-);
-
-}catch(e){}
-
-banco=normalizarBanco(d);
-
-if(!salvarBanco())
-throw Error();
-
-iniciarQuantidades();
-
-renderizar();
-
-alert(
-"✓ Backup restaurado com sucesso.\n\n"+
-"Os dados foram salvos novamente no Safari."
-);
-
-}catch(e){
-
-alert(
-"❌ Arquivo de backup inválido ou não foi possível salvar. "+
-"Os dados atuais foram preservados."
-);
+  }
 
 }
 
-ev.target.value="";
 
-};
+/* ============================================================
+   BACKUP AUTOMÁTICO
+   ============================================================ */
 
-r.readAsText(ar);
+function backupAutomatico(){
 
-}
+  /*
+   * Também não modifica banco.
+   */
 
-function renderizar(){
-
-atualizarSelects();
-mostrarInicio();
-mostrarClientes();
-mostrarProdutosPedido();
-mostrarPedidos();
-mostrarEntregas();
-mostrarConta();
-mostrarEstoque();
-mostrarFinanceiro();
-mostrarProdutos();
-gerarRelatorio();
+  fazerBackup();
 
 }
 
-document.querySelectorAll("nav button")
-.forEach(b=>
 
-b.addEventListener("click",()=>{
+/* ============================================================
+   RESTAURAR BACKUP
+   ============================================================ */
 
-document.querySelectorAll("section")
-.forEach(s=>s.classList.remove("show"));
+function restaurarBackup(event){
 
-document.getElementById(b.dataset.tab)
-?.classList.add("show");
+  const arquivo =
+    event.target.files?.[0];
 
-document.querySelectorAll("nav button")
-.forEach(x=>x.classList.remove("active"));
 
-b.classList.add("active");
+  if(!arquivo)
+    return;
 
-renderizar();
 
-})
+  const leitor =
+    new FileReader();
 
+
+  leitor.onload=function(){
+
+    try{
+
+      const dados =
+        JSON.parse(
+          leitor.result
+        );
+
+
+      if(
+        !dados ||
+        typeof dados !== "object"
+      ){
+
+        throw new Error(
+          "Arquivo inválido"
+        );
+
+      }
+
+
+      if(
+        !Array.isArray(dados.clientes) ||
+        !Array.isArray(dados.pedidos)
+      ){
+
+        throw new Error(
+          "Este arquivo não parece ser um backup do Feito na Roça."
+        );
+
+      }
+
+
+      if(
+        !confirm(
+          "Restaurar este backup?\n\n" +
+          "Os dados atuais serão substituídos pelo conteúdo do arquivo."
+        )
+      ){
+
+        event.target.value="";
+
+        return;
+
+      }
+
+
+      /*
+       * Guarda uma cópia do estado atual antes
+       * da restauração.
+       */
+
+      localStorage.setItem(
+        CHAVE + "_antes_restauracao",
+        JSON.stringify(banco)
+      );
+
+
+      /*
+       * IMPORTANTE:
+       * Não fazemos merge com o banco atual.
+       *
+       * O backup restaurado passa a ser o banco.
+       */
+
+      banco =
+        normalizarBanco(
+          dados
+        );
+
+
+      salvarBanco();
+
+
+      atualizarTudo();
+
+
+      alert(
+        "Backup restaurado com sucesso."
+      );
+
+
+    }catch(erro){
+
+      console.error(erro);
+
+      alert(
+        "Não foi possível restaurar o backup.\n\n" +
+        erro.message
+      );
+
+    }
+
+
+    event.target.value="";
+
+  };
+
+
+  leitor.onerror=function(){
+
+    alert(
+      "Não foi possível ler o arquivo."
+    );
+
+    event.target.value="";
+
+  };
+
+
+  leitor.readAsText(
+    arquivo,
+    "UTF-8"
+  );
+
+}
+
+
+/* ============================================================
+   ESTADO DO BACKUP
+   ============================================================ */
+
+function atualizarEstadoBackup(){
+
+  const div =
+    document.getElementById(
+      "estadoBackup"
+    );
+
+  if(!div)
+    return;
+
+
+  let tamanho=0;
+
+
+  try{
+
+    tamanho =
+      localStorage.getItem(
+        CHAVE
+      )?.length || 0;
+
+  }catch(e){}
+
+
+  div.innerHTML = `
+
+    <div class="linha">
+      <span>Clientes</span>
+      <strong>
+        ${banco.clientes.length}
+      </strong>
+    </div>
+
+    <div class="linha">
+      <span>Pedidos</span>
+      <strong>
+        ${banco.pedidos.length}
+      </strong>
+    </div>
+
+    <div class="linha">
+      <span>Pagamentos</span>
+      <strong>
+        ${banco.pagamentos.length}
+      </strong>
+    </div>
+
+    <div class="linha">
+      <span>Produtos</span>
+      <strong>
+        ${banco.produtos.length}
+      </strong>
+    </div>
+
+    <div class="linha">
+      <span>Dados armazenados</span>
+      <strong>
+        ${Math.round(tamanho/1024)} KB
+      </strong>
+    </div>
+
+    <div class="ok">
+      Fazer backup não altera esses números.
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   LIMPEZA MANUAL
+
+   NÃO É USADA PELO SISTEMA.
+   Só funciona se o usuário apertar o botão.
+   ============================================================ */
+
+function limparSomenteDadosTeste(){
+
+  if(
+    !confirm(
+      "ATENÇÃO!\n\n" +
+      "Isso apagará os dados salvos neste navegador.\n\n" +
+      "Você tem certeza?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  localStorage.removeItem(CHAVE);
+
+
+  alert(
+    "Dados locais removidos. " +
+    "Recarregue o aplicativo para iniciar novamente."
+  );
+
+
+  location.reload();
+
+}
+
+
+/* ============================================================
+   ATUALIZA TUDO
+   ============================================================ */
+
+function atualizarTudo(){
+
+  renderProdutos();
+
+  renderClientes();
+
+  atualizarSelectClientes();
+
+  renderProdutosPedido();
+
+  atualizarTotalPedido();
+
+  renderPedidos();
+
+  atualizarSelectPagamentos();
+
+  renderPagamentos();
+
+  renderEstoque();
+
+  renderRelatorios();
+
+  atualizarResumo();
+
+  atualizarEstadoBackup();
+
+}
+
+
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
+
+carregarBanco();
+
+atualizarTudo();
+
+
+/* ============================================================
+   SALVAMENTO DE SEGURANÇA
+
+   Salva somente quando a página fica em segundo plano.
+   NÃO faz merge.
+   NÃO aumenta números.
+   NÃO cria pedidos.
+   ============================================================ */
+
+document.addEventListener(
+  "visibilitychange",
+  ()=>{
+
+    if(
+      document.visibilityState ===
+      "hidden"
+    ){
+
+      salvarBanco();
+
+    }
+
+  }
 );
 
-iniciarQuantidades();
 
-if(!localStorage.getItem(CHAVE))
-salvarBanco();
+/* ============================================================
+   ANTES DE FECHAR / SAIR
+   ============================================================ */
 
-document.querySelector(
-'[data-tab="inicio"]'
-).classList.add("active");
+window.addEventListener(
+  "pagehide",
+  ()=>{
 
-renderizar();
+    salvarBanco();
+
+  }
+);
 
 </script>
 
