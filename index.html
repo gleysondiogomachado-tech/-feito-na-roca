@@ -48,14 +48,12 @@ border:2px solid #2f6b3f;
 border-radius:11px;
 padding:12px
 }
-
 .metodos{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:7px;
 margin-top:9px
 }
-
 .metodos button{
 border:1px solid #bbb;
 background:#fff;
@@ -503,30 +501,30 @@ const PRODUTOS=[
 
 const CHAVE="feito_na_roca_banco_principal_v5";
 
-const MIGRACAO_KEY=
-"feito_na_roca_migracao_concluida_v1";
-
 let banco=carregarBanco();
 
 let quantidades={};
 
 
 /*
-========================================
-CARREGAR BANCO
-========================================
+=========================================================
+CARREGAMENTO DO BANCO
+=========================================================
 
-A MIGRAÇÃO DOS DADOS ANTIGOS
-ACONTECE SOMENTE UMA VEZ.
+CORREÇÃO PRINCIPAL:
 
-Isso impede que um cliente excluído
-volte quando o aplicativo for aberto.
-========================================
+Se CHAVE já existir, ela é usada como fonte oficial.
+
+Os bancos antigos NÃO são carregados novamente.
+
+Isso impede que um cliente excluído volte depois
+de fechar e abrir o aplicativo.
+=========================================================
 */
 
 function carregarBanco(){
 
-let vazio={
+const vazio={
 clientes:[],
 pedidos:[],
 pagamentos:[],
@@ -535,213 +533,70 @@ precos:{}
 };
 
 
+/*
+=========================================================
+1. BANCO PRINCIPAL
+=========================================================
+*/
+
 try{
 
 const atual=localStorage.getItem(CHAVE);
-
 
 if(atual){
 
 const b=JSON.parse(atual);
 
-vazio={
+if(b && typeof b==="object"){
+
+const bancoAtual={
 ...vazio,
 ...b
 };
 
+bancoAtual.clientes=
+Array.isArray(bancoAtual.clientes)
+?bancoAtual.clientes
+:[];
 
-}else{
+bancoAtual.pedidos=
+Array.isArray(bancoAtual.pedidos)
+?bancoAtual.pedidos
+:[];
 
-/*
-========================================
-MIGRAÇÃO ÚNICA
-========================================
-*/
+bancoAtual.pagamentos=
+Array.isArray(bancoAtual.pagamentos)
+?bancoAtual.pagamentos
+:[];
 
-if(!localStorage.getItem(MIGRACAO_KEY)){
+bancoAtual.estoque=
+bancoAtual.estoque &&
+typeof bancoAtual.estoque==="object"
+?bancoAtual.estoque
+:{};
 
-const chavesAntigas=[
-"feitoNaRoca_v2",
-"feitoNaRoca_dados_v3",
-"feitoNaRoca",
-"fr_clientes",
-"fr_pedidos",
-"fr_contas",
-"fr_produtos"
-];
-
-
-for(const chave of chavesAntigas){
-
-try{
-
-const antigo=
-JSON.parse(
-localStorage.getItem(chave)||"null"
-);
-
-
-if(!antigo)continue;
-
-
-/* CLIENTES */
-
-if(Array.isArray(antigo.clientes)){
-
-vazio.clientes=[
-...vazio.clientes,
-...antigo.clientes
-];
-
-}
-
-
-/* PEDIDOS */
-
-if(Array.isArray(antigo.pedidos)){
-
-vazio.pedidos=[
-...vazio.pedidos,
-...antigo.pedidos
-];
-
-}
-
-
-/* PAGAMENTOS */
-
-if(Array.isArray(antigo.pagamentos)){
-
-vazio.pagamentos=[
-...vazio.pagamentos,
-...antigo.pagamentos
-];
-
-}
-
-
-/* ESTOQUE */
-
-if(
-antigo.estoque &&
-typeof antigo.estoque==="object"
-){
-
-vazio.estoque={
-...vazio.estoque,
-...antigo.estoque
-};
-
-}
-
-
-/* PREÇOS */
-
-if(
-antigo.precos &&
-typeof antigo.precos==="object"
-){
-
-vazio.precos={
-...vazio.precos,
-...antigo.precos
-};
-
-}
-
-
-}catch(e){
-
-console.log(
-"Erro ao migrar:",
-chave,
-e
-);
-
-}
-
-}
+bancoAtual.precos=
+bancoAtual.precos &&
+typeof bancoAtual.precos==="object"
+?bancoAtual.precos
+:{};
 
 
 /*
-A PARTIR DE AGORA,
-NÃO IMPORTA MAIS OS BANCOS ANTIGOS.
-*/
-
-localStorage.setItem(
-MIGRACAO_KEY,
-"1"
-);
-
-}
-
-}
-
-}catch(e){
-
-console.log(
-"Erro ao carregar banco:",
-e
-);
-
-}
-
-
-/*
-========================================
-REMOVE CLIENTES DUPLICADOS
-========================================
-*/
-
-const clientesUnicos=[];
-
-const idsClientes=new Set();
-
-
-vazio.clientes.forEach(c=>{
-
-const id=c.id||novoId();
-
-
-if(idsClientes.has(id))
-return;
-
-
-idsClientes.add(id);
-
-
-clientesUnicos.push({
-
-...c,
-
-id
-
-});
-
-});
-
-
-vazio.clientes=clientesUnicos;
-
-
-/*
-========================================
-GARANTE PRODUTOS
-========================================
+Não altera preços já existentes.
 */
 
 PRODUTOS.forEach(p=>{
 
-if(vazio.precos[p.nome]==null){
+if(bancoAtual.precos[p.nome]==null){
 
-vazio.precos[p.nome]=p.preco;
+bancoAtual.precos[p.nome]=p.preco;
 
 }
 
+if(bancoAtual.estoque[p.nome]==null){
 
-if(vazio.estoque[p.nome]==null){
-
-vazio.estoque[p.nome]=0;
+bancoAtual.estoque[p.nome]=0;
 
 }
 
@@ -749,34 +604,23 @@ vazio.estoque[p.nome]=0;
 
 
 /*
-========================================
-GARANTE ESTRUTURA DOS PEDIDOS
-========================================
+Não altera valores dos pedidos.
 */
 
-vazio.pedidos=
-Array.isArray(vazio.pedidos)
-?
-vazio.pedidos.map(p=>({
+bancoAtual.pedidos=
+bancoAtual.pedidos.map(p=>({
 
 ...p,
 
-itens:
-Array.isArray(p.itens)
-?
-p.itens
-:
-[],
+itens:Array.isArray(p.itens)
+?p.itens
+:[],
 
-data:
-p.data||
-new Date().toISOString(),
+data:p.data||new Date().toISOString(),
 
-dataEntrega:
-p.dataEntrega||"",
+dataEntrega:p.dataEntrega||"",
 
-horaEntrega:
-p.horaEntrega||"",
+horaEntrega:p.horaEntrega||"",
 
 statusEntrega:
 p.statusEntrega||
@@ -788,30 +632,220 @@ p.dataEntrega
 "Sem entrega programada"
 ),
 
-entregueEm:
-p.entregueEm||"",
+entregueEm:p.entregueEm||"",
 
-preparadoEm:
-p.preparadoEm||""
+preparadoEm:p.preparadoEm||""
 
-}))
-:
-[];
+}));
 
 
 /*
-========================================
-GARANTE PAGAMENTOS
-========================================
+Pagamentos são preservados.
 */
 
-vazio.pagamentos=
-Array.isArray(vazio.pagamentos)
-?
-vazio.pagamentos
-:
-[];
+bancoAtual.pagamentos=
+bancoAtual.pagamentos.map(p=>({
 
+...p
+
+}));
+
+
+return bancoAtual;
+
+}
+
+}
+
+}catch(e){
+
+console.error(
+"Erro ao carregar banco principal:",
+e
+);
+
+}
+
+
+/*
+=========================================================
+2. MIGRAÇÃO ANTIGA
+=========================================================
+
+Só chega aqui quando CHAVE NÃO EXISTE.
+
+Depois que o banco principal existir,
+os bancos antigos não serão importados novamente.
+=========================================================
+*/
+
+const chavesAntigas=[
+"feitoNaRoca_v2",
+"feitoNaRoca_dados_v3",
+"feitoNaRoca",
+"fr_clientes",
+"fr_pedidos",
+"fr_contas",
+"fr_produtos"
+];
+
+let migrado=null;
+
+for(const chave of chavesAntigas){
+
+try{
+
+const texto=
+localStorage.getItem(chave);
+
+if(!texto)continue;
+
+const antigo=
+JSON.parse(texto);
+
+if(
+!antigo ||
+typeof antigo!=="object"
+)
+continue;
+
+if(
+Array.isArray(antigo.clientes) ||
+Array.isArray(antigo.pedidos) ||
+Array.isArray(antigo.pagamentos)
+){
+
+migrado=antigo;
+
+break;
+
+}
+
+}catch(e){
+
+console.error(
+"Erro na migração:",
+chave,
+e
+);
+
+}
+
+}
+
+
+if(migrado){
+
+const novoBanco={
+...vazio,
+...migrado
+};
+
+
+novoBanco.clientes=
+Array.isArray(novoBanco.clientes)
+?novoBanco.clientes
+:[];
+
+novoBanco.pedidos=
+Array.isArray(novoBanco.pedidos)
+?novoBanco.pedidos
+:[];
+
+novoBanco.pagamentos=
+Array.isArray(novoBanco.pagamentos)
+?novoBanco.pagamentos
+:[];
+
+novoBanco.estoque=
+novoBanco.estoque &&
+typeof novoBanco.estoque==="object"
+?novoBanco.estoque
+:{};
+
+novoBanco.precos=
+novoBanco.precos &&
+typeof novoBanco.precos==="object"
+?novoBanco.precos
+:{};
+
+
+PRODUTOS.forEach(p=>{
+
+if(novoBanco.precos[p.nome]==null){
+
+novoBanco.precos[p.nome]=p.preco;
+
+}
+
+if(novoBanco.estoque[p.nome]==null){
+
+novoBanco.estoque[p.nome]=0;
+
+}
+
+});
+
+
+novoBanco.pedidos=
+novoBanco.pedidos.map(p=>({
+
+...p,
+
+itens:Array.isArray(p.itens)
+?p.itens
+:[],
+
+data:p.data||new Date().toISOString(),
+
+dataEntrega:p.dataEntrega||"",
+
+horaEntrega:p.horaEntrega||"",
+
+statusEntrega:
+p.statusEntrega||
+(
+p.dataEntrega
+?
+"A entregar"
+:
+"Sem entrega programada"
+),
+
+entregueEm:p.entregueEm||"",
+
+preparadoEm:p.preparadoEm||""
+
+}));
+
+
+try{
+
+localStorage.setItem(
+CHAVE,
+JSON.stringify(novoBanco)
+);
+
+}catch(e){
+
+console.error(
+"Erro ao salvar migração:",
+e
+);
+
+}
+
+
+return novoBanco;
+
+}
+
+
+/*
+=========================================================
+3. BANCO NOVO
+=========================================================
+*/
 
 return vazio;
 
@@ -836,9 +870,6 @@ alert(
 );
 
 return false;
-
-}
-
 
 }
 
@@ -944,12 +975,6 @@ el.innerHTML="";
 }
 
 
-/*
-========================================
-CLIENTES
-========================================
-*/
-
 function cadastrarCliente(){
 
 const nome=document
@@ -1003,9 +1028,7 @@ return;
 
 
 document.getElementById("nomeCliente").value="";
-
 document.getElementById("telefoneCliente").value="";
-
 document.getElementById("observacaoCliente").value="";
 
 
@@ -1013,7 +1036,6 @@ mostrarStatus(
 "statusCliente",
 "✓ Cliente salvo com sucesso."
 );
-
 
 renderizar();
 
@@ -1029,14 +1051,12 @@ const compras=banco.pedidos
 0
 );
 
-
 const pagamentos=banco.pagamentos
 .filter(p=>p.clienteId===id)
 .reduce(
 (t,p)=>t+Number(p.valor||0),
 0
 );
-
 
 return compras-pagamentos;
 
@@ -1051,12 +1071,10 @@ const lista=document.getElementById(
 
 if(!lista)return;
 
-
 const busca=(
 document.getElementById("buscaCliente")?.value||""
 )
 .toLowerCase();
-
 
 const clientes=banco.clientes
 .filter(c=>
@@ -1065,11 +1083,9 @@ const clientes=banco.clientes
 .includes(busca)
 );
 
-
 lista.innerHTML=clientes.map(c=>{
 
 const saldo=saldoCliente(c.id);
-
 
 return`
 
@@ -1130,41 +1146,29 @@ const c=clientePorId(id);
 
 if(!c)return;
 
-
 if(!confirm(
 `Excluir o cliente ${c.nome}?`
 ))return;
 
-
-const clientesAnteriores=
-banco.clientes;
-
+const antes=banco.clientes;
 
 banco.clientes=
 banco.clientes.filter(
-x=>String(x.id)!==String(id)
+x=>x.id!==id
 );
-
 
 if(!salvarBanco()){
 
-banco.clientes=clientesAnteriores;
+banco.clientes=antes;
 
 return;
 
 }
 
-
 renderizar();
 
 }
 
-
-/*
-========================================
-QUANTIDADES
-========================================
-*/
 
 function iniciarQuantidades(){
 
@@ -1216,12 +1220,6 @@ mostrarProdutosPedido();
 }
 
 
-/*
-========================================
-PRODUTOS DO PEDIDO
-========================================
-*/
-
 function mostrarProdutosPedido(){
 
 const el=document.getElementById(
@@ -1230,7 +1228,6 @@ const el=document.getElementById(
 
 if(!el)return;
 
-
 el.innerHTML=PRODUTOS.map(p=>{
 
 const q=Number(
@@ -1238,7 +1235,6 @@ quantidades[p.nome]||0
 );
 
 const preco=precoProduto(p.nome);
-
 
 return`
 
@@ -1254,14 +1250,12 @@ ${dinheiro(preco)}
 
 </div>
 
-
 <button
 type="button"
 onclick='alterarQuantidade(${JSON.stringify(p.nome)},-1)'
 >
 −
 </button>
-
 
 <input
 type="number"
@@ -1270,14 +1264,12 @@ value="${q}"
 onchange='definirQuantidade(${JSON.stringify(p.nome)},this.value)'
 >
 
-
 <button
 type="button"
 onclick='alterarQuantidade(${JSON.stringify(p.nome)},1)'
 >
 +
 </button>
-
 
 <div class="produto-total">
 
@@ -1291,27 +1283,16 @@ ${dinheiro(q*preco)}
 
 }).join("");
 
-
 const total=document.getElementById(
 "totalPedido"
 );
 
-
-if(total){
-
+if(total)
 total.textContent=
 "Total: "+dinheiro(totalPedidoAtual());
 
 }
 
-}
-
-
-/*
-========================================
-PREÇOS
-========================================
-*/
 
 function precoProduto(nome){
 
@@ -1320,7 +1301,6 @@ x=>x.nome===nome
 );
 
 if(!p)return 0;
-
 
 return Number(
 banco.precos[nome]??p.preco
@@ -1333,15 +1313,12 @@ function alterarPreco(nome){
 
 const atual=precoProduto(nome);
 
-
 const valor=prompt(
 "Novo preço para "+nome,
 atual.toFixed(2).replace(".",",")
 );
 
-
 if(valor===null)return;
-
 
 const numero=Number(
 String(valor)
@@ -1351,7 +1328,6 @@ String(valor)
 .replace(",",".")
 );
 
-
 if(!Number.isFinite(numero)||numero<0){
 
 alert("Preço inválido.");
@@ -1360,11 +1336,9 @@ return;
 
 }
 
-
 const anterior=banco.precos[nome];
 
 banco.precos[nome]=numero;
-
 
 if(!salvarBanco()){
 
@@ -1374,23 +1348,15 @@ return;
 
 }
 
-
 renderizar();
 
 }
 
 
-/*
-========================================
-SALVAR PEDIDO
-========================================
-*/
-
 function salvarPedido(){
 
 const clienteId=
 document.getElementById("clientePedido").value;
-
 
 if(!clienteId){
 
@@ -1402,9 +1368,7 @@ return;
 
 
 const itens=PRODUTOS
-.filter(
-p=>Number(quantidades[p.nome]||0)>0
-)
+.filter(p=>Number(quantidades[p.nome]||0)>0)
 .map(p=>({
 
 produto:p.nome,
@@ -1446,10 +1410,8 @@ document.getElementById("observacaoPedido").value.trim(),
 
 statusEntrega:
 document.getElementById("dataEntrega").value
-?
-"A entregar"
-:
-"Sem entrega programada",
+?"A entregar"
+:"Sem entrega programada",
 
 entregueEm:"",
 
@@ -1472,11 +1434,8 @@ return;
 
 iniciarQuantidades();
 
-
 document.getElementById("dataEntrega").value="";
-
 document.getElementById("horaEntrega").value="";
-
 document.getElementById("observacaoPedido").value="";
 
 
@@ -1484,7 +1443,6 @@ mostrarStatus(
 "statusSistema",
 "✓ Pedido salvo com sucesso."
 );
-
 
 renderizar();
 
@@ -1524,12 +1482,6 @@ Number(produto?.custo||0);
 }
 
 
-/*
-========================================
-PAGAMENTOS
-========================================
-*/
-
 function totalPagoPedido(pid){
 
 return banco.pagamentos
@@ -1550,7 +1502,6 @@ p=>p.id===pid
 
 if(!pedido)return;
 
-
 const total=totalPedido(pedido);
 
 const pago=totalPagoPedido(pid);
@@ -1559,7 +1510,6 @@ const restante=Math.max(
 0,
 total-pago
 );
-
 
 if(restante<=0){
 
@@ -1577,9 +1527,7 @@ const entrada=prompt(
 restante.toFixed(2).replace(".",",")
 );
 
-
 if(entrada===null)return;
-
 
 const valor=Number(
 String(entrada)
@@ -1588,7 +1536,6 @@ String(entrada)
 .replace(/\./g,"")
 .replace(",",".")
 );
-
 
 if(!Number.isFinite(valor)||valor<=0){
 
@@ -1603,7 +1550,6 @@ const valorFinal=Math.min(
 valor,
 restante
 );
-
 
 banco.pagamentos.push({
 
@@ -1633,19 +1579,12 @@ return;
 
 renderizar();
 
-
 alert(
 `✓ Pagamento registrado!\n\nForma: ${metodo}\nValor: ${dinheiro(valorFinal)}`
 );
 
 }
 
-
-/*
-========================================
-ENTREGAS
-========================================
-*/
 
 function classeEntrega(status){
 
@@ -1671,15 +1610,10 @@ x=>x.id===pid
 
 if(!p)return;
 
-
 const anterior={
-
 statusEntrega:p.statusEntrega,
-
 preparadoEm:p.preparadoEm,
-
 entregueEm:p.entregueEm
-
 };
 
 
@@ -1687,13 +1621,11 @@ p.statusEntrega=status;
 
 
 if(status==="Em preparação")
-p.preparadoEm=
-new Date().toISOString();
+p.preparadoEm=new Date().toISOString();
 
 
 if(status==="Entregue")
-p.entregueEm=
-new Date().toISOString();
+p.entregueEm=new Date().toISOString();
 
 
 if(status!=="Entregue")
@@ -1708,17 +1640,10 @@ return;
 
 }
 
-
 renderizar();
 
 }
 
-
-/*
-========================================
-MOSTRAR PEDIDOS
-========================================
-*/
 
 function mostrarPedidos(){
 
@@ -1728,9 +1653,7 @@ const lista=document.getElementById(
 
 if(!lista)return;
 
-
 const pedidos=[...banco.pedidos].reverse();
-
 
 lista.innerHTML=
 
@@ -1748,7 +1671,6 @@ const restante=Math.max(
 0,
 total-pago
 );
-
 
 const status=
 p.statusEntrega||
@@ -1800,9 +1722,7 @@ ${dinheiro(total)}
 
 </div>
 
-
 <br>
-
 
 <span class="badge ${classeEntrega(status)}">
 
@@ -1866,7 +1786,6 @@ ${dataHoraBR(p.entregueEm)}
 
 <br>
 
-
 ${p.itens.map(i=>`
 
 <div>
@@ -1886,18 +1805,11 @@ ${dinheiro(i.quantidade*i.preco)}
 `).join("")}
 
 
-/*
-========================================
-PAGAMENTO
-========================================
-*/
-
 <div class="pagamento">
 
 <h3 style="margin-top:0">
 💳 PAGAMENTO
 </h3>
-
 
 <div class="box" style="background:#fff">
 
@@ -1913,7 +1825,6 @@ ${dinheiro(total)}
 
 </div>
 
-
 <div class="row">
 
 <div>
@@ -1925,7 +1836,6 @@ ${dinheiro(pago)}
 </strong>
 
 </div>
-
 
 <div class="row">
 
@@ -1957,7 +1867,6 @@ Escolha a forma de pagamento:
 
 </div>
 
-
 <div class="metodos">
 
 <button
@@ -1967,7 +1876,6 @@ onclick="registrarPagamento('${p.id}','Dinheiro')"
 💵 Dinheiro
 </button>
 
-
 <button
 type="button"
 onclick="registrarPagamento('${p.id}','Pix')"
@@ -1975,14 +1883,12 @@ onclick="registrarPagamento('${p.id}','Pix')"
 📱 Pix
 </button>
 
-
 <button
 type="button"
 onclick="registrarPagamento('${p.id}','Cartão')"
 >
 💳 Cartão
 </button>
-
 
 <button
 type="button"
@@ -2018,15 +1924,18 @@ status==="A entregar"
 class="botao-preparar"
 onclick="alterarStatusEntrega('${p.id}','Em preparação')"
 >
-🔵 Marcar como em preparação
-</button>
 
+🔵 Marcar como em preparação
+
+</button>
 
 <button
 class="botao-entrega"
 onclick="alterarStatusEntrega('${p.id}','Entregue')"
 >
+
 ✅ MARCAR COMO ENTREGUE
+
 </button>
 
 `
@@ -2043,7 +1952,9 @@ status==="Em preparação"
 class="botao-entrega"
 onclick="alterarStatusEntrega('${p.id}','Entregue')"
 >
+
 ✅ MARCAR COMO ENTREGUE
+
 </button>
 
 `
@@ -2060,7 +1971,9 @@ status==="Entregue"
 class="botao-voltar"
 onclick="alterarStatusEntrega('${p.id}','A entregar')"
 >
+
 ↩️ Voltar para A entregar
+
 </button>
 
 `
@@ -2097,12 +2010,6 @@ ${escapar(p.observacao)}
 }
 
 
-/*
-========================================
-ENTREGAS
-========================================
-*/
-
 function mostrarEntregas(){
 
 const lista=document.getElementById(
@@ -2111,12 +2018,10 @@ const lista=document.getElementById(
 
 if(!lista)return;
 
-
 const data=
 document.getElementById(
 "filtroEntregaData"
 )?.value||"";
-
 
 const filtro=
 document.getElementById(
@@ -2201,14 +2106,11 @@ ${dinheiro(total)}
 
 </div>
 
-
 <br>
-
 
 <span class="badge ${classeEntrega(status)}">
 ${status}
 </span>
-
 
 <div class="data-entrega">
 
@@ -2226,7 +2128,6 @@ p.horaEntrega
 "<br><span class='small'>Horário não informado</span>"
 }
 
-
 ${
 p.entregueEm
 ?
@@ -2242,9 +2143,7 @@ ${dataHoraBR(p.entregueEm)}
 
 </div>
 
-
 <h4>📦 Produtos</h4>
-
 
 ${p.itens.map(i=>`
 
@@ -2270,7 +2169,6 @@ ${dinheiro(i.quantidade*i.preco)}
 
 `).join("")}
 
-
 <div class="row" style="margin-top:12px">
 
 <b>Total</b>
@@ -2280,7 +2178,6 @@ ${dinheiro(total)}
 </strong>
 
 </div>
-
 
 <div class="small">
 
@@ -2294,12 +2191,10 @@ restante<=0
 
 </div>
 
-
 ${
 p.observacao
 ?
 `
-
 <div class="aviso">
 
 <b>📝 Observação:</b>
@@ -2309,12 +2204,10 @@ p.observacao
 ${escapar(p.observacao)}
 
 </div>
-
 `
 :
 ""
 }
-
 
 ${
 status==="A entregar"
@@ -2328,7 +2221,6 @@ onclick="alterarStatusEntrega('${p.id}','Em preparação')"
 🔵 Marcar em preparação
 </button>
 
-
 <button
 class="botao-entrega"
 onclick="alterarStatusEntrega('${p.id}','Entregue')"
@@ -2340,7 +2232,6 @@ onclick="alterarStatusEntrega('${p.id}','Entregue')"
 :
 ""
 }
-
 
 ${
 status==="Em preparação"
@@ -2358,7 +2249,6 @@ onclick="alterarStatusEntrega('${p.id}','Entregue')"
 :
 ""
 }
-
 
 ${
 status==="Entregue"
@@ -2387,7 +2277,6 @@ onclick="alterarStatusEntrega('${p.id}','A entregar')"
 
 "<div class='vazio'>Nenhuma entrega encontrada.</div>";
 
-
 atualizarKpisEntregas();
 
 }
@@ -2395,15 +2284,10 @@ atualizarKpisEntregas();
 
 function mostrarEntregasHoje(){
 
-document.getElementById(
-"filtroEntregaData"
-).value=hojeISO();
+filtroEntregaData.value=
+hojeISO();
 
-
-document.getElementById(
-"filtroEntregaStatus"
-).value="";
-
+filtroEntregaStatus.value="";
 
 mostrarEntregas();
 
@@ -2412,15 +2296,9 @@ mostrarEntregas();
 
 function limparFiltrosEntregas(){
 
-document.getElementById(
-"filtroEntregaData"
-).value="";
+filtroEntregaData.value="";
 
-
-document.getElementById(
-"filtroEntregaStatus"
-).value="";
-
+filtroEntregaStatus.value="";
 
 mostrarEntregas();
 
@@ -2431,54 +2309,32 @@ function atualizarKpisEntregas(){
 
 const h=hojeISO();
 
-
 const hc=banco.pedidos
 .filter(
 p=>p.dataEntrega===h
 ).length;
 
-
 const pe=banco.pedidos
 .filter(
-p=>
-p.dataEntrega &&
+p=>p.dataEntrega &&
 p.statusEntrega!=="Entregue"
 ).length;
-
 
 const en=banco.pedidos
 .filter(
 p=>p.statusEntrega==="Entregue"
 ).length;
 
+entregasHojeKpi.textContent=hc;
 
-document.getElementById(
-"entregasHojeKpi"
-).textContent=hc;
+entregasPendentesKpi.textContent=pe;
 
+entregasConcluidasKpi.textContent=en;
 
-document.getElementById(
-"entregasPendentesKpi"
-).textContent=pe;
-
-
-document.getElementById(
-"entregasConcluidasKpi"
-).textContent=en;
-
-
-document.getElementById(
-"totalEntregasHoje"
-).textContent=hc;
+totalEntregasHoje.textContent=hc;
 
 }
 
-
-/*
-========================================
-CONTAS
-========================================
-*/
 
 function abrirConta(id){
 
@@ -2486,11 +2342,7 @@ document
 .querySelector('[data-tab="contas"]')
 .click();
 
-
-document.getElementById(
-"clienteConta"
-).value=id;
-
+clienteConta.value=id;
 
 mostrarConta();
 
@@ -2504,15 +2356,12 @@ document.getElementById(
 "clienteConta"
 )?.value;
 
-
 const area=
 document.getElementById(
 "resultadoConta"
 );
 
-
 if(!area)return;
-
 
 if(!id){
 
@@ -2525,36 +2374,29 @@ return;
 
 const c=clientePorId(id);
 
-
 if(!c){
 
-area.innerHTML=
-"<div class='vazio'>Cliente não encontrado.</div>";
+area.innerHTML="";
 
 return;
 
 }
 
-
 const ps=banco.pedidos
 .filter(p=>p.clienteId===id);
 
-
 const pg=banco.pagamentos
 .filter(p=>p.clienteId===id);
-
 
 const compras=ps.reduce(
 (t,p)=>t+totalPedido(p),
 0
 );
 
-
 const pagos=pg.reduce(
 (t,p)=>t+Number(p.valor||0),
 0
 );
-
 
 const saldo=compras-pagos;
 
@@ -2567,7 +2409,6 @@ area.innerHTML=`
 Conta: ${escapar(c.nome)}
 </h2>
 
-
 <div class="kpis">
 
 <div class="kpi">
@@ -2575,12 +2416,10 @@ Compras
 <b>${dinheiro(compras)}</b>
 </div>
 
-
 <div class="kpi">
 Pagamentos
 <b>${dinheiro(pagos)}</b>
 </div>
-
 
 <div class="kpi">
 Saldo
@@ -2597,7 +2436,6 @@ ${dinheiro(saldo)}
 <div class="card">
 
 <h3>📋 Pedidos</h3>
-
 
 ${
 ps.map(p=>`
@@ -2633,7 +2471,6 @@ ${p.itens.map(i=>
 
 <h3>💳 Pagamentos</h3>
 
-
 ${
 pg.map(p=>`
 
@@ -2665,12 +2502,6 @@ Forma:
 }
 
 
-/*
-========================================
-ESTOQUE
-========================================
-*/
-
 function mostrarEstoque(){
 
 document.getElementById(
@@ -2682,7 +2513,6 @@ PRODUTOS.map(p=>{
 const q=Number(
 banco.estoque[p.nome]||0
 );
-
 
 return`
 
@@ -2704,13 +2534,10 @@ ${q<=3
 
 </div>
 
-
 Quantidade:
 <strong>${q}</strong>
 
-
 <br><br>
-
 
 <button
 class="secondary"
@@ -2733,20 +2560,16 @@ function alterarEstoque(nome){
 const anterior=
 Number(banco.estoque[nome]||0);
 
-
 const valor=prompt(
 "Quantidade de "+nome,
 anterior
 );
 
-
 if(valor===null)return;
-
 
 const q=Number(
 String(valor).replace(",",".")
 );
-
 
 if(!Number.isFinite(q)||q<0){
 
@@ -2756,9 +2579,7 @@ return;
 
 }
 
-
 banco.estoque[nome]=q;
-
 
 if(!salvarBanco()){
 
@@ -2768,17 +2589,10 @@ return;
 
 }
 
-
 renderizar();
 
 }
 
-
-/*
-========================================
-FINANCEIRO
-========================================
-*/
 
 function mostrarFinanceiro(){
 
@@ -2788,13 +2602,11 @@ banco.pedidos.reduce(
 0
 );
 
-
 const recebido=
 banco.pagamentos.reduce(
 (t,p)=>t+Number(p.valor||0),
 0
 );
-
 
 const custo=
 banco.pedidos.reduce(
@@ -2803,44 +2615,27 @@ banco.pedidos.reduce(
 );
 
 
-document.getElementById(
-"finVendas"
-).textContent=dinheiro(vendas);
+finVendas.textContent=
+dinheiro(vendas);
 
+finRecebido.textContent=
+dinheiro(recebido);
 
-document.getElementById(
-"finRecebido"
-).textContent=dinheiro(recebido);
+finReceber.textContent=
+dinheiro(vendas-recebido);
 
+finCusto.textContent=
+dinheiro(custo);
 
-document.getElementById(
-"finReceber"
-).textContent=dinheiro(vendas-recebido);
-
-
-document.getElementById(
-"finCusto"
-).textContent=dinheiro(custo);
-
-
-document.getElementById(
-"finLucro"
-).textContent=dinheiro(vendas-custo);
+finLucro.textContent=
+dinheiro(vendas-custo);
 
 }
 
 
-/*
-========================================
-PRODUTOS
-========================================
-*/
-
 function mostrarProdutos(){
 
-document.getElementById(
-"listaProdutos"
-).innerHTML=
+listaProdutos.innerHTML=
 
 PRODUTOS.map(p=>`
 
@@ -2863,7 +2658,6 @@ ${p.custo>0
 
 </div>
 
-
 <div class="preco-atual">
 
 ${dinheiro(precoProduto(p.nome))}
@@ -2871,7 +2665,6 @@ ${dinheiro(precoProduto(p.nome))}
 </div>
 
 </div>
-
 
 <button
 class="primary"
@@ -2889,12 +2682,6 @@ onclick='alterarPreco(${JSON.stringify(p.nome)})'
 }
 
 
-/*
-========================================
-RELATÓRIO
-========================================
-*/
-
 function gerarRelatorio(){
 
 const id=
@@ -2902,15 +2689,12 @@ document.getElementById(
 "clienteRelatorio"
 )?.value;
 
-
 const area=
 document.getElementById(
 "relatorio"
 );
 
-
 if(!area)return;
-
 
 if(!id){
 
@@ -2923,36 +2707,29 @@ return;
 
 const c=clientePorId(id);
 
-
 if(!c){
 
-area.innerHTML=
-"<div class='vazio'>Cliente não encontrado.</div>";
+area.innerHTML="";
 
 return;
 
 }
 
-
 const ps=banco.pedidos
 .filter(p=>p.clienteId===id);
 
-
 const pg=banco.pagamentos
 .filter(p=>p.clienteId===id);
-
 
 const compras=ps.reduce(
 (t,p)=>t+totalPedido(p),
 0
 );
 
-
 const pagos=pg.reduce(
 (t,p)=>t+Number(p.valor||0),
 0
 );
-
 
 const saldo=compras-pagos;
 
@@ -2965,32 +2742,25 @@ area.innerHTML=`
 RELATÓRIO DE CONTA
 </h2>
 
-
 <h3>
 🌾 Feito na Roça
 </h3>
 
-
 <hr>
-
 
 <p>
 <strong>Cliente:</strong>
 ${escapar(c.nome)}
 </p>
 
-
 <p>
 <strong>Telefone:</strong>
 ${escapar(c.telefone||"")}
 </p>
 
-
 <hr>
 
-
 <h3>📋 Pedidos</h3>
-
 
 ${
 ps.map(p=>`
@@ -3004,16 +2774,13 @@ ${new Date(p.data)
 .toLocaleDateString("pt-BR")}
 </strong>
 
-
 <strong>
 ${dinheiro(totalPedido(p))}
 </strong>
 
 </div>
 
-
 <br>
-
 
 ${p.itens.map(i=>
 `${escapar(i.produto)} — ${i.quantidade} × ${dinheiro(i.preco)} = <strong>${dinheiro(i.quantidade*i.preco)}</strong>`
@@ -3026,12 +2793,9 @@ ${p.itens.map(i=>
 "<p>Nenhum pedido.</p>"
 }
 
-
 <hr>
 
-
 <h3>💳 Pagamentos</h3>
-
 
 ${
 pg.map(p=>`
@@ -3057,9 +2821,7 @@ Forma:
 "<p>Nenhum pagamento.</p>"
 }
 
-
 <hr>
-
 
 <div class="kpis">
 
@@ -3068,12 +2830,10 @@ Total comprado
 <b>${dinheiro(compras)}</b>
 </div>
 
-
 <div class="kpi">
 Total pago
 <b>${dinheiro(pagos)}</b>
 </div>
-
 
 <div class="kpi">
 Saldo
@@ -3084,9 +2844,7 @@ ${dinheiro(saldo)}
 
 </div>
 
-
 <br>
-
 
 <div style="text-align:center">
 
@@ -3103,12 +2861,6 @@ Feito na Roça — O verdadeiro sabor da roça na sua mesa.
 }
 
 
-/*
-========================================
-SELECTS
-========================================
-*/
-
 function atualizarSelects(){
 
 const h=
@@ -3120,28 +2872,14 @@ ${escapar(c.nome)}
 ).join("");
 
 
-document.getElementById(
-"clientePedido"
-).innerHTML=h;
+clientePedido.innerHTML=h;
 
+clienteConta.innerHTML=h;
 
-document.getElementById(
-"clienteConta"
-).innerHTML=h;
-
-
-document.getElementById(
-"clienteRelatorio"
-).innerHTML=h;
+clienteRelatorio.innerHTML=h;
 
 }
 
-
-/*
-========================================
-INÍCIO
-========================================
-*/
 
 function mostrarInicio(){
 
@@ -3150,7 +2888,6 @@ banco.pedidos.reduce(
 (t,p)=>t+totalPedido(p),
 0
 );
-
 
 const receber=
 banco.clientes.reduce(
@@ -3164,33 +2901,20 @@ saldoCliente(c.id)
 );
 
 
-document.getElementById(
-"totalClientes"
-).textContent=
+totalClientes.textContent=
 banco.clientes.length;
 
-
-document.getElementById(
-"totalPedidos"
-).textContent=
+totalPedidos.textContent=
 banco.pedidos.length;
 
-
-document.getElementById(
-"totalVendas"
-).textContent=
+totalVendas.textContent=
 dinheiro(vendas);
 
-
-document.getElementById(
-"totalReceber"
-).textContent=
+totalReceber.textContent=
 dinheiro(receber);
 
 
-document.getElementById(
-"resumoInicio"
-).innerHTML=`
+resumoInicio.innerHTML=`
 
 <div class="box">
 Clientes:
@@ -3199,7 +2923,6 @@ ${banco.clientes.length}
 </strong>
 </div>
 
-
 <div class="box">
 Pedidos:
 <strong>
@@ -3207,14 +2930,12 @@ ${banco.pedidos.length}
 </strong>
 </div>
 
-
 <div class="box">
 Vendas:
 <strong>
 ${dinheiro(vendas)}
 </strong>
 </div>
-
 
 <div class="box">
 A receber:
@@ -3224,7 +2945,6 @@ ${dinheiro(receber)}
 </div>
 
 `;
-
 
 mostrarResumoEntregas();
 
@@ -3248,9 +2968,7 @@ b.horaEntrega||"99:99"
 );
 
 
-document.getElementById(
-"resumoEntregas"
-).innerHTML=
+resumoEntregas.innerHTML=
 
 ps.length
 
@@ -3262,7 +2980,6 @@ const c=clientePorId(
 p.clienteId
 );
 
-
 return`
 
 <div class="box">
@@ -3273,13 +2990,11 @@ return`
 ${escapar(c?.nome||"Cliente")}
 </b>
 
-
 <b>
 ${p.horaEntrega||"Horário não informado"}
 </b>
 
 </div>
-
 
 <div class="small">
 
@@ -3302,12 +3017,6 @@ escapar(i.produto)+" × "+i.quantidade
 }
 
 
-/*
-========================================
-BACKUP
-========================================
-*/
-
 function fazerBackup(){
 
 try{
@@ -3325,41 +3034,31 @@ type:"application/json"
 }
 );
 
-
 const url=
 URL.createObjectURL(blob);
-
 
 const a=
 document.createElement("a");
 
-
 a.href=url;
-
 
 a.download=
 "backup-feito-na-roca-"+hojeISO()+".json";
 
-
 document.body.appendChild(a);
-
 
 a.click();
 
-
 a.remove();
-
 
 setTimeout(
 ()=>URL.revokeObjectURL(url),
 1000
 );
 
-
 alert(
 "✓ Backup gerado com sucesso."
 );
-
 
 }catch(e){
 
@@ -3377,9 +3076,7 @@ function restaurarBackup(ev){
 const ar=
 ev.target.files?.[0];
 
-
 if(!ar)return;
-
 
 if(!confirm(
 "Restaurar este backup?\n\nOs dados atuais serão substituídos pelos dados do arquivo."
@@ -3457,22 +3154,15 @@ p.dataEntrega
 });
 
 
-/*
-Depois de restaurar,
-o banco atual passa a ser a fonte principal.
-*/
-
 if(!salvarBanco())
 throw Error();
 
 
 renderizar();
 
-
 alert(
 "✓ Backup restaurado com sucesso."
 );
-
 
 }catch(e){
 
@@ -3482,22 +3172,14 @@ alert(
 
 }
 
-
 ev.target.value="";
 
 };
-
 
 r.readAsText(ar);
 
 }
 
-
-/*
-========================================
-RENDERIZAÇÃO
-========================================
-*/
 
 function renderizar(){
 
@@ -3526,12 +3208,6 @@ gerarRelatorio();
 }
 
 
-/*
-========================================
-NAVEGAÇÃO
-========================================
-*/
-
 document
 .querySelectorAll("nav button")
 .forEach(b=>
@@ -3546,11 +3222,9 @@ document
 s=>s.classList.remove("show")
 );
 
-
 document
 .getElementById(b.dataset.tab)
 ?.classList.add("show");
-
 
 document
 .querySelectorAll("nav button")
@@ -3558,9 +3232,7 @@ document
 x=>x.classList.remove("active")
 );
 
-
 b.classList.add("active");
-
 
 renderizar();
 
@@ -3570,26 +3242,14 @@ renderizar();
 );
 
 
-/*
-========================================
-INICIALIZAÇÃO
-========================================
-*/
-
 iniciarQuantidades();
 
-
-if(!localStorage.getItem(CHAVE)){
-
+if(!localStorage.getItem(CHAVE))
 salvarBanco();
-
-}
-
 
 document
 .querySelector('[data-tab="inicio"]')
 .classList.add("active");
-
 
 renderizar();
 
