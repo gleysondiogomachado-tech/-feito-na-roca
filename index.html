@@ -11,10 +11,10 @@
 body{margin:0;font-family:Arial,sans-serif;background:#f5f1e8;color:#222}
 header{background:#2f6b3f;color:#fff;padding:16px;position:sticky;top:0;z-index:20}
 header h1{margin:0 0 4px;font-size:24px}
-header .sub{font-size:13px;opacity:.95}
-nav{display:flex;gap:6px;overflow:auto;background:#fff;padding:8px;position:sticky;top:70px;z-index:19;border-bottom:1px solid #ddd;-webkit-overflow-scrolling:touch}
+.sub{font-size:13px}
+nav{display:flex;gap:6px;overflow:auto;background:#fff;padding:8px;position:sticky;top:70px;z-index:19;border-bottom:1px solid #ddd}
 nav button{border:0;border-radius:9px;padding:10px 12px;background:#e8eee7;white-space:nowrap;font-weight:bold}
-nav button.active{background:#2f6b3f;color:#fff}
+.active{background:#2f6b3f!important;color:#fff!important}
 main{max-width:1100px;margin:auto;padding:12px}
 section{display:none}
 section.show{display:block}
@@ -23,7 +23,7 @@ label{display:block;font-size:13px;font-weight:bold;margin:8px 0 5px}
 input,select,textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:9px;font-size:16px;background:#fff}
 button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .primary{background:#2f6b3f;color:#fff;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}
-.secondary{background:#eee;color:#222;border:0;border-radius:9px;padding:10px 13px;font-weight:bold}
+.secondary{background:#eee;border:0;border-radius:9px;padding:10px 13px;font-weight:bold}
 .danger{background:#b3261e;color:#fff;border:0;border-radius:8px;padding:8px 11px;font-weight:bold}
 .box{border:1px solid #ddd;border-radius:11px;padding:12px;margin-top:9px}
 .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
@@ -40,9 +40,30 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .produto input{width:65px;text-align:center;font-weight:bold}
 .produto-total{grid-column:1/-1;text-align:right;font-weight:bold}
 .total-pedido{margin-top:12px;padding:15px;background:#eef5ec;border-radius:11px;text-align:center;font-size:22px;font-weight:bold;color:#2f6b3f}
-.pagamento{margin-top:10px;background:#f4f8f3;border:1px solid #d5e2d3;border-radius:11px;padding:12px}
-.metodos{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}
-.metodos button{border:1px solid #ccc;background:#fff;padding:11px;border-radius:8px;font-weight:bold}
+
+/* PAGAMENTO */
+.pagamento{
+margin-top:12px;
+background:#f4f8f3;
+border:2px solid #2f6b3f;
+border-radius:11px;
+padding:12px
+}
+.metodos{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:7px;
+margin-top:9px
+}
+.metodos button{
+border:1px solid #bbb;
+background:#fff;
+padding:13px;
+border-radius:8px;
+font-weight:bold;
+font-size:15px
+}
+
 .status{padding:10px;border-radius:9px;margin-bottom:10px;font-weight:bold}
 .status.ok{background:#e8f5e9}
 .status.erro{background:#ffebee;color:#b3261e}
@@ -51,24 +72,24 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .badge-preparacao{background:#dbeafe;color:#1e40af}
 .badge-entregue{background:#dcfce7;color:#166534}
 .badge-sem{background:#eee;color:#555}
-.entrega-box{border-left:5px solid #2f6b3f}
 .data-entrega{background:#eef5ec;border-radius:10px;padding:10px;margin-top:10px}
 .botao-entrega,.botao-preparar,.botao-voltar{width:100%;padding:12px;margin-top:8px;border:0;border-radius:9px;font-weight:bold;font-size:15px}
 .botao-entrega{background:#2f6b3f;color:#fff}
 .botao-preparar{background:#e8eef7;color:#174a7e}
 .botao-voltar{background:#fff3cd;color:#856404}
-.produto-destaque{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid #ddd;border-radius:10px;margin-top:7px;background:#fff}
+.produto-destaque{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid #ddd;border-radius:10px;margin-top:7px}
 .vazio{text-align:center;padding:20px;color:#777}
 .aviso{padding:11px;background:#fff8df;border:1px solid #ead78b;border-radius:10px;margin-top:10px}
 .preco-atual{font-size:20px;font-weight:bold;color:#2f6b3f;margin-top:5px}
 .linha-preco{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+
 @media(max-width:500px){
 .produto{grid-template-columns:1fr 40px 58px 40px}
 .produto button{width:40px}
 .produto input{width:58px}
-nav button{padding:10px}
 .linha-preco{grid-template-columns:1fr}
 }
+
 @media print{
 header,nav,.no-print{display:none!important}
 body{background:#fff}
@@ -81,9 +102,7 @@ body{background:#fff}
 
 <header>
 <h1>🌾 Feito na Roça</h1>
-<div class="sub">
-Clientes • Pedidos • Entregas • Pagamentos • Contas • Relatórios
-</div>
+<div class="sub">Clientes • Pedidos • Entregas • Pagamentos • Contas • Relatórios</div>
 </header>
 
 <nav>
@@ -105,32 +124,11 @@ Clientes • Pedidos • Entregas • Pagamentos • Contas • Relatórios
 <div id="statusSistema"></div>
 
 <div class="kpis">
-
-<div class="kpi">
-Clientes
-<b id="totalClientes">0</b>
-</div>
-
-<div class="kpi">
-Pedidos
-<b id="totalPedidos">0</b>
-</div>
-
-<div class="kpi">
-Vendas
-<b id="totalVendas">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-A receber
-<b id="totalReceber">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-Entregas hoje
-<b id="totalEntregasHoje">0</b>
-</div>
-
+<div class="kpi">Clientes<b id="totalClientes">0</b></div>
+<div class="kpi">Pedidos<b id="totalPedidos">0</b></div>
+<div class="kpi">Vendas<b id="totalVendas">R$ 0,00</b></div>
+<div class="kpi">A receber<b id="totalReceber">R$ 0,00</b></div>
+<div class="kpi">Entregas hoje<b id="totalEntregasHoje">0</b></div>
 </div>
 
 <div class="card">
@@ -151,9 +149,7 @@ Clientes, pedidos, pagamentos, estoque, preços e entregas são salvos no aparel
 Faça backups regularmente.
 </p>
 
-<button class="primary" onclick="fazerBackup()">
-⬇️ Fazer backup
-</button>
+<button class="primary" onclick="fazerBackup()">⬇️ Fazer backup</button>
 
 <button class="secondary" onclick="document.getElementById('arquivoBackup').click()">
 ⬆️ Restaurar backup
@@ -168,7 +164,6 @@ onchange="restaurarBackup(event)"
 >
 
 </div>
-
 </section>
 
 
@@ -194,10 +189,9 @@ onchange="restaurarBackup(event)"
 <button
 class="primary"
 style="width:100%;padding:14px"
-onclick="cadastrarCliente()">
-
+onclick="cadastrarCliente()"
+>
 ✓ SALVAR CLIENTE
-
 </button>
 
 </div>
@@ -237,18 +231,10 @@ Total: R$ 0,00
 <h3>🚚 Entrega</h3>
 
 <label>Data prevista para entrega</label>
-
-<input
-id="dataEntrega"
-type="date"
->
+<input id="dataEntrega" type="date">
 
 <label>Horário previsto</label>
-
-<input
-id="horaEntrega"
-type="time"
->
+<input id="horaEntrega" type="time">
 
 <div class="small">
 Informe data e horário quando o pedido tiver entrega programada.
@@ -267,10 +253,9 @@ placeholder="Ex.: entregar à tarde, levar troco..."
 <button
 class="primary"
 style="width:100%;padding:14px"
-onclick="salvarPedido()">
-
+onclick="salvarPedido()"
+>
 ✓ SALVAR PEDIDO
-
 </button>
 
 </div>
@@ -323,7 +308,8 @@ onchange="mostrarEntregas()"
 
 <select
 id="filtroEntregaStatus"
-onchange="mostrarEntregas()">
+onchange="mostrarEntregas()"
+>
 
 <option value="">Todos</option>
 <option value="A entregar">A entregar</option>
@@ -336,24 +322,24 @@ onchange="mostrarEntregas()">
 
 <button
 class="secondary"
-onclick="mostrarEntregasHoje()">
-
+onclick="mostrarEntregasHoje()"
+>
 📅 Entregas de hoje
-
 </button>
 
 <button
 class="secondary"
-onclick="limparFiltrosEntregas()">
-
+onclick="limparFiltrosEntregas()"
+>
 🔄 Mostrar todas
-
 </button>
 
 </div>
 
 <div class="card">
+
 <div id="listaEntregas"></div>
+
 </div>
 
 </section>
@@ -369,8 +355,8 @@ onclick="limparFiltrosEntregas()">
 
 <select
 id="clienteConta"
-onchange="mostrarConta()">
-</select>
+onchange="mostrarConta()"
+></select>
 
 <div id="resultadoConta"></div>
 
@@ -439,7 +425,8 @@ Lucro bruto
 <h2>📦 Produtos e preços</h2>
 
 <p class="small">
-Cada produto possui seu próprio preço. Alterar um produto não altera os outros.
+Cada produto possui seu próprio preço.
+Alterar um produto não altera os outros.
 O novo preço será usado somente nos próximos pedidos.
 </p>
 
@@ -464,18 +451,16 @@ O novo preço será usado somente nos próximos pedidos.
 
 <button
 class="primary"
-onclick="gerarRelatorio()">
-
+onclick="gerarRelatorio()"
+>
 Gerar relatório
-
 </button>
 
 <button
 class="secondary"
-onclick="window.print()">
-
+onclick="window.print()"
+>
 Imprimir / PDF
-
 </button>
 
 </div>
@@ -488,10 +473,6 @@ Imprimir / PDF
 
 
 <script>
-
-/* =====================================================
-PRODUTOS
-===================================================== */
 
 const PRODUTOS=[
 
@@ -519,11 +500,6 @@ const PRODUTOS=[
 
 ];
 
-
-/* =====================================================
-BANCO
-===================================================== */
-
 const CHAVE="feito_na_roca_banco_principal_v5";
 
 let banco=carregarBanco();
@@ -531,13 +507,9 @@ let banco=carregarBanco();
 let quantidades={};
 
 
-/* =====================================================
-CARREGAR
-===================================================== */
-
 function carregarBanco(){
 
-let resultado={
+let vazio={
 clientes:[],
 pedidos:[],
 pagamentos:[],
@@ -547,27 +519,21 @@ precos:{}
 
 try{
 
-const texto=localStorage.getItem(CHAVE);
+const atual=localStorage.getItem(CHAVE);
 
-if(texto){
+if(atual){
 
-const dados=JSON.parse(texto);
+const b=JSON.parse(atual);
 
-if(dados && typeof dados==="object"){
-
-resultado={
-...resultado,
-...dados
+vazio={
+...vazio,
+...b
 };
 
 }
 
-}
+}catch(e){}
 
-if(
-resultado.clientes.length===0 &&
-resultado.pedidos.length===0
-){
 
 const chavesAntigas=[
 "feitoNaRoca_v2",
@@ -579,157 +545,106 @@ const chavesAntigas=[
 "fr_produtos"
 ];
 
+
 for(const chave of chavesAntigas){
 
 try{
 
-const antigo=localStorage.getItem(chave);
+const antigo=JSON.parse(localStorage.getItem(chave)||"null");
 
 if(!antigo)continue;
 
-const dados=JSON.parse(antigo);
+if(Array.isArray(antigo.clientes))
+vazio.clientes=[...vazio.clientes,...antigo.clientes];
 
-if(!dados)continue;
-
-if(Array.isArray(dados.clientes))
-resultado.clientes=dados.clientes;
-
-if(Array.isArray(dados.pedidos))
-resultado.pedidos=dados.pedidos;
-
-if(Array.isArray(dados.pagamentos))
-resultado.pagamentos=dados.pagamentos;
-
-if(dados.estoque)
-resultado.estoque=dados.estoque;
-
-if(dados.precos)
-resultado.precos=dados.precos;
-
-if(
-resultado.clientes.length ||
-resultado.pedidos.length
-)break;
+if(Array.isArray(antigo.pedidos))
+vazio.pedidos=[...vazio.pedidos,...antigo.pedidos];
 
 }catch(e){}
 
 }
 
-}
 
-}catch(e){
+const clientesUnicos=[];
 
-console.error("Erro ao carregar banco:",e);
+const idsClientes=new Set();
 
-}
+vazio.clientes.forEach(c=>{
 
-if(!Array.isArray(resultado.clientes))
-resultado.clientes=[];
+const id=c.id||novoId();
 
-if(!Array.isArray(resultado.pedidos))
-resultado.pedidos=[];
+if(idsClientes.has(id))return;
 
-if(!Array.isArray(resultado.pagamentos))
-resultado.pagamentos=[];
+idsClientes.add(id);
 
-if(
-!resultado.estoque ||
-typeof resultado.estoque!=="object"
-){
+clientesUnicos.push({
+...c,
+id
+});
 
-resultado.estoque={};
+});
 
-}
+vazio.clientes=clientesUnicos;
 
-if(
-!resultado.precos ||
-typeof resultado.precos!=="object"
-){
-
-resultado.precos={};
-
-}
 
 PRODUTOS.forEach(p=>{
 
-if(resultado.estoque[p.nome]===undefined){
+if(vazio.precos[p.nome]==null)
+vazio.precos[p.nome]=p.preco;
 
-resultado.estoque[p.nome]=0;
-
-}
-
-});
-
-PRODUTOS.forEach(p=>{
-
-if(resultado.precos[p.nome]===undefined){
-
-resultado.precos[p.nome]=Number(p.preco);
-
-}
+if(vazio.estoque[p.nome]==null)
+vazio.estoque[p.nome]=0;
 
 });
 
-resultado.pedidos.forEach(p=>{
 
-if(p.dataEntrega===undefined)
-p.dataEntrega="";
+vazio.pedidos=vazio.pedidos.map(p=>({
 
-if(p.horaEntrega===undefined)
-p.horaEntrega="";
+...p,
 
-if(p.entregueEm===undefined)
-p.entregueEm="";
+itens:Array.isArray(p.itens)?p.itens:[],
 
-if(p.preparadoEm===undefined)
-p.preparadoEm="";
+data:p.data||new Date().toISOString(),
 
-if(p.statusEntrega===undefined){
+dataEntrega:p.dataEntrega||"",
 
-p.statusEntrega=
-p.dataEntrega
-?
-"A entregar"
-:
-"Sem entrega programada";
+horaEntrega:p.horaEntrega||"",
+
+statusEntrega:p.statusEntrega||
+(p.dataEntrega?"A entregar":"Sem entrega programada"),
+
+entregueEm:p.entregueEm||"",
+
+preparadoEm:p.preparadoEm||""
+
+}));
+
+
+vazio.pagamentos=Array.isArray(vazio.pagamentos)
+?vazio.pagamentos
+:[];
+
+
+return vazio;
 
 }
 
-});
-
-return resultado;
-
-}
-
-
-/* =====================================================
-SALVAR
-===================================================== */
 
 function salvarBanco(){
 
 try{
 
-const texto=JSON.stringify(banco);
-
-localStorage.setItem(CHAVE,texto);
-
-if(localStorage.getItem(CHAVE)!==texto){
-
-throw new Error("Falha na confirmação.");
-
-}
+localStorage.setItem(
+CHAVE,
+JSON.stringify(banco)
+);
 
 return true;
 
-}catch(erro){
+}catch(e){
 
-console.error(erro);
-
-mostrarStatus(
-"statusSistema",
-"⚠️ O navegador não confirmou o salvamento. Faça um backup.",
-"erro"
+alert(
+"❌ Não foi possível salvar os dados neste aparelho."
 );
 
 return false;
@@ -739,132 +654,10 @@ return false;
 }
 
 
-/* =====================================================
-PREÇO
-===================================================== */
-
-function precoProduto(nome){
-
-const valor=Number(
-banco.precos?.[nome]
-);
-
-if(
-Number.isFinite(valor) &&
-valor>=0
-){
-
-return valor;
-
-}
-
-const produto=PRODUTOS.find(
-p=>p.nome===nome
-);
-
-return Number(produto?.preco||0);
-
-}
-
-
-function alterarPreco(nome){
-
-const atual=precoProduto(nome);
-
-const valorDigitado=prompt(
-"Novo preço para:\n"+nome+
-"\n\nPreço atual: "+dinheiro(atual)+
-"\n\nDigite o novo valor:",
-atual.toFixed(2)
-);
-
-if(valorDigitado===null)
-return;
-
-const texto=String(valorDigitado)
-.trim()
-.replace(/^R\$\s*/i,"")
-.trim();
-
-let valorFinal;
-
-if(texto.includes(",") && texto.includes(".")){
-
-valorFinal=Number(
-texto.replace(/\./g,"").replace(",",".")
-);
-
-}else if(texto.includes(",")){
-
-valorFinal=Number(
-texto.replace(",",".")
-);
-
-}else{
-
-valorFinal=Number(texto);
-
-}
-
-if(
-!Number.isFinite(valorFinal) ||
-valorFinal<0
-){
-
-alert("❌ Preço inválido.");
-return;
-
-}
-
-if(valorFinal>999999){
-
-alert("❌ Preço muito alto.");
-return;
-
-}
-
-const antigo=banco.precos[nome];
-
-banco.precos[nome]=valorFinal;
-
-if(!salvarBanco()){
-
-if(antigo===undefined){
-
-delete banco.precos[nome];
-
-}else{
-
-banco.precos[nome]=antigo;
-
-}
-
-return;
-
-}
-
-renderizar();
-
-alert(
-"✓ Preço salvo!\n\n"+
-nome+
-"\nNovo preço: "+
-dinheiro(valorFinal)+
-"\n\nEsse preço será usado nos próximos pedidos."
-);
-
-}
-
-
-/* =====================================================
-UTILIDADES
-===================================================== */
-
 function novoId(){
 
 return Date.now().toString(36)+
-"-"+
-Math.random().toString(36).slice(2);
+Math.random().toString(36).slice(2,8);
 
 }
 
@@ -897,7 +690,7 @@ return String(v??"")
 function clientePorId(id){
 
 return banco.clientes.find(
-c=>c.id===id
+c=>String(c.id)===String(id)
 );
 
 }
@@ -905,41 +698,33 @@ c=>c.id===id
 
 function hojeISO(){
 
-const d=new Date();
-
-return d.getFullYear()+
-"-"+
-String(d.getMonth()+1).padStart(2,"0")+
-"-"+
-String(d.getDate()).padStart(2,"0");
+return new Date()
+.toISOString()
+.slice(0,10);
 
 }
 
 
-function dataBR(data){
+function dataBR(v){
 
-if(!data)return"";
+if(!v)return"";
 
-const p=String(data).split("-");
+const [a,m,d]=v.split("-");
 
-if(p.length!==3)return data;
-
-return p[2]+"/"+p[1]+"/"+p[0];
+return d+"/"+m+"/"+a;
 
 }
 
 
-function dataHoraBR(iso){
+function dataHoraBR(v){
 
-if(!iso)return"";
+if(!v)return"";
 
-const d=new Date(iso);
+const d=new Date(v);
 
-if(Number.isNaN(d.getTime()))
-return"";
-
-return d.toLocaleDateString("pt-BR")+
-" às "+
+return d.toLocaleDateString(
+"pt-BR"
+)+" "+
 d.toLocaleTimeString(
 "pt-BR",
 {
@@ -951,7 +736,7 @@ minute:"2-digit"
 }
 
 
-function mostrarStatus(id,texto,tipo){
+function mostrarStatus(id,texto,tipo="ok"){
 
 const el=document.getElementById(id);
 
@@ -965,34 +750,31 @@ setTimeout(()=>{
 if(el)
 el.innerHTML="";
 
-},5000);
+},3000);
 
 }
 
 
-/* =====================================================
-CLIENTES
-===================================================== */
-
 function cadastrarCliente(){
 
-const nome=document.getElementById(
-"nomeCliente"
-).value.trim();
+const nome=document
+.getElementById("nomeCliente")
+.value.trim();
 
-const telefone=document.getElementById(
-"telefoneCliente"
-).value.trim();
+const telefone=document
+.getElementById("telefoneCliente")
+.value.trim();
 
-const observacao=document.getElementById(
-"observacaoCliente"
-).value.trim();
+const observacao=document
+.getElementById("observacaoCliente")
+.value.trim();
+
 
 if(!nome){
 
 mostrarStatus(
 "statusCliente",
-"Digite o nome do cliente.",
+"Informe o nome do cliente.",
 "erro"
 );
 
@@ -1000,77 +782,57 @@ return;
 
 }
 
-const existente=banco.clientes.find(
-c=>
-(c.nome||"").trim().toLowerCase()===
-nome.toLowerCase()
-&&
-(c.telefone||"")===telefone
-);
 
-if(existente){
+banco.clientes.push({
 
-mostrarStatus(
-"statusCliente",
-"Esse cliente já está cadastrado.",
-"erro"
-);
-
-return;
-
-}
-
-const cliente={
 id:novoId(),
-nome,
-telefone,
-observacao,
-criadoEm:new Date().toISOString()
-};
 
-banco.clientes.push(cliente);
+nome,
+
+telefone,
+
+observacao,
+
+criadoEm:new Date().toISOString()
+
+});
+
 
 if(!salvarBanco()){
 
-banco.clientes=
-banco.clientes.filter(
-c=>c.id!==cliente.id
-);
+banco.clientes.pop();
 
 return;
 
 }
+
 
 document.getElementById("nomeCliente").value="";
 document.getElementById("telefoneCliente").value="";
 document.getElementById("observacaoCliente").value="";
 
-renderizar();
 
 mostrarStatus(
 "statusCliente",
-"✓ Cliente salvo com sucesso!",
-"ok"
+"✓ Cliente salvo com sucesso."
 );
+
+renderizar();
 
 }
 
 
-/* =====================================================
-SALDO
-===================================================== */
-
-function saldoCliente(cid){
+function saldoCliente(id){
 
 const compras=banco.pedidos
-.filter(p=>p.clienteId===cid)
+.filter(p=>p.clienteId===id)
 .reduce(
 (t,p)=>t+totalPedido(p),
 0
 );
 
 const pagamentos=banco.pagamentos
-.filter(p=>p.clienteId===cid)
+.filter(p=>p.clienteId===id)
 .reduce(
 (t,p)=>t+Number(p.valor||0),
 0
@@ -1081,34 +843,31 @@ return compras-pagamentos;
 }
 
 
-/* =====================================================
-CLIENTES
-===================================================== */
-
 function mostrarClientes(){
 
-const campo=document.getElementById(
-"buscaCliente"
-);
-
-const busca=(campo?.value||"").toLowerCase();
-
-const clientes=banco.clientes.filter(
-c=>
-(c.nome||"").toLowerCase().includes(busca)
-||
-(c.telefone||"").includes(busca)
-);
-
-document.getElementById(
+const lista=document.getElementById(
 "listaClientes"
-).innerHTML=
+);
 
-clientes.map(c=>{
+if(!lista)return;
+
+const busca=(
+document.getElementById("buscaCliente")?.value||""
+)
+.toLowerCase();
+
+const clientes=banco.clientes
+.filter(c=>
+(c.nome||"")
+.toLowerCase()
+.includes(busca)
+);
+
+lista.innerHTML=clientes.map(c=>{
 
 const saldo=saldoCliente(c.id);
 
-return `
+return`
 
 <div class="box">
 
@@ -1124,45 +883,30 @@ ${escapar(c.telefone||"")}
 
 </div>
 
-<div class="${saldo>0?"debt":"ok"}">
-
-${
-saldo>0
-?
-"Deve "+dinheiro(saldo)
-:
-"Conta quitada"
-}
+<strong class="${saldo>0?"debt":"ok"}">
+${dinheiro(saldo)}
+</strong>
 
 </div>
 
-</div>
-
-${
-c.observacao
-?
-`<div class="small">
-Obs.: ${escapar(c.observacao)}
-</div>`
-:""
-}
+${c.observacao?
+`<div class="small">📝 ${escapar(c.observacao)}</div>`
+:""}
 
 <br>
 
 <button
 class="secondary"
-onclick="abrirConta('${c.id}')">
-
-Ver conta
-
+onclick="abrirConta('${c.id}')"
+>
+💰 Ver conta
 </button>
 
 <button
 class="danger"
-onclick="excluirCliente('${c.id}')">
-
+onclick="excluirCliente('${c.id}')"
+>
 Excluir
-
 </button>
 
 </div>
@@ -1170,29 +914,33 @@ Excluir
 `;
 
 }).join("")
-
 ||
-
-"<div class='vazio'>Nenhum cliente cadastrado.</div>";
+"<div class='vazio'>Nenhum cliente encontrado.</div>";
 
 }
 
 
 function excluirCliente(id){
 
-if(!confirm("Excluir este cliente?"))
-return;
+const c=clientePorId(id);
 
-const antigos=[...banco.clientes];
+if(!c)return;
+
+if(!confirm(
+`Excluir o cliente ${c.nome}?`
+))return;
+
+const antes=banco.clientes;
 
 banco.clientes=
 banco.clientes.filter(
-c=>c.id!==id
+x=>x.id!==id
 );
 
 if(!salvarBanco()){
 
-banco.clientes=antigos;
+banco.clientes=antes;
+
 return;
 
 }
@@ -1201,10 +949,6 @@ renderizar();
 
 }
 
-
-/* =====================================================
-QUANTIDADES
-===================================================== */
 
 function iniciarQuantidades(){
 
@@ -1222,7 +966,7 @@ function totalPedidoAtual(){
 return PRODUTOS.reduce(
 (t,p)=>
 t+
-Number(quantidades[p.nome]||0)*
+quantidades[p.nome]*
 precoProduto(p.nome),
 0
 );
@@ -1230,13 +974,11 @@ precoProduto(p.nome),
 }
 
 
-function alterarQuantidade(nome,valor){
+function alterarQuantidade(nome,delta){
 
-quantidades[nome]=
-Math.max(
+quantidades[nome]=Math.max(
 0,
-Number(quantidades[nome]||0)+
-Number(valor||0)
+Number(quantidades[nome]||0)+delta
 );
 
 mostrarProdutosPedido();
@@ -1246,10 +988,10 @@ mostrarProdutosPedido();
 
 function definirQuantidade(nome,valor){
 
-let q=parseInt(valor);
-
-if(!Number.isFinite(q)||q<0)
-q=0;
+const q=Math.max(
+0,
+parseInt(valor||0,10)||0
+);
 
 quantidades[nome]=q;
 
@@ -1258,26 +1000,23 @@ mostrarProdutosPedido();
 }
 
 
-/* =====================================================
-PRODUTOS DO PEDIDO
-===================================================== */
-
 function mostrarProdutosPedido(){
 
-const area=document.getElementById(
+const el=document.getElementById(
 "produtosPedido"
 );
 
-if(!area)return;
+if(!el)return;
 
-area.innerHTML=
+el.innerHTML=PRODUTOS.map(p=>{
 
-PRODUTOS.map(p=>{
+const q=Number(
+quantidades[p.nome]||0
+);
 
-const q=quantidades[p.nome]||0;
 const preco=precoProduto(p.nome);
 
-return `
+return`
 
 <div class="produto">
 
@@ -1292,7 +1031,9 @@ ${dinheiro(preco)}
 </div>
 
 <button
-onclick='alterarQuantidade(${JSON.stringify(p.nome)},-1)'>
+type="button"
+onclick='alterarQuantidade(${JSON.stringify(p.nome)},-1)'
+>
 −
 </button>
 
@@ -1304,16 +1045,14 @@ onchange='definirQuantidade(${JSON.stringify(p.nome)},this.value)'
 >
 
 <button
-onclick='alterarQuantidade(${JSON.stringify(p.nome)},1)'>
+type="button"
+onclick='alterarQuantidade(${JSON.stringify(p.nome)},1)'
+>
 +
 </button>
 
 <div class="produto-total">
 
-${q}
-×
-${dinheiro(preco)}
-=
 ${dinheiro(q*preco)}
 
 </div>
@@ -1324,74 +1063,111 @@ ${dinheiro(q*preco)}
 
 }).join("");
 
-document.getElementById(
+const total=document.getElementById(
 "totalPedido"
-).textContent=
+);
+
+if(total)
+total.textContent=
 "Total: "+dinheiro(totalPedidoAtual());
 
 }
 
 
-/* =====================================================
-SALVAR PEDIDO
-===================================================== */
+function precoProduto(nome){
 
-function salvarPedido(){
+const p=PRODUTOS.find(
+x=>x.nome===nome
+);
 
-const clienteId=document.getElementById(
-"clientePedido"
-).value;
+if(!p)return 0;
 
-if(!clienteId){
+return Number(
+banco.precos[nome]??p.preco
+);
 
-alert("Selecione o cliente.");
+}
+
+
+function alterarPreco(nome){
+
+const atual=precoProduto(nome);
+
+const valor=prompt(
+"Novo preço para "+nome,
+atual.toFixed(2).replace(".",",")
+);
+
+if(valor===null)return;
+
+const numero=Number(
+String(valor)
+.replace("R$","")
+.replace(/\s/g,"")
+.replace(/\./g,"")
+.replace(",",".")
+);
+
+if(!Number.isFinite(numero)||numero<0){
+
+alert("Preço inválido.");
+
 return;
 
 }
 
+const anterior=banco.precos[nome];
+
+banco.precos[nome]=numero;
+
+if(!salvarBanco()){
+
+banco.precos[nome]=anterior;
+
+return;
+
+}
+
+renderizar();
+
+}
+
+
+function salvarPedido(){
+
+const clienteId=
+document.getElementById("clientePedido").value;
+
+if(!clienteId){
+
+alert("Selecione um cliente.");
+
+return;
+
+}
+
+
 const itens=PRODUTOS
-.filter(
-p=>Number(quantidades[p.nome])>0
-)
+.filter(p=>Number(quantidades[p.nome]||0)>0)
 .map(p=>({
 
 produto:p.nome,
 
-quantidade:
-Number(quantidades[p.nome]),
+quantidade:Number(quantidades[p.nome]),
 
-preco:
-precoProduto(p.nome),
-
-custo:
-Number(p.custo||0)
+preco:precoProduto(p.nome)
 
 }));
 
+
 if(!itens.length){
 
-alert("Escolha pelo menos um produto.");
-return;
-
-}
-
-const dataEntrega=document.getElementById(
-"dataEntrega"
-).value;
-
-const horaEntrega=document.getElementById(
-"horaEntrega"
-).value;
-
-if(horaEntrega&&!dataEntrega){
-
-alert(
-"Para informar o horário, informe também a data."
-);
+alert("Adicione pelo menos um produto.");
 
 return;
 
 }
+
 
 const pedido={
 
@@ -1403,98 +1179,59 @@ data:new Date().toISOString(),
 
 itens,
 
+dataEntrega:
+document.getElementById("dataEntrega").value,
+
+horaEntrega:
+document.getElementById("horaEntrega").value,
+
 observacao:
-document.getElementById(
-"observacaoPedido"
-).value.trim(),
-
-dataEntrega:dataEntrega||"",
-
-horaEntrega:horaEntrega||"",
+document.getElementById("observacaoPedido").value.trim(),
 
 statusEntrega:
-dataEntrega
-?
-"A entregar"
-:
-"Sem entrega programada",
+document.getElementById("dataEntrega").value
+?"A entregar"
+:"Sem entrega programada",
 
-preparadoEm:"",
+entregueEm:"",
 
-entregueEm:""
+preparadoEm:""
 
 };
 
+
 banco.pedidos.push(pedido);
 
-itens.forEach(item=>{
-
-banco.estoque[item.produto]=
-Number(banco.estoque[item.produto]||0)-
-Number(item.quantidade);
-
-});
 
 if(!salvarBanco()){
 
-banco.pedidos=
-banco.pedidos.filter(
-p=>p.id!==pedido.id
-);
-
-itens.forEach(item=>{
-
-banco.estoque[item.produto]=
-Number(banco.estoque[item.produto]||0)+
-Number(item.quantidade);
-
-});
+banco.pedidos.pop();
 
 return;
 
 }
 
-document.getElementById(
-"observacaoPedido"
-).value="";
-
-document.getElementById(
-"dataEntrega"
-).value="";
-
-document.getElementById(
-"horaEntrega"
-).value="";
 
 iniciarQuantidades();
 
-renderizar();
+document.getElementById("dataEntrega").value="";
+document.getElementById("horaEntrega").value="";
+document.getElementById("observacaoPedido").value="";
 
-alert(
-"✓ Pedido salvo!\n\n"+
-"Total: "+
-dinheiro(totalPedido(pedido))+
-(
-dataEntrega
-?
-"\nEntrega: "+
-dataBR(dataEntrega)+
-(
-horaEntrega
-?
-" às "+horaEntrega
-:""
-)
-:""
-)
+
+mostrarStatus(
+"statusSistema",
+"✓ Pedido salvo com sucesso."
 );
+
+renderizar();
 
 }
 
 
-function totalPedido(pedido){
+function totalPedido(p){
 
-return (pedido.itens||[]).reduce(
+return(p.itens||[]).reduce(
 (t,i)=>
 t+
 Number(i.quantidade||0)*
@@ -1505,22 +1242,25 @@ Number(i.preco||0),
 }
 
 
-function custoPedido(pedido){
+function custoPedido(p){
 
-return (pedido.itens||[]).reduce(
-(t,i)=>
-t+
+return(p.itens||[]).reduce(
+(t,i)=>{
+
+const produto=PRODUTOS.find(
+x=>x.nome===i.produto
+);
+
+return t+
 Number(i.quantidade||0)*
-Number(i.custo||0),
+Number(produto?.custo||0);
+
+},
 0
 );
 
 }
 
-
-/* =====================================================
-PAGAMENTOS
-===================================================== */
 
 function totalPagoPedido(pid){
 
@@ -1543,39 +1283,55 @@ p=>p.id===pid
 if(!pedido)return;
 
 const total=totalPedido(pedido);
+
 const pago=totalPagoPedido(pid);
-const restante=total-pago;
+
+const restante=Math.max(
+0,
+total-pago
+);
 
 if(restante<=0){
 
-alert("Este pedido já está totalmente pago.");
+alert(
+"Este pedido já está totalmente pago."
+);
+
 return;
 
 }
 
-let valor=prompt(
-"Pagamento em "+metodo+
-"\n\nRestante: "+dinheiro(restante),
-restante.toFixed(2)
+
+const entrada=prompt(
+`Pagamento — ${metodo}\n\nRestante: ${dinheiro(restante)}\n\nDigite o valor recebido:`,
+restante.toFixed(2).replace(".",",")
 );
 
-if(valor===null)return;
+if(entrada===null)return;
 
-valor=Number(
-String(valor).replace(",",".")
+const valor=Number(
+String(entrada)
+.replace("R$","")
+.replace(/\s/g,"")
+.replace(/\./g,"")
+.replace(",",".")
 );
 
 if(!Number.isFinite(valor)||valor<=0){
 
 alert("Valor inválido.");
+
 return;
 
 }
 
-if(valor>restante)
-valor=restante;
 
-const pagamento={
+const valorFinal=Math.min(
+valor,
+restante
+);
+
+banco.pagamentos.push({
 
 id:novoId(),
 
@@ -1583,41 +1339,32 @@ pedidoId:pid,
 
 clienteId:pedido.clienteId,
 
-valor,
+valor:valorFinal,
 
 metodo,
 
 data:new Date().toISOString()
 
-};
+});
 
-banco.pagamentos.push(pagamento);
 
 if(!salvarBanco()){
 
-banco.pagamentos=
-banco.pagamentos.filter(
-p=>p.id!==pagamento.id
-);
+banco.pagamentos.pop();
 
 return;
 
 }
 
+
 renderizar();
 
 alert(
-"✓ Pagamento confirmado!\n\n"+
-"Forma: "+metodo+
-"\nValor: "+dinheiro(valor)
+`✓ Pagamento registrado!\n\nForma: ${metodo}\nValor: ${dinheiro(valorFinal)}`
 );
 
 }
 
-
-/* =====================================================
-ENTREGAS
-===================================================== */
 
 function classeEntrega(status){
 
@@ -1635,51 +1382,39 @@ return"badge-sem";
 }
 
 
-function alterarStatusEntrega(pid,novoStatus){
+function alterarStatusEntrega(pid,status){
 
-const pedido=banco.pedidos.find(
-p=>p.id===pid
+const p=banco.pedidos.find(
+x=>x.id===pid
 );
 
-if(!pedido)return;
+if(!p)return;
 
-const anteriorStatus=pedido.statusEntrega;
-const anteriorEntregue=pedido.entregueEm;
-const anteriorPreparado=pedido.preparadoEm;
+const anterior={
+statusEntrega:p.statusEntrega,
+preparadoEm:p.preparadoEm,
+entregueEm:p.entregueEm
+};
 
-if(novoStatus==="Entregue"){
 
-if(!confirm(
-"Confirmar que este pedido foi entregue agora?"
-))
-return;
+p.statusEntrega=status;
 
-pedido.statusEntrega="Entregue";
-pedido.entregueEm=new Date().toISOString();
 
-}else if(novoStatus==="Em preparação"){
+if(status==="Em preparação")
+p.preparadoEm=new Date().toISOString();
 
-pedido.statusEntrega="Em preparação";
 
-if(!pedido.preparadoEm){
+if(status==="Entregue")
+p.entregueEm=new Date().toISOString();
 
-pedido.preparadoEm=
-new Date().toISOString();
 
-}
+if(status!=="Entregue")
+p.entregueEm="";
 
-}else{
-
-pedido.statusEntrega="A entregar";
-pedido.entregueEm="";
-
-}
 
 if(!salvarBanco()){
 
-pedido.statusEntrega=anteriorStatus;
-pedido.entregueEm=anteriorEntregue;
-pedido.preparadoEm=anteriorPreparado;
+Object.assign(p,anterior);
 
 return;
 
@@ -1689,10 +1424,6 @@ renderizar();
 
 }
 
-
-/* =====================================================
-PEDIDOS
-===================================================== */
 
 function mostrarPedidos(){
 
@@ -1708,10 +1439,18 @@ lista.innerHTML=
 
 pedidos.map(p=>{
 
-const cliente=clientePorId(p.clienteId);
+const cliente=clientePorId(
+p.clienteId
+);
+
 const total=totalPedido(p);
+
 const pago=totalPagoPedido(p.id);
-const restante=Math.max(0,total-pago);
+
+const restante=Math.max(
+0,
+total-pago
+);
 
 const status=
 p.statusEntrega||
@@ -1723,7 +1462,8 @@ p.dataEntrega
 "Sem entrega programada"
 );
 
-return `
+
+return`
 
 <div class="box">
 
@@ -1784,10 +1524,12 @@ status==="A entregar"
 
 </span>
 
+
 ${
 p.dataEntrega
 ?
 `
+
 <div class="data-entrega">
 
 <b>🚚 Entrega programada</b>
@@ -1816,9 +1558,11 @@ ${dataHoraBR(p.entregueEm)}
 }
 
 </div>
+
 `
 :""
 }
+
 
 <br>
 
@@ -1841,65 +1585,112 @@ ${dinheiro(i.quantidade*i.preco)}
 `).join("")}
 
 
+<!-- PAGAMENTO -->
+
 <div class="pagamento">
+
+<h3 style="margin-top:0">
+💳 PAGAMENTO
+</h3>
+
+<div class="box" style="background:#fff">
 
 <div class="row">
 
-<b>Pagamento</b>
+<div>
+Total do pedido
+</div>
 
-<span class="${restante<=0?"ok":"debt"}">
-
-${
-restante<=0
-?
-"✓ PAGO"
-:
-"⏳ PENDENTE"
-}
-
-</span>
+<strong>
+${dinheiro(total)}
+</strong>
 
 </div>
 
-<div class="small">
+<div class="row">
 
-Total: ${dinheiro(total)}
-<br>
-Pago: ${dinheiro(pago)}
-<br>
-Restante: ${dinheiro(restante)}
+<div>
+Já pago
+</div>
+
+<strong class="ok">
+${dinheiro(pago)}
+</strong>
 
 </div>
+
+<div class="row">
+
+<div>
+Restante
+</div>
+
+<strong class="${restante>0?"debt":"ok"}">
+${dinheiro(restante)}
+</strong>
+
+</div>
+
+</div>
+
 
 ${
 restante>0
 ?
 `
+
+<div style="
+margin-top:10px;
+font-weight:bold;
+text-align:center;
+">
+
+Escolha a forma de pagamento:
+
+</div>
+
 <div class="metodos">
 
-<button onclick="registrarPagamento('${p.id}','Dinheiro')">
+<button
+type="button"
+onclick="registrarPagamento('${p.id}','Dinheiro')"
+>
 💵 Dinheiro
 </button>
 
-<button onclick="registrarPagamento('${p.id}','Pix')">
+<button
+type="button"
+onclick="registrarPagamento('${p.id}','Pix')"
+>
 📱 Pix
 </button>
 
-<button onclick="registrarPagamento('${p.id}','Cartão')">
+<button
+type="button"
+onclick="registrarPagamento('${p.id}','Cartão')"
+>
 💳 Cartão
 </button>
 
-<button onclick="registrarPagamento('${p.id}','Outros')">
+<button
+type="button"
+onclick="registrarPagamento('${p.id}','Outros')"
+>
 🔹 Outros
 </button>
 
 </div>
+
 `
 :
 `
-<div class="ok">
-✓ Pagamento totalmente confirmado.
+
+<div class="status ok" style="margin-top:10px">
+
+✓ PAGAMENTO TOTALMENTE CONFIRMADO
+
 </div>
+
 `
 }
 
@@ -1910,9 +1701,11 @@ ${
 status==="A entregar"
 ?
 `
+
 <button
 class="botao-preparar"
-onclick="alterarStatusEntrega('${p.id}','Em preparação')">
+onclick="alterarStatusEntrega('${p.id}','Em preparação')"
+>
 
 🔵 Marcar como em preparação
 
@@ -1920,11 +1713,13 @@ onclick="alterarStatusEntrega('${p.id}','Em preparação')">
 
 <button
 class="botao-entrega"
-onclick="alterarStatusEntrega('${p.id}','Entregue')">
+onclick="alterarStatusEntrega('${p.id}','Entregue')"
+>
 
 ✅ MARCAR COMO ENTREGUE
 
 </button>
+
 `
 :""
 }
@@ -1934,13 +1729,16 @@ ${
 status==="Em preparação"
 ?
 `
+
 <button
 class="botao-entrega"
-onclick="alterarStatusEntrega('${p.id}','Entregue')">
+onclick="alterarStatusEntrega('${p.id}','Entregue')"
+>
 
 ✅ MARCAR COMO ENTREGUE
 
 </button>
+
 `
 :""
 }
@@ -1950,13 +1748,16 @@ ${
 status==="Entregue"
 ?
 `
+
 <button
 class="botao-voltar"
-onclick="alterarStatusEntrega('${p.id}','A entregar')">
+onclick="alterarStatusEntrega('${p.id}','A entregar')"
+>
 
 ↩️ Voltar para A entregar
 
 </button>
+
 `
 :""
 }
@@ -1966,12 +1767,14 @@ ${
 p.observacao
 ?
 `
+
 <div class="small" style="margin-top:10px">
 
 📝 Obs.:
 ${escapar(p.observacao)}
 
 </div>
+
 `
 :""
 }
@@ -1989,122 +1792,111 @@ ${escapar(p.observacao)}
 }
 
 
-/* =====================================================
-ENTREGAS
-===================================================== */
-
 function mostrarEntregas(){
 
-const area=document.getElementById(
+const lista=document.getElementById(
 "listaEntregas"
 );
 
-if(!area)return;
+if(!lista)return;
 
-const filtroData=
+const data=
 document.getElementById(
 "filtroEntregaData"
 )?.value||"";
 
-const filtroStatus=
+const filtro=
 document.getElementById(
 "filtroEntregaStatus"
 )?.value||"";
 
-let pedidos=banco.pedidos.filter(
-p=>p.dataEntrega
-);
 
-if(filtroData){
+let pedidos=banco.pedidos
+.filter(p=>p.dataEntrega);
+
+
+if(data){
 
 pedidos=pedidos.filter(
-p=>p.dataEntrega===filtroData
+p=>p.dataEntrega===data
 );
 
 }
 
-if(filtroStatus){
+
+if(filtro){
 
 pedidos=pedidos.filter(
 p=>
-(p.statusEntrega||"A entregar")===
-filtroStatus
+(p.statusEntrega||
+"A entregar")===filtro
 );
 
 }
 
-pedidos.sort(
-(a,b)=>
-(a.dataEntrega||"9999-99-99")
+
+pedidos.sort((a,b)=>
+(a.dataEntrega+" "+(a.horaEntrega||"99:99"))
 .localeCompare(
-b.dataEntrega||"9999-99-99"
-)
-||
-(a.horaEntrega||"99:99")
-.localeCompare(
-b.horaEntrega||"99:99"
+b.dataEntrega+" "+(b.horaEntrega||"99:99")
 )
 );
 
-area.innerHTML=
+
+lista.innerHTML=
 
 pedidos.map(p=>{
 
-const cliente=clientePorId(p.clienteId);
-const total=totalPedido(p);
-const pago=totalPagoPedido(p.id);
-const restante=Math.max(0,total-pago);
+const cliente=
+clientePorId(p.clienteId);
 
-const status=p.statusEntrega||"A entregar";
+const status=
+p.statusEntrega||
+"A entregar";
 
-return `
+const total=
+totalPedido(p);
 
-<div class="box entrega-box">
+const pago=
+totalPagoPedido(p.id);
+
+const restante=
+Math.max(0,total-pago);
+
+
+return`
+
+<div class="box">
 
 <div class="row">
 
 <div>
 
-<h3 style="margin:0">
-
+<b>
 ${escapar(cliente?.nome||"Cliente")}
-
-</h3>
+</b>
 
 <div class="small">
-
-📞
-${escapar(
-cliente?.telefone||
-"Telefone não informado"
-)}
-
+${escapar(cliente?.telefone||"")}
 </div>
 
 </div>
+
+<strong class="total">
+${dinheiro(total)}
+</strong>
+
+</div>
+
+<br>
 
 <span class="badge ${classeEntrega(status)}">
-
-${
-status==="Entregue"
-?
-"✓ ENTREGUE"
-:
-status==="Em preparação"
-?
-"🔵 EM PREPARAÇÃO"
-:
-"🟡 A ENTREGAR"
-}
-
+${status}
 </span>
-
-</div>
-
 
 <div class="data-entrega">
 
-<b>🚚 Data da entrega</b>
+<b>🚚 Entrega programada</b>
 
 <br>
 
@@ -2113,17 +1905,9 @@ status==="Em preparação"
 ${
 p.horaEntrega
 ?
-`
-<br>
-🕐 <b>${p.horaEntrega}</b>
-`
+"<br>🕐 <b>"+p.horaEntrega+"</b>"
 :
-`
-<br>
-<span class="small">
-Horário não informado
-</span>
-`
+"<br><span class='small'>Horário não informado</span>"
 }
 
 ${
@@ -2135,22 +1919,23 @@ p.entregueEm
 <br>
 ${dataHoraBR(p.entregueEm)}
 `
-:""
+:
+""
 }
 
 </div>
 
-
 <h4>📦 Produtos</h4>
 
-${
-p.itens.map(i=>`
+${p.itens.map(i=>`
 
 <div class="produto-destaque">
 
 <div>
 
-<b>${escapar(i.produto)}</b>
+<b>
+${escapar(i.produto)}
+</b>
 
 <div class="small">
 ${i.quantidade} unidade(s)
@@ -2164,9 +1949,7 @@ ${dinheiro(i.quantidade*i.preco)}
 
 </div>
 
-`).join("")
-}
-
+`).join("")}
 
 <div class="row" style="margin-top:12px">
 
@@ -2190,7 +1973,6 @@ restante<=0
 
 </div>
 
-
 ${
 p.observacao
 ?
@@ -2205,63 +1987,66 @@ ${escapar(p.observacao)}
 
 </div>
 `
-:""
+:
+""
 }
-
 
 ${
 status==="A entregar"
 ?
 `
+
 <button
 class="botao-preparar"
-onclick="alterarStatusEntrega('${p.id}','Em preparação')">
-
+onclick="alterarStatusEntrega('${p.id}','Em preparação')"
+>
 🔵 Marcar em preparação
-
 </button>
 
 <button
 class="botao-entrega"
-onclick="alterarStatusEntrega('${p.id}','Entregue')">
-
+onclick="alterarStatusEntrega('${p.id}','Entregue')"
+>
 ✅ CONFIRMAR ENTREGA
-
 </button>
-`
-:""
-}
 
+`
+:
+""
+}
 
 ${
 status==="Em preparação"
 ?
 `
+
 <button
 class="botao-entrega"
-onclick="alterarStatusEntrega('${p.id}','Entregue')">
-
+onclick="alterarStatusEntrega('${p.id}','Entregue')"
+>
 ✅ CONFIRMAR ENTREGA
-
 </button>
-`
-:""
-}
 
+`
+:
+""
+}
 
 ${
 status==="Entregue"
 ?
 `
+
 <button
 class="botao-voltar"
-onclick="alterarStatusEntrega('${p.id}','A entregar')">
-
+onclick="alterarStatusEntrega('${p.id}','A entregar')"
+>
 ↩️ Voltar para A entregar
-
 </button>
+
 `
-:""
+:
+""
 }
 
 </div>
@@ -2281,17 +2066,10 @@ atualizarKpisEntregas();
 
 function mostrarEntregasHoje(){
 
-const data=document.getElementById(
-"filtroEntregaData"
-);
+filtroEntregaData.value=
+hojeISO();
 
-const status=document.getElementById(
-"filtroEntregaStatus"
-);
-
-if(data)data.value=hojeISO();
-
-if(status)status.value="";
+filtroEntregaStatus.value="";
 
 mostrarEntregas();
 
@@ -2300,13 +2078,9 @@ mostrarEntregas();
 
 function limparFiltrosEntregas(){
 
-document.getElementById(
-"filtroEntregaData"
-).value="";
+filtroEntregaData.value="";
 
-document.getElementById(
-"filtroEntregaStatus"
-).value="";
+filtroEntregaStatus.value="";
 
 mostrarEntregas();
 
@@ -2315,54 +2089,42 @@ mostrarEntregas();
 
 function atualizarKpisEntregas(){
 
-const hoje=hojeISO();
+const h=hojeISO();
 
-const hojeCount=banco.pedidos.filter(
-p=>p.dataEntrega===hoje
+const hc=banco.pedidos
+.filter(
+p=>p.dataEntrega===h
 ).length;
 
-const pendentes=banco.pedidos.filter(
-p=>
-p.dataEntrega &&
+const pe=banco.pedidos
+.filter(
+p=>p.dataEntrega &&
 p.statusEntrega!=="Entregue"
 ).length;
 
-const entregues=banco.pedidos.filter(
+const en=banco.pedidos
+.filter(
 p=>p.statusEntrega==="Entregue"
 ).length;
 
-document.getElementById(
-"entregasHojeKpi"
-).textContent=hojeCount;
+entregasHojeKpi.textContent=hc;
 
-document.getElementById(
-"entregasPendentesKpi"
-).textContent=pendentes;
+entregasPendentesKpi.textContent=pe;
 
-document.getElementById(
-"entregasConcluidasKpi"
-).textContent=entregues;
+entregasConcluidasKpi.textContent=en;
 
-document.getElementById(
-"totalEntregasHoje"
-).textContent=hojeCount;
+totalEntregasHoje.textContent=hc;
 
 }
 
 
-/* =====================================================
-CONTAS
-===================================================== */
-
 function abrirConta(id){
 
-document.querySelector(
-'[data-tab="contas"]'
-).click();
+document
+.querySelector('[data-tab="contas"]')
+.click();
 
-document.getElementById(
-"clienteConta"
-).value=id;
+clienteConta.value=id;
 
 mostrarConta();
 
@@ -2371,11 +2133,13 @@ mostrarConta();
 
 function mostrarConta(){
 
-const id=document.getElementById(
+const id=
+document.getElementById(
 "clienteConta"
 )?.value;
 
-const area=document.getElementById(
+const area=
+document.getElementById(
 "resultadoConta"
 );
 
@@ -2384,45 +2148,39 @@ if(!area)return;
 if(!id){
 
 area.innerHTML="";
+
 return;
 
 }
 
-const cliente=clientePorId(id);
 
-if(!cliente){
+const c=clientePorId(id);
 
-area.innerHTML="";
-return;
+const ps=banco.pedidos
+.filter(p=>p.clienteId===id);
 
-}
+const pg=banco.pagamentos
+.filter(p=>p.clienteId===id);
 
-const pedidos=banco.pedidos.filter(
-p=>p.clienteId===id
-);
-
-const pagamentos=banco.pagamentos.filter(
-p=>p.clienteId===id
-);
-
-const compras=pedidos.reduce(
+const compras=ps.reduce(
 (t,p)=>t+totalPedido(p),
 0
 );
 
-const pagos=pagamentos.reduce(
+const pagos=pg.reduce(
 (t,p)=>t+Number(p.valor||0),
 0
 );
 
 const saldo=compras-pagos;
 
+
 area.innerHTML=`
 
 <div class="card">
 
 <h2>
-Conta: ${escapar(cliente.nome)}
+Conta: ${escapar(c.nome)}
 </h2>
 
 <div class="kpis">
@@ -2454,93 +2212,30 @@ ${dinheiro(saldo)}
 <h3>📋 Pedidos</h3>
 
 ${
-pedidos.map(p=>`
+ps.map(p=>`
 
 <div class="box">
 
-<div class="row">
-
-<b>
 ${new Date(p.data)
 .toLocaleDateString("pt-BR")}
-</b>
 
-<span class="badge ${classeEntrega(
-p.statusEntrega
-)}">
-
-${p.statusEntrega||"Sem entrega"}
-
-</span>
-
-</div>
-
-
-${
-p.dataEntrega
-?
-`
-<div class="data-entrega">
-
-🚚 ${dataBR(p.dataEntrega)}
-
-${
-p.horaEntrega
-?
-" às "+p.horaEntrega
-:""
-}
-
-${
-p.entregueEm
-?
-`
-<br>
-✅ ${dataHoraBR(p.entregueEm)}
-`
-:""
-}
-
-</div>
-`
-:""
-}
-
-
-<br>
-
-${
-p.itens.map(i=>`
-
-<div>
-
-${escapar(i.produto)}
 —
-${i.quantidade}
-×
-${dinheiro(i.preco)}
-=
-${dinheiro(i.quantidade*i.preco)}
-
-</div>
-
-`).join("")
-}
-
-<hr>
 
 <b>
-Total: ${dinheiro(totalPedido(p))}
+${dinheiro(totalPedido(p))}
 </b>
+
+<br>
+
+${p.itens.map(i=>
+`${escapar(i.produto)} — ${i.quantidade} × ${dinheiro(i.preco)}`
+).join("<br>")}
 
 </div>
 
 `).join("")
-
 ||
-
 "<p>Nenhum pedido.</p>"
-
 }
 
 </div>
@@ -2551,7 +2246,7 @@ Total: ${dinheiro(totalPedido(p))}
 <h3>💳 Pagamentos</h3>
 
 ${
-pagamentos.map(p=>`
+pg.map(p=>`
 
 <div class="box">
 
@@ -2570,11 +2265,8 @@ Forma:
 </div>
 
 `).join("")
-
 ||
-
 "<p>Nenhum pagamento.</p>"
-
 }
 
 </div>
@@ -2584,10 +2276,6 @@ Forma:
 }
 
 
-/* =====================================================
-ESTOQUE
-===================================================== */
-
 function mostrarEstoque(){
 
 document.getElementById(
@@ -2596,42 +2284,40 @@ document.getElementById(
 
 PRODUTOS.map(p=>{
 
-const quantidade=
-Number(banco.estoque[p.nome]||0);
+const q=Number(
+banco.estoque[p.nome]||0
+);
 
-return `
+return`
 
 <div class="box">
 
 <div class="row">
 
-<b>${escapar(p.nome)}</b>
+<b>
+${escapar(p.nome)}
+</b>
 
-<span class="${quantidade<=3?"debt":"ok"}">
+<span class="${q<=3?"debt":"ok"}">
 
-${
-quantidade<=3
-?
-"⚠️ Estoque baixo"
-:
-"✓ Normal"
-}
+${q<=3
+?"⚠️ Estoque baixo"
+:"✓ Normal"}
 
 </span>
 
 </div>
 
 Quantidade:
-<strong>${quantidade}</strong>
+<strong>${q}</strong>
 
 <br><br>
 
 <button
 class="secondary"
-onclick='alterarEstoque(${JSON.stringify(p.nome)})'>
-
+onclick='alterarEstoque(${JSON.stringify(p.nome)})'
+>
 Alterar estoque
-
 </button>
 
 </div>
@@ -2645,36 +2331,33 @@ Alterar estoque
 
 function alterarEstoque(nome){
 
-const atual=
+const anterior=
 Number(banco.estoque[nome]||0);
 
 const valor=prompt(
 "Quantidade de "+nome,
-atual
+anterior
 );
 
 if(valor===null)return;
 
-const quantidade=
-Number(String(valor).replace(",","."));
+const q=Number(
+String(valor).replace(",",".")
+);
 
-if(
-!Number.isFinite(quantidade)||
-quantidade<0
-){
+if(!Number.isFinite(q)||q<0){
 
 alert("Quantidade inválida.");
+
 return;
 
 }
 
-const antigo=banco.estoque[nome];
-
-banco.estoque[nome]=quantidade;
+banco.estoque[nome]=q;
 
 if(!salvarBanco()){
 
-banco.estoque[nome]=antigo;
+banco.estoque[nome]=anterior;
 
 return;
 
@@ -2685,69 +2368,50 @@ renderizar();
 }
 
 
-/* =====================================================
-FINANCEIRO
-===================================================== */
-
 function mostrarFinanceiro(){
 
-const vendas=banco.pedidos.reduce(
+const vendas=
+banco.pedidos.reduce(
 (t,p)=>t+totalPedido(p),
 0
 );
 
-const recebido=banco.pagamentos.reduce(
+const recebido=
+banco.pagamentos.reduce(
 (t,p)=>t+Number(p.valor||0),
 0
 );
 
-const receber=vendas-recebido;
-
-const custo=banco.pedidos.reduce(
+const custo=
+banco.pedidos.reduce(
 (t,p)=>t+custoPedido(p),
 0
 );
 
-const lucro=vendas-custo;
 
-document.getElementById(
-"finVendas"
-).textContent=dinheiro(vendas);
+finVendas.textContent=
+dinheiro(vendas);
 
-document.getElementById(
-"finRecebido"
-).textContent=dinheiro(recebido);
+finRecebido.textContent=
+dinheiro(recebido);
 
-document.getElementById(
-"finReceber"
-).textContent=dinheiro(receber);
+finReceber.textContent=
+dinheiro(vendas-recebido);
 
-document.getElementById(
-"finCusto"
-).textContent=dinheiro(custo);
+finCusto.textContent=
+dinheiro(custo);
 
-document.getElementById(
-"finLucro"
-).textContent=dinheiro(lucro);
+finLucro.textContent=
+dinheiro(vendas-custo);
 
 }
 
 
-/* =====================================================
-PRODUTOS E PREÇOS
-===================================================== */
-
 function mostrarProdutos(){
 
-document.getElementById(
-"listaProdutos"
-).innerHTML=
+listaProdutos.innerHTML=
 
-PRODUTOS.map(p=>{
-
-const preco=precoProduto(p.nome);
-
-return `
+PRODUTOS.map(p=>`
 
 <div class="box">
 
@@ -2755,116 +2419,109 @@ return `
 
 <div>
 
-<b>${escapar(p.nome)}</b>
+<b>
+${escapar(p.nome)}
+</b>
 
 <div class="small">
 
 Custo:
-${
-p.custo>0
-?
-dinheiro(p.custo)
-:
-"Não informado"
-}
+${p.custo>0
+?dinheiro(p.custo)
+:"Não informado"}
 
 </div>
 
 <div class="preco-atual">
-${dinheiro(preco)}
+
+${dinheiro(precoProduto(p.nome))}
+
 </div>
 
 </div>
 
 <button
 class="primary"
-onclick='alterarPreco(${JSON.stringify(p.nome)})'>
-
+onclick='alterarPreco(${JSON.stringify(p.nome)})'
+>
 ✏️ Alterar preço
-
 </button>
 
 </div>
 
 </div>
 
-`;
-
-}).join("");
+`).join("");
 
 }
 
 
-/* =====================================================
-RELATÓRIO
-===================================================== */
-
 function gerarRelatorio(){
 
-const cid=document.getElementById(
+const id=
+document.getElementById(
 "clienteRelatorio"
 )?.value;
 
-const area=document.getElementById(
+const area=
+document.getElementById(
 "relatorio"
 );
 
 if(!area)return;
 
-if(!cid){
+if(!id){
 
 area.innerHTML="";
+
 return;
 
 }
 
-const cliente=clientePorId(cid);
 
-if(!cliente){
+const c=clientePorId(id);
 
-area.innerHTML="";
-return;
+const ps=banco.pedidos
+.filter(p=>p.clienteId===id);
 
-}
+const pg=banco.pagamentos
+.filter(p=>p.clienteId===id);
 
-const pedidos=banco.pedidos.filter(
-p=>p.clienteId===cid
-);
-
-const pagamentos=banco.pagamentos.filter(
-p=>p.clienteId===cid
-);
-
-const compras=pedidos.reduce(
+const compras=ps.reduce(
 (t,p)=>t+totalPedido(p),
 0
 );
 
-const pagos=pagamentos.reduce(
+const pagos=pg.reduce(
 (t,p)=>t+Number(p.valor||0),
 0
 );
 
 const saldo=compras-pagos;
 
+
 area.innerHTML=`
 
 <div class="card">
 
-<h2>RELATÓRIO DE CONTA</h2>
+<h2>
+RELATÓRIO DE CONTA
+</h2>
 
-<h3>🌾 Feito na Roça</h3>
+<h3>
+🌾 Feito na Roça
+</h3>
 
 <hr>
 
 <p>
 <strong>Cliente:</strong>
-${escapar(cliente.nome)}
+${escapar(c.nome)}
 </p>
 
 <p>
 <strong>Telefone:</strong>
-${escapar(cliente.telefone||"")}
+${escapar(c.telefone||"")}
 </p>
 
 <hr>
@@ -2872,7 +2529,7 @@ ${escapar(cliente.telefone||"")}
 <h3>📋 Pedidos</h3>
 
 ${
-pedidos.map(p=>`
+ps.map(p=>`
 
 <div class="box">
 
@@ -2889,105 +2546,25 @@ ${dinheiro(totalPedido(p))}
 
 </div>
 
-<div style="margin-top:8px">
-
-<span class="badge ${classeEntrega(
-p.statusEntrega
-)}">
-
-${p.statusEntrega||"Sem entrega"}
-
-</span>
-
-</div>
-
-
-${
-p.dataEntrega
-?
-`
-<div class="data-entrega">
-
-🚚 Entrega:
-${dataBR(p.dataEntrega)}
-
-${
-p.horaEntrega
-?
-" às "+p.horaEntrega
-:""
-}
-
-${
-p.entregueEm
-?
-`
-<br>
-✅ Entregue em:
-${dataHoraBR(p.entregueEm)}
-`
-:""
-}
-
-</div>
-`
-:""
-}
-
-
 <br>
 
-${
-p.itens.map(i=>`
-
-<div>
-
-${escapar(i.produto)}
-
-<br>
-
-${i.quantidade}
-×
-${dinheiro(i.preco)}
-=
-<strong>
-${dinheiro(i.quantidade*i.preco)}
-</strong>
-
-</div>
-
-`).join("<hr>")
-}
-
-
-${
-p.observacao
-?
-`
-<div class="small">
-📝 ${escapar(p.observacao)}
-</div>
-`
-:""
-}
+${p.itens.map(i=>
+`${escapar(i.produto)} — ${i.quantidade} × ${dinheiro(i.preco)} = <strong>${dinheiro(i.quantidade*i.preco)}</strong>`
+).join("<hr>")}
 
 </div>
 
 `).join("")
-
 ||
-
 "<p>Nenhum pedido.</p>"
-
 }
-
 
 <hr>
 
 <h3>💳 Pagamentos</h3>
 
 ${
-pagamentos.map(p=>`
+pg.map(p=>`
 
 <div class="box">
 
@@ -2996,27 +2573,19 @@ ${dataHoraBR(p.data)}
 <br>
 
 Valor:
-<strong>
-${dinheiro(p.valor)}
-</strong>
+<strong>${dinheiro(p.valor)}</strong>
 
 <br>
 
 Forma:
-<strong>
-${escapar(p.metodo)}
-</strong>
+<strong>${escapar(p.metodo)}</strong>
 
 </div>
 
 `).join("")
-
 ||
-
 "<p>Nenhum pagamento.</p>"
-
 }
-
 
 <hr>
 
@@ -3046,8 +2615,7 @@ ${dinheiro(saldo)}
 <div style="text-align:center">
 
 <strong>
-Feito na Roça —
-O verdadeiro sabor da roça na sua mesa.
+Feito na Roça — O verdadeiro sabor da roça na sua mesa.
 </strong>
 
 </div>
@@ -3059,92 +2627,87 @@ O verdadeiro sabor da roça na sua mesa.
 }
 
 
-/* =====================================================
-SELECTS
-===================================================== */
-
 function atualizarSelects(){
 
-const html=
+const h=
 '<option value="">Selecione...</option>'+
 banco.clientes.map(c=>
-`
-<option value="${c.id}">
+`<option value="${c.id}">
 ${escapar(c.nome)}
-</option>
-`
+</option>`
 ).join("");
 
-document.getElementById(
-"clientePedido"
-).innerHTML=html;
 
-document.getElementById(
-"clienteConta"
-).innerHTML=html;
+clientePedido.innerHTML=h;
 
-document.getElementById(
-"clienteRelatorio"
-).innerHTML=html;
+clienteConta.innerHTML=h;
+
+clienteRelatorio.innerHTML=h;
 
 }
 
 
-/* =====================================================
-INÍCIO
-===================================================== */
-
 function mostrarInicio(){
 
-const vendas=banco.pedidos.reduce(
+const vendas=
+banco.pedidos.reduce(
 (t,p)=>t+totalPedido(p),
 0
 );
 
-const receber=banco.clientes.reduce(
+const receber=
+banco.clientes.reduce(
 (t,c)=>
-t+Math.max(0,saldoCliente(c.id)),
+t+
+Math.max(
+0,
+saldoCliente(c.id)
+),
 0
 );
 
-document.getElementById(
-"totalClientes"
-).textContent=banco.clientes.length;
 
-document.getElementById(
-"totalPedidos"
-).textContent=banco.pedidos.length;
+totalClientes.textContent=
+banco.clientes.length;
 
-document.getElementById(
-"totalVendas"
-).textContent=dinheiro(vendas);
+totalPedidos.textContent=
+banco.pedidos.length;
 
-document.getElementById(
-"totalReceber"
-).textContent=dinheiro(receber);
+totalVendas.textContent=
+dinheiro(vendas);
 
-document.getElementById(
-"resumoInicio"
-).innerHTML=`
+totalReceber.textContent=
+dinheiro(receber);
+
+
+resumoInicio.innerHTML=`
 
 <div class="box">
 Clientes:
-<strong>${banco.clientes.length}</strong>
+<strong>
+${banco.clientes.length}
+</strong>
 </div>
 
 <div class="box">
 Pedidos:
-<strong>${banco.pedidos.length}</strong>
+<strong>
+${banco.pedidos.length}
+</strong>
 </div>
 
 <div class="box">
 Vendas:
-<strong>${dinheiro(vendas)}</strong>
+<strong>
+${dinheiro(vendas)}
+</strong>
 </div>
 
 <div class="box">
 A receber:
-<strong>${dinheiro(receber)}</strong>
+<strong>
+${dinheiro(receber)}
+</strong>
 </div>
 
 `;
@@ -3156,12 +2719,10 @@ mostrarResumoEntregas();
 
 function mostrarResumoEntregas(){
 
-const hoje=hojeISO();
-
-const pedidos=banco.pedidos
+const ps=banco.pedidos
 .filter(
 p=>
-p.dataEntrega===hoje &&
+p.dataEntrega===hojeISO() &&
 p.statusEntrega!=="Entregue"
 )
 .sort(
@@ -3172,30 +2733,20 @@ b.horaEntrega||"99:99"
 )
 );
 
-const area=document.getElementById(
-"resumoEntregas"
+
+resumoEntregas.innerHTML=
+
+ps.length
+
+?
+
+ps.map(p=>{
+
+const c=clientePorId(
+p.clienteId
 );
 
-if(!area)return;
-
-if(!pedidos.length){
-
-area.innerHTML=`
-<div class="vazio">
-✓ Nenhuma entrega pendente para hoje.
-</div>
-`;
-
-return;
-
-}
-
-area.innerHTML=
-pedidos.map(p=>{
-
-const c=clientePorId(p.clienteId);
-
-return `
+return`
 
 <div class="box">
 
@@ -3213,12 +2764,9 @@ ${p.horaEntrega||"Horário não informado"}
 
 <div class="small">
 
-${p.itens
-.map(i=>
-escapar(i.produto)+
-" × "+i.quantidade
-)
-.join(" • ")}
+${p.itens.map(i=>
+escapar(i.produto)+" × "+i.quantidade
+).join(" • ")}
 
 </div>
 
@@ -3226,40 +2774,42 @@ escapar(i.produto)+
 
 `;
 
-}).join("");
+}).join("")
+
+:
+
+"<div class='vazio'>✓ Nenhuma entrega pendente para hoje.</div>";
 
 }
 
-
-/* =====================================================
-BACKUP
-===================================================== */
 
 function fazerBackup(){
 
 try{
 
-const dados=JSON.stringify(
+const blob=new Blob(
+[
+JSON.stringify(
 banco,
 null,
 2
+)
+],
+{
+type:"application/json"
+}
 );
 
-const blob=new Blob(
-[dados],
-{type:"application/json"}
-);
+const url=
+URL.createObjectURL(blob);
 
-const url=URL.createObjectURL(blob);
-
-const a=document.createElement("a");
+const a=
+document.createElement("a");
 
 a.href=url;
 
 a.download=
-"backup-feito-na-roca-"+
-hojeISO()+
-".json";
+"backup-feito-na-roca-"+hojeISO()+".json";
 
 document.body.appendChild(a);
 
@@ -3268,20 +2818,15 @@ a.click();
 a.remove();
 
 setTimeout(
-()=>{
-URL.revokeObjectURL(url);
-},
+()=>URL.revokeObjectURL(url),
 1000
 );
 
 alert(
-"✓ Backup gerado com sucesso.\n\n"+
-"Clientes, pedidos, pagamentos, estoque, preços e entregas foram incluídos."
+"✓ Backup gerado com sucesso."
 );
 
 }catch(e){
-
-console.error(e);
 
 alert(
 "❌ Não foi possível gerar o backup."
@@ -3292,126 +2837,92 @@ alert(
 }
 
 
-/* =====================================================
-RESTAURAR BACKUP
-===================================================== */
+function restaurarBackup(ev){
 
-function restaurarBackup(event){
+const ar=
+ev.target.files?.[0];
 
-const arquivo=
-event.target.files?.[0];
-
-if(!arquivo)return;
+if(!ar)return;
 
 if(!confirm(
 "Restaurar este backup?\n\nOs dados atuais serão substituídos pelos dados do arquivo."
 )){
 
-event.target.value="";
+ev.target.value="";
 
 return;
 
 }
 
-const reader=new FileReader();
 
-reader.onload=function(){
+const r=new FileReader();
+
+
+r.onload=()=>{
 
 try{
 
-const dados=JSON.parse(
-reader.result
-);
+const d=
+JSON.parse(r.result);
+
 
 if(
-!dados ||
-!Array.isArray(dados.clientes) ||
-!Array.isArray(dados.pedidos)
-){
+!d||
+!Array.isArray(d.clientes)||
+!Array.isArray(d.pedidos)
+)
+throw Error();
 
-throw new Error("Backup inválido");
-
-}
 
 banco={
 
-clientes:dados.clientes||[],
+clientes:d.clientes||[],
 
-pedidos:dados.pedidos||[],
+pedidos:d.pedidos||[],
 
-pagamentos:dados.pagamentos||[],
+pagamentos:d.pagamentos||[],
 
-estoque:dados.estoque||{},
+estoque:d.estoque||{},
 
-precos:dados.precos||{}
+precos:d.precos||{}
 
 };
 
 
-/*
-Garante produtos atuais
-sem apagar o que veio no backup.
-*/
-
 PRODUTOS.forEach(p=>{
 
-if(
-banco.estoque[p.nome]===undefined
-){
+banco.estoque[p.nome]??=0;
 
-banco.estoque[p.nome]=0;
-
-}
-
-if(
-banco.precos[p.nome]===undefined
-){
-
-banco.precos[p.nome]=
-Number(p.preco);
-
-}
+banco.precos[p.nome]??=p.preco;
 
 });
 
 
 banco.pedidos.forEach(p=>{
 
-if(p.dataEntrega===undefined)
-p.dataEntrega="";
+p.dataEntrega??="";
 
-if(p.horaEntrega===undefined)
-p.horaEntrega="";
+p.horaEntrega??="";
 
-if(p.entregueEm===undefined)
-p.entregueEm="";
+p.entregueEm??="";
 
-if(p.preparadoEm===undefined)
-p.preparadoEm="";
+p.preparadoEm??="";
 
-if(p.statusEntrega===undefined){
-
-p.statusEntrega=
+p.statusEntrega??=
+(
 p.dataEntrega
 ?
 "A entregar"
 :
-"Sem entrega programada";
-
-}
+"Sem entrega programada"
+);
 
 });
 
 
-if(!salvarBanco()){
+if(!salvarBanco())
+throw Error();
 
-alert(
-"❌ Não foi possível salvar o backup restaurado."
-);
-
-return;
-
-}
 
 renderizar();
 
@@ -3421,26 +2932,20 @@ alert(
 
 }catch(e){
 
-console.error(e);
-
 alert(
 "❌ Arquivo de backup inválido."
 );
 
 }
 
-event.target.value="";
+ev.target.value="";
 
 };
 
-reader.readAsText(arquivo);
+r.readAsText(ar);
 
 }
 
-
-/* =====================================================
-RENDERIZAR
-===================================================== */
 
 function renderizar(){
 
@@ -3469,15 +2974,11 @@ gerarRelatorio();
 }
 
 
-/* =====================================================
-NAVEGAÇÃO
-===================================================== */
-
 document
 .querySelectorAll("nav button")
-.forEach(botao=>{
+.forEach(b=>
 
-botao.addEventListener(
+b.addEventListener(
 "click",
 ()=>{
 
@@ -3487,45 +2988,33 @@ document
 s=>s.classList.remove("show")
 );
 
-const secao=document.getElementById(
-botao.dataset.tab
-);
-
-if(secao)
-secao.classList.add("show");
+document
+.getElementById(b.dataset.tab)
+?.classList.add("show");
 
 document
 .querySelectorAll("nav button")
 .forEach(
-b=>b.classList.remove("active")
+x=>x.classList.remove("active")
 );
 
-botao.classList.add("active");
+b.classList.add("active");
 
 renderizar();
 
 }
+
+)
 );
 
-});
-
-
-/* =====================================================
-INICIALIZAÇÃO
-===================================================== */
 
 iniciarQuantidades();
 
-if(!localStorage.getItem(CHAVE)){
-
+if(!localStorage.getItem(CHAVE))
 salvarBanco();
 
-}
-
 document
-.querySelector(
-'[data-tab="inicio"]'
-)
+.querySelector('[data-tab="inicio"]')
 .classList.add("active");
 
 renderizar();
