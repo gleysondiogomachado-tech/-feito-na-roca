@@ -8,232 +8,40 @@
 
 <style>
 *{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f1e8;color:#222}
+header{background:#2f6b3f;color:#fff;padding:16px;position:sticky;top:0;z-index:20}
+header h1{margin:0 0 4px;font-size:24px}
+.sub{font-size:13px}
+nav{display:flex;gap:6px;overflow:auto;background:#fff;padding:8px;position:sticky;top:70px;z-index:19;border-bottom:1px solid #ddd}
+nav button{border:0;border-radius:9px;padding:10px 12px;background:#e8eee7;white-space:nowrap;font-weight:bold}
+.active{background:#2f6b3f!important;color:#fff!important}
+main{max-width:1100px;margin:auto;padding:12px}
+section{display:none}
+section.show{display:block}
+.card{background:#fff;border-radius:14px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #0001}
+label{display:block;font-size:13px;font-weight:bold;margin:8px 0 5px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:9px;font-size:16px;background:#fff}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.primary{background:#2f6b3f;color:#fff;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}
+.secondary{background:#eee;border:0;border-radius:9px;padding:10px 13px;font-weight:bold}
+.danger{background:#b3261e;color:#fff;border:0;border-radius:8px;padding:8px 11px;font-weight:bold}
+.box{border:1px solid #ddd;border-radius:11px;padding:12px;margin-top:9px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.small{font-size:13px;color:#666}
+.total{font-size:21px;font-weight:bold;color:#2f6b3f}
+.ok{color:#17652a;font-weight:bold}
+.debt{color:#b3261e;font-weight:bold}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.kpi{background:#eef5ec;padding:14px;border-radius:11px}
+.kpi b{display:block;font-size:21px;margin-top:5px;color:#2f6b3f}
+.produtos{display:flex;flex-direction:column;gap:8px}
+.produto{display:grid;grid-template-columns:1fr 44px 65px 44px;gap:5px;align-items:center;border:1px solid #ddd;border-radius:10px;padding:8px}
+.produto button{width:44px;height:43px;border:0;border-radius:8px;background:#e8eee7;color:#285b34;font-size:24px;font-weight:bold}
+.produto input{width:65px;text-align:center;font-weight:bold}
+.produto-total{grid-column:1/-1;text-align:right;font-weight:bold}
+.total-pedido{margin-top:12px;padding:15px;background:#eef5ec;border-radius:11px;text-align:center;font-size:22px;font-weight:bold;color:#2f6b3f}
 
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f1e8;
-color:#222
-}
-
-header{
-background:#2f6b3f;
-color:#fff;
-padding:16px;
-position:sticky;
-top:0;
-z-index:20
-}
-
-header h1{
-margin:0 0 4px;
-font-size:24px
-}
-
-.sub{
-font-size:13px
-}
-
-nav{
-display:flex;
-gap:6px;
-overflow:auto;
-background:#fff;
-padding:8px;
-position:sticky;
-top:70px;
-z-index:19;
-border-bottom:1px solid #ddd
-}
-
-nav button{
-border:0;
-border-radius:9px;
-padding:10px 12px;
-background:#e8eee7;
-white-space:nowrap;
-font-weight:bold
-}
-
-.active{
-background:#2f6b3f!important;
-color:#fff!important
-}
-
-main{
-max-width:1100px;
-margin:auto;
-padding:12px
-}
-
-section{
-display:none
-}
-
-section.show{
-display:block
-}
-
-.card{
-background:#fff;
-border-radius:14px;
-padding:15px;
-margin-bottom:12px;
-box-shadow:0 2px 8px #0001
-}
-
-label{
-display:block;
-font-size:13px;
-font-weight:bold;
-margin:8px 0 5px
-}
-
-input,select,textarea{
-width:100%;
-padding:11px;
-border:1px solid #ccc;
-border-radius:9px;
-font-size:16px;
-background:#fff
-}
-
-button{
-cursor:pointer;
--webkit-tap-highlight-color:transparent
-}
-
-.primary{
-background:#2f6b3f;
-color:#fff;
-border:0;
-border-radius:9px;
-padding:11px 15px;
-font-weight:bold
-}
-
-.secondary{
-background:#eee;
-border:0;
-border-radius:9px;
-padding:10px 13px;
-font-weight:bold
-}
-
-.danger{
-background:#b3261e;
-color:#fff;
-border:0;
-border-radius:8px;
-padding:8px 11px;
-font-weight:bold
-}
-
-.box{
-border:1px solid #ddd;
-border-radius:11px;
-padding:12px;
-margin-top:9px
-}
-
-.row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:8px;
-flex-wrap:wrap
-}
-
-.small{
-font-size:13px;
-color:#666
-}
-
-.total{
-font-size:21px;
-font-weight:bold;
-color:#2f6b3f
-}
-
-.ok{
-color:#17652a;
-font-weight:bold
-}
-
-.debt{
-color:#b3261e;
-font-weight:bold
-}
-
-.kpis{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
-gap:10px
-}
-
-.kpi{
-background:#eef5ec;
-padding:14px;
-border-radius:11px
-}
-
-.kpi b{
-display:block;
-font-size:21px;
-margin-top:5px;
-color:#2f6b3f
-}
-
-.produtos{
-display:flex;
-flex-direction:column;
-gap:8px
-}
-
-.produto{
-display:grid;
-grid-template-columns:1fr 44px 65px 44px;
-gap:5px;
-align-items:center;
-border:1px solid #ddd;
-border-radius:10px;
-padding:8px
-}
-
-.produto button{
-width:44px;
-height:43px;
-border:0;
-border-radius:8px;
-background:#e8eee7;
-color:#285b34;
-font-size:24px;
-font-weight:bold
-}
-
-.produto input{
-width:65px;
-text-align:center;
-font-weight:bold
-}
-
-.produto-total{
-grid-column:1/-1;
-text-align:right;
-font-weight:bold
-}
-
-.total-pedido{
-margin-top:12px;
-padding:15px;
-background:#eef5ec;
-border-radius:11px;
-text-align:center;
-font-size:22px;
-font-weight:bold;
-color:#2f6b3f
-}
-
+/* PAGAMENTO */
 .pagamento{
 margin-top:12px;
 background:#f4f8f3;
@@ -241,14 +49,12 @@ border:2px solid #2f6b3f;
 border-radius:11px;
 padding:12px
 }
-
 .metodos{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:7px;
 margin-top:9px
 }
-
 .metodos button{
 border:1px solid #bbb;
 background:#fff;
@@ -258,169 +64,36 @@ font-weight:bold;
 font-size:15px
 }
 
-.status{
-padding:10px;
-border-radius:9px;
-margin-bottom:10px;
-font-weight:bold
-}
-
-.status.ok{
-background:#e8f5e9
-}
-
-.status.erro{
-background:#ffebee;
-color:#b3261e
-}
-
-.badge{
-display:inline-block;
-padding:7px 10px;
-border-radius:20px;
-font-size:13px;
-font-weight:bold
-}
-
-.badge-pendente{
-background:#fff3cd;
-color:#856404
-}
-
-.badge-preparacao{
-background:#dbeafe;
-color:#1e40af
-}
-
-.badge-entregue{
-background:#dcfce7;
-color:#166534
-}
-
-.badge-sem{
-background:#eee;
-color:#555
-}
-
-.data-entrega{
-background:#eef5ec;
-border-radius:10px;
-padding:10px;
-margin-top:10px
-}
-
-.botao-entrega,
-.botao-preparar,
-.botao-voltar{
-width:100%;
-padding:12px;
-margin-top:8px;
-border:0;
-border-radius:9px;
-font-weight:bold;
-font-size:15px
-}
-
-.botao-entrega{
-background:#2f6b3f;
-color:#fff
-}
-
-.botao-preparar{
-background:#e8eef7;
-color:#174a7e
-}
-
-.botao-voltar{
-background:#fff3cd;
-color:#856404
-}
-
-.produto-destaque{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-padding:10px;
-border:1px solid #ddd;
-border-radius:10px;
-margin-top:7px
-}
-
-.vazio{
-text-align:center;
-padding:20px;
-color:#777
-}
-
-.aviso{
-padding:11px;
-background:#fff8df;
-border:1px solid #ead78b;
-border-radius:10px;
-margin-top:10px
-}
-
-.preco-atual{
-font-size:20px;
-font-weight:bold;
-color:#2f6b3f;
-margin-top:5px
-}
-
-.linha-preco{
-display:grid;
-grid-template-columns:1fr auto;
-gap:12px;
-align-items:center
-}
-
-.lucro{
-color:#17652a;
-font-weight:bold
-}
-
-.prejuizo{
-color:#b3261e;
-font-weight:bold
-}
+.status{padding:10px;border-radius:9px;margin-bottom:10px;font-weight:bold}
+.status.ok{background:#e8f5e9}
+.status.erro{background:#ffebee;color:#b3261e}
+.badge{display:inline-block;padding:7px 10px;border-radius:20px;font-size:13px;font-weight:bold}
+.badge-pendente{background:#fff3cd;color:#856404}
+.badge-preparacao{background:#dbeafe;color:#1e40af}
+.badge-entregue{background:#dcfce7;color:#166534}
+.badge-sem{background:#eee;color:#555}
+.data-entrega{background:#eef5ec;border-radius:10px;padding:10px;margin-top:10px}
+.botao-entrega,.botao-preparar,.botao-voltar{width:100%;padding:12px;margin-top:8px;border:0;border-radius:9px;font-weight:bold;font-size:15px}
+.botao-entrega{background:#2f6b3f;color:#fff}
+.botao-preparar{background:#e8eef7;color:#174a7e}
+.botao-voltar{background:#fff3cd;color:#856404}
+.produto-destaque{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid #ddd;border-radius:10px;margin-top:7px}
+.vazio{text-align:center;padding:20px;color:#777}
+.aviso{padding:11px;background:#fff8df;border:1px solid #ead78b;border-radius:10px;margin-top:10px}
+.preco-atual{font-size:20px;font-weight:bold;color:#2f6b3f;margin-top:5px}
+.linha-preco{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
 
 @media(max-width:500px){
-
-.produto{
-grid-template-columns:1fr 40px 58px 40px
-}
-
-.produto button{
-width:40px
-}
-
-.produto input{
-width:58px
-}
-
-.linha-preco{
-grid-template-columns:1fr
-}
-
+.produto{grid-template-columns:1fr 40px 58px 40px}
+.produto button{width:40px}
+.produto input{width:58px}
+.linha-preco{grid-template-columns:1fr}
 }
 
 @media print{
-
-header,
-nav,
-.no-print{
-display:none!important
-}
-
-body{
-background:#fff
-}
-
-.card{
-box-shadow:none
-}
-
+header,nav,.no-print{display:none!important}
+body{background:#fff}
+.card{box-shadow:none}
 }
 </style>
 </head>
@@ -429,13 +102,10 @@ box-shadow:none
 
 <header>
 <h1>🌾 Feito na Roça</h1>
-<div class="sub">
-Clientes • Pedidos • Entregas • Pagamentos • Contas • Relatórios
-</div>
+<div class="sub">Clientes • Pedidos • Entregas • Pagamentos • Contas • Relatórios</div>
 </header>
 
 <nav>
-
 <button data-tab="inicio">Início</button>
 <button data-tab="clientes">Clientes</button>
 <button data-tab="pedidos">Pedidos</button>
@@ -445,7 +115,6 @@ Clientes • Pedidos • Entregas • Pagamentos • Contas • Relatórios
 <button data-tab="financeiro">Financeiro</button>
 <button data-tab="produtos">Produtos</button>
 <button data-tab="relatorios">Relatórios</button>
-
 </nav>
 
 <main>
@@ -455,70 +124,34 @@ Clientes • Pedidos • Entregas • Pagamentos • Contas • Relatórios
 <div id="statusSistema"></div>
 
 <div class="kpis">
-
-<div class="kpi">
-Clientes
-<b id="totalClientes">0</b>
-</div>
-
-<div class="kpi">
-Pedidos
-<b id="totalPedidos">0</b>
-</div>
-
-<div class="kpi">
-Vendas
-<b id="totalVendas">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-A receber
-<b id="totalReceber">R$ 0,00</b>
-</div>
-
-<div class="kpi">
-Entregas hoje
-<b id="totalEntregasHoje">0</b>
-</div>
-
+<div class="kpi">Clientes<b id="totalClientes">0</b></div>
+<div class="kpi">Pedidos<b id="totalPedidos">0</b></div>
+<div class="kpi">Vendas<b id="totalVendas">R$ 0,00</b></div>
+<div class="kpi">A receber<b id="totalReceber">R$ 0,00</b></div>
+<div class="kpi">Entregas hoje<b id="totalEntregasHoje">0</b></div>
 </div>
 
 <div class="card">
-
 <h3>📊 Resumo</h3>
-
 <div id="resumoInicio"></div>
-
 </div>
 
 <div class="card">
-
 <h3>🚚 Próximas entregas</h3>
-
 <div id="resumoEntregas"></div>
-
 </div>
 
 <div class="card">
-
 <h3>💾 Segurança dos dados</h3>
 
 <p class="small">
-Clientes, pedidos, pagamentos, estoque, preços e entregas
-são salvos no aparelho. Faça backups regularmente.
+Clientes, pedidos, pagamentos, estoque, preços e entregas são salvos no aparelho.
+Faça backups regularmente.
 </p>
 
-<button
-class="primary"
-onclick="fazerBackup()"
->
-⬇️ Fazer backup
-</button>
+<button class="primary" onclick="fazerBackup()">⬇️ Fazer backup</button>
 
-<button
-class="secondary"
-onclick="document.getElementById('arquivoBackup').click()"
->
+<button class="secondary" onclick="document.getElementById('arquivoBackup').click()">
 ⬆️ Restaurar backup
 </button>
 
@@ -531,7 +164,6 @@ onchange="restaurarBackup(event)"
 >
 
 </div>
-
 </section>
 
 
@@ -586,7 +218,6 @@ oninput="mostrarClientes()"
 <h2>🛒 Novo pedido</h2>
 
 <label>Cliente</label>
-
 <select id="clientePedido"></select>
 
 <h3>Produtos</h3>
@@ -600,18 +231,10 @@ Total: R$ 0,00
 <h3>🚚 Entrega</h3>
 
 <label>Data prevista para entrega</label>
-
-<input
-id="dataEntrega"
-type="date"
->
+<input id="dataEntrega" type="date">
 
 <label>Horário previsto</label>
-
-<input
-id="horaEntrega"
-type="time"
->
+<input id="horaEntrega" type="time">
 
 <div class="small">
 Informe data e horário quando o pedido tiver entrega programada.
@@ -805,7 +428,6 @@ Lucro bruto
 Cada produto possui seu próprio preço.
 Alterar um produto não altera os outros.
 O novo preço será usado somente nos próximos pedidos.
-Os pedidos antigos mantêm seus valores históricos.
 </p>
 
 <div id="listaProdutos"></div>
@@ -852,10 +474,6 @@ Imprimir / PDF
 
 <script>
 
-/* =====================================================
-   PRODUTOS
-===================================================== */
-
 const PRODUTOS=[
 
 {nome:"Queijo fresco",preco:40,custo:27},
@@ -882,11 +500,6 @@ const PRODUTOS=[
 
 ];
 
-
-/* =====================================================
-   BANCO
-===================================================== */
-
 const CHAVE="feito_na_roca_banco_principal_v5";
 
 let banco=carregarBanco();
@@ -894,13 +507,9 @@ let banco=carregarBanco();
 let quantidades={};
 
 
-/* =====================================================
-   CARREGAMENTO
-===================================================== */
-
 function carregarBanco(){
 
-const vazio={
+let vazio={
 clientes:[],
 pedidos:[],
 pagamentos:[],
@@ -916,109 +525,15 @@ if(atual){
 
 const b=JSON.parse(atual);
 
-if(b && typeof b==="object"){
-
-const bancoAtual={
+vazio={
 ...vazio,
 ...b
 };
 
-bancoAtual.clientes=
-Array.isArray(bancoAtual.clientes)
-?bancoAtual.clientes
-:[];
-
-bancoAtual.pedidos=
-Array.isArray(bancoAtual.pedidos)
-?bancoAtual.pedidos
-:[];
-
-bancoAtual.pagamentos=
-Array.isArray(bancoAtual.pagamentos)
-?bancoAtual.pagamentos
-:[];
-
-bancoAtual.estoque=
-bancoAtual.estoque &&
-typeof bancoAtual.estoque==="object"
-?bancoAtual.estoque
-:{};
-
-bancoAtual.precos=
-bancoAtual.precos &&
-typeof bancoAtual.precos==="object"
-?bancoAtual.precos
-:{};
-
-
-PRODUTOS.forEach(p=>{
-
-if(bancoAtual.precos[p.nome]==null){
-
-bancoAtual.precos[p.nome]=p.preco;
-
 }
 
-if(bancoAtual.estoque[p.nome]==null){
+}catch(e){}
 
-bancoAtual.estoque[p.nome]=0;
-
-}
-
-});
-
-
-bancoAtual.pedidos=
-bancoAtual.pedidos.map(p=>({
-
-...p,
-
-itens:Array.isArray(p.itens)
-?p.itens
-:[],
-
-data:p.data||new Date().toISOString(),
-
-dataEntrega:p.dataEntrega||"",
-
-horaEntrega:p.horaEntrega||"",
-
-statusEntrega:
-p.statusEntrega||
-(
-p.dataEntrega
-?
-"A entregar"
-:
-"Sem entrega programada"
-),
-
-entregueEm:p.entregueEm||"",
-
-preparadoEm:p.preparadoEm||""
-
-}));
-
-
-return bancoAtual;
-
-}
-
-}
-
-}catch(e){
-
-console.error(
-"Erro ao carregar banco principal:",
-e
-);
-
-}
-
-
-/* =====================================================
-   MIGRAÇÃO DOS BANCOS ANTIGOS
-===================================================== */
 
 const chavesAntigas=[
 "feitoNaRoca_v2",
@@ -1030,106 +545,64 @@ const chavesAntigas=[
 "fr_produtos"
 ];
 
-let migrado=null;
 
 for(const chave of chavesAntigas){
 
 try{
 
-const texto=localStorage.getItem(chave);
+const antigo=JSON.parse(localStorage.getItem(chave)||"null");
 
-if(!texto)continue;
+if(!antigo)continue;
 
-const antigo=JSON.parse(texto);
+if(Array.isArray(antigo.clientes))
+vazio.clientes=[...vazio.clientes,...antigo.clientes];
 
-if(!antigo || typeof antigo!=="object")
-continue;
+if(Array.isArray(antigo.pedidos))
+vazio.pedidos=[...vazio.pedidos,...antigo.pedidos];
 
-if(
-Array.isArray(antigo.clientes) ||
-Array.isArray(antigo.pedidos) ||
-Array.isArray(antigo.pagamentos)
-){
-
-migrado=antigo;
-
-break;
-
-}
-
-}catch(e){
-
-console.error(
-"Erro na migração:",
-chave,
-e
-);
-
-}
+}catch(e){}
 
 }
 
 
-if(migrado){
+const clientesUnicos=[];
 
-const novoBanco={
-...vazio,
-...migrado
-};
+const idsClientes=new Set();
 
-novoBanco.clientes=
-Array.isArray(novoBanco.clientes)
-?novoBanco.clientes
-:[];
+vazio.clientes.forEach(c=>{
 
-novoBanco.pedidos=
-Array.isArray(novoBanco.pedidos)
-?novoBanco.pedidos
-:[];
+const id=c.id||novoId();
 
-novoBanco.pagamentos=
-Array.isArray(novoBanco.pagamentos)
-?novoBanco.pagamentos
-:[];
+if(idsClientes.has(id))return;
 
-novoBanco.estoque=
-novoBanco.estoque &&
-typeof novoBanco.estoque==="object"
-?novoBanco.estoque
-:{};
+idsClientes.add(id);
 
-novoBanco.precos=
-novoBanco.precos &&
-typeof novoBanco.precos==="object"
-?novoBanco.precos
-:{};
+clientesUnicos.push({
+...c,
+id
+});
+
+});
+
+vazio.clientes=clientesUnicos;
 
 
 PRODUTOS.forEach(p=>{
 
-if(novoBanco.precos[p.nome]==null){
+if(vazio.precos[p.nome]==null)
+vazio.precos[p.nome]=p.preco;
 
-novoBanco.precos[p.nome]=p.preco;
-
-}
-
-if(novoBanco.estoque[p.nome]==null){
-
-novoBanco.estoque[p.nome]=0;
-
-}
+if(vazio.estoque[p.nome]==null)
+vazio.estoque[p.nome]=0;
 
 });
 
 
-novoBanco.pedidos=
-novoBanco.pedidos.map(p=>({
+vazio.pedidos=vazio.pedidos.map(p=>({
 
 ...p,
 
-itens:Array.isArray(p.itens)
-?p.itens
-:[],
+itens:Array.isArray(p.itens)?p.itens:[],
 
 data:p.data||new Date().toISOString(),
 
@@ -1137,15 +610,8 @@ dataEntrega:p.dataEntrega||"",
 
 horaEntrega:p.horaEntrega||"",
 
-statusEntrega:
-p.statusEntrega||
-(
-p.dataEntrega
-?
-"A entregar"
-:
-"Sem entrega programada"
-),
+statusEntrega:p.statusEntrega||
+(p.dataEntrega?"A entregar":"Sem entrega programada"),
 
 entregueEm:p.entregueEm||"",
 
@@ -1154,34 +620,15 @@ preparadoEm:p.preparadoEm||""
 }));
 
 
-try{
+vazio.pagamentos=Array.isArray(vazio.pagamentos)
+?vazio.pagamentos
+:[];
 
-localStorage.setItem(
-CHAVE,
-JSON.stringify(novoBanco)
-);
-
-}catch(e){
-
-console.error(
-"Erro ao salvar migração:",
-e
-);
-
-}
-
-return novoBanco;
-
-}
 
 return vazio;
 
 }
 
-
-/* =====================================================
-   SALVAR
-===================================================== */
 
 function salvarBanco(){
 
@@ -1204,10 +651,8 @@ return false;
 
 }
 
+}
 
-/* =====================================================
-   UTILITÁRIOS
-===================================================== */
 
 function novoId(){
 
@@ -1310,10 +755,6 @@ el.innerHTML="";
 }
 
 
-/* =====================================================
-   CLIENTES
-===================================================== */
-
 function cadastrarCliente(){
 
 const nome=document
@@ -1328,6 +769,7 @@ const observacao=document
 .getElementById("observacaoCliente")
 .value.trim();
 
+
 if(!nome){
 
 mostrarStatus(
@@ -1339,6 +781,7 @@ mostrarStatus(
 return;
 
 }
+
 
 banco.clientes.push({
 
@@ -1354,6 +797,7 @@ criadoEm:new Date().toISOString()
 
 });
 
+
 if(!salvarBanco()){
 
 banco.clientes.pop();
@@ -1362,9 +806,11 @@ return;
 
 }
 
+
 document.getElementById("nomeCliente").value="";
 document.getElementById("telefoneCliente").value="";
 document.getElementById("observacaoCliente").value="";
+
 
 mostrarStatus(
 "statusCliente",
@@ -1379,14 +825,14 @@ renderizar();
 function saldoCliente(id){
 
 const compras=banco.pedidos
-.filter(p=>String(p.clienteId)===String(id))
+.filter(p=>p.clienteId===id)
 .reduce(
 (t,p)=>t+totalPedido(p),
 0
 );
 
 const pagamentos=banco.pagamentos
-.filter(p=>String(p.clienteId)===String(id))
+.filter(p=>p.clienteId===id)
 .reduce(
 (t,p)=>t+Number(p.valor||0),
 0
@@ -1444,9 +890,7 @@ ${dinheiro(saldo)}
 </div>
 
 ${c.observacao?
-`<div class="small">
-📝 ${escapar(c.observacao)}
-</div>`
+`<div class="small">📝 ${escapar(c.observacao)}</div>`
 :""}
 
 <br>
@@ -1490,7 +934,7 @@ const antes=banco.clientes;
 
 banco.clientes=
 banco.clientes.filter(
-x=>String(x.id)!==String(id)
+x=>x.id!==id
 );
 
 if(!salvarBanco()){
@@ -1505,10 +949,6 @@ renderizar();
 
 }
 
-
-/* =====================================================
-   QUANTIDADES / PEDIDO NOVO
-===================================================== */
 
 function iniciarQuantidades(){
 
@@ -1526,7 +966,7 @@ function totalPedidoAtual(){
 return PRODUTOS.reduce(
 (t,p)=>
 t+
-Number(quantidades[p.nome]||0)*
+quantidades[p.nome]*
 precoProduto(p.nome),
 0
 );
@@ -1612,7 +1052,9 @@ onclick='alterarQuantidade(${JSON.stringify(p.nome)},1)'
 </button>
 
 <div class="produto-total">
+
 ${dinheiro(q*preco)}
+
 </div>
 
 </div>
@@ -1646,10 +1088,6 @@ banco.precos[nome]??p.preco
 
 }
 
-
-/* =====================================================
-   ALTERAR PREÇO
-===================================================== */
 
 function alterarPreco(nome){
 
@@ -1695,10 +1133,6 @@ renderizar();
 }
 
 
-/* =====================================================
-   SALVAR PEDIDO
-===================================================== */
-
 function salvarPedido(){
 
 const clienteId=
@@ -1713,15 +1147,6 @@ return;
 }
 
 
-/*
-IMPORTANTE:
-
-Aqui o preço e o custo são gravados
-dentro do próprio pedido.
-
-Assim o histórico fica protegido.
-*/
-
 const itens=PRODUTOS
 .filter(p=>Number(quantidades[p.nome]||0)>0)
 .map(p=>({
@@ -1730,15 +1155,7 @@ produto:p.nome,
 
 quantidade:Number(quantidades[p.nome]),
 
-/*
-Preço do momento da venda.
-*/
-preco:Number(precoProduto(p.nome)),
-
-/*
-Custo do momento da venda.
-*/
-custo:Number(p.custo||0)
+preco:precoProduto(p.nome)
 
 }));
 
@@ -1785,6 +1202,7 @@ preparadoEm:""
 
 banco.pedidos.push(pedido);
 
+
 if(!salvarBanco()){
 
 banco.pedidos.pop();
@@ -1793,11 +1211,13 @@ return;
 
 }
 
+
 iniciarQuantidades();
 
 document.getElementById("dataEntrega").value="";
 document.getElementById("horaEntrega").value="";
 document.getElementById("observacaoPedido").value="";
+
 
 mostrarStatus(
 "statusSistema",
@@ -1808,10 +1228,6 @@ renderizar();
 
 }
 
-
-/* =====================================================
-   VALOR DO PEDIDO
-===================================================== */
 
 function totalPedido(p){
 
@@ -1826,50 +1242,10 @@ Number(i.preco||0),
 }
 
 
-/* =====================================================
-   CUSTO HISTÓRICO
-===================================================== */
-
 function custoPedido(p){
 
 return(p.itens||[]).reduce(
 (t,i)=>{
-
-/*
-=======================================================
-PRIORIDADE 1
-=======================================================
-
-Se o pedido possui custo gravado,
-usa exatamente aquele custo.
-
-Isso é o que protege o histórico.
-*/
-
-if(
-i.custo!==undefined &&
-i.custo!==null &&
-Number.isFinite(Number(i.custo))
-){
-
-return t+
-Number(i.quantidade||0)*
-Number(i.custo||0);
-
-}
-
-
-/*
-=======================================================
-PRIORIDADE 2
-=======================================================
-
-Compatibilidade com pedidos antigos
-que não possuíam campo "custo".
-
-Nesse caso usamos o custo cadastrado.
-=======================================================
-*/
 
 const produto=PRODUTOS.find(
 x=>x.nome===i.produto
@@ -1886,25 +1262,10 @@ Number(produto?.custo||0);
 }
 
 
-/* =====================================================
-   LUCRO DO PEDIDO
-===================================================== */
-
-function lucroPedido(p){
-
-return totalPedido(p)-custoPedido(p);
-
-}
-
-
-/* =====================================================
-   PAGAMENTOS
-===================================================== */
-
 function totalPagoPedido(pid){
 
 return banco.pagamentos
-.filter(p=>String(p.pedidoId)===String(pid))
+.filter(p=>p.pedidoId===pid)
 .reduce(
 (t,p)=>t+Number(p.valor||0),
 0
@@ -1916,7 +1277,7 @@ return banco.pagamentos
 function registrarPagamento(pid,metodo){
 
 const pedido=banco.pedidos.find(
-p=>String(p.id)===String(pid)
+p=>p.id===pid
 );
 
 if(!pedido)return;
@@ -1939,6 +1300,7 @@ alert(
 return;
 
 }
+
 
 const entrada=prompt(
 `Pagamento — ${metodo}\n\nRestante: ${dinheiro(restante)}\n\nDigite o valor recebido:`,
@@ -1963,6 +1325,7 @@ return;
 
 }
 
+
 const valorFinal=Math.min(
 valor,
 restante
@@ -1984,6 +1347,7 @@ data:new Date().toISOString()
 
 });
 
+
 if(!salvarBanco()){
 
 banco.pagamentos.pop();
@@ -1991,6 +1355,7 @@ banco.pagamentos.pop();
 return;
 
 }
+
 
 renderizar();
 
@@ -2000,10 +1365,6 @@ alert(
 
 }
 
-
-/* =====================================================
-   ENTREGAS
-===================================================== */
 
 function classeEntrega(status){
 
@@ -2024,7 +1385,7 @@ return"badge-sem";
 function alterarStatusEntrega(pid,status){
 
 const p=banco.pedidos.find(
-x=>String(x.id)===String(pid)
+x=>x.id===pid
 );
 
 if(!p)return;
@@ -2035,16 +1396,21 @@ preparadoEm:p.preparadoEm,
 entregueEm:p.entregueEm
 };
 
+
 p.statusEntrega=status;
+
 
 if(status==="Em preparação")
 p.preparadoEm=new Date().toISOString();
 
+
 if(status==="Entregue")
 p.entregueEm=new Date().toISOString();
 
+
 if(status!=="Entregue")
 p.entregueEm="";
+
 
 if(!salvarBanco()){
 
@@ -2058,10 +1424,6 @@ renderizar();
 
 }
 
-
-/* =====================================================
-   PEDIDOS
-===================================================== */
 
 function mostrarPedidos(){
 
@@ -2082,10 +1444,6 @@ p.clienteId
 );
 
 const total=totalPedido(p);
-
-const custo=custoPedido(p);
-
-const lucro=lucroPedido(p);
 
 const pago=totalPagoPedido(p.id);
 
@@ -2227,30 +1585,7 @@ ${dinheiro(i.quantidade*i.preco)}
 `).join("")}
 
 
-<div class="box">
-
-<div class="row">
-
-<span>Custo do pedido</span>
-
-<strong>
-${dinheiro(custo)}
-</strong>
-
-</div>
-
-<div class="row">
-
-<span>Lucro do pedido</span>
-
-<strong class="${lucro>=0?"lucro":"prejuizo"}">
-${dinheiro(lucro)}
-</strong>
-
-</div>
-
-</div>
-
+<!-- PAGAMENTO -->
 
 <div class="pagamento">
 
@@ -2262,7 +1597,9 @@ ${dinheiro(lucro)}
 
 <div class="row">
 
-<div>Total do pedido</div>
+<div>
+Total do pedido
+</div>
 
 <strong>
 ${dinheiro(total)}
@@ -2272,7 +1609,9 @@ ${dinheiro(total)}
 
 <div class="row">
 
-<div>Já pago</div>
+<div>
+Já pago
+</div>
 
 <strong class="ok">
 ${dinheiro(pago)}
@@ -2282,7 +1621,9 @@ ${dinheiro(pago)}
 
 <div class="row">
 
-<div>Restante</div>
+<div>
+Restante
+</div>
 
 <strong class="${restante>0?"debt":"ok"}">
 ${dinheiro(restante)}
@@ -2345,7 +1686,9 @@ onclick="registrarPagamento('${p.id}','Outros')"
 `
 
 <div class="status ok" style="margin-top:10px">
+
 ✓ PAGAMENTO TOTALMENTE CONFIRMADO
+
 </div>
 
 `
@@ -2363,14 +1706,18 @@ status==="A entregar"
 class="botao-preparar"
 onclick="alterarStatusEntrega('${p.id}','Em preparação')"
 >
+
 🔵 Marcar como em preparação
+
 </button>
 
 <button
 class="botao-entrega"
 onclick="alterarStatusEntrega('${p.id}','Entregue')"
 >
+
 ✅ MARCAR COMO ENTREGUE
+
 </button>
 
 `
@@ -2387,7 +1734,9 @@ status==="Em preparação"
 class="botao-entrega"
 onclick="alterarStatusEntrega('${p.id}','Entregue')"
 >
+
 ✅ MARCAR COMO ENTREGUE
+
 </button>
 
 `
@@ -2404,7 +1753,9 @@ status==="Entregue"
 class="botao-voltar"
 onclick="alterarStatusEntrega('${p.id}','A entregar')"
 >
+
 ↩️ Voltar para A entregar
+
 </button>
 
 `
@@ -2441,10 +1792,6 @@ ${escapar(p.observacao)}
 }
 
 
-/* =====================================================
-   ENTREGAS
-===================================================== */
-
 function mostrarEntregas(){
 
 const lista=document.getElementById(
@@ -2463,8 +1810,10 @@ document.getElementById(
 "filtroEntregaStatus"
 )?.value||"";
 
+
 let pedidos=banco.pedidos
 .filter(p=>p.dataEntrega);
+
 
 if(data){
 
@@ -2473,6 +1822,7 @@ p=>p.dataEntrega===data
 );
 
 }
+
 
 if(filtro){
 
@@ -2484,12 +1834,14 @@ p=>
 
 }
 
+
 pedidos.sort((a,b)=>
 (a.dataEntrega+" "+(a.horaEntrega||"99:99"))
 .localeCompare(
 b.dataEntrega+" "+(b.horaEntrega||"99:99")
 )
 );
+
 
 lista.innerHTML=
 
@@ -2510,6 +1862,7 @@ totalPagoPedido(p.id);
 
 const restante=
 Math.max(0,total-pago);
+
 
 return`
 
@@ -2713,10 +2066,10 @@ atualizarKpisEntregas();
 
 function mostrarEntregasHoje(){
 
-document.getElementById("filtroEntregaData").value=
+filtroEntregaData.value=
 hojeISO();
 
-document.getElementById("filtroEntregaStatus").value="";
+filtroEntregaStatus.value="";
 
 mostrarEntregas();
 
@@ -2725,9 +2078,9 @@ mostrarEntregas();
 
 function limparFiltrosEntregas(){
 
-document.getElementById("filtroEntregaData").value="";
+filtroEntregaData.value="";
 
-document.getElementById("filtroEntregaStatus").value="";
+filtroEntregaStatus.value="";
 
 mostrarEntregas();
 
@@ -2754,28 +2107,16 @@ const en=banco.pedidos
 p=>p.statusEntrega==="Entregue"
 ).length;
 
-document.getElementById(
-"entregasHojeKpi"
-).textContent=hc;
+entregasHojeKpi.textContent=hc;
 
-document.getElementById(
-"entregasPendentesKpi"
-).textContent=pe;
+entregasPendentesKpi.textContent=pe;
 
-document.getElementById(
-"entregasConcluidasKpi"
-).textContent=en;
+entregasConcluidasKpi.textContent=en;
 
-document.getElementById(
-"totalEntregasHoje"
-).textContent=hc;
+totalEntregasHoje.textContent=hc;
 
 }
 
-
-/* =====================================================
-   CONTAS
-===================================================== */
 
 function abrirConta(id){
 
@@ -2783,9 +2124,7 @@ document
 .querySelector('[data-tab="contas"]')
 .click();
 
-document.getElementById(
-"clienteConta"
-).value=id;
+clienteConta.value=id;
 
 mostrarConta();
 
@@ -2814,21 +2153,14 @@ return;
 
 }
 
+
 const c=clientePorId(id);
 
-if(!c){
-
-area.innerHTML="";
-
-return;
-
-}
-
 const ps=banco.pedidos
-.filter(p=>String(p.clienteId)===String(id));
+.filter(p=>p.clienteId===id);
 
 const pg=banco.pagamentos
-.filter(p=>String(p.clienteId)===String(id));
+.filter(p=>p.clienteId===id);
 
 const compras=ps.reduce(
 (t,p)=>t+totalPedido(p),
@@ -2884,32 +2216,20 @@ ps.map(p=>`
 
 <div class="box">
 
-<div class="row">
-
-<strong>
 ${new Date(p.data)
 .toLocaleDateString("pt-BR")}
-</strong>
 
-<strong>
+—
+
+<b>
 ${dinheiro(totalPedido(p))}
-</strong>
-
-</div>
+</b>
 
 <br>
 
 ${p.itens.map(i=>
 `${escapar(i.produto)} — ${i.quantidade} × ${dinheiro(i.preco)}`
 ).join("<br>")}
-
-<div class="small" style="margin-top:8px">
-Custo: ${dinheiro(custoPedido(p))}
-</div>
-
-<div class="${lucroPedido(p)>=0?"lucro":"prejuizo"}">
-Lucro: ${dinheiro(lucroPedido(p))}
-</div>
 
 </div>
 
@@ -2955,10 +2275,6 @@ Forma:
 
 }
 
-
-/* =====================================================
-   ESTOQUE
-===================================================== */
 
 function mostrarEstoque(){
 
@@ -3052,16 +2368,7 @@ renderizar();
 }
 
 
-/* =====================================================
-   FINANCEIRO
-===================================================== */
-
 function mostrarFinanceiro(){
-
-/*
-VENDAS:
-soma o preço registrado nos pedidos.
-*/
 
 const vendas=
 banco.pedidos.reduce(
@@ -3069,23 +2376,11 @@ banco.pedidos.reduce(
 0
 );
 
-
-/*
-RECEBIDO:
-soma somente pagamentos registrados.
-*/
-
 const recebido=
 banco.pagamentos.reduce(
 (t,p)=>t+Number(p.valor||0),
 0
 );
-
-
-/*
-CUSTO:
-usa o custo histórico de cada item.
-*/
 
 const custo=
 banco.pedidos.reduce(
@@ -3094,61 +2389,27 @@ banco.pedidos.reduce(
 );
 
 
-/*
-LUCRO:
-vendas menos custo.
-*/
-
-const lucro=
-vendas-custo;
-
-
-/*
-A RECEBER:
-vendas menos pagamentos.
-*/
-
-const receber=
-vendas-recebido;
-
-
-document.getElementById(
-"finVendas"
-).textContent=
+finVendas.textContent=
 dinheiro(vendas);
 
-document.getElementById(
-"finRecebido"
-).textContent=
+finRecebido.textContent=
 dinheiro(recebido);
 
-document.getElementById(
-"finReceber"
-).textContent=
-dinheiro(receber);
+finReceber.textContent=
+dinheiro(vendas-recebido);
 
-document.getElementById(
-"finCusto"
-).textContent=
+finCusto.textContent=
 dinheiro(custo);
 
-document.getElementById(
-"finLucro"
-).textContent=
-dinheiro(lucro);
+finLucro.textContent=
+dinheiro(vendas-custo);
 
 }
 
 
-/* =====================================================
-   PRODUTOS
-===================================================== */
-
 function mostrarProdutos(){
 
-document.getElementById(
-"listaProdutos"
-).innerHTML=
+listaProdutos.innerHTML=
 
 PRODUTOS.map(p=>`
 
@@ -3195,10 +2456,6 @@ onclick='alterarPreco(${JSON.stringify(p.nome)})'
 }
 
 
-/* =====================================================
-   RELATÓRIO
-===================================================== */
-
 function gerarRelatorio(){
 
 const id=
@@ -3221,21 +2478,14 @@ return;
 
 }
 
+
 const c=clientePorId(id);
 
-if(!c){
-
-area.innerHTML="";
-
-return;
-
-}
-
 const ps=banco.pedidos
-.filter(p=>String(p.clienteId)===String(id));
+.filter(p=>p.clienteId===id);
 
 const pg=banco.pagamentos
-.filter(p=>String(p.clienteId)===String(id));
+.filter(p=>p.clienteId===id);
 
 const compras=ps.reduce(
 (t,p)=>t+totalPedido(p),
@@ -3246,13 +2496,6 @@ const pagos=pg.reduce(
 (t,p)=>t+Number(p.valor||0),
 0
 );
-
-const custo=ps.reduce(
-(t,p)=>t+custoPedido(p),
-0
-);
-
-const lucro=compras-custo;
 
 const saldo=compras-pagos;
 
@@ -3305,44 +2548,9 @@ ${dinheiro(totalPedido(p))}
 
 <br>
 
-${p.itens.map(i=>`
-
-<div>
-
-${escapar(i.produto)}
-—
-${i.quantidade}
-×
-${dinheiro(i.preco)}
-=
-<strong>
-${dinheiro(
-Number(i.quantidade||0)*
-Number(i.preco||0)
-)}
-</strong>
-
-</div>
-
-`).join("<hr>")}
-
-<div class="box">
-
-<div>
-Custo:
-<strong>
-${dinheiro(custoPedido(p))}
-</strong>
-</div>
-
-<div class="${lucroPedido(p)>=0?"lucro":"prejuizo"}">
-Lucro:
-<strong>
-${dinheiro(lucroPedido(p))}
-</strong>
-</div>
-
-</div>
+${p.itens.map(i=>
+`${escapar(i.produto)} — ${i.quantidade} × ${dinheiro(i.preco)} = <strong>${dinheiro(i.quantidade*i.preco)}</strong>`
+).join("<hr>")}
 
 </div>
 
@@ -3400,16 +2608,6 @@ ${dinheiro(saldo)}
 </b>
 </div>
 
-<div class="kpi">
-Custo
-<b>${dinheiro(custo)}</b>
-</div>
-
-<div class="kpi">
-Lucro
-<b>${dinheiro(lucro)}</b>
-</div>
-
 </div>
 
 <br>
@@ -3429,38 +2627,25 @@ Feito na Roça — O verdadeiro sabor da roça na sua mesa.
 }
 
 
-/* =====================================================
-   SELECTS
-===================================================== */
-
 function atualizarSelects(){
 
 const h=
 '<option value="">Selecione...</option>'+
 banco.clientes.map(c=>
-`<option value="${escapar(c.id)}">
+`<option value="${c.id}">
 ${escapar(c.nome)}
 </option>`
 ).join("");
 
-document.getElementById(
-"clientePedido"
-).innerHTML=h;
 
-document.getElementById(
-"clienteConta"
-).innerHTML=h;
+clientePedido.innerHTML=h;
 
-document.getElementById(
-"clienteRelatorio"
-).innerHTML=h;
+clienteConta.innerHTML=h;
+
+clienteRelatorio.innerHTML=h;
 
 }
 
-
-/* =====================================================
-   INÍCIO
-===================================================== */
 
 function mostrarInicio(){
 
@@ -3481,30 +2666,21 @@ saldoCliente(c.id)
 0
 );
 
-document.getElementById(
-"totalClientes"
-).textContent=
+
+totalClientes.textContent=
 banco.clientes.length;
 
-document.getElementById(
-"totalPedidos"
-).textContent=
+totalPedidos.textContent=
 banco.pedidos.length;
 
-document.getElementById(
-"totalVendas"
-).textContent=
+totalVendas.textContent=
 dinheiro(vendas);
 
-document.getElementById(
-"totalReceber"
-).textContent=
+totalReceber.textContent=
 dinheiro(receber);
 
 
-document.getElementById(
-"resumoInicio"
-).innerHTML=`
+resumoInicio.innerHTML=`
 
 <div class="box">
 Clientes:
@@ -3557,9 +2733,8 @@ b.horaEntrega||"99:99"
 )
 );
 
-document.getElementById(
-"resumoEntregas"
-).innerHTML=
+
+resumoEntregas.innerHTML=
 
 ps.length
 
@@ -3607,10 +2782,6 @@ escapar(i.produto)+" × "+i.quantidade
 
 }
 
-
-/* =====================================================
-   BACKUP
-===================================================== */
 
 function fazerBackup(){
 
@@ -3666,10 +2837,6 @@ alert(
 }
 
 
-/* =====================================================
-   RESTAURAR BACKUP
-===================================================== */
-
 function restaurarBackup(ev){
 
 const ar=
@@ -3687,7 +2854,9 @@ return;
 
 }
 
+
 const r=new FileReader();
+
 
 r.onload=()=>{
 
@@ -3695,6 +2864,7 @@ try{
 
 const d=
 JSON.parse(r.result);
+
 
 if(
 !d||
@@ -3728,14 +2898,6 @@ banco.precos[p.nome]??=p.preco;
 });
 
 
-/*
-Não altera os valores históricos
-dos itens dos pedidos.
-
-Apenas garante os campos
-de entrega.
-*/
-
 banco.pedidos.forEach(p=>{
 
 p.dataEntrega??="";
@@ -3761,6 +2923,7 @@ p.dataEntrega
 if(!salvarBanco())
 throw Error();
 
+
 renderizar();
 
 alert(
@@ -3768,8 +2931,6 @@ alert(
 );
 
 }catch(e){
-
-console.error(e);
 
 alert(
 "❌ Arquivo de backup inválido."
@@ -3785,10 +2946,6 @@ r.readAsText(ar);
 
 }
 
-
-/* =====================================================
-   RENDERIZAÇÃO
-===================================================== */
 
 function renderizar(){
 
@@ -3816,10 +2973,6 @@ gerarRelatorio();
 
 }
 
-
-/* =====================================================
-   NAVEGAÇÃO
-===================================================== */
 
 document
 .querySelectorAll("nav button")
@@ -3854,10 +3007,6 @@ renderizar();
 )
 );
 
-
-/* =====================================================
-   INICIALIZAÇÃO
-===================================================== */
 
 iniciarQuantidades();
 
